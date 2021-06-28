@@ -1,0 +1,32 @@
+/*Generated code by Binis' code generator.*/
+package net.binis.codegen;
+
+import net.binis.codegen.enums.TestEnum;
+
+public class TestImpl implements Test {
+
+    protected boolean available;
+
+    protected String external;
+
+    protected TestEnum type;
+
+    public TestImpl() {
+    }
+
+    public String getExternal() {
+        return external;
+    }
+
+    public TestEnum getType() {
+        return type;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+}
