@@ -4,10 +4,11 @@ package net.binis.codegen;
 import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
+import net.binis.codegen.base.Extended;
 import java.util.Set;
 import java.util.List;
 
-public interface TestModify extends Prototypable<SubModify> {
+public interface TestModify extends Prototypable<SubModify>, Extended {
 
     double getAmount();
 
@@ -30,6 +31,8 @@ public interface TestModify extends Prototypable<SubModify> {
     interface Fields<T> {
 
         T amount(double amount);
+
+        T extended(SubModify extended);
 
         T prototype(SubModify prototype);
 

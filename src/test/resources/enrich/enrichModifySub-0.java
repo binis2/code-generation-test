@@ -7,11 +7,17 @@ import net.binis.codegen.collection.EmbeddedCodeCollection;
 
 public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
 
+    protected SubModify prototype;
+
     protected double subAmount;
 
     protected String subtitle;
 
     public SubModifyImpl() {
+    }
+
+    public SubModify getPrototype() {
+        return prototype;
     }
 
     public double getSubAmount() {
@@ -49,6 +55,11 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
             return (EmbeddedCodeCollection) parent;
         }
 
+        public SubModify.EmbeddedModify<T> prototype(SubModify prototype) {
+            entity.prototype = prototype;
+            return this;
+        }
+
         public SubModify.EmbeddedModify<T> subAmount(double subAmount) {
             entity.subAmount = subAmount;
             return this;
@@ -64,6 +75,11 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
 
         public SubModify done() {
             return SubModifyImpl.this;
+        }
+
+        public SubModify.Modify prototype(SubModify prototype) {
+            SubModifyImpl.this.prototype = prototype;
+            return this;
         }
 
         public SubModify.Modify subAmount(double subAmount) {

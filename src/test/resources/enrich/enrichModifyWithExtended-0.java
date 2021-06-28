@@ -13,6 +13,8 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
 
     protected double amount;
 
+    protected SubModify extended;
+
     protected List<Long> items;
 
     protected SubModify prototype;
@@ -26,6 +28,10 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
 
     public double getAmount() {
         return amount;
+    }
+
+    public SubModify getExtended() {
+        return extended;
     }
 
     public List<Long> getItems() {
@@ -46,6 +52,10 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public void setExtended(SubModify extended) {
+        this.extended = extended;
     }
 
     public void setItems(List<Long> items) {
@@ -73,6 +83,11 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
 
         public TestModify done() {
             return TestModifyImpl.this;
+        }
+
+        public TestModify.Modify extended(SubModify extended) {
+            TestModifyImpl.this.extended = extended;
+            return this;
         }
 
         public TestModify.Modify items(List<Long> items) {

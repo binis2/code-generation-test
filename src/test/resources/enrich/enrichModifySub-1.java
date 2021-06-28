@@ -1,9 +1,10 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 
-public interface SubModify {
+public interface SubModify extends Prototypable<SubModify> {
 
     double getSubAmount();
 
@@ -21,6 +22,8 @@ public interface SubModify {
     }
 
     interface Fields<T> {
+
+        T prototype(SubModify prototype);
 
         T subAmount(double subAmount);
 

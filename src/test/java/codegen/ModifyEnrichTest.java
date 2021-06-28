@@ -44,6 +44,16 @@ public class ModifyEnrichTest extends BaseTest {
         ), "./src/main/java/net/binis/codegen");
     }
 
+    @Test
+    public void enrichModifyWithExtendedPrototype() {
+        testMulti(List.of(
+                Triple.of("enrich/enrichModifySubWithExtended.java", "enrich/enrichModifySub-0.java", "enrich/enrichModifySub-1.java"),
+                Triple.of("enrich/enrichExtended.java", null, "enrich/enrichExtended-1.java"),
+                Triple.of("enrich/enrichModifyWithExtended.java", "enrich/enrichModifyWithExtended-0.java", "enrich/enrichModifyWithExtended-1.java")
+        ));
+    }
+
+
 
 
 }
