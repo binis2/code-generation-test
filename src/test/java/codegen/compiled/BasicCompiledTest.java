@@ -7,7 +7,7 @@ public class BasicCompiledTest extends BaseTest {
 
     @Test
     public void test() {
-        testSingle("compiled/compiled.java", "compiled/compiled-0.java", "compiled/compiled-1.java");
+        testSingle("compiled/compiled.java", "compiled/compiled-0.java", "compiled/compiled-1.java", 2);
     }
 
 }
