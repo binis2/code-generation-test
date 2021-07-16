@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 
 public interface TestModify extends Base {
 
-    static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>> find() {
+    static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>> find() {
         return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
     }
 
@@ -55,6 +55,9 @@ public interface TestModify extends Base {
         EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
     }
 
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<TestModify, TestModify.QuerySelect<Number>>>>> {
+    }
+
     interface QueryFields<QR> extends QueryScript<QR>, TestModify.Fields<QR> {
 
         QR items(Long in);
@@ -78,17 +81,20 @@ public interface TestModify extends Base {
     interface QueryName<QS, QO, QR> extends TestModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, TestModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
     }
 
-    interface QueryOrder<QR> extends QueryExecute<QR>, QueryScript<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>> {
+    interface QueryOperationFields<QR> {
 
-        QueryOrderOperation<TestModify.QueryOrder<QR>, QR> amount();
+        QR amount();
 
-        QueryOrderOperation<TestModify.QueryOrder<QR>, QR> date();
+        QR date();
 
-        QueryOrderOperation<TestModify.QueryOrder<QR>, QR> id();
+        QR id();
 
-        QueryOrderOperation<TestModify.QueryOrder<QR>, QR> title();
+        QR title();
 
-        QueryOrderOperation<TestModify.QueryOrder<QR>, QR> type();
+        QR type();
+    }
+
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFields<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFuncs<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> {

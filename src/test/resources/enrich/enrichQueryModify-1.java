@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface Test {
 
-    static QueryStarter<Test, Test.QuerySelect<Test>> find() {
+    static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>> find() {
         return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
     }
 
@@ -55,6 +55,9 @@ public interface Test {
         CodeList<Long, Modify> items();
     }
 
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>> {
+    }
+
     interface QueryFields<QR> extends QueryScript<QR>, Test.Fields<QR> {
 
         QR items(Long in);
@@ -74,15 +77,18 @@ public interface Test {
         Sub.QueryName<QS, QO, QR> sub();
     }
 
-    interface QueryOrder<QR> extends QueryExecute<QR>, QueryScript<QueryOrderOperation<Test.QueryOrder<QR>, QR>> {
+    interface QueryOperationFields<QR> {
 
-        QueryOrderOperation<Test.QueryOrder<QR>, QR> amount();
+        QR amount();
 
-        QueryOrderOperation<Test.QueryOrder<QR>, QR> parent();
+        QR parent();
 
-        QueryOrderOperation<Test.QueryOrder<QR>, QR> sub();
+        QR sub();
 
-        QueryOrderOperation<Test.QueryOrder<QR>, QR> title();
+        QR title();
+    }
+
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<Test.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<Test.QueryOrder<QR>, QR>> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFields<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFuncs<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> {

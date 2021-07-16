@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 
 public interface SubModify extends Base {
 
-    static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>> find() {
+    static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>> find() {
         return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
     }
 
@@ -42,6 +42,9 @@ public interface SubModify extends Base {
         SubModify done();
     }
 
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<SubModify, SubModify.QuerySelect<Number>>>>> {
+    }
+
     interface QueryFields<QR> extends QueryScript<QR>, SubModify.Fields<QR> {
     }
 
@@ -61,17 +64,20 @@ public interface SubModify extends Base {
     interface QueryName<QS, QO, QR> extends SubModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, SubModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
     }
 
-    interface QueryOrder<QR> extends QueryExecute<QR>, QueryScript<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>> {
+    interface QueryOperationFields<QR> {
 
-        QueryOrderOperation<SubModify.QueryOrder<QR>, QR> date();
+        QR date();
 
-        QueryOrderOperation<SubModify.QueryOrder<QR>, QR> id();
+        QR id();
 
-        QueryOrderOperation<SubModify.QueryOrder<QR>, QR> subAmount();
+        QR subAmount();
 
-        QueryOrderOperation<SubModify.QueryOrder<QR>, QR> subtitle();
+        QR subtitle();
 
-        QueryOrderOperation<SubModify.QueryOrder<QR>, QR> type();
+        QR type();
+    }
+
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, SubModify.QueryFields<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, SubModify.QueryFuncs<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> {

@@ -8,6 +8,7 @@ import net.binis.codegen.spring.query.*;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.creator.EntityCreator;
+import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
@@ -63,11 +64,14 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
     }
 
-    protected static class SubQueryExecutorImpl<QR> extends QueryExecutor<Object, Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> implements Sub.QuerySelect<QR> {
+    protected static class SubQueryExecutorImpl<QR> extends QueryExecutor<Object, Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR, QueryAggregateOperation> implements Sub.QuerySelect<QR> {
 
         protected SubQueryExecutorImpl() {
             super(Sub.class);
-            order = new SubQueryOrderImpl<>(this);
+        }
+
+        public QueryAggregateOperation aggregate() {
+            return aggregateStart(new SubQueryOrderImpl<>(this, SubQueryExecutorImpl.this::aggregateIdentifier));
         }
 
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> lower() {
@@ -85,8 +89,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
 
         public Sub.QueryOrder<QR> order() {
-            orderStart();
-            return order;
+            return orderStart(new SubQueryOrderImpl<>(this, SubQueryExecutorImpl.this::orderIdentifier));
         }
 
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> replace(String what, String withWhat) {
@@ -144,10 +147,10 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
             return (Sub.QueryName) result;
         }
 
-        protected class SubQueryOrderImpl<QR> extends QueryOrderer<QR> implements Sub.QueryOrder<QR> {
+        protected class SubQueryOrderImpl<QR> extends QueryOrderer<QR> implements Sub.QueryOrder<QR>, Sub.QueryAggregate<QR, Object> {
 
-            protected SubQueryOrderImpl(SubQueryExecutorImpl executor) {
-                super(executor);
+            protected SubQueryOrderImpl(SubQueryExecutorImpl executor, Function<String, Object> func) {
+                super(executor, func);
             }
 
             public QueryOrderOperation<Sub.QueryOrder<QR>, QR> script(String script) {
@@ -155,11 +158,11 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
             }
 
             public QueryOrderOperation<Sub.QueryOrder<QR>, QR> subAmount() {
-                return (QueryOrderOperation) SubQueryExecutorImpl.this.orderIdentifier("subAmount");
+                return (QueryOrderOperation) func.apply("subAmount");
             }
 
             public QueryOrderOperation<Sub.QueryOrder<QR>, QR> subtitle() {
-                return (QueryOrderOperation) SubQueryExecutorImpl.this.orderIdentifier("subtitle");
+                return (QueryOrderOperation) func.apply("subtitle");
             }
         }
     }

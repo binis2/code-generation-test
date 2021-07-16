@@ -7,6 +7,7 @@ import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.creator.EntityCreator;
+import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
@@ -71,11 +72,14 @@ public class TestImpl implements Test {
         this.title = title;
     }
 
-    protected static class TestQueryExecutorImpl<QR> extends QueryExecutor<Object, Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> implements Test.QuerySelect<QR> {
+    protected static class TestQueryExecutorImpl<QR> extends QueryExecutor<Object, Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR, QueryAggregateOperation> implements Test.QuerySelect<QR> {
 
         protected TestQueryExecutorImpl() {
             super(Test.class);
-            order = new TestQueryOrderImpl<>(this);
+        }
+
+        public QueryAggregateOperation aggregate() {
+            return aggregateStart(new TestQueryOrderImpl<>(this, TestQueryExecutorImpl.this::aggregateIdentifier));
         }
 
         public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> amount(double amount) {
@@ -108,8 +112,7 @@ public class TestImpl implements Test {
         }
 
         public Test.QueryOrder<QR> order() {
-            orderStart();
-            return order;
+            return orderStart(new TestQueryOrderImpl<>(this, TestQueryExecutorImpl.this::orderIdentifier));
         }
 
         public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> parent(Test parent) {
@@ -179,18 +182,18 @@ public class TestImpl implements Test {
             return (Test.QueryName) result;
         }
 
-        protected class TestQueryOrderImpl<QR> extends QueryOrderer<QR> implements Test.QueryOrder<QR> {
+        protected class TestQueryOrderImpl<QR> extends QueryOrderer<QR> implements Test.QueryOrder<QR>, Test.QueryAggregate<QR, Object> {
 
-            protected TestQueryOrderImpl(TestQueryExecutorImpl executor) {
-                super(executor);
+            protected TestQueryOrderImpl(TestQueryExecutorImpl executor, Function<String, Object> func) {
+                super(executor, func);
             }
 
             public QueryOrderOperation<Test.QueryOrder<QR>, QR> amount() {
-                return (QueryOrderOperation) TestQueryExecutorImpl.this.orderIdentifier("amount");
+                return (QueryOrderOperation) func.apply("amount");
             }
 
             public QueryOrderOperation<Test.QueryOrder<QR>, QR> parent() {
-                return (QueryOrderOperation) TestQueryExecutorImpl.this.orderIdentifier("parent");
+                return (QueryOrderOperation) func.apply("parent");
             }
 
             public QueryOrderOperation<Test.QueryOrder<QR>, QR> script(String script) {
@@ -198,11 +201,11 @@ public class TestImpl implements Test {
             }
 
             public QueryOrderOperation<Test.QueryOrder<QR>, QR> sub() {
-                return (QueryOrderOperation) TestQueryExecutorImpl.this.orderIdentifier("sub");
+                return (QueryOrderOperation) func.apply("sub");
             }
 
             public QueryOrderOperation<Test.QueryOrder<QR>, QR> title() {
-                return (QueryOrderOperation) TestQueryExecutorImpl.this.orderIdentifier("title");
+                return (QueryOrderOperation) func.apply("title");
             }
         }
     }

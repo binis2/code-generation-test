@@ -129,6 +129,24 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where length(title) > 5  and  (amount > 10)  order by  title ", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().script("length(title) > 5").and().amount().script("> 10").order().script("title").get());
 
+        checkQuery("from net.binis.codegen.Test u where (amount = ?1) and  (length(parent.parent.title) > ?2)", List.of(5.0, 5L),
+                () -> net.binis.codegen.Test.find().by(true, query -> query.amount(5).and()).parent().parent().title().length().greater(5L).get());
+
+        checkQuery("from net.binis.codegen.Test u where (length(parent.parent.title) > ?1)", List.of(5L),
+                () -> net.binis.codegen.Test.find().by(false, query -> query.amount(5).and()).parent().parent().title().length().greater(5L).get());
+
+        checkQuery("from net.binis.codegen.Test u where (length(parent.parent.title) > ?1) and  (amount = ?2)", List.of(5L, 5.0),
+                () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L)
+                        ._if(true, query -> query.and().amount(5))
+                        ._else(query -> query.and().amount(6))
+                        .get());
+
+        checkQuery("from net.binis.codegen.Test u where (length(parent.parent.title) > ?1) and  (amount = ?2)", List.of(5L, 6.0),
+                () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L)._if(false, query -> query.and().amount(5))._else(query -> query.and().amount(6)).get());
+
+        checkQuery("select avg(subAmount),avg(subtitle) from net.binis.codegen.Sub u where (subAmount = ?1)", List.of(5.0),
+                () -> net.binis.codegen.Sub.find().aggregate().avg().subAmount().and().avg().subtitle().where().subAmount(5).get());
+
 //        net.binis.codegen.Test.find().by().parent().title("asd").top(5L);
 //
 //        net.binis.codegen.Test.find().query("from user").get();

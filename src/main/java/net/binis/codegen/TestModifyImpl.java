@@ -13,6 +13,7 @@ import net.binis.codegen.collection.EmbeddedCodeSetImpl;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
+import java.util.function.Function;
 import java.util.Set;
 import java.util.Optional;
 import java.util.List;
@@ -211,11 +212,14 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
-    protected static class MixModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> implements MixModify.QuerySelect<QR> {
+    protected static class MixModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR, QueryAggregateOperation> implements MixModify.QuerySelect<QR> {
 
         protected MixModifyQueryExecutorImpl() {
             super(MixModify.class);
-            order = new MixModifyQueryOrderImpl<>(this);
+        }
+
+        public QueryAggregateOperation aggregate() {
+            return aggregateStart(new MixModifyQueryOrderImpl<>(this, MixModifyQueryExecutorImpl.this::aggregateIdentifier));
         }
 
         public QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> amount(double amount) {
@@ -298,8 +302,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public MixModify.QueryOrder<QR> order() {
-            orderStart();
-            return order;
+            return orderStart(new MixModifyQueryOrderImpl<>(this, MixModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
@@ -362,30 +365,30 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (MixModify.QueryName) result;
         }
 
-        protected class MixModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements MixModify.QueryOrder<QR> {
+        protected class MixModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements MixModify.QueryOrder<QR>, MixModify.QueryAggregate<QR, Object> {
 
-            protected MixModifyQueryOrderImpl(MixModifyQueryExecutorImpl executor) {
-                super(executor);
+            protected MixModifyQueryOrderImpl(MixModifyQueryExecutorImpl executor, Function<String, Object> func) {
+                super(executor, func);
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> amount() {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.orderIdentifier("amount");
+                return (QueryOrderOperation) func.apply("amount");
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> date() {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.orderIdentifier("date");
+                return (QueryOrderOperation) func.apply("date");
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> id() {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.orderIdentifier("id");
+                return (QueryOrderOperation) func.apply("id");
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> mixInAmount() {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.orderIdentifier("mixInAmount");
+                return (QueryOrderOperation) func.apply("mixInAmount");
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> mixInTitle() {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.orderIdentifier("mixInTitle");
+                return (QueryOrderOperation) func.apply("mixInTitle");
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> script(String script) {
@@ -393,11 +396,11 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> title() {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.orderIdentifier("title");
+                return (QueryOrderOperation) func.apply("title");
             }
 
             public QueryOrderOperation<MixModify.QueryOrder<QR>, QR> type() {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.orderIdentifier("type");
+                return (QueryOrderOperation) func.apply("type");
             }
         }
     }
@@ -458,11 +461,14 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
-    protected static class TestModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> implements TestModify.QuerySelect<QR> {
+    protected static class TestModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR, QueryAggregateOperation> implements TestModify.QuerySelect<QR> {
 
         protected TestModifyQueryExecutorImpl() {
             super(TestModify.class);
-            order = new TestModifyQueryOrderImpl<>(this);
+        }
+
+        public QueryAggregateOperation aggregate() {
+            return aggregateStart(new TestModifyQueryOrderImpl<>(this, TestModifyQueryExecutorImpl.this::aggregateIdentifier));
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> amount(double amount) {
@@ -515,8 +521,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public TestModify.QueryOrder<QR> order() {
-            orderStart();
-            return order;
+            return orderStart(new TestModifyQueryOrderImpl<>(this, TestModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
@@ -579,22 +584,22 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (TestModify.QueryName) result;
         }
 
-        protected class TestModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements TestModify.QueryOrder<QR> {
+        protected class TestModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements TestModify.QueryOrder<QR>, TestModify.QueryAggregate<QR, Object> {
 
-            protected TestModifyQueryOrderImpl(TestModifyQueryExecutorImpl executor) {
-                super(executor);
+            protected TestModifyQueryOrderImpl(TestModifyQueryExecutorImpl executor, Function<String, Object> func) {
+                super(executor, func);
             }
 
             public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> amount() {
-                return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.orderIdentifier("amount");
+                return (QueryOrderOperation) func.apply("amount");
             }
 
             public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> date() {
-                return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.orderIdentifier("date");
+                return (QueryOrderOperation) func.apply("date");
             }
 
             public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> id() {
-                return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.orderIdentifier("id");
+                return (QueryOrderOperation) func.apply("id");
             }
 
             public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> script(String script) {
@@ -602,11 +607,11 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             }
 
             public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> title() {
-                return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.orderIdentifier("title");
+                return (QueryOrderOperation) func.apply("title");
             }
 
             public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> type() {
-                return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.orderIdentifier("type");
+                return (QueryOrderOperation) func.apply("type");
             }
         }
     }

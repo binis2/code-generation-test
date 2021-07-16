@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Sub {
 
-    static QueryStarter<Sub, Sub.QuerySelect<Sub>> find() {
+    static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>> find() {
         return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class);
     }
 
@@ -34,6 +34,9 @@ public interface Sub {
         Sub done();
     }
 
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Sub, Sub.QuerySelect<Number>>>>> {
+    }
+
     interface QueryFields<QR> extends QueryScript<QR>, Sub.Fields<QR> {
     }
 
@@ -47,11 +50,14 @@ public interface Sub {
     interface QueryName<QS, QO, QR> extends Sub.QueryFields<QuerySelectOperation<QS, QO, QR>>, Sub.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
     }
 
-    interface QueryOrder<QR> extends QueryExecute<QR>, QueryScript<QueryOrderOperation<Sub.QueryOrder<QR>, QR>> {
+    interface QueryOperationFields<QR> {
 
-        QueryOrderOperation<Sub.QueryOrder<QR>, QR> subAmount();
+        QR subAmount();
 
-        QueryOrderOperation<Sub.QueryOrder<QR>, QR> subtitle();
+        QR subtitle();
+    }
+
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<Sub.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<Sub.QueryOrder<QR>, QR>> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>>, Sub.QueryFields<QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>>, Sub.QueryFuncs<QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>> {

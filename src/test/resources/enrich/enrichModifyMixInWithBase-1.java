@@ -15,7 +15,7 @@ public interface MixModify extends TestModify {
 
     MixModify.Modify asMixModify();
 
-    static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>> find() {
+    static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>> find() {
         return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class);
     }
 
@@ -63,6 +63,9 @@ public interface MixModify extends TestModify {
         EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
     }
 
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<MixModify, MixModify.QuerySelect<Number>>>>> {
+    }
+
     interface QueryFields<QR> extends QueryScript<QR>, MixModify.Fields<QR> {
 
         QR items(Long in);
@@ -94,21 +97,24 @@ public interface MixModify extends TestModify {
     interface QueryName<QS, QO, QR> extends MixModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, MixModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
     }
 
-    interface QueryOrder<QR> extends QueryExecute<QR>, QueryScript<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>> {
+    interface QueryOperationFields<QR> {
 
-        QueryOrderOperation<MixModify.QueryOrder<QR>, QR> amount();
+        QR amount();
 
-        QueryOrderOperation<MixModify.QueryOrder<QR>, QR> date();
+        QR date();
 
-        QueryOrderOperation<MixModify.QueryOrder<QR>, QR> id();
+        QR id();
 
-        QueryOrderOperation<MixModify.QueryOrder<QR>, QR> mixInAmount();
+        QR mixInAmount();
 
-        QueryOrderOperation<MixModify.QueryOrder<QR>, QR> mixInTitle();
+        QR mixInTitle();
 
-        QueryOrderOperation<MixModify.QueryOrder<QR>, QR> title();
+        QR title();
 
-        QueryOrderOperation<MixModify.QueryOrder<QR>, QR> type();
+        QR type();
+    }
+
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFields<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFuncs<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> {

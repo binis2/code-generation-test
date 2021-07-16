@@ -10,6 +10,7 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
+import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
@@ -123,11 +124,14 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
-    protected static class SubModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> implements SubModify.QuerySelect<QR> {
+    protected static class SubModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR, QueryAggregateOperation> implements SubModify.QuerySelect<QR> {
 
         protected SubModifyQueryExecutorImpl() {
             super(SubModify.class);
-            order = new SubModifyQueryOrderImpl<>(this);
+        }
+
+        public QueryAggregateOperation aggregate() {
+            return aggregateStart(new SubModifyQueryOrderImpl<>(this, SubModifyQueryExecutorImpl.this::aggregateIdentifier));
         }
 
         public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> date(OffsetDateTime date) {
@@ -165,8 +169,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public SubModify.QueryOrder<QR> order() {
-            orderStart();
-            return order;
+            return orderStart(new SubModifyQueryOrderImpl<>(this, SubModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
@@ -234,18 +237,18 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return (SubModify.QueryName) result;
         }
 
-        protected class SubModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements SubModify.QueryOrder<QR> {
+        protected class SubModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements SubModify.QueryOrder<QR>, SubModify.QueryAggregate<QR, Object> {
 
-            protected SubModifyQueryOrderImpl(SubModifyQueryExecutorImpl executor) {
-                super(executor);
+            protected SubModifyQueryOrderImpl(SubModifyQueryExecutorImpl executor, Function<String, Object> func) {
+                super(executor, func);
             }
 
             public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> date() {
-                return (QueryOrderOperation) SubModifyQueryExecutorImpl.this.orderIdentifier("date");
+                return (QueryOrderOperation) func.apply("date");
             }
 
             public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> id() {
-                return (QueryOrderOperation) SubModifyQueryExecutorImpl.this.orderIdentifier("id");
+                return (QueryOrderOperation) func.apply("id");
             }
 
             public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> script(String script) {
@@ -253,15 +256,15 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             }
 
             public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> subAmount() {
-                return (QueryOrderOperation) SubModifyQueryExecutorImpl.this.orderIdentifier("subAmount");
+                return (QueryOrderOperation) func.apply("subAmount");
             }
 
             public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> subtitle() {
-                return (QueryOrderOperation) SubModifyQueryExecutorImpl.this.orderIdentifier("subtitle");
+                return (QueryOrderOperation) func.apply("subtitle");
             }
 
             public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> type() {
-                return (QueryOrderOperation) SubModifyQueryExecutorImpl.this.orderIdentifier("type");
+                return (QueryOrderOperation) func.apply("type");
             }
         }
     }
