@@ -59,10 +59,6 @@ public interface TestModify extends Base {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, TestModify.Fields<QR> {
-
-        QR items(Long in);
-
-        QR subs(SubModify in);
     }
 
     interface QueryFuncs<QR> {
@@ -99,6 +95,10 @@ public interface TestModify extends Base {
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFields<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFuncs<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> {
 
+        QueryCollectionFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> items();
+
         TestModify.QueryOrder<QR> order();
+
+        QueryCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> subs();
     }
 }

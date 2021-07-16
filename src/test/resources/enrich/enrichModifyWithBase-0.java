@@ -142,8 +142,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> amount(double amount) {
-            identifier("amount", amount);
-            return this;
+            return identifier("amount", amount);
         }
 
         public QueryFunctions<Double, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> amount() {
@@ -152,8 +151,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> date(OffsetDateTime date) {
-            identifier("date", date);
-            return this;
+            return identifier("date", date);
         }
 
         public QueryFunctions<OffsetDateTime, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> date() {
@@ -162,8 +160,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> id(Long id) {
-            identifier("id", id);
-            return this;
+            return identifier("id", id);
         }
 
         public QueryFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> id() {
@@ -171,9 +168,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
             return (QueryFunctions) this;
         }
 
-        public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> items(Long in) {
-            collection("items", in);
-            return this;
+        public QueryCollectionFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> items() {
+            return (QueryCollectionFunctions) identifier("items");
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> lower() {
@@ -201,9 +197,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
             return (TestModify.QueryName) result;
         }
 
-        public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> subs(SubModify in) {
-            collection("subs", in);
-            return this;
+        public QueryCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> subs() {
+            return (QueryCollectionFunctions) identifier("subs");
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> substring(int start) {
@@ -221,8 +216,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> title(String title) {
-            identifier("title", title);
-            return this;
+            return identifier("title", title);
         }
 
         public QueryFunctions<String, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> title() {
@@ -238,8 +232,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> type(TestEnum type) {
-            identifier("type", type);
-            return this;
+            return identifier("type", type);
         }
 
         public QueryFunctions<TestEnum, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> type() {
@@ -310,16 +303,6 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
 
         public QuerySelectOperation<QS, QO, QR> id(Long id) {
             return (QuerySelectOperation) executor.identifier("id", id);
-        }
-
-        public QuerySelectOperation<QS, QO, QR> items(Long in) {
-            executor.collection("items", in);
-            return (QuerySelectOperation) executor;
-        }
-
-        public QuerySelectOperation<QS, QO, QR> subs(SubModify in) {
-            executor.collection("subs", in);
-            return (QuerySelectOperation) executor;
         }
 
         public QueryFunctions<String, QuerySelectOperation<QS, QO, QR>> title() {

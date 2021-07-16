@@ -100,8 +100,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
 
         public QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> subAmount(double subAmount) {
-            identifier("subAmount", subAmount);
-            return this;
+            return identifier("subAmount", subAmount);
         }
 
         public QueryFunctions<Double, QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>> subAmount() {
@@ -124,8 +123,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
 
         public QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> subtitle(String subtitle) {
-            identifier("subtitle", subtitle);
-            return this;
+            return identifier("subtitle", subtitle);
         }
 
         public QueryFunctions<String, QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>> subtitle() {

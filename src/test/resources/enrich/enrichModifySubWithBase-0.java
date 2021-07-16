@@ -135,8 +135,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> date(OffsetDateTime date) {
-            identifier("date", date);
-            return this;
+            return identifier("date", date);
         }
 
         public QueryFunctions<OffsetDateTime, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> date() {
@@ -145,8 +144,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> id(Long id) {
-            identifier("id", id);
-            return this;
+            return identifier("id", id);
         }
 
         public QueryFunctions<Long, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> id() {
@@ -180,8 +178,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> subAmount(double subAmount) {
-            identifier("subAmount", subAmount);
-            return this;
+            return identifier("subAmount", subAmount);
         }
 
         public QueryFunctions<Double, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> subAmount() {
@@ -204,8 +201,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> subtitle(String subtitle) {
-            identifier("subtitle", subtitle);
-            return this;
+            return identifier("subtitle", subtitle);
         }
 
         public QueryFunctions<String, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> subtitle() {
@@ -221,8 +217,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> type(TestEnum type) {
-            identifier("type", type);
-            return this;
+            return identifier("type", type);
         }
 
         public QueryFunctions<TestEnum, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> type() {

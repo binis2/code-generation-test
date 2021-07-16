@@ -83,8 +83,7 @@ public class TestImpl implements Test {
         }
 
         public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> amount(double amount) {
-            identifier("amount", amount);
-            return this;
+            return identifier("amount", amount);
         }
 
         public QueryFunctions<Double, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> amount() {
@@ -92,9 +91,8 @@ public class TestImpl implements Test {
             return (QueryFunctions) this;
         }
 
-        public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> items(Long in) {
-            collection("items", in);
-            return this;
+        public QueryCollectionFunctions<Long, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> items() {
+            return (QueryCollectionFunctions) identifier("items");
         }
 
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> lower() {
@@ -116,8 +114,7 @@ public class TestImpl implements Test {
         }
 
         public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> parent(Test parent) {
-            identifier("parent", parent);
-            return this;
+            return identifier("parent", parent);
         }
 
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> parent() {
@@ -134,8 +131,7 @@ public class TestImpl implements Test {
         }
 
         public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> sub(Sub sub) {
-            identifier("sub", sub);
-            return this;
+            return identifier("sub", sub);
         }
 
         public Sub.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> sub() {
@@ -159,8 +155,7 @@ public class TestImpl implements Test {
         }
 
         public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> title(String title) {
-            identifier("title", title);
-            return this;
+            return identifier("title", title);
         }
 
         public QueryFunctions<String, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> title() {
@@ -218,11 +213,6 @@ public class TestImpl implements Test {
 
         public QuerySelectOperation<QS, QO, QR> amount(double amount) {
             return (QuerySelectOperation) executor.identifier("amount", amount);
-        }
-
-        public QuerySelectOperation<QS, QO, QR> items(Long in) {
-            executor.collection("items", in);
-            return (QuerySelectOperation) executor;
         }
 
         public Test.QueryName<QS, QO, QR> parent() {

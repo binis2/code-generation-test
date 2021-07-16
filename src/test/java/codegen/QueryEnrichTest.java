@@ -147,6 +147,10 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("select avg(subAmount),avg(subtitle) from net.binis.codegen.Sub u where (subAmount = ?1)", List.of(5.0),
                 () -> net.binis.codegen.Sub.find().aggregate().avg().subAmount().and().avg().subtitle().where().subAmount(5).get());
 
+        checkQuery("from net.binis.codegen.Test u where (?1 member of items) and  (?2 not member of items) and  (items is not empty) and  (items is empty)", List.of(5L, 6L),
+                () -> net.binis.codegen.Test.find().by().items().contains(5L).and().items().notContains(6L).and().items().isNotEmpty().and().items().isEmpty().get());
+
+
 //        net.binis.codegen.Test.find().by().parent().title("asd").top(5L);
 //
 //        net.binis.codegen.Test.find().query("from user").get();

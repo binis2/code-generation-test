@@ -59,8 +59,6 @@ public interface Test {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, Test.Fields<QR> {
-
-        QR items(Long in);
     }
 
     interface QueryFuncs<QR> {
@@ -92,6 +90,8 @@ public interface Test {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFields<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFuncs<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> {
+
+        QueryCollectionFunctions<Long, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> items();
 
         Test.QueryOrder<QR> order();
 

@@ -67,14 +67,6 @@ public interface MixModify extends TestModify {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, MixModify.Fields<QR> {
-
-        QR items(Long in);
-
-        QR mixInItems(Long in);
-
-        QR mixInSubs(SubModify in);
-
-        QR subs(SubModify in);
     }
 
     interface QueryFuncs<QR> {
@@ -119,6 +111,14 @@ public interface MixModify extends TestModify {
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFields<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFuncs<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> {
 
+        QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> items();
+
+        QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInItems();
+
+        QueryCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInSubs();
+
         MixModify.QueryOrder<QR> order();
+
+        QueryCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> subs();
     }
 }

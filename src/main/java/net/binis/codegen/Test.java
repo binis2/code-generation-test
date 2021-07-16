@@ -39,8 +39,6 @@ public interface Test {
 
         QR amount(double amount);
 
-        QR items(Long in);
-
         QR parent(Test parent);
 
         QR sub(Sub sub);
@@ -77,6 +75,8 @@ public interface Test {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFields<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFuncs<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> {
+
+        QueryCollectionFunctions<Long, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> items();
 
         Test.QueryOrder<QR> order();
 
