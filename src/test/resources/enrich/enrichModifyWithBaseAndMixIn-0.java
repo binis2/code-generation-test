@@ -227,8 +227,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<Double, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> amount() {
-            identifier("amount");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("amount");
         }
 
         public QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> date(OffsetDateTime date) {
@@ -236,8 +235,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<OffsetDateTime, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> date() {
-            identifier("date");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("date");
         }
 
         public QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> id(Long id) {
@@ -245,8 +243,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> id() {
-            identifier("id");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("id");
         }
 
         public QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> items() {
@@ -256,7 +253,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> lower() {
             doLower();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (MixModify.QueryName) result;
         }
 
@@ -265,8 +262,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<Double, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInAmount() {
-            identifier("mixInAmount");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("mixInAmount");
         }
 
         public QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInItems() {
@@ -282,14 +278,13 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<String, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInTitle() {
-            identifier("mixInTitle");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("mixInTitle");
         }
 
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> not() {
             doNot();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (MixModify.QueryName) result;
         }
 
@@ -300,7 +295,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
             doReplace(what, withWhat);
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (MixModify.QueryName) result;
         }
 
@@ -311,14 +306,14 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> substring(int start) {
             doSubstring(start);
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (MixModify.QueryName) result;
         }
 
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> substring(int start, int len) {
             doSubstring(start, len);
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (MixModify.QueryName) result;
         }
 
@@ -327,14 +322,13 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<String, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> title() {
-            identifier("title");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("title");
         }
 
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> trim() {
             doTrim();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (MixModify.QueryName) result;
         }
 
@@ -343,14 +337,13 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<TestEnum, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> type() {
-            identifier("type");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("type");
         }
 
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> upper() {
             doUpper();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (MixModify.QueryName) result;
         }
 
@@ -465,8 +458,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<Double, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> amount() {
-            identifier("amount");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("amount");
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> date(OffsetDateTime date) {
@@ -474,8 +466,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<OffsetDateTime, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> date() {
-            identifier("date");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("date");
         }
 
         public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> id(Long id) {
@@ -483,8 +474,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> id() {
-            identifier("id");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("id");
         }
 
         public QueryCollectionFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> items() {
@@ -494,14 +484,14 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> lower() {
             doLower();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (TestModify.QueryName) result;
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> not() {
             doNot();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (TestModify.QueryName) result;
         }
 
@@ -512,7 +502,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
             doReplace(what, withWhat);
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (TestModify.QueryName) result;
         }
 
@@ -523,14 +513,14 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> substring(int start) {
             doSubstring(start);
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (TestModify.QueryName) result;
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> substring(int start, int len) {
             doSubstring(start, len);
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (TestModify.QueryName) result;
         }
 
@@ -539,14 +529,13 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<String, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> title() {
-            identifier("title");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("title");
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> trim() {
             doTrim();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (TestModify.QueryName) result;
         }
 
@@ -555,14 +544,13 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryFunctions<TestEnum, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> type() {
-            identifier("type");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("type");
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> upper() {
             doUpper();
             var result = new TestModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (TestModify.QueryName) result;
         }
 

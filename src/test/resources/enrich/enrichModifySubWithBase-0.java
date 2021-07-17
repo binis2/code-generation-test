@@ -139,8 +139,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QueryFunctions<OffsetDateTime, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> date() {
-            identifier("date");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("date");
         }
 
         public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> id(Long id) {
@@ -148,21 +147,20 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QueryFunctions<Long, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> id() {
-            identifier("id");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("id");
         }
 
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> lower() {
             doLower();
             var result = new SubModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (SubModify.QueryName) result;
         }
 
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> not() {
             doNot();
             var result = new SubModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (SubModify.QueryName) result;
         }
 
@@ -173,7 +171,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
             doReplace(what, withWhat);
             var result = new SubModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (SubModify.QueryName) result;
         }
 
@@ -182,21 +180,20 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QueryFunctions<Double, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> subAmount() {
-            identifier("subAmount");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("subAmount");
         }
 
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> substring(int start) {
             doSubstring(start);
             var result = new SubModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (SubModify.QueryName) result;
         }
 
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> substring(int start, int len) {
             doSubstring(start, len);
             var result = new SubModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (SubModify.QueryName) result;
         }
 
@@ -205,14 +202,13 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QueryFunctions<String, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> subtitle() {
-            identifier("subtitle");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("subtitle");
         }
 
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> trim() {
             doTrim();
             var result = new SubModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (SubModify.QueryName) result;
         }
 
@@ -221,14 +217,13 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QueryFunctions<TestEnum, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> type() {
-            identifier("type");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("type");
         }
 
         public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> upper() {
             doUpper();
             var result = new SubModifyQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (SubModify.QueryName) result;
         }
 

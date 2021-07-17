@@ -45,28 +45,28 @@ public class QueryEnrichTest extends BaseTest {
         mockCreate(TestImpl.class);
         mockCreate(SubImpl.class);
 
-        checkQuery("from net.binis.codegen.Sub u where (subAmount = ?1)", List.of(5.9),
+        checkQuery("from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.9),
                 () -> net.binis.codegen.Sub.find().by().subAmount(5.9).get());
 
-        checkQuery("from net.binis.codegen.Test u where (parent.parent.parent.title = ?1)", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.parent.parent.parent.title = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().parent().parent().parent().title().equal("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (title = ?1)", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.title = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().title("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (title = ?1) order by  title", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.title = ?1) order by  u.title", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().title("asd").order().title().get());
 
-        checkQuery("from net.binis.codegen.Test u where (title = ?1) order by  title asc", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.title = ?1) order by  u.title asc", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().title("asd").order().title().asc().get());
 
-        checkQuery("from net.binis.codegen.Test u where (title = ?1) order by  title asc, title desc", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.title = ?1) order by  u.title asc, u.title desc", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().title("asd").order().title().asc().title().desc().get());
 
-        checkQuery("from net.binis.codegen.Test u  order by  title", Collections.emptyList(),
+        checkQuery("from net.binis.codegen.Test u  order by  u.title", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().order().title().get());
 
-        checkQuery("from net.binis.codegen.Test u  order by  title asc, amount desc", Collections.emptyList(),
+        checkQuery("from net.binis.codegen.Test u  order by  u.title asc, u.amount desc", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().order().title().asc().amount().desc().get());
 
         checkQuery("from net.binis.codegen.Test u where not  (u.title like ?1)", List.of("%asd"),
@@ -75,22 +75,22 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("select count(*) from net.binis.codegen.Test u ", Collections.emptyList(), 0L,
                 () -> net.binis.codegen.Test.find().by().count());
 
-        checkQuery("from net.binis.codegen.Test u where (parent.title = ?1)", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.parent.title = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().parent().title("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (parent.title = ?1) or  (title = ?2)", List.of("asd", "asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.parent.title = ?1) or  (u.title = ?2)", List.of("asd", "asd"),
                 () -> net.binis.codegen.Test.find().by().parent().title("asd").or().title().equal("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (sub.subtitle = ?1)", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.sub.subtitle = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().sub().subtitle("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (parent.sub.subtitle = ?1)", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.parent.sub.subtitle = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().parent().sub().subtitle("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (parent.parent.sub.subtitle = ?1)", List.of("asd"),
+        checkQuery("from net.binis.codegen.Test u where (u.parent.parent.sub.subtitle = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().parent().parent().sub().subtitle().equal("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (parent is null)", Collections.emptyList(),
+        checkQuery("from net.binis.codegen.Test u where (u.parent is null)", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().parent(null).get());
 
         checkQuery("from net.binis.codegen.Test u where (lower(u.title) like ?1)", List.of("%asd"),
@@ -114,8 +114,11 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where (replace(u.parent.parent.title, ?1, ?2) = ?3)", List.of("some", "someother", "asd"),
                 () -> net.binis.codegen.Test.find().by().replace("some", "someother").parent().parent().title("asd").get());
 
-        checkQuery("from net.binis.codegen.Test u where (length(parent.parent.title) > ?1)", List.of(5L),
+        checkQuery("from net.binis.codegen.Test u where (length(u.parent.parent.title) > ?1)", List.of(5L),
                 () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L).get());
+
+        checkQuery("delete from net.binis.codegen.Test u where (length(u.parent.parent.title) > ?1)", List.of(5L),
+                () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L).delete());
 
         checkQuery("from net.binis.codegen.Test u where (title = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().query("from net.binis.codegen.Test u where (title = ?1)").params(List.of("asd")).get());
@@ -126,28 +129,30 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u  order by  title ", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().order().script("title").get());
 
-        checkQuery("from net.binis.codegen.Test u where length(title) > 5  and  (amount > 10)  order by  title ", Collections.emptyList(),
+        checkQuery("from net.binis.codegen.Test u where length(title) > 5  and  (u.amount > 10)  order by  title ", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().script("length(title) > 5").and().amount().script("> 10").order().script("title").get());
 
-        checkQuery("from net.binis.codegen.Test u where (amount = ?1) and  (length(parent.parent.title) > ?2)", List.of(5.0, 5L),
+        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1) and  (length(u.parent.parent.title) > ?2)", List.of(5.0, 5L),
                 () -> net.binis.codegen.Test.find().by(true, query -> query.amount(5).and()).parent().parent().title().length().greater(5L).get());
 
-        checkQuery("from net.binis.codegen.Test u where (length(parent.parent.title) > ?1)", List.of(5L),
+        checkQuery("from net.binis.codegen.Test u where (length(u.parent.parent.title) > ?1)", List.of(5L),
                 () -> net.binis.codegen.Test.find().by(false, query -> query.amount(5).and()).parent().parent().title().length().greater(5L).get());
 
-        checkQuery("from net.binis.codegen.Test u where (length(parent.parent.title) > ?1) and  (amount = ?2)", List.of(5L, 5.0),
+        checkQuery("from net.binis.codegen.Test u where (length(u.parent.parent.title) > ?1) and  (u.amount = ?2)", List.of(5L, 5.0),
                 () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L)
                         ._if(true, query -> query.and().amount(5))
                         ._else(query -> query.and().amount(6))
                         .get());
 
-        checkQuery("from net.binis.codegen.Test u where (length(parent.parent.title) > ?1) and  (amount = ?2)", List.of(5L, 6.0),
+        checkQuery("from net.binis.codegen.Test u where (length(u.parent.parent.title) > ?1) and  (u.amount = ?2)", List.of(5L, 6.0),
                 () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L)._if(false, query -> query.and().amount(5))._else(query -> query.and().amount(6)).get());
 
-        checkQuery("select avg(subAmount),avg(subtitle) from net.binis.codegen.Sub u where (subAmount = ?1)", List.of(5.0),
-                () -> net.binis.codegen.Sub.find().aggregate().avg().subAmount().and().avg().subtitle().where().subAmount(5).get());
+        //Account.find().aggregate().sum().available().where().user().email().contains("binis").get()
 
-        checkQuery("from net.binis.codegen.Test u where (?1 member of items) and  (?2 not member of items) and  (items is not empty) and  (items is empty)", List.of(5L, 6L),
+        checkQuery("select avg(subAmount) from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.0),
+                () -> net.binis.codegen.Sub.find().aggregate().avg().subAmount().where().subAmount(5).get());
+
+        checkQuery("from net.binis.codegen.Test u where (?1 member of u.items) and  (?2 not member of u.items) and  (u.items is not empty) and  (u.items is empty)", List.of(5L, 6L),
                 () -> net.binis.codegen.Test.find().by().items().contains(5L).and().items().notContains(6L).and().items().isNotEmpty().and().items().isEmpty().get());
 
 

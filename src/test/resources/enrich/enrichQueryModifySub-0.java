@@ -77,14 +77,14 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> lower() {
             doLower();
             var result = new SubQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Sub.QueryName) result;
         }
 
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> not() {
             doNot();
             var result = new SubQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Sub.QueryName) result;
         }
 
@@ -95,7 +95,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> replace(String what, String withWhat) {
             doReplace(what, withWhat);
             var result = new SubQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Sub.QueryName) result;
         }
 
@@ -104,21 +104,20 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
 
         public QueryFunctions<Double, QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>> subAmount() {
-            identifier("subAmount");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("subAmount");
         }
 
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> substring(int start) {
             doSubstring(start);
             var result = new SubQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Sub.QueryName) result;
         }
 
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> substring(int start, int len) {
             doSubstring(start, len);
             var result = new SubQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Sub.QueryName) result;
         }
 
@@ -127,21 +126,20 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
 
         public QueryFunctions<String, QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>> subtitle() {
-            identifier("subtitle");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("subtitle");
         }
 
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> trim() {
             doTrim();
             var result = new SubQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Sub.QueryName) result;
         }
 
         public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> upper() {
             doUpper();
             var result = new SubQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Sub.QueryName) result;
         }
 

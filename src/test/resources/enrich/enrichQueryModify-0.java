@@ -133,8 +133,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public QueryFunctions<Double, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> amount() {
-            identifier("amount");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("amount");
         }
 
         public QueryCollectionFunctions<Long, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> items() {
@@ -144,14 +143,14 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> lower() {
             doLower();
             var result = new TestQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Test.QueryName) result;
         }
 
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> not() {
             doNot();
             var result = new TestQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Test.QueryName) result;
         }
 
@@ -172,7 +171,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> replace(String what, String withWhat) {
             doReplace(what, withWhat);
             var result = new TestQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Test.QueryName) result;
         }
 
@@ -189,14 +188,14 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> substring(int start) {
             doSubstring(start);
             var result = new TestQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Test.QueryName) result;
         }
 
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> substring(int start, int len) {
             doSubstring(start, len);
             var result = new TestQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Test.QueryName) result;
         }
 
@@ -205,21 +204,20 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public QueryFunctions<String, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> title() {
-            identifier("title");
-            return (QueryFunctions) this;
+            return (QueryFunctions) identifier("title");
         }
 
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> trim() {
             doTrim();
             var result = new TestQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Test.QueryName) result;
         }
 
         public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> upper() {
             doUpper();
             var result = new TestQueryNameImpl<>();
-            result.setParent("u", this);
+            result.setParent(alias, this);
             return (Test.QueryName) result;
         }
 
