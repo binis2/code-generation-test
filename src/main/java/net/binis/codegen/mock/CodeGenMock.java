@@ -54,7 +54,7 @@ public class CodeGenMock {
     }
 
     public static void mockQueryProcessor(BiFunction<String, List<Object>, Object> func) {
-        QueryProcessor.setProcessor((manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> func.apply(query, params));
+        QueryProcessor.setProcessor((executor, manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> func.apply(query, params));
     }
 
     public static void mockQuery(String query, Object returnObject) {
@@ -67,7 +67,7 @@ public class CodeGenMock {
     }
 
     private static QueryProcessor.Processor createMockedProcessor() {
-        mockedProcessor = (manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> {
+        mockedProcessor = (executor, manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> {
             var response = mockedResponses.get(query);
             if (isNull(response)) {
                 System.out.println("Query '" + query + "' is not mocked!");
