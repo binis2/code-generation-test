@@ -115,10 +115,10 @@ public interface MixModify extends TestModify {
 
         QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInItems();
 
-        QueryCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInSubs();
+        QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> mixInSubs();
 
         MixModify.QueryOrder<QR> order();
 
-        QueryCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> subs();
+        QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs();
     }
 }

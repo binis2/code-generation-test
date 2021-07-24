@@ -269,8 +269,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (QueryCollectionFunctions) identifier("mixInItems");
         }
 
-        public QueryCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> mixInSubs() {
-            return (QueryCollectionFunctions) identifier("mixInSubs");
+        public QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> mixInSubs() {
+            return (QueryJoinCollectionFunctions) joinStart("mixInSubs", SubModify.QueryOrder.class);
         }
 
         public QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> mixInTitle(String mixInTitle) {
@@ -299,8 +299,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (MixModify.QueryName) result;
         }
 
-        public QueryCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>> subs() {
-            return (QueryCollectionFunctions) identifier("subs");
+        public QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs() {
+            return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
         }
 
         public MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR> substring(int start) {
@@ -506,8 +506,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (TestModify.QueryName) result;
         }
 
-        public QueryCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> subs() {
-            return (QueryCollectionFunctions) identifier("subs");
+        public QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs() {
+            return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> substring(int start) {

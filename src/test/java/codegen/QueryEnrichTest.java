@@ -1,7 +1,6 @@
 package codegen;
 
-import net.binis.codegen.SubImpl;
-import net.binis.codegen.TestImpl;
+import net.binis.codegen.*;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import org.apache.commons.lang3.tuple.Triple;
@@ -44,6 +43,9 @@ public class QueryEnrichTest extends BaseTest {
         mockContext();
         mockCreate(TestImpl.class);
         mockCreate(SubImpl.class);
+
+        mockCreate(TestModifyImpl.class);
+        mockCreate(SubModifyImpl.class);
 
         checkQuery("from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.9),
                 () -> net.binis.codegen.Sub.find().by().subAmount(5.9).get());
@@ -149,19 +151,44 @@ public class QueryEnrichTest extends BaseTest {
 
         //Account.find().aggregate().sum().available().where().user().email().contains("binis").get()
 
-        checkQuery("select avg(subAmount) from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.0),
+        checkQuery("select avg(u.subAmount) from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.0),
                 () -> net.binis.codegen.Sub.find().aggregate().avg().subAmount().where().subAmount(5).get());
 
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items) and  (?2 not member of u.items) and  (u.items is not empty) and  (u.items is empty)", List.of(5L, 6L),
                 () -> net.binis.codegen.Test.find().by().items().contains(5L).and().items().notContains(6L).and().items().isNotEmpty().and().items().isEmpty().get());
 
+        checkQuery("select u, sum(j0.subAmount),count(j1.subtitle) from net.binis.codegen.TestModify u join u.subs j0 join u.subs j1 where (j0.subtitle is null)  and  (j1.subAmount is null)  or  (u.amount is not null) group by u  order by sum(j0.subAmount) asc,count(j1.subtitle) desc, u.title", Collections.emptyList(),
+                () -> TestModify.find().by().subs()
+                        .join(j -> j.sum().subAmount().where().subtitle().isNull().order().subAmount().asc())
+                        .and().subs().join(j -> j.cnt().subtitle().where().subAmount().isNull().order().subtitle().desc())
+                        .or().amount().isNotNull()
+                        .order().title()
+                        .get());
 
-//        net.binis.codegen.Test.find().by().parent().title("asd").top(5L);
-//
-//        net.binis.codegen.Test.find().query("from user").get();
-//
-//        net.binis.codegen.Test.find().nativeQuery("from user").get();
+        checkQuery("select u, sum(j0.subAmount),count(j0.subtitle) from net.binis.codegen.TestModify u join u.subs j0 where (j0.subtitle is null)  group by u  order by sum(j0.subAmount) asc,count(j0.subtitle) desc, u.title", Collections.emptyList(),
+                () -> TestModify.find().by().subs()
+                        .join(j -> j.sum().subAmount().and().cnt().subtitle().where().subtitle().isNull().order().subAmount().asc().subtitle().desc())
+                        .order().title()
+                        .get());
 
+        checkQuery("from net.binis.codegen.TestModify u join u.subs j0 where (j0.subtitle is null)  order by  u.title", Collections.emptyList(),
+                () -> TestModify.find().by().subs()
+                        .join(j -> j.where().subtitle().isNull())
+                        .order().title()
+                        .get());
+
+        checkQuery("from net.binis.codegen.TestModify u join fetch u.subs j0  order by  u.title", Collections.emptyList(),
+                () -> TestModify.find().by().subs()
+                        .joinFetch()
+                        .order().title()
+                        .get());
+
+        checkQuery("from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.amount is not null)  order by  u.title", Collections.emptyList(),
+                () -> TestModify.find().by()
+                        .amount().isNotNull().and()
+                        .subs().joinFetch()
+                        .order().title()
+                        .get());
      }
 
      private void checkQuery(String expected, List<Object> params, Runnable query) {

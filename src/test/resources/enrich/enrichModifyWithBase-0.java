@@ -194,8 +194,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
             return (TestModify.QueryName) result;
         }
 
-        public QueryCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> subs() {
-            return (QueryCollectionFunctions) identifier("subs");
+        public QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs() {
+            return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
         }
 
         public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> substring(int start) {
