@@ -125,181 +125,181 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
-    protected static class SubModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR, QueryAggregateOperation> implements SubModify.QuerySelect<QR> {
+    protected static class SubModifyQueryExecutorImpl extends QueryExecutor implements SubModify.QuerySelect {
 
         protected SubModifyQueryExecutorImpl() {
             super(SubModify.class);
         }
 
         public QueryAggregateOperation aggregate() {
-            return aggregateStart(new SubModifyQueryOrderImpl<>(this, SubModifyQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) aggregateStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::aggregateIdentifier));
         }
 
-        public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> date(OffsetDateTime date) {
+        public QuerySelectOperation date(OffsetDateTime date) {
             return identifier("date", date);
         }
 
-        public QueryFunctions<OffsetDateTime, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> date() {
-            return (QueryFunctions) identifier("date");
+        public QueryFunctions date() {
+            return identifier("date");
         }
 
-        public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> id(Long id) {
+        public QuerySelectOperation id(Long id) {
             return identifier("id", id);
         }
 
-        public QueryFunctions<Long, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> id() {
-            return (QueryFunctions) identifier("id");
+        public QueryFunctions id() {
+            return identifier("id");
         }
 
-        public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> lower() {
+        public SubModify.QueryName lower() {
             doLower();
-            var result = new SubModifyQueryNameImpl<>();
+            var result = new SubModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (SubModify.QueryName) result;
+            return result;
         }
 
-        public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> not() {
+        public SubModify.QueryName not() {
             doNot();
-            var result = new SubModifyQueryNameImpl<>();
+            var result = new SubModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (SubModify.QueryName) result;
+            return result;
         }
 
-        public SubModify.QueryOrder<QR> order() {
-            return orderStart(new SubModifyQueryOrderImpl<>(this, SubModifyQueryExecutorImpl.this::orderIdentifier));
+        public SubModify.QueryOrder order() {
+            return (SubModify.QueryOrder) orderStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
+        public SubModify.QueryName replace(String what, String withWhat) {
             doReplace(what, withWhat);
-            var result = new SubModifyQueryNameImpl<>();
+            var result = new SubModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (SubModify.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> subAmount(double subAmount) {
+        public QuerySelectOperation subAmount(double subAmount) {
             return identifier("subAmount", subAmount);
         }
 
-        public QueryFunctions<Double, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> subAmount() {
-            return (QueryFunctions) identifier("subAmount");
+        public QueryFunctions subAmount() {
+            return identifier("subAmount");
         }
 
-        public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> substring(int start) {
+        public SubModify.QueryName substring(int start) {
             doSubstring(start);
-            var result = new SubModifyQueryNameImpl<>();
+            var result = new SubModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (SubModify.QueryName) result;
+            return result;
         }
 
-        public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> substring(int start, int len) {
+        public SubModify.QueryName substring(int start, int len) {
             doSubstring(start, len);
-            var result = new SubModifyQueryNameImpl<>();
+            var result = new SubModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (SubModify.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> subtitle(String subtitle) {
+        public QuerySelectOperation subtitle(String subtitle) {
             return identifier("subtitle", subtitle);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> subtitle() {
-            return (QueryFunctions) identifier("subtitle");
+        public QueryFunctions subtitle() {
+            return identifier("subtitle");
         }
 
-        public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> trim() {
+        public SubModify.QueryName trim() {
             doTrim();
-            var result = new SubModifyQueryNameImpl<>();
+            var result = new SubModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (SubModify.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> type(TestEnum type) {
+        public QuerySelectOperation type(TestEnum type) {
             return identifier("type", type);
         }
 
-        public QueryFunctions<TestEnum, QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>> type() {
-            return (QueryFunctions) identifier("type");
+        public QueryFunctions type() {
+            return identifier("type");
         }
 
-        public SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR> upper() {
+        public SubModify.QueryName upper() {
             doUpper();
-            var result = new SubModifyQueryNameImpl<>();
+            var result = new SubModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (SubModify.QueryName) result;
+            return result;
         }
 
-        protected class SubModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements SubModify.QueryOrder<QR>, SubModify.QueryAggregate<QR, Object> {
+        protected class SubModifyQueryOrderImpl extends QueryOrderer implements SubModify.QueryOrder, SubModify.QueryAggregate {
 
             protected SubModifyQueryOrderImpl(SubModifyQueryExecutorImpl executor, Function<String, Object> func) {
                 super(executor, func);
             }
 
-            public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> date() {
+            public QueryOrderOperation date() {
                 return (QueryOrderOperation) func.apply("date");
             }
 
-            public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> id() {
+            public QueryOrderOperation id() {
                 return (QueryOrderOperation) func.apply("id");
             }
 
-            public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> script(String script) {
+            public QueryOrderOperation script(String script) {
                 return (QueryOrderOperation) SubModifyQueryExecutorImpl.this.script(script);
             }
 
-            public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> subAmount() {
+            public QueryOrderOperation subAmount() {
                 return (QueryOrderOperation) func.apply("subAmount");
             }
 
-            public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> subtitle() {
+            public QueryOrderOperation subtitle() {
                 return (QueryOrderOperation) func.apply("subtitle");
             }
 
-            public QueryOrderOperation<SubModify.QueryOrder<QR>, QR> type() {
+            public QueryOrderOperation type() {
                 return (QueryOrderOperation) func.apply("type");
             }
         }
     }
 
-    protected static class SubModifyQueryNameImpl<QS, QO, QR> extends BaseQueryNameImpl<QuerySelectOperation<QS, QO, QR>> implements SubModify.QueryName<QS, QO, QR>, QueryEmbed {
+    protected static class SubModifyQueryNameImpl extends BaseQueryNameImpl implements SubModify.QueryName, QueryEmbed {
 
-        public QueryFunctions<OffsetDateTime, QuerySelectOperation<QS, QO, QR>> date() {
-            return (QueryFunctions) executor.identifier("date");
+        public QueryFunctions date() {
+            return executor.identifier("date");
         }
 
-        public QuerySelectOperation<QS, QO, QR> date(OffsetDateTime date) {
-            return (QuerySelectOperation) executor.identifier("date", date);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return executor.identifier("date", date);
         }
 
-        public QueryFunctions<Long, QuerySelectOperation<QS, QO, QR>> id() {
-            return (QueryFunctions) executor.identifier("id");
+        public QueryFunctions id() {
+            return executor.identifier("id");
         }
 
-        public QuerySelectOperation<QS, QO, QR> id(Long id) {
-            return (QuerySelectOperation) executor.identifier("id", id);
+        public QuerySelectOperation id(Long id) {
+            return executor.identifier("id", id);
         }
 
-        public QueryFunctions<Double, QuerySelectOperation<QS, QO, QR>> subAmount() {
-            return (QueryFunctions) executor.identifier("subAmount");
+        public QueryFunctions subAmount() {
+            return executor.identifier("subAmount");
         }
 
-        public QuerySelectOperation<QS, QO, QR> subAmount(double subAmount) {
-            return (QuerySelectOperation) executor.identifier("subAmount", subAmount);
+        public QuerySelectOperation subAmount(double subAmount) {
+            return executor.identifier("subAmount", subAmount);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<QS, QO, QR>> subtitle() {
-            return (QueryFunctions) executor.identifier("subtitle");
+        public QueryFunctions subtitle() {
+            return executor.identifier("subtitle");
         }
 
-        public QuerySelectOperation<QS, QO, QR> subtitle(String subtitle) {
-            return (QuerySelectOperation) executor.identifier("subtitle", subtitle);
+        public QuerySelectOperation subtitle(String subtitle) {
+            return executor.identifier("subtitle", subtitle);
         }
 
-        public QueryFunctions<TestEnum, QuerySelectOperation<QS, QO, QR>> type() {
-            return (QueryFunctions) executor.identifier("type");
+        public QueryFunctions type() {
+            return executor.identifier("type");
         }
 
-        public QuerySelectOperation<QS, QO, QR> type(TestEnum type) {
-            return (QuerySelectOperation) executor.identifier("type", type);
+        public QuerySelectOperation type(TestEnum type) {
+            return executor.identifier("type", type);
         }
     }
 }

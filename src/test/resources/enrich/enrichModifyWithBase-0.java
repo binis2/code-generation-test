@@ -131,189 +131,189 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
     }
 
-    protected static class TestModifyQueryExecutorImpl<QR> extends QueryExecutor<Object, TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR, QueryAggregateOperation> implements TestModify.QuerySelect<QR> {
+    protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect {
 
         protected TestModifyQueryExecutorImpl() {
             super(TestModify.class);
         }
 
         public QueryAggregateOperation aggregate() {
-            return aggregateStart(new TestModifyQueryOrderImpl<>(this, TestModifyQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) aggregateStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::aggregateIdentifier));
         }
 
-        public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> amount(double amount) {
+        public QuerySelectOperation amount(double amount) {
             return identifier("amount", amount);
         }
 
-        public QueryFunctions<Double, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> amount() {
-            return (QueryFunctions) identifier("amount");
+        public QueryFunctions amount() {
+            return identifier("amount");
         }
 
-        public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> date(OffsetDateTime date) {
+        public QuerySelectOperation date(OffsetDateTime date) {
             return identifier("date", date);
         }
 
-        public QueryFunctions<OffsetDateTime, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> date() {
-            return (QueryFunctions) identifier("date");
+        public QueryFunctions date() {
+            return identifier("date");
         }
 
-        public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> id(Long id) {
+        public QuerySelectOperation id(Long id) {
             return identifier("id", id);
         }
 
-        public QueryFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> id() {
-            return (QueryFunctions) identifier("id");
+        public QueryFunctions id() {
+            return identifier("id");
         }
 
-        public QueryCollectionFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> items() {
-            return (QueryCollectionFunctions) identifier("items");
+        public QueryCollectionFunctions items() {
+            return identifier("items");
         }
 
-        public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> lower() {
+        public TestModify.QueryName lower() {
             doLower();
-            var result = new TestModifyQueryNameImpl<>();
+            var result = new TestModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (TestModify.QueryName) result;
+            return result;
         }
 
-        public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> not() {
+        public TestModify.QueryName not() {
             doNot();
-            var result = new TestModifyQueryNameImpl<>();
+            var result = new TestModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (TestModify.QueryName) result;
+            return result;
         }
 
-        public TestModify.QueryOrder<QR> order() {
-            return orderStart(new TestModifyQueryOrderImpl<>(this, TestModifyQueryExecutorImpl.this::orderIdentifier));
+        public TestModify.QueryOrder order() {
+            return (TestModify.QueryOrder) orderStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> replace(String what, String withWhat) {
+        public TestModify.QueryName replace(String what, String withWhat) {
             doReplace(what, withWhat);
-            var result = new TestModifyQueryNameImpl<>();
+            var result = new TestModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (TestModify.QueryName) result;
+            return result;
         }
 
-        public QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs() {
+        public QueryJoinCollectionFunctions subs() {
             return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
         }
 
-        public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> substring(int start) {
+        public TestModify.QueryName substring(int start) {
             doSubstring(start);
-            var result = new TestModifyQueryNameImpl<>();
+            var result = new TestModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (TestModify.QueryName) result;
+            return result;
         }
 
-        public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> substring(int start, int len) {
+        public TestModify.QueryName substring(int start, int len) {
             doSubstring(start, len);
-            var result = new TestModifyQueryNameImpl<>();
+            var result = new TestModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (TestModify.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> title(String title) {
+        public QuerySelectOperation title(String title) {
             return identifier("title", title);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> title() {
-            return (QueryFunctions) identifier("title");
+        public QueryFunctions title() {
+            return identifier("title");
         }
 
-        public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> trim() {
+        public TestModify.QueryName trim() {
             doTrim();
-            var result = new TestModifyQueryNameImpl<>();
+            var result = new TestModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (TestModify.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> type(TestEnum type) {
+        public QuerySelectOperation type(TestEnum type) {
             return identifier("type", type);
         }
 
-        public QueryFunctions<TestEnum, QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>> type() {
-            return (QueryFunctions) identifier("type");
+        public QueryFunctions type() {
+            return identifier("type");
         }
 
-        public TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR> upper() {
+        public TestModify.QueryName upper() {
             doUpper();
-            var result = new TestModifyQueryNameImpl<>();
+            var result = new TestModifyQueryNameImpl();
             result.setParent(alias, this);
-            return (TestModify.QueryName) result;
+            return result;
         }
 
-        protected class TestModifyQueryOrderImpl<QR> extends QueryOrderer<QR> implements TestModify.QueryOrder<QR>, TestModify.QueryAggregate<QR, Object> {
+        protected class TestModifyQueryOrderImpl extends QueryOrderer implements TestModify.QueryOrder, TestModify.QueryAggregate {
 
             protected TestModifyQueryOrderImpl(TestModifyQueryExecutorImpl executor, Function<String, Object> func) {
                 super(executor, func);
             }
 
-            public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> amount() {
+            public QueryOrderOperation amount() {
                 return (QueryOrderOperation) func.apply("amount");
             }
 
-            public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> date() {
+            public QueryOrderOperation date() {
                 return (QueryOrderOperation) func.apply("date");
             }
 
-            public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> id() {
+            public QueryOrderOperation id() {
                 return (QueryOrderOperation) func.apply("id");
             }
 
-            public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> script(String script) {
+            public QueryOrderOperation script(String script) {
                 return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.script(script);
             }
 
-            public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> title() {
+            public QueryOrderOperation title() {
                 return (QueryOrderOperation) func.apply("title");
             }
 
-            public QueryOrderOperation<TestModify.QueryOrder<QR>, QR> type() {
+            public QueryOrderOperation type() {
                 return (QueryOrderOperation) func.apply("type");
             }
         }
     }
 
-    protected static class TestModifyQueryNameImpl<QS, QO, QR> extends BaseQueryNameImpl<QuerySelectOperation<QS, QO, QR>> implements TestModify.QueryName<QS, QO, QR>, QueryEmbed {
+    protected static class TestModifyQueryNameImpl extends BaseQueryNameImpl implements TestModify.QueryName, QueryEmbed {
 
-        public QueryFunctions<Double, QuerySelectOperation<QS, QO, QR>> amount() {
-            return (QueryFunctions) executor.identifier("amount");
+        public QueryFunctions amount() {
+            return executor.identifier("amount");
         }
 
-        public QuerySelectOperation<QS, QO, QR> amount(double amount) {
-            return (QuerySelectOperation) executor.identifier("amount", amount);
+        public QuerySelectOperation amount(double amount) {
+            return executor.identifier("amount", amount);
         }
 
-        public QueryFunctions<OffsetDateTime, QuerySelectOperation<QS, QO, QR>> date() {
-            return (QueryFunctions) executor.identifier("date");
+        public QueryFunctions date() {
+            return executor.identifier("date");
         }
 
-        public QuerySelectOperation<QS, QO, QR> date(OffsetDateTime date) {
-            return (QuerySelectOperation) executor.identifier("date", date);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return executor.identifier("date", date);
         }
 
-        public QueryFunctions<Long, QuerySelectOperation<QS, QO, QR>> id() {
-            return (QueryFunctions) executor.identifier("id");
+        public QueryFunctions id() {
+            return executor.identifier("id");
         }
 
-        public QuerySelectOperation<QS, QO, QR> id(Long id) {
-            return (QuerySelectOperation) executor.identifier("id", id);
+        public QuerySelectOperation id(Long id) {
+            return executor.identifier("id", id);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<QS, QO, QR>> title() {
-            return (QueryFunctions) executor.identifier("title");
+        public QueryFunctions title() {
+            return executor.identifier("title");
         }
 
-        public QuerySelectOperation<QS, QO, QR> title(String title) {
-            return (QuerySelectOperation) executor.identifier("title", title);
+        public QuerySelectOperation title(String title) {
+            return executor.identifier("title", title);
         }
 
-        public QueryFunctions<TestEnum, QuerySelectOperation<QS, QO, QR>> type() {
-            return (QueryFunctions) executor.identifier("type");
+        public QueryFunctions type() {
+            return executor.identifier("type");
         }
 
-        public QuerySelectOperation<QS, QO, QR> type(TestEnum type) {
-            return (QuerySelectOperation) executor.identifier("type", type);
+        public QuerySelectOperation type(TestEnum type) {
+            return executor.identifier("type", type);
         }
     }
 }

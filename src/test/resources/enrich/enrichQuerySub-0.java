@@ -42,121 +42,121 @@ public class SubImpl implements Sub {
         this.subtitle = subtitle;
     }
 
-    protected static class SubQueryExecutorImpl<QR> extends QueryExecutor<Object, Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR, QueryAggregateOperation> implements Sub.QuerySelect<QR> {
+    protected static class SubQueryExecutorImpl extends QueryExecutor implements Sub.QuerySelect {
 
         protected SubQueryExecutorImpl() {
             super(Sub.class);
         }
 
         public QueryAggregateOperation aggregate() {
-            return aggregateStart(new SubQueryOrderImpl<>(this, SubQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) aggregateStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::aggregateIdentifier));
         }
 
-        public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> lower() {
+        public Sub.QueryName lower() {
             doLower();
-            var result = new SubQueryNameImpl<>();
+            var result = new SubQueryNameImpl();
             result.setParent(alias, this);
-            return (Sub.QueryName) result;
+            return result;
         }
 
-        public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> not() {
+        public Sub.QueryName not() {
             doNot();
-            var result = new SubQueryNameImpl<>();
+            var result = new SubQueryNameImpl();
             result.setParent(alias, this);
-            return (Sub.QueryName) result;
+            return result;
         }
 
-        public Sub.QueryOrder<QR> order() {
-            return orderStart(new SubQueryOrderImpl<>(this, SubQueryExecutorImpl.this::orderIdentifier));
+        public Sub.QueryOrder order() {
+            return (Sub.QueryOrder) orderStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> replace(String what, String withWhat) {
+        public Sub.QueryName replace(String what, String withWhat) {
             doReplace(what, withWhat);
-            var result = new SubQueryNameImpl<>();
+            var result = new SubQueryNameImpl();
             result.setParent(alias, this);
-            return (Sub.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> subAmount(double subAmount) {
+        public QuerySelectOperation subAmount(double subAmount) {
             return identifier("subAmount", subAmount);
         }
 
-        public QueryFunctions<Double, QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>> subAmount() {
-            return (QueryFunctions) identifier("subAmount");
+        public QueryFunctions subAmount() {
+            return identifier("subAmount");
         }
 
-        public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> substring(int start) {
+        public Sub.QueryName substring(int start) {
             doSubstring(start);
-            var result = new SubQueryNameImpl<>();
+            var result = new SubQueryNameImpl();
             result.setParent(alias, this);
-            return (Sub.QueryName) result;
+            return result;
         }
 
-        public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> substring(int start, int len) {
+        public Sub.QueryName substring(int start, int len) {
             doSubstring(start, len);
-            var result = new SubQueryNameImpl<>();
+            var result = new SubQueryNameImpl();
             result.setParent(alias, this);
-            return (Sub.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> subtitle(String subtitle) {
+        public QuerySelectOperation subtitle(String subtitle) {
             return identifier("subtitle", subtitle);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR>> subtitle() {
-            return (QueryFunctions) identifier("subtitle");
+        public QueryFunctions subtitle() {
+            return identifier("subtitle");
         }
 
-        public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> trim() {
+        public Sub.QueryName trim() {
             doTrim();
-            var result = new SubQueryNameImpl<>();
+            var result = new SubQueryNameImpl();
             result.setParent(alias, this);
-            return (Sub.QueryName) result;
+            return result;
         }
 
-        public Sub.QueryName<Sub.QuerySelect<QR>, Sub.QueryOrder<QR>, QR> upper() {
+        public Sub.QueryName upper() {
             doUpper();
-            var result = new SubQueryNameImpl<>();
+            var result = new SubQueryNameImpl();
             result.setParent(alias, this);
-            return (Sub.QueryName) result;
+            return result;
         }
 
-        protected class SubQueryOrderImpl<QR> extends QueryOrderer<QR> implements Sub.QueryOrder<QR>, Sub.QueryAggregate<QR, Object> {
+        protected class SubQueryOrderImpl extends QueryOrderer implements Sub.QueryOrder, Sub.QueryAggregate {
 
             protected SubQueryOrderImpl(SubQueryExecutorImpl executor, Function<String, Object> func) {
                 super(executor, func);
             }
 
-            public QueryOrderOperation<Sub.QueryOrder<QR>, QR> script(String script) {
+            public QueryOrderOperation script(String script) {
                 return (QueryOrderOperation) SubQueryExecutorImpl.this.script(script);
             }
 
-            public QueryOrderOperation<Sub.QueryOrder<QR>, QR> subAmount() {
+            public QueryOrderOperation subAmount() {
                 return (QueryOrderOperation) func.apply("subAmount");
             }
 
-            public QueryOrderOperation<Sub.QueryOrder<QR>, QR> subtitle() {
+            public QueryOrderOperation subtitle() {
                 return (QueryOrderOperation) func.apply("subtitle");
             }
         }
     }
 
-    protected static class SubQueryNameImpl<QS, QO, QR> extends BaseQueryNameImpl<QuerySelectOperation<QS, QO, QR>> implements Sub.QueryName<QS, QO, QR>, QueryEmbed {
+    protected static class SubQueryNameImpl extends BaseQueryNameImpl implements Sub.QueryName, QueryEmbed {
 
-        public QueryFunctions<Double, QuerySelectOperation<QS, QO, QR>> subAmount() {
-            return (QueryFunctions) executor.identifier("subAmount");
+        public QueryFunctions subAmount() {
+            return executor.identifier("subAmount");
         }
 
-        public QuerySelectOperation<QS, QO, QR> subAmount(double subAmount) {
-            return (QuerySelectOperation) executor.identifier("subAmount", subAmount);
+        public QuerySelectOperation subAmount(double subAmount) {
+            return executor.identifier("subAmount", subAmount);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<QS, QO, QR>> subtitle() {
-            return (QueryFunctions) executor.identifier("subtitle");
+        public QueryFunctions subtitle() {
+            return executor.identifier("subtitle");
         }
 
-        public QuerySelectOperation<QS, QO, QR> subtitle(String subtitle) {
-            return (QuerySelectOperation) executor.identifier("subtitle", subtitle);
+        public QuerySelectOperation subtitle(String subtitle) {
+            return executor.identifier("subtitle", subtitle);
         }
     }
 }

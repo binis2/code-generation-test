@@ -118,173 +118,173 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
-    protected static class TestQueryExecutorImpl<QR> extends QueryExecutor<Object, Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR, QueryAggregateOperation> implements Test.QuerySelect<QR> {
+    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect {
 
         protected TestQueryExecutorImpl() {
             super(Test.class);
         }
 
         public QueryAggregateOperation aggregate() {
-            return aggregateStart(new TestQueryOrderImpl<>(this, TestQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::aggregateIdentifier));
         }
 
-        public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> amount(double amount) {
+        public QuerySelectOperation amount(double amount) {
             return identifier("amount", amount);
         }
 
-        public QueryFunctions<Double, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> amount() {
-            return (QueryFunctions) identifier("amount");
+        public QueryFunctions amount() {
+            return identifier("amount");
         }
 
-        public QueryCollectionFunctions<Long, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> items() {
-            return (QueryCollectionFunctions) identifier("items");
+        public QueryCollectionFunctions items() {
+            return identifier("items");
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> lower() {
+        public Test.QueryName lower() {
             doLower();
-            var result = new TestQueryNameImpl<>();
+            var result = new TestQueryNameImpl();
             result.setParent(alias, this);
-            return (Test.QueryName) result;
+            return result;
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> not() {
+        public Test.QueryName not() {
             doNot();
-            var result = new TestQueryNameImpl<>();
+            var result = new TestQueryNameImpl();
             result.setParent(alias, this);
-            return (Test.QueryName) result;
+            return result;
         }
 
-        public Test.QueryOrder<QR> order() {
-            return orderStart(new TestQueryOrderImpl<>(this, TestQueryExecutorImpl.this::orderIdentifier));
+        public Test.QueryOrder order() {
+            return (Test.QueryOrder) orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> parent(Test parent) {
+        public QuerySelectOperation parent(Test parent) {
             return identifier("parent", parent);
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> parent() {
+        public Test.QueryName parent() {
             var result = EntityCreator.create(Test.QueryName.class);
             ((QueryEmbed) result).setParent("parent", this);
             return result;
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> replace(String what, String withWhat) {
+        public Test.QueryName replace(String what, String withWhat) {
             doReplace(what, withWhat);
-            var result = new TestQueryNameImpl<>();
+            var result = new TestQueryNameImpl();
             result.setParent(alias, this);
-            return (Test.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> sub(Sub sub) {
+        public QuerySelectOperation sub(Sub sub) {
             return identifier("sub", sub);
         }
 
-        public Sub.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> sub() {
+        public Sub.QueryName sub() {
             var result = EntityCreator.create(Sub.QueryName.class);
             ((QueryEmbed) result).setParent("sub", this);
             return result;
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> substring(int start) {
+        public Test.QueryName substring(int start) {
             doSubstring(start);
-            var result = new TestQueryNameImpl<>();
+            var result = new TestQueryNameImpl();
             result.setParent(alias, this);
-            return (Test.QueryName) result;
+            return result;
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> substring(int start, int len) {
+        public Test.QueryName substring(int start, int len) {
             doSubstring(start, len);
-            var result = new TestQueryNameImpl<>();
+            var result = new TestQueryNameImpl();
             result.setParent(alias, this);
-            return (Test.QueryName) result;
+            return result;
         }
 
-        public QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> title(String title) {
+        public QuerySelectOperation title(String title) {
             return identifier("title", title);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>> title() {
-            return (QueryFunctions) identifier("title");
+        public QueryFunctions title() {
+            return identifier("title");
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> trim() {
+        public Test.QueryName trim() {
             doTrim();
-            var result = new TestQueryNameImpl<>();
+            var result = new TestQueryNameImpl();
             result.setParent(alias, this);
-            return (Test.QueryName) result;
+            return result;
         }
 
-        public Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> upper() {
+        public Test.QueryName upper() {
             doUpper();
-            var result = new TestQueryNameImpl<>();
+            var result = new TestQueryNameImpl();
             result.setParent(alias, this);
-            return (Test.QueryName) result;
+            return result;
         }
 
-        protected class TestQueryOrderImpl<QR> extends QueryOrderer<QR> implements Test.QueryOrder<QR>, Test.QueryAggregate<QR, Object> {
+        protected class TestQueryOrderImpl extends QueryOrderer implements Test.QueryOrder, Test.QueryAggregate {
 
             protected TestQueryOrderImpl(TestQueryExecutorImpl executor, Function<String, Object> func) {
                 super(executor, func);
             }
 
-            public QueryOrderOperation<Test.QueryOrder<QR>, QR> amount() {
+            public QueryOrderOperation amount() {
                 return (QueryOrderOperation) func.apply("amount");
             }
 
-            public QueryOrderOperation<Test.QueryOrder<QR>, QR> parent() {
+            public QueryOrderOperation parent() {
                 return (QueryOrderOperation) func.apply("parent");
             }
 
-            public QueryOrderOperation<Test.QueryOrder<QR>, QR> script(String script) {
+            public QueryOrderOperation script(String script) {
                 return (QueryOrderOperation) TestQueryExecutorImpl.this.script(script);
             }
 
-            public QueryOrderOperation<Test.QueryOrder<QR>, QR> sub() {
+            public QueryOrderOperation sub() {
                 return (QueryOrderOperation) func.apply("sub");
             }
 
-            public QueryOrderOperation<Test.QueryOrder<QR>, QR> title() {
+            public QueryOrderOperation title() {
                 return (QueryOrderOperation) func.apply("title");
             }
         }
     }
 
-    protected static class TestQueryNameImpl<QS, QO, QR> extends BaseQueryNameImpl<QuerySelectOperation<QS, QO, QR>> implements Test.QueryName<QS, QO, QR>, QueryEmbed {
+    protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
 
-        public QueryFunctions<Double, QuerySelectOperation<QS, QO, QR>> amount() {
-            return (QueryFunctions) executor.identifier("amount");
+        public QueryFunctions amount() {
+            return executor.identifier("amount");
         }
 
-        public QuerySelectOperation<QS, QO, QR> amount(double amount) {
-            return (QuerySelectOperation) executor.identifier("amount", amount);
+        public QuerySelectOperation amount(double amount) {
+            return executor.identifier("amount", amount);
         }
 
-        public Test.QueryName<QS, QO, QR> parent() {
+        public Test.QueryName parent() {
             var result = EntityCreator.create(Test.QueryName.class);
             ((QueryEmbed) result).setParent("parent", executor);
             return result;
         }
 
-        public QuerySelectOperation<QS, QO, QR> parent(Test parent) {
-            return (QuerySelectOperation) executor.identifier("parent", parent);
+        public QuerySelectOperation parent(Test parent) {
+            return executor.identifier("parent", parent);
         }
 
-        public Sub.QueryName<QS, QO, QR> sub() {
+        public Sub.QueryName sub() {
             var result = EntityCreator.create(Sub.QueryName.class);
             ((QueryEmbed) result).setParent("sub", executor);
             return result;
         }
 
-        public QuerySelectOperation<QS, QO, QR> sub(Sub sub) {
-            return (QuerySelectOperation) executor.identifier("sub", sub);
+        public QuerySelectOperation sub(Sub sub) {
+            return executor.identifier("sub", sub);
         }
 
-        public QueryFunctions<String, QuerySelectOperation<QS, QO, QR>> title() {
-            return (QueryFunctions) executor.identifier("title");
+        public QueryFunctions title() {
+            return executor.identifier("title");
         }
 
-        public QuerySelectOperation<QS, QO, QR> title(String title) {
-            return (QuerySelectOperation) executor.identifier("title", title);
+        public QuerySelectOperation title(String title) {
+            return executor.identifier("title", title);
         }
     }
 }
