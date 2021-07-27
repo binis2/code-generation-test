@@ -157,6 +157,9 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items) and  (?2 not member of u.items) and  (u.items is not empty) and  (u.items is empty)", List.of(5L, 6L),
                 () -> net.binis.codegen.Test.find().by().items().contains(5L).and().items().notContains(6L).and().items().isNotEmpty().and().items().isEmpty().get());
 
+        checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(5L),
+                () -> net.binis.codegen.Test.find().by().items().contains(5L).get());
+
         checkQuery("select u, sum(j0.subAmount),count(j1.subtitle) from net.binis.codegen.TestModify u join u.subs j0 join u.subs j1 where (j0.subtitle is null)  and  (j1.subAmount is null)  or  (u.amount is not null) group by u  order by sum(j0.subAmount) asc,count(j1.subtitle) desc, u.title", Collections.emptyList(),
                 () -> TestModify.find().by().subs()
                         .join(j -> j.sum().subAmount().where().subtitle().isNull().order().subAmount().asc())
@@ -189,6 +192,14 @@ public class QueryEnrichTest extends BaseTest {
                         .subs().joinFetch()
                         .order().title()
                         .get());
+
+        var sub = new SubModifyImpl();
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount is not null) and  (?1 member of u.subs)", List.of(sub),
+                () -> TestModify.find().by()
+                        .amount().isNotNull().and()
+                        .subs().contains(sub)
+                        .get());
+
      }
 
      private void checkQuery(String expected, List<Object> params, Runnable query) {
