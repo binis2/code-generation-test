@@ -24,8 +24,8 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     {
         CodeFactory.registerType(SubModify.QuerySelect.class, SubModifyQueryExecutorImpl::new, null);
         CodeFactory.registerType(SubModify.class, SubModifyImpl::new, null);
-        CodeFactory.registerType(SubModify.QueryOrder.class, () -> SubModify.find().aggregate(), null);
         CodeFactory.registerType(SubModify.QueryName.class, SubModifyQueryNameImpl::new, null);
+        CodeFactory.registerType(SubModify.QueryOrder.class, () -> SubModify.find().aggregate(), null);
     }
 
     public SubModifyImpl() {
