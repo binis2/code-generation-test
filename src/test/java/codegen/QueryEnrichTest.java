@@ -180,6 +180,14 @@ public class QueryEnrichTest extends BaseTest {
                         .order().title()
                         .get());
 
+        checkQuery("from net.binis.codegen.TestModify u join u.subs j0 where (j0.subtitle = ?1)  and  (u.amount = ?2) order by  u.title", List.of("test", 5.0),
+                () -> TestModify.find().by().subs()
+                        .join(j -> j.where().subtitle("test"))
+                        .and().amount(5.0)
+                        .order().title()
+                        .get());
+
+
         checkQuery("from net.binis.codegen.TestModify u join fetch u.subs j0  order by  u.title", Collections.emptyList(),
                 () -> TestModify.find().by().subs()
                         .joinFetch()
