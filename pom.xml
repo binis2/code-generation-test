@@ -12,13 +12,28 @@
     <artifactId>code-generation-test</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>code-generation-test</name>
-    <description>Test for Binis code generation</description>
+    <description>Test capabilities for Binis code generation library</description>
+
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Binis Belev</name>
+        <url>http://www.binis.net/</url>
+    </organization>
+
+    <inceptionYear>2021</inceptionYear>
 
     <properties>
         <java.version>11</java.version>
+        <license.licenseName>apache_v2</license.licenseName>
         <junit.jupiter.version>5.8.0-M1</junit.jupiter.version>
-<!--        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>-->
-<!--        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>-->
     </properties>
 
     <dependencies>
@@ -70,6 +85,45 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>2.0.0</version>
+
+                    <configuration>
+                        <verbose>false</verbose>
+                        <excludes>
+                            <exclude>**/resources/**/*.java</exclude>
+                        </excludes>
+                        <includes>
+                            <include>**/*.java</include>
+                        </includes>
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <id>generate-license-headers</id>
+                            <goals>
+                                <goal>update-file-header</goal>
+                            </goals>
+                            <phase>process-sources</phase>
+                            <configuration>
+                                <licenseName>Apache 2.0</licenseName>
+                                <roots>
+                                    <root>src/main/java</root>
+                                    <root>src/test/java</root>
+                                </roots>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 <!--    <build>-->
 <!--        <plugins>-->
