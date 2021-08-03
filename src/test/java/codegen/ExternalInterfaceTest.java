@@ -44,5 +44,11 @@ public class ExternalInterfaceTest extends BaseTest {
         testSingle("external/externalModifier.java", "external/externalModifier-0.java", "external/externalModifier-1.java");
     }
 
+    @Test
+    public void testModifierMethodGeneric() {
+        testSingle("external/externalModifierMethodGeneric.java", "external/externalModifierMethodGeneric-0.java", "external/externalModifierMethodGeneric-1.java");
+    }
+
+
 
 }
