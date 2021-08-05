@@ -169,8 +169,6 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where (length(u.parent.parent.title) > ?1) and  (u.amount = ?2)", List.of(5L, 6.0),
                 () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L)._if(false, query -> query.and().amount(5))._else(query -> query.and().amount(6)).get());
 
-        //Account.find().aggregate().sum().available().where().user().email().contains("binis").get()
-
         checkQuery("select avg(u.subAmount) from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.0),
                 () -> net.binis.codegen.Sub.find().aggregate().avg().subAmount().where().subAmount(5).get());
 
@@ -179,6 +177,22 @@ public class QueryEnrichTest extends BaseTest {
 
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(5L),
                 () -> net.binis.codegen.Test.find().by().items().contains(5L).get());
+
+        checkQuery("from net.binis.codegen.Test u ", Collections.emptyList(),
+                () -> net.binis.codegen.Test.find().by().title().in(Collections.emptyList()).get());
+
+        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1) ", List.of(5.0),
+                () -> net.binis.codegen.Test.find().by().amount(5.0).and().title().in(Collections.emptyList()).get());
+
+        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1)", List.of(5.0),
+                () -> net.binis.codegen.Test.find().by().title().in(Collections.emptyList()).and().amount(5.0).get());
+
+        checkQuery("from net.binis.codegen.Test u where  (u.amount = ?1) and  (u.sub.subAmount = ?2)", List.of(5.0, 6.0),
+                () -> net.binis.codegen.Test.find().by().not().title().in(Collections.emptyList()).and().amount(5.0).and().sub().subAmount(6.0).get());
+
+        checkQuery("from net.binis.codegen.Test u where (u.sub.subAmount = ?1) and   (u.amount = ?2) and  (u.sub.subAmount = ?3)", List.of(6.0, 5.0, 6.0),
+                () -> net.binis.codegen.Test.find().by().sub().subAmount(6.0).and().not().title().in(Collections.emptyList()).and().amount(5.0).and().sub().subAmount(6.0).get());
+
 
         checkQuery("select u, sum(j0.subAmount),count(j1.subtitle) from net.binis.codegen.TestModify u join u.subs j0 join u.subs j1 where (j0.subtitle is null)  and  (j1.subAmount is null)  or  (u.amount is not null) group by u  order by sum(j0.subAmount) asc,count(j1.subtitle) desc, u.title", Collections.emptyList(),
                 () -> TestModify.find().by().subs()
