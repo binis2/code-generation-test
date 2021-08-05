@@ -2,6 +2,7 @@
 package net.binis.codegen;
 
 import net.binis.codegen.modifier.Modifiable;
+import javax.persistence.Transient;
 
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
@@ -9,6 +10,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected String external;
 
+    @Transient
     protected Object tag;
 
     public TestImpl() {
@@ -32,6 +34,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     public Test.Modify with() {

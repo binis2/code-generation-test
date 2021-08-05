@@ -5,6 +5,8 @@ import net.binis.codegen.intf.*;
 
 public interface Test extends ExternalInterface<String>, Available, Previewable, Taggable {
 
+    <T> void setTag(T tag);
+
     Test.Modify with();
 
     interface Fields<T> {
