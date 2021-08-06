@@ -247,6 +247,12 @@ public class QueryEnrichTest extends BaseTest {
                         .subs().contains(sub)
                         .get());
 
+        var query = net.binis.codegen.Test.find().by().items().contains(5L).prepare();
+        checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(5L), query::get);
+
+        checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(6L),
+                () -> query.param(0, 6L));
+
      }
 
      private void checkQuery(String expected, List<Object> params, Runnable query) {
