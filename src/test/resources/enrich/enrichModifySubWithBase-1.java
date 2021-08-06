@@ -2,6 +2,7 @@
 package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.intf.Taggable;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
@@ -9,7 +10,7 @@ import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
-public interface SubModify extends Base {
+public interface SubModify extends Base, Taggable {
 
     static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>> find() {
         return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
@@ -23,6 +24,8 @@ public interface SubModify extends Base {
 
     void setSubtitle(String subtitle);
 
+    <T> void setTag(T tag);
+
     SubModify.Modify with();
 
     interface EmbeddedModify<T> extends SubModify.Fields<SubModify.EmbeddedModify<T>> {
@@ -35,6 +38,8 @@ public interface SubModify extends Base {
         T subAmount(double subAmount);
 
         T subtitle(String subtitle);
+
+        T tag(Object tag);
     }
 
     interface Modify extends SubModify.Fields<SubModify.Modify> {

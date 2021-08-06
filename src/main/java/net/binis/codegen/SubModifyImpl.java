@@ -30,6 +30,7 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
+import javax.persistence.Transient;
 import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
@@ -40,6 +41,9 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     protected double subAmount;
 
     protected String subtitle;
+
+    @Transient
+    protected Object tag;
 
     {
         CodeFactory.registerType(SubModify.QuerySelect.class, SubModifyQueryExecutorImpl::new, null);
@@ -60,12 +64,20 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         return subtitle;
     }
 
+    public Object getTag() {
+        return tag;
+    }
+
     public void setSubAmount(double subAmount) {
         this.subAmount = subAmount;
     }
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+    }
+
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     public SubModify.Modify with() {
@@ -107,6 +119,11 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return this;
         }
 
+        public SubModify.EmbeddedModify<T> tag(Object tag) {
+            entity.tag = tag;
+            return this;
+        }
+
         public SubModify.EmbeddedModify<T> type(TestEnum type) {
             entity.type = type;
             return this;
@@ -136,6 +153,11 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public SubModify.Modify subtitle(String subtitle) {
             SubModifyImpl.this.subtitle = subtitle;
+            return this;
+        }
+
+        public SubModify.Modify tag(Object tag) {
+            SubModifyImpl.this.tag = tag;
             return this;
         }
 
@@ -226,6 +248,10 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return identifier("subtitle");
         }
 
+        public QuerySelectOperation tag(Object tag) {
+            return identifier("tag", tag);
+        }
+
         public SubModify.QueryName trim() {
             doTrim();
             var result = new SubModifyQueryNameImpl();
@@ -312,6 +338,10 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public QuerySelectOperation subtitle(String subtitle) {
             return executor.identifier("subtitle", subtitle);
+        }
+
+        public QuerySelectOperation tag(Object tag) {
+            return executor.identifier("tag", tag);
         }
 
         public QueryFunctions type() {
