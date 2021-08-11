@@ -9,9 +9,9 @@ package codegen;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -154,6 +154,9 @@ public class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where length(title) > 5  and  (u.amount > 10)  order by  title ", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().script("length(title) > 5").and().amount().script("> 10").order().script("title").get());
 
+        checkQuery("from net.binis.codegen.Test u where (u.amount between ?1 and ?2)", List.of(5.0, 6.0),
+                () -> net.binis.codegen.Test.find().by().amount().between(5.0, 6.0).get());
+
         checkQuery("from net.binis.codegen.Test u where (u.amount = ?1) and  (length(u.parent.parent.title) > ?2)", List.of(5.0, 5L),
                 () -> net.binis.codegen.Test.find().by(true, query -> query.amount(5).and()).parent().parent().title().length().greater(5L).get());
 
@@ -252,12 +255,11 @@ public class QueryEnrichTest extends BaseTest {
 
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(6L),
                 () -> query.param(0, 6L));
+    }
 
-     }
-
-     private void checkQuery(String expected, List<Object> params, Runnable query) {
-         checkQuery(expected, params, null, query);
-     }
+    private void checkQuery(String expected, List<Object> params, Runnable query) {
+        checkQuery(expected, params, null, query);
+    }
 
     private void checkQuery(String expected, List<Object> params, Object result, Runnable query) {
         mockQueryProcessor((q, p) -> {
