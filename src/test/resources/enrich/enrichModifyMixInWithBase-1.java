@@ -15,6 +15,10 @@ public interface MixModify extends TestModify {
 
     MixModify.Modify asMixModify();
 
+    static MixModify create() {
+        return EntityCreator.create(MixModify.class);
+    }
+
     static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>> find() {
         return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class);
     }

@@ -9,9 +9,9 @@ package net.binis.codegen.mock;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,15 +63,17 @@ public class CodeGenMock {
     private static Map<String, List<Pair<List<Object>, Object>>> mockedResponses = new HashMap<>();
 
     public static void mockContext() {
-        var context = mock(ApplicationContext.class);
-        var tm = mock(JpaTransactionManager.class);
-        when(context.getBean(eq(JpaTransactionManager.class))).thenReturn(tm);
-        when(tm.getEntityManagerFactory()).thenReturn(mock(EntityManagerFactory.class));
-        var template = mock(TransactionTemplate.class);
-        when(context.getBean(eq(TransactionTemplate.class))).thenReturn(template);
-        when(template.execute(any())).then(m -> ((TransactionCallback) m.getArgument(0)).doInTransaction(null));
+        if (isNull(ApplicationContextProvider.getApplicationContext())) {
+            var context = mock(ApplicationContext.class);
+            var tm = mock(JpaTransactionManager.class);
+            when(context.getBean(eq(JpaTransactionManager.class))).thenReturn(tm);
+            when(tm.getEntityManagerFactory()).thenReturn(mock(EntityManagerFactory.class));
+            var template = mock(TransactionTemplate.class);
+            when(context.getBean(eq(TransactionTemplate.class))).thenReturn(template);
+            when(template.execute(any())).then(m -> ((TransactionCallback) m.getArgument(0)).doInTransaction(null));
 
-        ApplicationContextProvider.setAppContext(context);
+            ApplicationContextProvider.setAppContext(context);
+        }
     }
 
     public static void mockEntityManager() {
@@ -86,6 +88,10 @@ public class CodeGenMock {
 
     public static void mockQueryProcessor(BiFunction<String, List<Object>, Object> func) {
         QueryProcessor.setProcessor((executor, manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> func.apply(query, params));
+    }
+
+    public static void mockJustQuery(Printable query, Object returnObject) {
+        mockQuery(query.print(), null, returnObject);
     }
 
     public static void mockQuery(Printable query, List<Object> params, Object returnObject) {
@@ -105,13 +111,24 @@ public class CodeGenMock {
             QueryProcessor.setProcessor(createMockedProcessor());
         }
 
+        var matcher = new CodeGenMatcher();
         var mocks = mockedResponses.get(query);
+
+        if (nonNull(params)) {
+            for (var i = 0; i < params.size(); i++) {
+                if (matcher.checkArgument(params.get(i))) {
+                    params.set(i, matcher);
+                }
+            }
+        }
 
         if (nonNull(mocks)) {
             mocks.add(Pair.of(params, returnObject));
         } else {
             mockedResponses.put(query, new ArrayList<>(Collections.singletonList(Pair.of(params, returnObject))));
         }
+
+        matcher.clearContext();
     }
 
     private static QueryProcessor.Processor createMockedProcessor() {
@@ -142,7 +159,7 @@ public class CodeGenMock {
                     return value;
                 case LIST:
                 case TUPLES:
-                        return value instanceof List ? value : List.of(value);
+                    return value instanceof List ? value : List.of(value);
                 case PAGE:
                     return value instanceof Page ? value : new PageImpl(value instanceof List ? (List) value : List.of(value), pagable, Integer.MAX_VALUE);
                 default:
@@ -154,22 +171,20 @@ public class CodeGenMock {
 
     private static boolean paramsEquals(Pair<List<Object>, Object> pair, List<Object> params) {
         var mockParams = pair.getLeft();
-        if (nonNull(mockParams)) {
-            if (mockParams.size() == params.size()) {
-                for (var i = 0; i < params.size(); i++) {
-                    if (!mockParams.get(i).equals(params.get(i))) {
-                        return false;
-                    }
+        if (nonNull(mockParams) && mockParams.size() == params.size()) {
+            for (var i = 0; i < params.size(); i++) {
+                if (isNull(mockParams.get(i)) && nonNull(params.get(i)) || !mockParams.get(i).equals(params.get(i)) && !(mockParams.get(i) instanceof CodeGenMatcher)) {
+                    return false;
                 }
-                return true;
             }
+            return true;
         }
 
         return false;
     }
 
     private static void logError(String query, List<Object> params) {
-        throw new QueryNotMockedException("Query '" + query + "' with params [" + String.join("," , params.stream().map(Object::toString).collect(Collectors.joining())) + "] is not mocked!");
+        throw new QueryNotMockedException("Query '" + query + "' with params [" + params.stream().map(Object::toString).collect(Collectors.joining(", ")) + "] is not mocked!");
     }
 
     public static void mockCreate(Class<?> cls) {

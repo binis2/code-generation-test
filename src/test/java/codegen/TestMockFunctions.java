@@ -20,17 +20,13 @@ package codegen;
  * #L%
  */
 
-import net.binis.codegen.TestMock;
-import net.binis.codegen.TestMockEntity;
-import net.binis.codegen.TestModify;
-import net.binis.codegen.TestModifyImpl;
+import net.binis.codegen.*;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.Optional;
-
+import static net.binis.codegen.mock.CodeGenMatcher.any;
+import static net.binis.codegen.mock.CodeGenMatcher.anyLong;
 import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -51,12 +47,23 @@ public class TestMockFunctions {
     @Test
     public void testQuery() {
         mockCreate(TestModifyImpl.class);
+        mockCreate(SubModifyImpl.class);
+
         var mockObj = mock(TestModify.class);
         mockQuery(TestModify.find().by().id(5L), mockObj);
-        mockQuery(TestModify.find().by().title("test"), null, mockObj);
+        mockJustQuery(TestModify.find().by().title("test"), mockObj);
+        mockQuery(TestModify.find().by().title("test").and().id(anyLong()), mockObj);
+        mockQuery(TestModify.find().by().subs().contains(any()).and().id(5L), mockObj);
 
         assertEquals(mockObj, TestModify.find().by().id(5L).get().get());
         assertThrows(QueryNotMockedException.class, () -> TestModify.find().by().id(6L).get().get());
         assertEquals(mockObj, TestModify.find().by().title("test2").get().get());
+        assertEquals(mockObj, TestModify.find().by().title("test").and().id(5L).get().get());
+        assertEquals(mockObj, TestModify.find().by().subs().contains(SubModify.create()).and().id(5L).get().get());
+    }
+
+    @Test
+    public void testMockContext() {
+        mockContext();
     }
 }

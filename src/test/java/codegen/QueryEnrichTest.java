@@ -57,7 +57,6 @@ public class QueryEnrichTest extends BaseTest {
         ));
     }
 
-
     @Test
     public void enrichQueryTest() {
         mockContext();
