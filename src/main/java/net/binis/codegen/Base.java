@@ -23,8 +23,10 @@ package net.binis.codegen;
 
 import net.binis.codegen.intf.Typeable;
 import net.binis.codegen.enums.TestEnum;
+import javax.annotation.processing.Generated;
 import java.time.OffsetDateTime;
 
+@Generated(value = "BasePrototype", comments = "BaseImpl")
 public interface Base extends Typeable<TestEnum> {
 
     OffsetDateTime getDate();

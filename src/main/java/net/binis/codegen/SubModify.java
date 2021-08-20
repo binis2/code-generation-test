@@ -26,10 +26,12 @@ import net.binis.codegen.intf.Taggable;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
+import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
+@Generated(value = "SubModifyPrototype", comments = "SubModifyImpl")
 public interface SubModify extends Base, Taggable {
 
     static SubModify create() {

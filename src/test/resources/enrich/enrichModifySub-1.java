@@ -3,7 +3,9 @@ package net.binis.codegen;
 
 import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
+import javax.annotation.processing.Generated;
 
+@Generated(value = "SubModifyPrototype", comments = "SubModifyImpl")
 public interface SubModify extends Prototypable<SubModify> {
 
     double getSubAmount();

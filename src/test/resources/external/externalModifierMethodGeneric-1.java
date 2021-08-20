@@ -2,7 +2,9 @@
 package net.binis.codegen;
 
 import net.binis.codegen.intf.*;
+import javax.annotation.processing.Generated;
 
+@Generated(value = "TestPrototype", comments = "TestImpl")
 public interface Test extends ExternalInterface<String>, Available, Previewable, Taggable {
 
     <T> void setTag(T tag);

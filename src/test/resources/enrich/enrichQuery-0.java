@@ -7,10 +7,12 @@ import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.creator.EntityCreator;
+import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
+@Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl implements Test {
 
     protected double amount;

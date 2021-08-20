@@ -31,11 +31,13 @@ import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import javax.persistence.Transient;
+import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
+@Generated(value = "SubModifyPrototype", comments = "SubModify")
 public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<SubModify.Modify> {
 
     protected double subAmount;

@@ -23,9 +23,11 @@ package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.creator.EntityCreator;
+import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 
+@Generated(value = "SubPrototype", comments = "SubImpl")
 public interface Sub {
 
     static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>> find() {

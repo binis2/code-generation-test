@@ -33,12 +33,14 @@ import net.binis.codegen.collection.EmbeddedCodeSetImpl;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
+import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.Set;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
+@Generated(value = "TestModifyPrototype", comments = "TestModify")
 public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, Modifiable<TestModify.Modify> {
 
     protected double amount;

@@ -5,9 +5,11 @@ import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
 import net.binis.codegen.base.Extended;
+import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.List;
 
+@Generated(value = "TestModifyPrototype", comments = "TestModifyImpl")
 public interface TestModify extends Prototypable<SubModify>, Extended {
 
     double getAmount();

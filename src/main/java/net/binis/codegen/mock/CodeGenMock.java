@@ -22,13 +22,11 @@ package net.binis.codegen.mock;
 
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.exception.GenericCodeGenException;
+import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
 import net.binis.codegen.spring.BasePersistenceOperations;
 import net.binis.codegen.spring.component.ApplicationContextProvider;
-import net.binis.codegen.spring.query.Printable;
-import net.binis.codegen.spring.query.QueryAccessor;
-import net.binis.codegen.spring.query.QueryProcessor;
-import net.binis.codegen.spring.query.Queryable;
+import net.binis.codegen.spring.query.*;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
@@ -37,12 +35,10 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.Tuple;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -60,7 +56,7 @@ public class CodeGenMock {
     }
 
     private static QueryProcessor.Processor mockedProcessor;
-    private static Map<String, List<Pair<List<Object>, Object>>> mockedResponses = new HashMap<>();
+    private static final Map<String, List<Pair<List<Object>, Object>>> mockedResponses = new HashMap<>();
 
     public static void mockContext() {
         if (isNull(ApplicationContextProvider.getApplicationContext())) {
@@ -111,16 +107,7 @@ public class CodeGenMock {
             QueryProcessor.setProcessor(createMockedProcessor());
         }
 
-        var matcher = new CodeGenMatcher();
         var mocks = mockedResponses.get(query);
-
-        if (nonNull(params)) {
-            for (var i = 0; i < params.size(); i++) {
-                if (matcher.checkArgument(params.get(i))) {
-                    params.set(i, matcher);
-                }
-            }
-        }
 
         if (nonNull(mocks)) {
             mocks.add(Pair.of(params, returnObject));
@@ -128,7 +115,6 @@ public class CodeGenMock {
             mockedResponses.put(query, new ArrayList<>(Collections.singletonList(Pair.of(params, returnObject))));
         }
 
-        matcher.clearContext();
     }
 
     private static QueryProcessor.Processor createMockedProcessor() {
@@ -173,7 +159,7 @@ public class CodeGenMock {
         var mockParams = pair.getLeft();
         if (nonNull(mockParams) && mockParams.size() == params.size()) {
             for (var i = 0; i < params.size(); i++) {
-                if (isNull(mockParams.get(i)) && nonNull(params.get(i)) || !mockParams.get(i).equals(params.get(i)) && !(mockParams.get(i) instanceof CodeGenMatcher)) {
+                if (isNull(mockParams.get(i)) && nonNull(params.get(i)) || !mockParams.get(i).equals(params.get(i)) && !CodeGenMatcher.class.equals(mockParams.get(i))) {
                     return false;
                 }
             }
@@ -189,6 +175,54 @@ public class CodeGenMock {
 
     public static void mockCreate(Class<?> cls) {
         instantiate(cls);
+        findMocks(cls);
+    }
+
+    private static void findMocks(Class<?> cls) {
+        findMock(cls);
+
+        for (var i : cls.getInterfaces()) {
+            findMocks(i);
+        }
+
+        for (var c : cls.getClasses()) {
+            findMocks(c);
+        }
+    }
+
+    private static void findMock(Class<?> i) {
+        Function mock = v -> {
+            if (CodeGenMatcher.anyMock.get()) {
+                CodeGenMatcher.anyMock.set(false);
+                v = CodeGenMatcher.class;
+            }
+            return v;
+        };
+
+        Function onValue = v -> {
+            if (isNull(v) && CodeGenMatcher.anyMock.get()) {
+                v = CodeGenMatcher.class;
+                CodeGenMatcher.anyMock.set(false);
+            }
+            return v;
+        };
+
+        var factory = CodeFactory.lookup(i);
+        if (nonNull(factory)) {
+            CodeFactory.envelopType(i, f -> {
+                var result = f.create();
+                if (result instanceof MockedQuery) {
+                    ((MockedQuery) result).setMocked(mock, onValue);
+                }
+                return result;
+            }, (f, p, v) -> {
+                var result = f.create(p, v);
+                if (result instanceof MockedQuery) {
+                    ((MockedQuery) result).setMocked(mock, onValue);
+                }
+                return result;
+            });
+        }
     }
 
 }

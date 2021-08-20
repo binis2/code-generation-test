@@ -8,10 +8,12 @@ import net.binis.codegen.spring.query.*;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.creator.EntityCreator;
+import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
+@Generated(value = "SubPrototype", comments = "Sub")
 public class SubImpl implements Sub, Modifiable<Sub.Modify> {
 
     protected double subAmount;

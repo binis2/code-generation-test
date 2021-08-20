@@ -6,9 +6,11 @@ import net.binis.codegen.collection.EmbeddedCodeSetImpl;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
+import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.List;
 
+@Generated(value = "TestModifyPrototype", comments = "TestModify")
 public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify> {
 
     protected double amount;

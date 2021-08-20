@@ -10,10 +10,12 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
+import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
+@Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected double amount;

@@ -3,9 +3,11 @@ package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.creator.EntityCreator;
+import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 
+@Generated(value = "TestPrototype", comments = "TestImpl")
 public interface Test {
 
     static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>> find() {

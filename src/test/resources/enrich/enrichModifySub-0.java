@@ -4,7 +4,9 @@ package net.binis.codegen;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
+import javax.annotation.processing.Generated;
 
+@Generated(value = "SubModifyPrototype", comments = "SubModify")
 public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
 
     protected SubModify prototype;

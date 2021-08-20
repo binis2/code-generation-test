@@ -6,11 +6,13 @@ import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
+import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
+@Generated(value = "MixModifyPrototype", comments = "MixModifyImpl")
 public interface MixModify extends TestModify {
 
     MixModify.Modify asMixModify();

@@ -2,7 +2,9 @@
 package net.binis.codegen;
 
 import net.binis.codegen.modifier.Modifiable;
+import javax.annotation.processing.Generated;
 
+@Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected boolean available;

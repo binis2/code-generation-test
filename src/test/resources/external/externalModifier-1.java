@@ -4,7 +4,9 @@ package net.binis.codegen;
 import net.binis.codegen.intf.Previewable;
 import net.binis.codegen.intf.ExternalInterface;
 import net.binis.codegen.intf.Available;
+import javax.annotation.processing.Generated;
 
+@Generated(value = "TestPrototype", comments = "TestImpl")
 public interface Test extends ExternalInterface<String>, Available, Previewable {
 
     Test.Modify with();
