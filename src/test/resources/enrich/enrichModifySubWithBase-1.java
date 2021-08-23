@@ -18,7 +18,7 @@ public interface SubModify extends Base, Taggable {
         return EntityCreator.create(SubModify.class);
     }
 
-    static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>> find() {
+    static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>, QueryFieldsStart<SubModify, SubModify.QuerySelect<SubModify>>> find() {
         return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
     }
 
@@ -57,6 +57,9 @@ public interface SubModify extends Base, Taggable {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, SubModify.Fields<QR> {
+    }
+
+    interface QueryFieldsStart<QR, QS> extends QueryExecute<QR>, QueryWhere<QS>, QueryOperationFields<QueryFieldsStart<QR, QS>> {
     }
 
     interface QueryFuncs<QR> {

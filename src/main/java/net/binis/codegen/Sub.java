@@ -30,7 +30,7 @@ import java.util.List;
 @Generated(value = "SubPrototype", comments = "SubImpl")
 public interface Sub {
 
-    static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>> find() {
+    static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>, QueryFieldsStart<Sub, Sub.QuerySelect<Sub>>> find() {
         return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class);
     }
 
@@ -50,6 +50,9 @@ public interface Sub {
         QR subAmount(double subAmount);
 
         QR subtitle(String subtitle);
+    }
+
+    interface QueryFieldsStart<QR, QS> extends QueryExecute<QR>, QueryWhere<QS>, QueryOperationFields<QueryFieldsStart<QR, QS>> {
     }
 
     interface QueryFuncs<QR> {

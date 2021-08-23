@@ -120,7 +120,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
-    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect {
+    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect, Test.QueryFieldsStart {
 
         protected TestQueryExecutorImpl() {
             super(Test.class);

@@ -1,26 +1,6 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
-/*-
- * #%L
- * code-generation-test
- * %%
- * Copyright (C) 2021 Binis Belev
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import net.binis.codegen.spring.BaseEntityModifier;
 import net.binis.codegen.modifier.Modifier;
 import net.binis.codegen.modifier.Modifiable;
@@ -87,32 +67,32 @@ public class TestMockEntity implements TestMock, Modifiable<TestMock.Modify> {
         this.name = name;
     }
 
-    public Modify with() {
+    public TestMock.Modify with() {
         return new TestMockEntityModifyImpl();
     }
 
-    protected class TestMockEntityModifyImpl extends BaseEntityModifier<Modify, TestMock> implements Modify {
+    protected class TestMockEntityModifyImpl extends BaseEntityModifier<TestMock.Modify, TestMock> implements TestMock.Modify {
 
         protected TestMockEntityModifyImpl() {
             setObject(TestMockEntity.this);
         }
 
-        public Modify actionLink(String actionLink) {
+        public TestMock.Modify actionLink(String actionLink) {
             TestMockEntity.this.actionLink = actionLink;
             return this;
         }
 
-        public Modify buttonText(String buttonText) {
+        public TestMock.Modify buttonText(String buttonText) {
             TestMockEntity.this.buttonText = buttonText;
             return this;
         }
 
-        public Modify code(String code) {
+        public TestMock.Modify code(String code) {
             TestMockEntity.this.code = code;
             return this;
         }
 
-        public Modify description(String description) {
+        public TestMock.Modify description(String description) {
             TestMockEntity.this.description = description;
             return this;
         }
@@ -121,7 +101,7 @@ public class TestMockEntity implements TestMock, Modifiable<TestMock.Modify> {
             return TestMockEntity.this;
         }
 
-        public Modify name(String name) {
+        public TestMock.Modify name(String name) {
             TestMockEntity.this.name = name;
             return this;
         }

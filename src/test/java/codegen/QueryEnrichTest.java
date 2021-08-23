@@ -66,6 +66,12 @@ public class QueryEnrichTest extends BaseTest {
         mockCreate(TestModifyImpl.class);
         mockCreate(SubModifyImpl.class);
 
+        checkQuery("select u.subAmount from net.binis.codegen.Sub u ",
+                () -> net.binis.codegen.Sub.find().select().subAmount().get());
+
+        checkQuery("select u.subAmount,u.subtitle from net.binis.codegen.Sub u where (u.subAmount > ?1)", List.of(5.0),
+                () -> net.binis.codegen.Sub.find().select().subAmount().subtitle().where().subAmount().greater(5.0).get());
+
         checkQuery("from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.9),
                 () -> net.binis.codegen.Sub.find().by().subAmount(5.9).get());
 
@@ -259,6 +265,11 @@ public class QueryEnrichTest extends BaseTest {
     private void checkQuery(String expected, List<Object> params, Runnable query) {
         checkQuery(expected, params, null, query);
     }
+
+    private void checkQuery(String expected, Runnable query) {
+        checkQuery(expected, Collections.emptyList(), null, query);
+    }
+
 
     private void checkQuery(String expected, List<Object> params, Object result, Runnable query) {
         mockQueryProcessor((q, p) -> {

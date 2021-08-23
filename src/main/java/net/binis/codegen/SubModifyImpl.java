@@ -169,7 +169,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
-    protected static class SubModifyQueryExecutorImpl extends QueryExecutor implements SubModify.QuerySelect {
+    protected static class SubModifyQueryExecutorImpl extends QueryExecutor implements SubModify.QuerySelect, SubModify.QueryFieldsStart {
 
         protected SubModifyQueryExecutorImpl() {
             super(SubModify.class);

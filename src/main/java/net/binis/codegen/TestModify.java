@@ -39,7 +39,7 @@ public interface TestModify extends Base {
         return EntityCreator.create(TestModify.class);
     }
 
-    static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>> find() {
+    static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>> find() {
         return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
     }
 
@@ -85,6 +85,9 @@ public interface TestModify extends Base {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, TestModify.Fields<QR> {
+    }
+
+    interface QueryFieldsStart<QR, QS> extends QueryExecute<QR>, QueryWhere<QS>, QueryOperationFields<QueryFieldsStart<QR, QS>> {
     }
 
     interface QueryFuncs<QR> {

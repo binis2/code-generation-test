@@ -133,7 +133,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
     }
 
-    protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect {
+    protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
             super(TestModify.class);

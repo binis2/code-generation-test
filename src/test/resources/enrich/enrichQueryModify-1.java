@@ -11,7 +11,7 @@ import java.util.List;
 @Generated(value = "TestPrototype", comments = "TestImpl")
 public interface Test {
 
-    static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>> find() {
+    static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>, QueryFieldsStart<Test, Test.QuerySelect<Test>>> find() {
         return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
     }
 
@@ -61,6 +61,9 @@ public interface Test {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, Test.Fields<QR> {
+    }
+
+    interface QueryFieldsStart<QR, QS> extends QueryExecute<QR>, QueryWhere<QS>, QueryOperationFields<QueryFieldsStart<QR, QS>> {
     }
 
     interface QueryFuncs<QR> {

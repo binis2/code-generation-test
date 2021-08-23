@@ -41,7 +41,7 @@ public interface MixModify extends TestModify {
         return EntityCreator.create(MixModify.class);
     }
 
-    static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>> find() {
+    static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>, QueryFieldsStart<MixModify, MixModify.QuerySelect<MixModify>>> find() {
         return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class);
     }
 
@@ -93,6 +93,9 @@ public interface MixModify extends TestModify {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, MixModify.Fields<QR> {
+    }
+
+    interface QueryFieldsStart<QR, QS> extends QueryExecute<QR>, QueryWhere<QS>, QueryOperationFields<QueryFieldsStart<QR, QS>> {
     }
 
     interface QueryFuncs<QR> {

@@ -44,7 +44,7 @@ public class SubImpl implements Sub {
         this.subtitle = subtitle;
     }
 
-    protected static class SubQueryExecutorImpl extends QueryExecutor implements Sub.QuerySelect {
+    protected static class SubQueryExecutorImpl extends QueryExecutor implements Sub.QuerySelect, Sub.QueryFieldsStart {
 
         protected SubQueryExecutorImpl() {
             super(Sub.class);
