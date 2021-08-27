@@ -1,9 +1,8 @@
 package net.binis.codegen;
 
 import net.binis.codegen.annotation.CodePrototype;
-import net.binis.codegen.enrich.handler.ModifierEnricher;
+import net.binis.codegen.enrich.ModifierEnricher;
 import net.binis.codegen.intf.*;
-
 import javax.persistence.Transient;
 
 @CodePrototype(enrichers = {ModifierEnricher.class})

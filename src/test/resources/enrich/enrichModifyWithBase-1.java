@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 public interface TestModify extends Base {
 
     static TestModify create() {
-        return EntityCreator.create(TestModify.class);
+        return EntityCreator.create(TestModify.class, "net.binis.codegen.TestModifyImpl");
     }
 
     static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>> find() {

@@ -1,9 +1,9 @@
 package net.binis.codegen;
 
 import net.binis.codegen.annotation.CodePrototype;
-import net.binis.codegen.enrich.handler.CreatorEnricher;
-import net.binis.codegen.enrich.handler.ModifierEnricher;
-import net.binis.codegen.enrich.handler.QueryEnricher;
+import net.binis.codegen.enrich.CreatorEnricher;
+import net.binis.codegen.enrich.ModifierEnricher;
+import net.binis.codegen.enrich.QueryEnricher;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.intf.Typeable;
 

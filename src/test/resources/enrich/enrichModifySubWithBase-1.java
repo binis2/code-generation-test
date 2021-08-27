@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 public interface SubModify extends Base, Taggable {
 
     static SubModify create() {
-        return EntityCreator.create(SubModify.class);
+        return EntityCreator.create(SubModify.class, "net.binis.codegen.SubModifyImpl");
     }
 
     static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>, QueryFieldsStart<SubModify, SubModify.QuerySelect<SubModify>>> find() {

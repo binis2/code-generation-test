@@ -1,8 +1,7 @@
 package net.binis.codegen;
 
-import net.binis.codegen.enrich.handler.QueryEnricher;
 import net.binis.codegen.annotation.CodePrototype;
-import java.util.List;
+import net.binis.codegen.enrich.QueryEnricher;
 
 @CodePrototype(enrichers = {QueryEnricher.class})
 public interface SubPrototype {
