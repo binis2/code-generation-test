@@ -170,7 +170,7 @@ public class CodeGenMock {
     }
 
     private static void logError(String query, List<Object> params) {
-        throw new QueryNotMockedException("Query '" + query + "' with params [" + params.stream().map(Object::toString).collect(Collectors.joining(", ")) + "] is not mocked!");
+        throw new QueryNotMockedException("Query '" + query + "' with params [" + params.stream().map(Object::toString).map(s -> "(" + s + ")").collect(Collectors.joining(", ")) + "] is not mocked!");
     }
 
     public static void mockCreate(Class<?> cls) {
