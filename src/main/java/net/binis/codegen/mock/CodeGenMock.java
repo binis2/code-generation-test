@@ -98,6 +98,15 @@ public class CodeGenMock {
         mockQuery(query.print(), ((QueryAccessor) query).getParams(), returnObject);
     }
 
+    public static void mockCountQuery(Queryable query, Long count) {
+        mockQuery("select count(*) " + query.print(), ((QueryAccessor) query).getParams(), count);
+    }
+
+    public static void mockExistsQuery(Queryable query, boolean exists) {
+        mockCountQuery(query, exists ? 1L : 0L);
+    }
+
+
     public static void mockQuery(String query, Object returnObject) {
         mockQuery(query, null, returnObject);
     }

@@ -56,12 +56,18 @@ public class TestMockFunctions {
         mockQuery(TestModify.find().by().subs().contains(any()).and().id(5L), mockObj);
         mockQuery(TestModify.find().by().title(null).and().id(any()), mockObj);
 
+        mockExistsQuery(TestModify.find().by().id(123L)
+                .and().subs().join(t ->
+                        t.where().id().greater(5L)), true);
+
+        assertEquals(true, TestModify.find().by().id(123L).and().subs().join(t -> t.where().id().greater(5L)).exists());
         assertEquals(mockObj, TestModify.find().by().id(5L).get().get());
         assertThrows(QueryNotMockedException.class, () -> TestModify.find().by().id(6L).get().get());
         assertEquals(mockObj, TestModify.find().by().title("test2").get().get());
         assertEquals(mockObj, TestModify.find().by().title("test").and().id(5L).get().get());
         assertEquals(mockObj, TestModify.find().by().subs().contains(SubModify.create()).and().id(5L).get().get());
         assertEquals(mockObj, TestModify.find().by().title(null).and().id(5L).get().get());
+
     }
 
     @Test
