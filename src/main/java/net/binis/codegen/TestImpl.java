@@ -139,7 +139,7 @@ public class TestImpl implements Test {
         }
 
         public Test.QueryName parent() {
-            var result = EntityCreator.create(Test.QueryName.class);
+            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
             ((QueryEmbed) result).setParent("parent", this);
             return result;
         }
@@ -156,7 +156,7 @@ public class TestImpl implements Test {
         }
 
         public Sub.QueryName sub() {
-            var result = EntityCreator.create(Sub.QueryName.class);
+            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
             ((QueryEmbed) result).setParent("sub", this);
             return result;
         }
@@ -236,7 +236,7 @@ public class TestImpl implements Test {
         }
 
         public Test.QueryName parent() {
-            var result = EntityCreator.create(Test.QueryName.class);
+            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
             ((QueryEmbed) result).setParent("parent", executor);
             return result;
         }
@@ -246,7 +246,7 @@ public class TestImpl implements Test {
         }
 
         public Sub.QueryName sub() {
-            var result = EntityCreator.create(Sub.QueryName.class);
+            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
             ((QueryEmbed) result).setParent("sub", executor);
             return result;
         }

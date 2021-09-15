@@ -11,7 +11,7 @@ import java.util.List;
 public interface Sub {
 
     static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>, QueryFieldsStart<Sub, Sub.QuerySelect<Sub>>> find() {
-        return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class);
+        return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class, "net.binis.codegen.SubImpl");
     }
 
     double getSubAmount();

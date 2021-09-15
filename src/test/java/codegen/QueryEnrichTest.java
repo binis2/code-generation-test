@@ -33,7 +33,7 @@ import java.util.List;
 import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class QueryEnrichTest extends BaseTest {
+class QueryEnrichTest extends BaseTest {
 
     @BeforeEach
     public void cleanUp() {
@@ -41,7 +41,7 @@ public class QueryEnrichTest extends BaseTest {
     }
 
     @Test
-    public void enrichQuery() {
+    void enrichQuery() {
         //testSingle("enrich/enrichQuery.java", "enrich/enrichQuery-0.java", "enrich/enrichQuery-1.java");
         testMulti(List.of(
                 Triple.of("enrich/enrichQuerySub.java", "enrich/enrichQuerySub-0.java", "enrich/enrichQuerySub-1.java"),
@@ -50,7 +50,7 @@ public class QueryEnrichTest extends BaseTest {
     }
 
     @Test
-    public void enrichQueryModifier() {
+    void enrichQueryModifier() {
         testMulti(List.of(
                 Triple.of("enrich/enrichQueryModifySub.java", "enrich/enrichQueryModifySub-0.java", "enrich/enrichQueryModifySub-1.java"),
                 Triple.of("enrich/enrichQueryModify.java", "enrich/enrichQueryModify-0.java", "enrich/enrichQueryModify-1.java")
@@ -58,7 +58,7 @@ public class QueryEnrichTest extends BaseTest {
     }
 
     @Test
-    public void enrichQueryTest() {
+    void enrichQueryTest() {
         mockContext();
         mockCreate(TestImpl.class);
         mockCreate(SubImpl.class);

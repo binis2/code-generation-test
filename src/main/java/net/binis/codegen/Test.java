@@ -31,7 +31,7 @@ import java.util.List;
 public interface Test {
 
     static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>, QueryFieldsStart<Test, Test.QuerySelect<Test>>> find() {
-        return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
+        return (QueryStarter) EntityCreator.create(Test.QuerySelect.class, "net.binis.codegen.TestImpl");
     }
 
     double getAmount();

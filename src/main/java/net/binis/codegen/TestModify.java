@@ -40,7 +40,7 @@ public interface TestModify extends Base {
     }
 
     static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>> find() {
-        return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
+        return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class, "net.binis.codegen.TestModifyImpl");
     }
 
     double getAmount();

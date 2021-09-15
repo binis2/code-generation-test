@@ -19,7 +19,7 @@ public interface SubModify extends Base, Taggable {
     }
 
     static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>, QueryFieldsStart<SubModify, SubModify.QuerySelect<SubModify>>> find() {
-        return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
+        return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class, "net.binis.codegen.SubModifyImpl");
     }
 
     double getSubAmount();

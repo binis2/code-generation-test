@@ -30,7 +30,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ModifyEnrichTest extends BaseTest {
+class ModifyEnrichTest extends BaseTest {
 
     @BeforeEach
     public void cleanUp() {
@@ -38,7 +38,7 @@ public class ModifyEnrichTest extends BaseTest {
     }
 
     @Test
-    public void enrichModify() {
+    void enrichModify() {
         testMulti(List.of(
                 Triple.of("enrich/enrichModifySub.java", "enrich/enrichModifySub-0.java", "enrich/enrichModifySub-1.java"),
                 Triple.of("enrich/enrichModify.java", "enrich/enrichModify-0.java", "enrich/enrichModify-1.java")
@@ -46,7 +46,7 @@ public class ModifyEnrichTest extends BaseTest {
     }
 
     @Test
-    public void enrichModifyWithBase() {
+    void enrichModifyWithBase() {
         testMulti(List.of(
                 Triple.of("enrich/enrichModifyBase1.java", "enrich/enrichModifyBase1-0.java", "enrich/enrichModifyBase1-1.java"),
                 Triple.of("enrich/enrichModifySubWithBase.java", "enrich/enrichModifySubWithBase-0.java", "enrich/enrichModifySubWithBase-1.java"),
@@ -55,7 +55,7 @@ public class ModifyEnrichTest extends BaseTest {
     }
 
     @Test
-    public void enrichModifyWithBaseAndMixIn() {
+    void enrichModifyWithBaseAndMixIn() {
         testMulti(List.of(
                 Triple.of("enrich/enrichModifyBase1.java", "enrich/enrichModifyBase1-0.java", "enrich/enrichModifyBase1-1.java"),
                 Triple.of("enrich/enrichModifySubWithBase.java", "enrich/enrichModifySubWithBase-0.java", "enrich/enrichModifySubWithBase-1.java"),
@@ -65,7 +65,7 @@ public class ModifyEnrichTest extends BaseTest {
     }
 
     @Test
-    public void enrichModifyWithExtendedPrototype() {
+    void enrichModifyWithExtendedPrototype() {
         testMulti(List.of(
                 Triple.of("enrich/enrichModifySubWithExtended.java", "enrich/enrichModifySub-0.java", "enrich/enrichModifySub-1.java"),
                 Triple.of("enrich/enrichExtended.java", null, "enrich/enrichExtended-1.java"),
