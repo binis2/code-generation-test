@@ -25,27 +25,29 @@ import net.binis.codegen.mock.exception.QueryNotMockedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static net.binis.codegen.mock.CodeGenMatcher.any;
-import static net.binis.codegen.mock.CodeGenMatcher.anyLong;
+import java.util.List;
+
+import static net.binis.codegen.mock.CodeGenMatcher.*;
 import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class TestMockFunctions {
+class TestMockFunctions {
 
     @BeforeEach
     public void setUp() {
+        mockQueryClear();
         mockContextAndEntityManager();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(TestMockEntity.class);
         assertNotNull(TestMock.create().save().with().merge());
     }
 
     @Test
-    public void testQuery() {
+    void testQuery() {
         mockCreate(TestModifyImpl.class);
         mockCreate(SubModifyImpl.class);
 
@@ -67,11 +69,31 @@ public class TestMockFunctions {
         assertEquals(mockObj, TestModify.find().by().title("test").and().id(5L).get().get());
         assertEquals(mockObj, TestModify.find().by().subs().contains(SubModify.create()).and().id(5L).get().get());
         assertEquals(mockObj, TestModify.find().by().title(null).and().id(5L).get().get());
-
     }
 
     @Test
-    public void testMockContext() {
+    void testMockContext() {
         mockContext();
     }
+
+    @Test
+    void testMultiMock() {
+        var mockObj = mock(TestModify.class);
+        mockQuery(TestModify.find().by().id(5L), mockObj);
+        mockQuery(TestModify.find().by().id(5L), mock(TestModify.class));
+
+        assertEquals(mockObj, TestModify.find().by().id(5L).get().get());
+    }
+
+    @Test
+    void testMultiResponse() {
+        var mockObj = mock(TestModify.class);
+        mockCountQuery(TestModify.find().by().id(5L), orderedList(List.of(5L, 0L)));
+        mockExistsQuery(TestModify.find().by().id(5L), true);
+
+        assertEquals(5L, TestModify.find().by().id(5L).count());
+        assertFalse(TestModify.find().by().id(5L).exists());
+    }
+
+
 }

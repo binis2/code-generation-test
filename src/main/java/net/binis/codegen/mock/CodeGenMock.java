@@ -39,6 +39,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -90,7 +91,15 @@ public class CodeGenMock {
         mockQuery(query.print(), null, returnObject);
     }
 
+    public static void mockJustQuery(Printable query, Supplier<Object> returnObject) {
+        mockQuery(query.print(), null, returnObject);
+    }
+
     public static void mockQuery(Printable query, List<Object> params, Object returnObject) {
+        mockQuery(query.print(), params, returnObject);
+    }
+
+    public static void mockQuery(Printable query, List<Object> params, Supplier<Object> returnObject) {
         mockQuery(query.print(), params, returnObject);
     }
 
@@ -98,7 +107,15 @@ public class CodeGenMock {
         mockQuery(query.print(), ((QueryAccessor) query).getParams(), returnObject);
     }
 
+    public static void mockQuery(Queryable query, Supplier<Object> returnObject) {
+        mockQuery(query.print(), ((QueryAccessor) query).getParams(), returnObject);
+    }
+
     public static void mockCountQuery(Queryable query, Long count) {
+        mockQuery("select count(*) " + query.print(), ((QueryAccessor) query).getParams(), count);
+    }
+
+    public static void mockCountQuery(Queryable query, Supplier<Long> count) {
         mockQuery("select count(*) " + query.print(), ((QueryAccessor) query).getParams(), count);
     }
 
@@ -106,6 +123,13 @@ public class CodeGenMock {
         mockCountQuery(query, exists ? 1L : 0L);
     }
 
+    public static void mockExistsQuery(Queryable query, Supplier<Boolean> exists) {
+
+        Supplier<Long> result = () ->
+                exists.get() ? 1L : 0L;
+
+        mockCountQuery(query, result);
+    }
 
     public static void mockQuery(String query, Object returnObject) {
         mockQuery(query, null, returnObject);
@@ -119,31 +143,36 @@ public class CodeGenMock {
         var mocks = mockedResponses.get(query);
 
         if (nonNull(mocks)) {
-            mocks.add(Pair.of(params, returnObject));
+            var mock = findMock(query, params);
+            if (mock.isEmpty()) {
+                mocks.add(Pair.of(params, returnObject));
+            } else {
+                if (nonNull(mock.get().getLeft()) && !(mock.get().getRight() instanceof Supplier)) {
+                    logWarning(query, params);
+                }
+            }
         } else {
             mockedResponses.put(query, new ArrayList<>(Collections.singletonList(Pair.of(params, returnObject))));
         }
 
     }
 
+    public static void mockQueryClear() {
+        mockedResponses.clear();
+    }
+
     private static QueryProcessor.Processor createMockedProcessor() {
         mockedProcessor = (executor, manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> {
-            var mocks = mockedResponses.get(query);
-            if (isNull(mocks)) {
-                logError(query, params);
-            }
-
-            var mock = mocks.stream().filter(p -> paramsEquals(p, params)).findFirst();
-
-            if (mock.isEmpty()) {
-                mock = mocks.stream().filter(p -> isNull(p.getLeft())).findFirst();
-            }
+            Optional<Pair<List<Object>, Object>> mock = findMock(query, params);
 
             if (mock.isEmpty()) {
                 logError(query, params);
             }
 
             var value = mock.get().getRight();
+            if (value instanceof Supplier) {
+                value = ((Supplier<?>) value).get();
+            }
             switch (resultType) {
                 case SINGLE:
                 case TUPLE:
@@ -164,6 +193,21 @@ public class CodeGenMock {
         return mockedProcessor;
     }
 
+    private static Optional<Pair<List<Object>, Object>> findMock(String query, List<Object> params) {
+        var mocks = mockedResponses.get(query);
+        if (isNull(mocks)) {
+            return Optional.empty();
+        }
+
+        var mock = mocks.stream().filter(p -> paramsEquals(p, params)).findFirst();
+
+        if (mock.isEmpty()) {
+            mock = mocks.stream().filter(p -> isNull(p.getLeft())).findFirst();
+        }
+
+        return mock;
+    }
+
     private static boolean paramsEquals(Pair<List<Object>, Object> pair, List<Object> params) {
         var mockParams = pair.getLeft();
         if (nonNull(mockParams) && mockParams.size() == params.size()) {
@@ -179,8 +223,17 @@ public class CodeGenMock {
     }
 
     private static void logError(String query, List<Object> params) {
-        throw new QueryNotMockedException("Query '" + query + "' with params [" + params.stream().map(Object::toString).map(s -> "(" + s + ")").collect(Collectors.joining(", ")) + "] is not mocked!");
+        throw new QueryNotMockedException(logText(query, params) + " is not mocked!");
     }
+
+    private static void logWarning(String query, List<Object> params) {
+        log.warn("{} already mocked!", logText(query, params));
+    }
+
+    private static String logText(String query, List<Object> params) {
+        return "Query '" + query + "' with params [" + params.stream().map(Object::toString).map(s -> "(" + s + ")").collect(Collectors.joining(", ")) + "]";
+    }
+
 
     public static void mockCreate(Class<?> cls) {
         instantiate(cls);

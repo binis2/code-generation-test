@@ -20,6 +20,11 @@ package net.binis.codegen.mock;
  * #L%
  */
 
+import net.binis.codegen.tools.Holder;
+
+import java.util.List;
+import java.util.function.Supplier;
+
 public class CodeGenMatcher {
 
     static final ThreadLocal<Boolean> anyMock = ThreadLocal.withInitial(() -> false);
@@ -58,6 +63,15 @@ public class CodeGenMatcher {
         //ToDo: match classes
         anyMock.set(true);
         return null;
+    }
+
+    public static Supplier orderedList(List<?> list) {
+        var idx = Holder.of(0);
+        return () -> {
+            var result = list.get(idx.get());
+            idx.set(idx.get() + 1);
+            return result;
+        };
     }
 
 }
