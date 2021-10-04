@@ -25,9 +25,7 @@ import net.binis.codegen.test.BaseTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class ExternalInterfaceTest extends BaseTest {
+class ExternalInterfaceTest extends BaseTest {
 
     @BeforeEach
     public void cleanUp() {
@@ -35,17 +33,17 @@ public class ExternalInterfaceTest extends BaseTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         testSingle("external/external.java", "external/external-0.java", "external/external-1.java");
     }
 
     @Test
-    public void testModifier() {
+    void testModifier() {
         testSingle("external/externalModifier.java", "external/externalModifier-0.java", "external/externalModifier-1.java");
     }
 
     @Test
-    public void testModifierMethodGeneric() {
+    void testModifierMethodGeneric() {
         testSingle("external/externalModifierMethodGeneric.java", "external/externalModifierMethodGeneric-0.java", "external/externalModifierMethodGeneric-1.java");
     }
 
