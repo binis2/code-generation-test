@@ -24,7 +24,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.exception.GenericCodeGenException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
+import net.binis.codegen.spring.AsyncEntityModifier;
 import net.binis.codegen.spring.BasePersistenceOperations;
+import net.binis.codegen.spring.async.AsyncExecutor;
+import net.binis.codegen.spring.async.executor.CodeExecutor;
 import net.binis.codegen.spring.component.ApplicationContextProvider;
 import net.binis.codegen.spring.query.*;
 import org.apache.commons.lang3.tuple.Pair;
@@ -75,7 +78,12 @@ public class CodeGenMock {
 
     public static void mockEntityManager() {
         var entityManager = new MockEntityManager();
-        BasePersistenceOperations.setEntityManagerProvider((factory) -> entityManager);
+        BasePersistenceOperations.setEntityManagerProvider(factory -> entityManager);
+    }
+
+    public static void mockAsyncExecutor() {
+        instantiate(AsyncEntityModifier.class);
+        CodeFactory.registerType(AsyncExecutor.class, CodeFactory.singleton(CodeExecutor.syncExecutor()), null);
     }
 
     public static void mockContextAndEntityManager() {
