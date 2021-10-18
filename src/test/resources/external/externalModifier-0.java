@@ -11,6 +11,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected String external;
 
+    protected String key;
+
     public TestImpl() {
     }
 
@@ -18,8 +20,24 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         return external;
     }
 
+    public String getKey() {
+        return key;
+    }
+
     public String getPreview() {
         return "preview";
+    }
+
+    public String getTest() {
+        return this.available ? "test" : getPreview();
+    }
+
+    public String getTest2() {
+        return this.available ? getPreview() : this.key;
+    }
+
+    public String getTest3() {
+        return this.available ? this.key : getPreview();
     }
 
     public boolean isAvailable() {
@@ -28,6 +46,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Test.Modify with() {
@@ -47,6 +69,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
         public Test.Modify external(String external) {
             TestImpl.this.external = external;
+            return this;
+        }
+
+        public Test.Modify key(String key) {
+            TestImpl.this.key = key;
             return this;
         }
     }

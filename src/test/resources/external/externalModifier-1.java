@@ -9,6 +9,16 @@ import javax.annotation.processing.Generated;
 @Generated(value = "TestPrototype", comments = "TestImpl")
 public interface Test extends ExternalInterface<String>, Available, Previewable {
 
+    String getKey();
+
+    String getTest();
+
+    String getTest2();
+
+    String getTest3();
+
+    void setKey(String key);
+
     Test.Modify with();
 
     interface Fields<T> {
@@ -16,6 +26,8 @@ public interface Test extends ExternalInterface<String>, Available, Previewable 
         T available(boolean available);
 
         T external(String external);
+
+        T key(String key);
     }
 
     interface Modify extends Test.Fields<Test.Modify> {
