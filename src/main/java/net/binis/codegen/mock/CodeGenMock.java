@@ -120,11 +120,18 @@ public class CodeGenMock {
     }
 
     public static void mockCountQuery(Queryable query, Long count) {
-        mockQuery("select count(*) " + query.print(), ((QueryAccessor) query).getParams(), count);
+        mockCountQuery(query, () -> count);
     }
 
     public static void mockCountQuery(Queryable query, Supplier<Long> count) {
-        mockQuery("select count(*) " + query.print(), ((QueryAccessor) query).getParams(), count);
+        var q = query.print();
+        if (q.startsWith("select u ")) {
+            q = q.replace("select u ", "select count(*) ");
+        } else {
+            q = "select count(*) " + q;
+        }
+
+        mockQuery(q, ((QueryAccessor) query).getParams(), count);
     }
 
     public static void mockExistsQuery(Queryable query, boolean exists) {

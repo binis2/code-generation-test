@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -225,13 +224,13 @@ class QueryEnrichTest extends BaseTest {
                         .order().title()
                         .get());
 
-        checkQuery("from net.binis.codegen.TestModify u join u.subs j0 where (j0.subtitle is null)  order by  u.title", Collections.emptyList(),
+        checkQuery("select u from net.binis.codegen.TestModify u join u.subs j0 where (j0.subtitle is null)  order by  u.title", Collections.emptyList(),
                 () -> TestModify.find().by().subs()
                         .join(j -> j.where().subtitle().isNull())
                         .order().title()
                         .get());
 
-        checkQuery("from net.binis.codegen.TestModify u join u.subs j0 where (j0.subtitle = ?1)  and  (u.amount = ?2) order by  u.title", List.of("test", 5.0),
+        checkQuery("select u from net.binis.codegen.TestModify u join u.subs j0 where (j0.subtitle = ?1)  and  (u.amount = ?2) order by  u.title", List.of("test", 5.0),
                 () -> TestModify.find().by().subs()
                         .join(j -> j.where().subtitle("test"))
                         .and().amount(5.0)
@@ -239,13 +238,13 @@ class QueryEnrichTest extends BaseTest {
                         .get());
 
 
-        checkQuery("from net.binis.codegen.TestModify u join fetch u.subs j0  order by  u.title", Collections.emptyList(),
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0  order by  u.title", Collections.emptyList(),
                 () -> TestModify.find().by().subs()
                         .joinFetch()
                         .order().title()
                         .get());
 
-        checkQuery("from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.amount is not null)  order by  u.title", Collections.emptyList(),
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.amount is not null)  order by  u.title", Collections.emptyList(),
                 () -> TestModify.find().by()
                         .amount().isNotNull().and()
                         .subs().joinFetch()
@@ -265,10 +264,10 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(6L),
                 () -> query.param(0, 6L));
 
-        checkQuery("from net.binis.codegen.TestModify u join u.subs j0 join fetch u.subs j1 where (u.amount = ?1) ", List.of(5.0),
+        checkQuery("select u from net.binis.codegen.TestModify u join u.subs j0 join fetch u.subs j1 where (u.amount = ?1) ", List.of(5.0),
                 () -> TestModify.find().by().amount(5.0).and().subs().join(s -> s.where().id().in(Collections.emptyList())).and().subs().joinFetch().get());
 
-        checkQuery("from net.binis.codegen.TestModify u join fetch u.items j0 where (u.amount = ?1) ", List.of(5.0),
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.items j0 where (u.amount = ?1) ", List.of(5.0),
                 () -> TestModify.find().by().amount(5.0).and().items().joinFetch().get());
 
     }
