@@ -278,6 +278,15 @@ class QueryEnrichTest extends BaseTest {
                         .amount(5.0).and().lower().title("ad")._close()
                         .and().items().joinFetch().get());
 
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (?2 member of u.items and ?3 member of u.items and ?4 member of u.items) and  (u.id = ?5)", List.of(5.0, 6L, 7L, 8L, 9L),
+                () -> TestModify.find().by().amount(5.0).and().items().containsAll(List.of(6L, 7L, 8L)).and().id(9L).get());
+
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (?2 member of u.items or ?3 member of u.items or ?4 member of u.items) and  (u.id = ?5)", List.of(5.0, 6L, 7L, 8L, 9L),
+                () -> TestModify.find().by().amount(5.0).and().items().containsOne(List.of(6L, 7L, 8L)).and().id(9L).get());
+
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (?2 not member of u.items and ?3 not member of u.items and ?4 not member of u.items) and  (u.id = ?5)", List.of(5.0, 6L, 7L, 8L, 9L),
+                () -> TestModify.find().by().amount(5.0).and().items().containsNone(List.of(6L, 7L, 8L)).and().id(9L).get());
+
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {
