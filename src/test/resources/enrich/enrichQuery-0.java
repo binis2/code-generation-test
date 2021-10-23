@@ -77,7 +77,7 @@ public class TestImpl implements Test {
     protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect, Test.QueryFieldsStart {
 
         protected TestQueryExecutorImpl() {
-            super(Test.class);
+            super(Test.class, () -> new TestQueryNameImpl());
         }
 
         public QueryAggregateOperation aggregate() {
@@ -96,20 +96,6 @@ public class TestImpl implements Test {
             return identifier("items");
         }
 
-        public Test.QueryName lower() {
-            doLower();
-            var result = new TestQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public Test.QueryName not() {
-            doNot();
-            var result = new TestQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public Test.QueryOrder order() {
             return (Test.QueryOrder) orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::orderIdentifier));
         }
@@ -124,13 +110,6 @@ public class TestImpl implements Test {
             return result;
         }
 
-        public Test.QueryName replace(String what, String withWhat) {
-            doReplace(what, withWhat);
-            var result = new TestQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation sub(Sub sub) {
             return identifier("sub", sub);
         }
@@ -141,40 +120,12 @@ public class TestImpl implements Test {
             return result;
         }
 
-        public Test.QueryName substring(int start) {
-            doSubstring(start);
-            var result = new TestQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public Test.QueryName substring(int start, int len) {
-            doSubstring(start, len);
-            var result = new TestQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation title(String title) {
             return identifier("title", title);
         }
 
         public QueryFunctions title() {
             return identifier("title");
-        }
-
-        public Test.QueryName trim() {
-            doTrim();
-            var result = new TestQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public Test.QueryName upper() {
-            doUpper();
-            var result = new TestQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         protected class TestQueryOrderImpl extends QueryOrderer implements Test.QueryOrder, Test.QueryAggregate {
@@ -189,10 +140,6 @@ public class TestImpl implements Test {
 
             public QueryOrderOperation parent() {
                 return (QueryOrderOperation) func.apply("parent");
-            }
-
-            public QueryOrderOperation script(String script) {
-                return (QueryOrderOperation) TestQueryExecutorImpl.this.script(script);
             }
 
             public QueryOrderOperation sub() {

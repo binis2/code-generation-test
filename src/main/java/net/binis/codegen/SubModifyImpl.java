@@ -172,7 +172,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     protected static class SubModifyQueryExecutorImpl extends QueryExecutor implements SubModify.QuerySelect, SubModify.QueryFieldsStart {
 
         protected SubModifyQueryExecutorImpl() {
-            super(SubModify.class);
+            super(SubModify.class, () -> new SubModifyQueryNameImpl());
         }
 
         public QueryAggregateOperation aggregate() {
@@ -195,29 +195,8 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return identifier("id");
         }
 
-        public SubModify.QueryName lower() {
-            doLower();
-            var result = new SubModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public SubModify.QueryName not() {
-            doNot();
-            var result = new SubModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public SubModify.QueryOrder order() {
             return (SubModify.QueryOrder) orderStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::orderIdentifier));
-        }
-
-        public SubModify.QueryName replace(String what, String withWhat) {
-            doReplace(what, withWhat);
-            var result = new SubModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         public QuerySelectOperation subAmount(double subAmount) {
@@ -226,20 +205,6 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public QueryFunctions subAmount() {
             return identifier("subAmount");
-        }
-
-        public SubModify.QueryName substring(int start) {
-            doSubstring(start);
-            var result = new SubModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public SubModify.QueryName substring(int start, int len) {
-            doSubstring(start, len);
-            var result = new SubModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         public QuerySelectOperation subtitle(String subtitle) {
@@ -254,26 +219,12 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return identifier("tag", tag);
         }
 
-        public SubModify.QueryName trim() {
-            doTrim();
-            var result = new SubModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation type(TestEnum type) {
             return identifier("type", type);
         }
 
         public QueryFunctions type() {
             return identifier("type");
-        }
-
-        public SubModify.QueryName upper() {
-            doUpper();
-            var result = new SubModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         protected class SubModifyQueryOrderImpl extends QueryOrderer implements SubModify.QueryOrder, SubModify.QueryAggregate {
@@ -288,10 +239,6 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
             public QueryOrderOperation id() {
                 return (QueryOrderOperation) func.apply("id");
-            }
-
-            public QueryOrderOperation script(String script) {
-                return (QueryOrderOperation) SubModifyQueryExecutorImpl.this.script(script);
             }
 
             public QueryOrderOperation subAmount() {

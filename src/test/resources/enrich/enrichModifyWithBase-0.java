@@ -136,7 +136,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
     protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
-            super(TestModify.class);
+            super(TestModify.class, () -> new TestModifyQueryNameImpl());
         }
 
         public QueryAggregateOperation aggregate() {
@@ -171,47 +171,12 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
             return identifier("items");
         }
 
-        public TestModify.QueryName lower() {
-            doLower();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public TestModify.QueryName not() {
-            doNot();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public TestModify.QueryOrder order() {
             return (TestModify.QueryOrder) orderStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public TestModify.QueryName replace(String what, String withWhat) {
-            doReplace(what, withWhat);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QueryJoinCollectionFunctions subs() {
             return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
-        }
-
-        public TestModify.QueryName substring(int start) {
-            doSubstring(start);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public TestModify.QueryName substring(int start, int len) {
-            doSubstring(start, len);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         public QuerySelectOperation title(String title) {
@@ -222,26 +187,12 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
             return identifier("title");
         }
 
-        public TestModify.QueryName trim() {
-            doTrim();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation type(TestEnum type) {
             return identifier("type", type);
         }
 
         public QueryFunctions type() {
             return identifier("type");
-        }
-
-        public TestModify.QueryName upper() {
-            doUpper();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         protected class TestModifyQueryOrderImpl extends QueryOrderer implements TestModify.QueryOrder, TestModify.QueryAggregate {
@@ -260,10 +211,6 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
 
             public QueryOrderOperation id() {
                 return (QueryOrderOperation) func.apply("id");
-            }
-
-            public QueryOrderOperation script(String script) {
-                return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.script(script);
             }
 
             public QueryOrderOperation title() {

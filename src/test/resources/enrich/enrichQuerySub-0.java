@@ -47,36 +47,15 @@ public class SubImpl implements Sub {
     protected static class SubQueryExecutorImpl extends QueryExecutor implements Sub.QuerySelect, Sub.QueryFieldsStart {
 
         protected SubQueryExecutorImpl() {
-            super(Sub.class);
+            super(Sub.class, () -> new SubQueryNameImpl());
         }
 
         public QueryAggregateOperation aggregate() {
             return (QueryAggregateOperation) aggregateStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::aggregateIdentifier));
         }
 
-        public Sub.QueryName lower() {
-            doLower();
-            var result = new SubQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public Sub.QueryName not() {
-            doNot();
-            var result = new SubQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public Sub.QueryOrder order() {
             return (Sub.QueryOrder) orderStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::orderIdentifier));
-        }
-
-        public Sub.QueryName replace(String what, String withWhat) {
-            doReplace(what, withWhat);
-            var result = new SubQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         public QuerySelectOperation subAmount(double subAmount) {
@@ -87,20 +66,6 @@ public class SubImpl implements Sub {
             return identifier("subAmount");
         }
 
-        public Sub.QueryName substring(int start) {
-            doSubstring(start);
-            var result = new SubQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public Sub.QueryName substring(int start, int len) {
-            doSubstring(start, len);
-            var result = new SubQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation subtitle(String subtitle) {
             return identifier("subtitle", subtitle);
         }
@@ -109,28 +74,10 @@ public class SubImpl implements Sub {
             return identifier("subtitle");
         }
 
-        public Sub.QueryName trim() {
-            doTrim();
-            var result = new SubQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public Sub.QueryName upper() {
-            doUpper();
-            var result = new SubQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         protected class SubQueryOrderImpl extends QueryOrderer implements Sub.QueryOrder, Sub.QueryAggregate {
 
             protected SubQueryOrderImpl(SubQueryExecutorImpl executor, Function<String, Object> func) {
                 super(executor, func);
-            }
-
-            public QueryOrderOperation script(String script) {
-                return (QueryOrderOperation) SubQueryExecutorImpl.this.script(script);
             }
 
             public QueryOrderOperation subAmount() {

@@ -237,7 +237,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected static class MixModifyQueryExecutorImpl extends QueryExecutor implements MixModify.QuerySelect, MixModify.QueryFieldsStart {
 
         protected MixModifyQueryExecutorImpl() {
-            super(MixModify.class);
+            super(MixModify.class, () -> new TestModifyQueryNameImpl());
         }
 
         public QueryAggregateOperation aggregate() {
@@ -272,13 +272,6 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("items");
         }
 
-        public MixModify.QueryName lower() {
-            doLower();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation mixInAmount(double mixInAmount) {
             return identifier("mixInAmount", mixInAmount);
         }
@@ -303,40 +296,12 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("mixInTitle");
         }
 
-        public MixModify.QueryName not() {
-            doNot();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public MixModify.QueryOrder order() {
             return (MixModify.QueryOrder) orderStart(new MixModifyQueryOrderImpl(this, MixModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public MixModify.QueryName replace(String what, String withWhat) {
-            doReplace(what, withWhat);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QueryJoinCollectionFunctions subs() {
             return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
-        }
-
-        public MixModify.QueryName substring(int start) {
-            doSubstring(start);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public MixModify.QueryName substring(int start, int len) {
-            doSubstring(start, len);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         public QuerySelectOperation title(String title) {
@@ -347,26 +312,12 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("title");
         }
 
-        public MixModify.QueryName trim() {
-            doTrim();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation type(TestEnum type) {
             return identifier("type", type);
         }
 
         public QueryFunctions type() {
             return identifier("type");
-        }
-
-        public MixModify.QueryName upper() {
-            doUpper();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         protected class MixModifyQueryOrderImpl extends QueryOrderer implements MixModify.QueryOrder, MixModify.QueryAggregate {
@@ -393,10 +344,6 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
 
             public QueryOrderOperation mixInTitle() {
                 return (QueryOrderOperation) func.apply("mixInTitle");
-            }
-
-            public QueryOrderOperation script(String script) {
-                return (QueryOrderOperation) MixModifyQueryExecutorImpl.this.script(script);
             }
 
             public QueryOrderOperation title() {
@@ -468,7 +415,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
-            super(TestModify.class);
+            super(TestModify.class, () -> new TestModifyQueryNameImpl());
         }
 
         public QueryAggregateOperation aggregate() {
@@ -503,47 +450,12 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("items");
         }
 
-        public TestModify.QueryName lower() {
-            doLower();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public TestModify.QueryName not() {
-            doNot();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public TestModify.QueryOrder order() {
             return (TestModify.QueryOrder) orderStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public TestModify.QueryName replace(String what, String withWhat) {
-            doReplace(what, withWhat);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QueryJoinCollectionFunctions subs() {
             return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
-        }
-
-        public TestModify.QueryName substring(int start) {
-            doSubstring(start);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
-        public TestModify.QueryName substring(int start, int len) {
-            doSubstring(start, len);
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         public QuerySelectOperation title(String title) {
@@ -554,26 +466,12 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("title");
         }
 
-        public TestModify.QueryName trim() {
-            doTrim();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
-        }
-
         public QuerySelectOperation type(TestEnum type) {
             return identifier("type", type);
         }
 
         public QueryFunctions type() {
             return identifier("type");
-        }
-
-        public TestModify.QueryName upper() {
-            doUpper();
-            var result = new TestModifyQueryNameImpl();
-            result.setParent(alias, this);
-            return result;
         }
 
         protected class TestModifyQueryOrderImpl extends QueryOrderer implements TestModify.QueryOrder, TestModify.QueryAggregate {
@@ -592,10 +490,6 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
 
             public QueryOrderOperation id() {
                 return (QueryOrderOperation) func.apply("id");
-            }
-
-            public QueryOrderOperation script(String script) {
-                return (QueryOrderOperation) TestModifyQueryExecutorImpl.this.script(script);
             }
 
             public QueryOrderOperation title() {

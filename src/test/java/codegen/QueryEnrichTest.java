@@ -270,6 +270,14 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("select u from net.binis.codegen.TestModify u join fetch u.items j0 where (u.amount = ?1) ", List.of(5.0),
                 () -> TestModify.find().by().amount(5.0).and().items().joinFetch().get());
 
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.items j0 where ( (u.amount = ?1) ) ", List.of(5.0),
+                () -> TestModify.find().by()._open().amount(5.0).and().items().joinFetch()._close().get());
+
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.items j0 where ( (u.amount = ?1) and  (lower(u.title) = ?2))  ", List.of(5.0, "ad"),
+                () -> TestModify.find().by()._open()
+                        .amount(5.0).and().lower().title("ad")._close()
+                        .and().items().joinFetch().get());
+
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {
