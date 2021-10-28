@@ -287,6 +287,16 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (?2 not member of u.items and ?3 not member of u.items and ?4 not member of u.items) and  (u.id = ?5)", List.of(5.0, 6L, 7L, 8L, 9L),
                 () -> TestModify.find().by().amount(5.0).and().items().containsNone(List.of(6L, 7L, 8L)).and().id(9L).get());
 
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (0 = 0) and  (u.id = ?2)", List.of(5.0, 9L),
+                () -> TestModify.find().by().amount(5.0).and().items().containsAll(Collections.emptyList()).and().id(9L).get());
+
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (0 = 0) and  (u.id = ?2)", List.of(5.0, 9L),
+                () -> TestModify.find().by().amount(5.0).and().items().containsOne(Collections.emptyList()).and().id(9L).get());
+
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (0 = 0) and  (u.id = ?2)", List.of(5.0, 9L),
+                () -> TestModify.find().by().amount(5.0).and().items().containsNone(Collections.emptyList()).and().id(9L).get());
+
+
         checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
 
