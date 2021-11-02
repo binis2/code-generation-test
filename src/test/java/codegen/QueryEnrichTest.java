@@ -162,6 +162,9 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where length(title) > 5  and  (u.amount > 10)  order by  title ", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().script("length(title) > 5").and().amount().script("> 10").order().script("title").get());
 
+        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1) and  length(title) > 5  order by  title ", List.of(5.0),
+                () -> net.binis.codegen.Test.find().by().amount(5.0).and().script("length(title) > 5").order().script("title").get());
+
         checkQuery("from net.binis.codegen.Test u where (u.amount between ?1 and ?2)", List.of(5.0, 6.0),
                 () -> net.binis.codegen.Test.find().by().amount().between(5.0, 6.0).get());
 
@@ -310,7 +313,6 @@ class QueryEnrichTest extends BaseTest {
     private void checkQuery(String expected, Runnable query) {
         checkQuery(expected, Collections.emptyList(), null, query);
     }
-
 
     private void checkQuery(String expected, List<Object> params, Object result, Runnable query) {
         mockQueryProcessor((q, p) -> {
