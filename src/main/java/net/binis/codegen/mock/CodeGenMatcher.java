@@ -65,7 +65,7 @@ public class CodeGenMatcher {
         return null;
     }
 
-    public static Supplier orderedList(List<?> list) {
+    public static <T> Supplier<T> orderedList(List<T> list) {
         var idx = Holder.of(0);
         return () -> {
             var result = list.get(idx.get());
