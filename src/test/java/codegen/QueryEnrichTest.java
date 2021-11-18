@@ -20,6 +20,7 @@ package codegen;
  * #L%
  */
 
+import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
@@ -30,9 +31,12 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.List;
 
+import static net.binis.codegen.mock.CodeGenMatcher.orderedList;
 import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
+@Slf4j
 class QueryEnrichTest extends BaseTest {
 
     @BeforeEach
@@ -42,7 +46,6 @@ class QueryEnrichTest extends BaseTest {
 
     @Test
     void enrichQuery() {
-        //testSingle("enrich/enrichQuery.java", "enrich/enrichQuery-0.java", "enrich/enrichQuery-1.java");
         testMulti(List.of(
                 Triple.of("enrich/enrichQuerySub.java", "enrich/enrichQuerySub-0.java", "enrich/enrichQuerySub-1.java"),
                 Triple.of("enrich/enrichQuery.java", "enrich/enrichQuery-0.java", "enrich/enrichQuery-1.java")
@@ -56,6 +59,15 @@ class QueryEnrichTest extends BaseTest {
                 Triple.of("enrich/enrichQueryModify.java", "enrich/enrichQueryModify-0.java", "enrich/enrichQueryModify-1.java")
         ));
     }
+
+    @Test
+    void testPagination() {
+        mockContext();
+
+        mockQuery(Sub.find().by(), orderedList(List.of(List.of(mock(Sub.class)), Collections.emptyList())));
+        Sub.find().by().paginated(1, s -> log.info(""));
+    }
+
 
     @Test
     void enrichQueryTest() {
@@ -299,6 +311,8 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (0 = 0) and  (u.id = ?2)", List.of(5.0, 9L),
                 () -> TestModify.find().by().amount(5.0).and().items().containsNone(Collections.emptyList()).and().id(9L).get());
 
+        checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (0 = 0) and  (u.id = ?2)", List.of(5.0, 9L),
+                () -> TestModify.find().by().amount(5.0).and().items().containsNone(null).and().id(9L).get());
 
         checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
