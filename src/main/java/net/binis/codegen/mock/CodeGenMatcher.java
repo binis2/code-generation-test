@@ -23,6 +23,7 @@ package net.binis.codegen.mock;
 import net.binis.codegen.tools.Holder;
 
 import java.util.List;
+import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 public class CodeGenMatcher {
@@ -73,5 +74,18 @@ public class CodeGenMatcher {
             return result;
         };
     }
+
+    public static LongSupplier times(int times) {
+        return () -> Integer.toUnsignedLong(times);
+    }
+
+    public static LongSupplier never() {
+        return () -> 0L;
+    }
+
+    public static LongSupplier once() {
+        return () -> 1L;
+    }
+
 
 }

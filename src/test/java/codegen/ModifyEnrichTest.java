@@ -28,8 +28,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class ModifyEnrichTest extends BaseTest {
 
     @BeforeEach
@@ -72,6 +70,12 @@ class ModifyEnrichTest extends BaseTest {
                 Triple.of("enrich/enrichModifyWithExtended.java", "enrich/enrichModifyWithExtended-0.java", "enrich/enrichModifyWithExtended-1.java")
         ));
     }
+
+    @Test
+    void enrichMockEntity() {
+        testSingle("enrich/TestMockEntityPrototype.java", "enrich/TestMockEntityPrototype-0.java", "enrich/TestMockEntityPrototype-1.java", "./src/main/java/net/binis/codegen");
+    }
+
 
 
 

@@ -21,9 +21,11 @@ package codegen;
  */
 
 import net.binis.codegen.*;
+import net.binis.codegen.mock.CodeGenExtension;
+import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 
@@ -32,17 +34,11 @@ import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+@ExtendWith(CodeGenExtension.class)
 class TestMockFunctions {
-
-    @BeforeEach
-    public void setUp() {
-        mockQueryClear();
-        mockContextAndEntityManager();
-    }
 
     @Test
     void test() {
-        mockCreate(TestMockEntity.class);
         assertNotNull(TestMock.create().save().with().merge());
     }
 
@@ -72,23 +68,17 @@ class TestMockFunctions {
     }
 
     @Test
-    void testMockContext() {
-        mockContext();
-    }
-
-    @Test
     void testMultiMock() {
         var mockObj = mock(TestModify.class);
         mockQuery(TestModify.find().by().id(5L), mockObj);
-        mockQuery(TestModify.find().by().id(5L), mock(TestModify.class));
-
+        
+        assertThrows(QueryAlreadyMockedException.class, () -> mockQuery(TestModify.find().by().id(5L), mock(TestModify.class)));
         assertEquals(mockObj, TestModify.find().by().id(5L).get().get());
     }
 
     @Test
     void testMultiResponse() {
-        var mockObj = mock(TestModify.class);
-        mockCountQuery(TestModify.find().by().id(5L), orderedList(List.of(5L, 0L)));
+        mockCountQuery(TestModify.find().by().id(5L), orderedList(List.of(5L, 0L))).called(times(2));
         mockExistsQuery(TestModify.find().by().id(5L), true);
 
         assertEquals(5L, TestModify.find().by().id(5L).count());
