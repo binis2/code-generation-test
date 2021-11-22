@@ -41,8 +41,8 @@ import org.springframework.transaction.support.TransactionTemplate;
 import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -268,7 +268,7 @@ public class CodeGenMock {
     }
 
     private static void findMock(Class<?> i) {
-        Function mock = v -> {
+        UnaryOperator<Object> mock = v -> {
             if (CodeGenMatcher.anyMock.get()) {
                 CodeGenMatcher.anyMock.set(false);
                 v = CodeGenMatcher.class;
@@ -276,7 +276,7 @@ public class CodeGenMock {
             return v;
         };
 
-        Function onValue = v -> {
+        UnaryOperator<Object> onValue = v -> {
             if (isNull(v) && CodeGenMatcher.anyMock.get()) {
                 v = CodeGenMatcher.class;
                 CodeGenMatcher.anyMock.set(false);
