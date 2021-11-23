@@ -78,7 +78,7 @@ class TestMockFunctions {
 
     @Test
     void testMultiResponse() {
-        mockCountQuery(TestModify.find().by().id(5L), orderedList(List.of(5L, 0L))).called(times(2));
+        mockCountQuery(TestModify.find().by().id(5L), orderedList(List.of(5L, 0L))).called(times(2)).fails(false);
         mockExistsQuery(TestModify.find().by().id(5L), true);
 
         assertEquals(5L, TestModify.find().by().id(5L).count());

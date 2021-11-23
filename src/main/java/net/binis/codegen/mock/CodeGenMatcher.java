@@ -87,5 +87,13 @@ public class CodeGenMatcher {
         return () -> 1L;
     }
 
+    public static LongSupplier twice() {
+        return () -> 2L;
+    }
+
+    public static LongSupplier thrice() {
+        return () -> 3L;
+    }
+
 
 }

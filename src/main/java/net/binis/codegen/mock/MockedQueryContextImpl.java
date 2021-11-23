@@ -23,8 +23,8 @@ package net.binis.codegen.mock;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
-import lombok.Singular;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.LongSupplier;
 
@@ -35,8 +35,19 @@ class MockedQueryContextImpl {
     private String query;
 
     @Getter
-    @Singular
-    private List<MockedQueryParams> mocks;
+    @Builder.Default
+    private List<MockedQueryParams> mocks = new ArrayList<>();
+
+    public static class MockedQueryContextImplBuilder {
+        public MockedQueryContextImplBuilder mock(MockedQueryParams mock) {
+            if (!mocks$set) {
+                mocks$value = MockedQueryContextImpl.$default$mocks();
+                mocks$set = true;
+            }
+            mocks$value.add(mock);
+            return this;
+        }
+    }
 
     @Data
     @Builder

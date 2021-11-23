@@ -167,9 +167,11 @@ public class CodeGenMock {
         if (nonNull(mocks)) {
             var mock = findMock(query, params);
             if (mock.isEmpty()) {
-                mocks.getMocks().add(MockedQueryContextImpl.MockedQueryParams.builder().parent(mocks).params(params).returnObject(returnObject).build());
+                result = MockedQueryContextImpl.MockedQueryParams.builder().parent(mocks).params(params).returnObject(returnObject).build();
+                mocks.getMocks().add(result);
             } else {
-                if (nonNull(mock.get().getParams()) && !(mock.get().getReturnObject() instanceof Supplier)) {
+                result = mock.get();
+                if (nonNull(mock.get().getParams())) {
                     if (mock.get().isFails()) {
                         logErrorAlreadyMocked(query, params);
                     } else {
