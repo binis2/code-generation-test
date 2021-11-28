@@ -20,8 +20,11 @@ package codegen;
  * #L%
  */
 
-import net.binis.codegen.*;
+import net.binis.codegen.SubModify;
+import net.binis.codegen.TestMock;
+import net.binis.codegen.TestModify;
 import net.binis.codegen.mock.CodeGenExtension;
+import net.binis.codegen.mock.MockPersistenceOperation;
 import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
 import org.junit.jupiter.api.Test;
@@ -44,9 +47,6 @@ class TestMockFunctions {
 
     @Test
     void testQuery() {
-        mockCreate(TestModifyImpl.class);
-        mockCreate(SubModifyImpl.class);
-
         var mockObj = mock(TestModify.class);
         mockQuery(TestModify.find().by().id(5L), mockObj);
         mockJustQuery(TestModify.find().by().title("test"), mockObj);
@@ -58,7 +58,7 @@ class TestMockFunctions {
                 .and().subs().join(t ->
                         t.where().id().greater(5L)), true);
 
-        assertEquals(true, TestModify.find().by().id(123L).and().subs().join(t -> t.where().id().greater(5L)).exists());
+        assertTrue(TestModify.find().by().id(123L).and().subs().join(t -> t.where().id().greater(5L)).exists());
         assertEquals(mockObj, TestModify.find().by().id(5L).get().get());
         assertThrows(QueryNotMockedException.class, () -> TestModify.find().by().id(6L).get().get());
         assertEquals(mockObj, TestModify.find().by().title("test2").get().get());
@@ -83,6 +83,17 @@ class TestMockFunctions {
 
         assertEquals(5L, TestModify.find().by().id(5L).count());
         assertFalse(TestModify.find().by().id(5L).exists());
+    }
+
+    @Test
+    void testPersistence() {
+        var mock = TestMock.create();
+        verify(MockPersistenceOperation.SAVE, mock.done()).called(never());
+        verifySave(mock.save()).called(once());
+        onSave(mock.done(), () -> mock.name("binis"));
+        verifySave(mock.save()).called(twice());
+
+        assertEquals("binis", mock.done().getName());
     }
 
 

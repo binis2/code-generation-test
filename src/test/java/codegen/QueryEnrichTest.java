@@ -23,20 +23,25 @@ package codegen;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
 import net.binis.codegen.generation.core.Helpers;
+import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.test.BaseTest;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static net.binis.codegen.mock.CodeGenMatcher.orderedList;
+import static net.binis.codegen.mock.CodeGenMatcher.twice;
 import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 @Slf4j
+@ExtendWith(CodeGenExtension.class)
 class QueryEnrichTest extends BaseTest {
 
     @BeforeEach
@@ -62,22 +67,22 @@ class QueryEnrichTest extends BaseTest {
 
     @Test
     void testPagination() {
-        mockContext();
+        var cnt = new AtomicInteger();
 
-        mockQuery(Sub.find().by(), orderedList(List.of(List.of(mock(Sub.class)), Collections.emptyList())));
-        Sub.find().by().paginated(1, s -> log.info(""));
+        mockQuery(Sub.find().by(), orderedList(List.of(List.of(mock(Sub.class)), Collections.emptyList()))).called(twice());
+        Sub.find().by().paginated(1, s -> cnt.incrementAndGet());
+
+        assertEquals(1, cnt.get());
     }
 
+    @Test
+    void testJoin() {
+        checkQuery("select u from net.binis.codegen.TestModify u join u.subs j0 where (j0.id = ?1) ", List.of(5L),
+                () -> TestModify.find().by().subs().join(s -> s.where().id(5L)).get());
+    }
 
     @Test
     void enrichQueryTest() {
-        mockContext();
-        mockCreate(TestImpl.class);
-        mockCreate(SubImpl.class);
-
-        mockCreate(TestModifyImpl.class);
-        mockCreate(SubModifyImpl.class);
-
         checkQuery("select u.subAmount from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().select().subAmount().get());
 
@@ -316,8 +321,6 @@ class QueryEnrichTest extends BaseTest {
 
         checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
-
-
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {

@@ -6,6 +6,7 @@ import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Optional;
@@ -13,16 +14,17 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "MixModifyPrototype", comments = "MixModifyImpl")
+@Default("net.binis.codegen.TestModifyImpl")
 public interface MixModify extends TestModify {
 
     MixModify.Modify asMixModify();
 
     static MixModify create() {
-        return EntityCreator.create(MixModify.class, "net.binis.codegen.TestModifyImpl");
+        return EntityCreator.create(MixModify.class);
     }
 
     static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>, QueryFieldsStart<MixModify, MixModify.QuerySelect<MixModify>>> find() {
-        return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class, "net.binis.codegen.TestModifyImpl");
+        return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class);
     }
 
     double getMixInAmount();

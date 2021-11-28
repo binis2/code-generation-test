@@ -4,15 +4,17 @@ package net.binis.codegen;
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.CodeList;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "TestImpl")
+@Default("net.binis.codegen.TestImpl")
 public interface Test {
 
     static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>, QueryFieldsStart<Test, Test.QuerySelect<Test>>> find() {
-        return (QueryStarter) EntityCreator.create(Test.QuerySelect.class, "net.binis.codegen.TestImpl");
+        return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
     }
 
     double getAmount();

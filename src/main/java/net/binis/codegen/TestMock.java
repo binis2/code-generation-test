@@ -22,14 +22,16 @@ package net.binis.codegen;
  */
 
 import net.binis.codegen.creator.EntityCreatorModifier;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.function.Function;
 
 @Generated(value = "TestMockEntityPrototype", comments = "TestMockEntity")
+@Default("net.binis.codegen.TestMockEntity")
 public interface TestMock {
 
     static TestMock.Modify create() {
-        return (TestMock.Modify) EntityCreatorModifier.create(TestMock.class, "net.binis.codegen.TestMockEntity").with();
+        return (TestMock.Modify) EntityCreatorModifier.create(TestMock.class).with();
     }
 
     String getActionLink();

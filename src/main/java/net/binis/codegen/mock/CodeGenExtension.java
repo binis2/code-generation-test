@@ -29,23 +29,29 @@ public class CodeGenExtension implements BeforeAllCallback, BeforeEachCallback, 
 
     @Override
     public void afterEach(ExtensionContext context) {
-        mockCheckCalls();
+        if (context.getExecutionException().isEmpty()) {
+            mockCheckCalls();
+        }
     }
 
     @Override
     public void beforeEach(ExtensionContext context) {
         mockQueryClear();
+        mockEntityManager();
     }
 
     @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
-        mockContextAndEntityManager();
+    public void beforeAll(ExtensionContext context) {
+        mockContext();
         mockAsyncExecutor();
+        mockCodeFactory();
         QueryProcessor.setProcessor(createMockedProcessor());
     }
 
     @Override
     public void afterAll(ExtensionContext context) throws Exception {
+        clearCodeFactoryMock();
+        cleanEntityManagerMock();
         //TODO: Remove mocked context and executor.
     }
 }

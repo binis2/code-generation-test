@@ -6,20 +6,22 @@ import net.binis.codegen.intf.Taggable;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "SubModifyPrototype", comments = "SubModifyImpl")
+@Default("net.binis.codegen.SubModifyImpl")
 public interface SubModify extends Base, Taggable {
 
     static SubModify create() {
-        return EntityCreator.create(SubModify.class, "net.binis.codegen.SubModifyImpl");
+        return EntityCreator.create(SubModify.class);
     }
 
     static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>, QueryFieldsStart<SubModify, SubModify.QuerySelect<SubModify>>> find() {
-        return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class, "net.binis.codegen.SubModifyImpl");
+        return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
     }
 
     double getSubAmount();

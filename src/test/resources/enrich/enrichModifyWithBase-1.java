@@ -6,6 +6,7 @@ import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Optional;
@@ -13,14 +14,15 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TestModifyPrototype", comments = "TestModifyImpl")
+@Default("net.binis.codegen.TestModifyImpl")
 public interface TestModify extends Base {
 
     static TestModify create() {
-        return EntityCreator.create(TestModify.class, "net.binis.codegen.TestModifyImpl");
+        return EntityCreator.create(TestModify.class);
     }
 
     static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>> find() {
-        return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class, "net.binis.codegen.TestModifyImpl");
+        return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
     }
 
     double getAmount();

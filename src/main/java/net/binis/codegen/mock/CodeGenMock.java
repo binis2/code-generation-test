@@ -40,14 +40,8 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.BiFunction;
-import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
+import java.util.*;
+import java.util.function.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -84,6 +78,10 @@ public class CodeGenMock {
     public static void mockEntityManager() {
         var entityManager = new MockEntityManager();
         BasePersistenceOperations.setEntityManagerProvider(factory -> entityManager);
+    }
+
+    public static void cleanEntityManagerMock() {
+        BasePersistenceOperations.setEntityManagerProvider(BasePersistenceOperations.defaultEntityManagerProvider());
     }
 
     public static void mockAsyncExecutor() {
@@ -198,8 +196,125 @@ public class CodeGenMock {
                         logWarning(key, mock.getParams(), mock.getMatch(), mock.getExpected());
                     }
                 }));
-
     }
+
+    public static MockedPersistenceContext verify(MockPersistenceOperation operation, Object obj) {
+        var em = BasePersistenceOperations.getEntityManager();
+        if (em instanceof MockEntityManager) {
+            return MockedPersistenceContextImpl.builder().obj(obj).em((MockEntityManager) em).operation(operation).build();
+        } else {
+            throw new GenericCodeGenException("Entity manager is not mocked!");
+        }
+    }
+
+    public static MockedPersistenceContext onSave(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        return verify(MockPersistenceOperation.SAVE, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onOperation(MockPersistenceOperation operation, Object obj, Runnable task) {
+        return verify(operation, obj).on(task);
+    }
+
+    public static MockedPersistenceContext onOperation(MockPersistenceOperation operation, Object obj, Consumer<Object> consumer) {
+        return verify(operation, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onOperation(MockPersistenceOperation operation, Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        return verify(operation, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onSave(Object obj, Runnable task) {
+        return verify(MockPersistenceOperation.SAVE, obj).on(task);
+    }
+
+    public static MockedPersistenceContext onSave(Object obj, Consumer<Object> consumer) {
+        return verify(MockPersistenceOperation.SAVE, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onDetach(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        return verify(MockPersistenceOperation.DETACH, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onDetach(Object obj, Runnable task) {
+        return verify(MockPersistenceOperation.DETACH, obj).on(task);
+    }
+
+    public static MockedPersistenceContext onDetach(Object obj, Consumer<Object> consumer) {
+        return verify(MockPersistenceOperation.DETACH, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onRefresh(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        return verify(MockPersistenceOperation.REFRESH, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onRefresh(Object obj, Runnable task) {
+        return verify(MockPersistenceOperation.REFRESH, obj).on(task);
+    }
+
+    public static MockedPersistenceContext onRefresh(Object obj, Consumer<Object> consumer) {
+        return verify(MockPersistenceOperation.REFRESH, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onDelete(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        return verify(MockPersistenceOperation.DELETE, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onDelete(Object obj, Runnable task) {
+        return verify(MockPersistenceOperation.DELETE, obj).on(task);
+    }
+
+    public static MockedPersistenceContext onDelete(Object obj, Consumer<Object> consumer) {
+        return verify(MockPersistenceOperation.DELETE, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onMerge(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        return verify(MockPersistenceOperation.MERGE, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onMerge(Object obj, Runnable task) {
+        return verify(MockPersistenceOperation.MERGE, obj).on(task);
+    }
+
+    public static MockedPersistenceContext onMerge(Object obj, Consumer<Object> consumer) {
+        return verify(MockPersistenceOperation.MERGE, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onFlush(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        return verify(MockPersistenceOperation.FLUSH, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext onFlush(Object obj, Runnable task) {
+        return verify(MockPersistenceOperation.FLUSH, obj).on(task);
+    }
+
+    public static MockedPersistenceContext onFlush(Object obj, Consumer<Object> consumer) {
+        return verify(MockPersistenceOperation.FLUSH, obj).on(consumer);
+    }
+
+    public static MockedPersistenceContext verifySave(Object obj) {
+        return verify(MockPersistenceOperation.SAVE, obj);
+    }
+
+    public static MockedPersistenceContext verifyDetach(Object obj) {
+        return verify(MockPersistenceOperation.DETACH, obj);
+    }
+
+    public static MockedPersistenceContext verifyRefresh(Object obj) {
+        return verify(MockPersistenceOperation.REFRESH, obj);
+    }
+
+    public static MockedPersistenceContext verifyDelete(Object obj) {
+        return verify(MockPersistenceOperation.DELETE, obj);
+    }
+
+    public static MockedPersistenceContext verifyMerge(Object obj) {
+        return verify(MockPersistenceOperation.MERGE, obj);
+    }
+
+    public static MockedPersistenceContext verifySaveAndFlush(Object obj) {
+        return verify(MockPersistenceOperation.FLUSH, obj);
+    }
+
 
     public static void mockQueryClear() {
         mockedResponses.clear();
@@ -291,7 +406,13 @@ public class CodeGenMock {
 
     private static String logText(String query, List<Object> params) {
         if (nonNull(params)) {
-            return "Query '" + query + "' with params [" + params.stream().map(Object::toString).map(s -> "(" + s + ")").collect(Collectors.joining(", ")) + "]";
+            return "Query '" + query + "' with params [" + params.stream().map(p -> {
+                if (CodeGenMatcher.class.equals(p)) {
+                    return "any";
+                } else {
+                    return Objects.toString(p);
+                }
+            }).map(s -> "(" + s + ")").collect(Collectors.joining(", ")) + "]";
         } else {
             return "Query '" + query + "' with any params";
         }
@@ -299,22 +420,9 @@ public class CodeGenMock {
 
     public static void mockCreate(Class<?> cls) {
         instantiate(cls);
-        findMocks(cls);
     }
 
-    private static void findMocks(Class<?> cls) {
-        findMock(cls);
-
-        for (var i : cls.getInterfaces()) {
-            findMocks(i);
-        }
-
-        for (var c : cls.getClasses()) {
-            findMocks(c);
-        }
-    }
-
-    private static void findMock(Class<?> i) {
+    public static void mockCodeFactory() {
         UnaryOperator<Object> mock = v -> {
             if (CodeGenMatcher.anyMock.get()) {
                 CodeGenMatcher.anyMock.set(false);
@@ -324,29 +432,25 @@ public class CodeGenMock {
         };
 
         UnaryOperator<Object> onValue = v -> {
-            if (isNull(v) && CodeGenMatcher.anyMock.get()) {
-                v = CodeGenMatcher.class;
+            if (CodeGenMatcher.anyMock.get()) {
+                if (isNull(v)) {
+                    v = CodeGenMatcher.class;
+                }
                 CodeGenMatcher.anyMock.set(false);
             }
             return v;
         };
 
-        var factory = CodeFactory.lookup(i);
-        if (nonNull(factory)) {
-            CodeFactory.envelopType(i, f -> {
-                var result = f.create();
-                if (result instanceof MockedQuery) {
-                    ((MockedQuery) result).setMocked(mock, onValue);
-                }
-                return result;
-            }, (f, p, v) -> {
-                var result = f.create(p, v);
-                if (result instanceof MockedQuery) {
-                    ((MockedQuery) result).setMocked(mock, onValue);
-                }
-                return result;
-            });
-        }
+        CodeFactory.envelopFactory(result -> {
+            if (result instanceof MockedQuery) {
+                ((MockedQuery) result).setMocked(mock, onValue);
+            }
+            return result;
+        });
+    }
+
+    public static void clearCodeFactoryMock() {
+        CodeFactory.clearEnvelopingFactory();
     }
 
 }

@@ -23,15 +23,17 @@ package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.creator.EntityCreator;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "SubPrototype", comments = "SubImpl")
+@Default("net.binis.codegen.SubImpl")
 public interface Sub {
 
     static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>, QueryFieldsStart<Sub, Sub.QuerySelect<Sub>>> find() {
-        return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class, "net.binis.codegen.SubImpl");
+        return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class);
     }
 
     double getSubAmount();

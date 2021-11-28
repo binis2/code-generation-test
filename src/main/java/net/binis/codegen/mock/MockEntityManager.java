@@ -9,9 +9,9 @@ package net.binis.codegen.mock;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,23 +26,32 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BiConsumer;
+
+import static java.util.Objects.nonNull;
+import static net.binis.codegen.tools.Tools.nullCheck;
 
 public class MockEntityManager implements EntityManager {
+
+    private final Map<MockPersistenceOperation, Map<Object, Long>> counts = new EnumMap<>(MockPersistenceOperation.class);
+    private final Map<MockPersistenceOperation, Map<Object, BiConsumer<MockPersistenceOperation, Object>>> onOperation = new EnumMap<>(MockPersistenceOperation.class);
+    private Object context;
+
     @Override
     public void persist(Object o) {
-
+        makeItCount(MockPersistenceOperation.SAVE, o);
     }
 
     @Override
     public <T> T merge(T t) {
+        makeItCount(MockPersistenceOperation.MERGE, t);
         return t;
     }
 
     @Override
     public void remove(Object o) {
-
+        makeItCount(MockPersistenceOperation.DELETE, o);
     }
 
     @Override
@@ -72,7 +81,7 @@ public class MockEntityManager implements EntityManager {
 
     @Override
     public void flush() {
-
+        makeItCount(MockPersistenceOperation.FLUSH, context);
     }
 
     @Override
@@ -97,7 +106,7 @@ public class MockEntityManager implements EntityManager {
 
     @Override
     public void refresh(Object o) {
-
+        makeItCount(MockPersistenceOperation.REFRESH, o);
     }
 
     @Override
@@ -122,7 +131,7 @@ public class MockEntityManager implements EntityManager {
 
     @Override
     public void detach(Object o) {
-
+        makeItCount(MockPersistenceOperation.DETACH, o);
     }
 
     @Override
@@ -284,4 +293,33 @@ public class MockEntityManager implements EntityManager {
     public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> aClass) {
         return null;
     }
+
+    public long calls(MockPersistenceOperation operation, Object obj) {
+        var result = 0L;
+        var cnt = counts.get(operation);
+        if (nonNull(cnt)) {
+            var l = cnt.get(obj);
+            if (nonNull(l)) {
+                result = l;
+            }
+        }
+        return result;
+    }
+
+    public void onOperation(MockPersistenceOperation operation, Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
+        onOperation.computeIfAbsent(operation, o -> new IdentityHashMap<>())
+                .compute(obj, (o, v) -> consumer);
+    }
+
+    private void makeItCount(MockPersistenceOperation operation, Object obj) {
+        context = obj;
+        counts.computeIfAbsent(operation, o -> new HashMap<>())
+                .compute(obj, (o, v) -> nullCheck(v, vv -> vv + 1, 1L));
+
+        var consumer = onOperation.computeIfAbsent(operation, o -> new HashMap<>()).get(obj);
+        if (nonNull(consumer)) {
+            consumer.accept(operation, obj);
+        }
+    }
+
 }
