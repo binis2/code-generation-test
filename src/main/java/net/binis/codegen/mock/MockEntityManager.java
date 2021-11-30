@@ -316,7 +316,7 @@ public class MockEntityManager implements EntityManager {
         counts.computeIfAbsent(operation, o -> new HashMap<>())
                 .compute(obj, (o, v) -> nullCheck(v, vv -> vv + 1, 1L));
 
-        var consumer = onOperation.computeIfAbsent(operation, o -> new HashMap<>()).get(obj);
+        var consumer = onOperation.computeIfAbsent(operation, o -> new IdentityHashMap<>()).get(obj);
         if (nonNull(consumer)) {
             consumer.accept(operation, obj);
         }
