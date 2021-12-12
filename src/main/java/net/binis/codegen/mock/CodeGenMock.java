@@ -129,7 +129,9 @@ public class CodeGenMock {
     public static MockedQueryContext mockCountQuery(Queryable query, Supplier<Long> count) {
         var q = query.print();
         if (q.startsWith("select u ")) {
-            q = q.replace("select u ", "select count(*) ");
+            q = q.replace("select u ", "select count(u) ");
+        } else if (q.startsWith("select distinct u ")) {
+            q = q.replace("select distinct u ", "select count(distinct u) ");
         } else {
             q = "select count(*) " + q;
         }

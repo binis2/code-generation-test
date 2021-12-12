@@ -26,7 +26,10 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static java.util.Objects.nonNull;
@@ -313,7 +316,7 @@ public class MockEntityManager implements EntityManager {
 
     private void makeItCount(MockPersistenceOperation operation, Object obj) {
         context = obj;
-        counts.computeIfAbsent(operation, o -> new HashMap<>())
+        counts.computeIfAbsent(operation, o -> new IdentityHashMap<>())
                 .compute(obj, (o, v) -> nullCheck(v, vv -> vv + 1, 1L));
 
         var consumer = onOperation.computeIfAbsent(operation, o -> new IdentityHashMap<>()).get(obj);
