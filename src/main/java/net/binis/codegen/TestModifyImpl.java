@@ -43,6 +43,12 @@ import java.time.OffsetDateTime;
 @Generated(value = "TestModifyPrototype", comments = "TestModify")
 public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, Modifiable<TestModify.Modify> {
 
+    // region constants
+    public static final String CONST = "const";
+
+    private static final long serialVersionUID = -3805679893678082393L;
+    // endregion
+
     protected double amount;
 
     protected List<Long> items;
