@@ -30,6 +30,10 @@ public class CodeGenMatcher {
 
     static final ThreadLocal<Boolean> anyMock = ThreadLocal.withInitial(() -> false);
 
+    private CodeGenMatcher() {
+        //Do nothing
+    }
+
     public static String anyString() {
         any(String.class);
         return "";

@@ -23,6 +23,7 @@ package net.binis.codegen.mock;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.exception.GenericCodeGenException;
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.mock.exception.CodeGenMockException;
 import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryCallsMismatchException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
@@ -55,11 +56,26 @@ import static org.mockito.Mockito.when;
 @Slf4j
 public class CodeGenMock {
 
+    private static boolean inProgress;
+
     private CodeGenMock() {
+        //Do nothing
     }
 
     private static QueryProcessor.Processor mockedProcessor;
     private static final Map<String, MockedQueryContextImpl> mockedResponses = new HashMap<>();
+
+    static void testStart() {
+        inProgress = true;
+    }
+
+    static void testStop() {
+        inProgress = false;
+    }
+
+    static boolean isTestInProgress() {
+        return inProgress;
+    }
 
     public static void mockContext() {
         if (isNull(ApplicationContextProvider.getApplicationContext())) {
@@ -324,7 +340,10 @@ public class CodeGenMock {
 
     static QueryProcessor.Processor createMockedProcessor() {
         mockedProcessor = (executor, manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> {
+            CodeGenMock.checkContext();
+
             var mock = findMock(query, params);
+
 
             if (mock.isEmpty()) {
                 logError(query, params);
@@ -424,8 +443,15 @@ public class CodeGenMock {
         instantiate(cls);
     }
 
+    public static void checkContext() {
+        if (!inProgress) {
+            throw new CodeGenMockException("Attribute your test class with '@ExtendWith(CodeGenExtension.class)'");
+        }
+    }
+
     public static void mockCodeFactory() {
         UnaryOperator<Object> mock = v -> {
+            checkContext();
             if (CodeGenMatcher.anyMock.get()) {
                 CodeGenMatcher.anyMock.set(false);
                 v = CodeGenMatcher.class;
@@ -434,6 +460,7 @@ public class CodeGenMock {
         };
 
         UnaryOperator<Object> onValue = v -> {
+            checkContext();
             if (CodeGenMatcher.anyMock.get()) {
                 if (isNull(v)) {
                     v = CodeGenMatcher.class;

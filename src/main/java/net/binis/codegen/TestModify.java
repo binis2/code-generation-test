@@ -37,6 +37,7 @@ import java.time.OffsetDateTime;
 @Default("net.binis.codegen.TestModifyImpl")
 public interface TestModify extends Base {
 
+    // region starters
     static TestModify create() {
         return EntityCreator.create(TestModify.class);
     }
@@ -44,42 +45,31 @@ public interface TestModify extends Base {
     static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>> find() {
         return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
     }
+    // endregion
 
     double getAmount();
-
     List<Long> getItems();
-
     Set<SubModify> getSubs();
-
     String getTitle();
 
     void setAmount(double amount);
-
     void setItems(List<Long> items);
-
     void setSubs(Set<SubModify> subs);
-
     void setTitle(String title);
 
     TestModify.Modify with();
 
+    // region inner classes
     interface Fields<T> extends Base.Fields<T> {
-
         T amount(double amount);
-
         T title(String title);
     }
 
     interface Modify extends TestModify.Fields<TestModify.Modify> {
-
         TestModify done();
-
         Modify items(List<Long> items);
-
         CodeList<Long, Modify> items();
-
         Modify subs(Set<SubModify> subs);
-
         EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
     }
 
@@ -93,15 +83,10 @@ public interface TestModify extends Base {
     }
 
     interface QueryFuncs<QR> {
-
         QueryFunctions<Double, QR> amount();
-
         QueryFunctions<OffsetDateTime, QR> date();
-
         QueryFunctions<Long, QR> id();
-
         QueryFunctions<String, QR> title();
-
         QueryFunctions<TestEnum, QR> type();
     }
 
@@ -109,15 +94,10 @@ public interface TestModify extends Base {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
-
         QR amount();
-
         QR date();
-
         QR id();
-
         QR title();
-
         QR type();
     }
 
@@ -125,9 +105,8 @@ public interface TestModify extends Base {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFields<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFuncs<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
-
         QueryCollectionFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>, QR>> items();
-
         QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs();
     }
+    // endregion
 }

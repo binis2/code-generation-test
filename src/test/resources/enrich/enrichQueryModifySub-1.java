@@ -17,24 +17,19 @@ public interface Sub {
     }
 
     double getSubAmount();
-
     String getSubtitle();
 
     void setSubAmount(double subAmount);
-
     void setSubtitle(String subtitle);
 
     Sub.Modify with();
 
     interface Fields<T> {
-
         T subAmount(double subAmount);
-
         T subtitle(String subtitle);
     }
 
     interface Modify extends Sub.Fields<Sub.Modify> {
-
         Sub done();
     }
 
@@ -48,9 +43,7 @@ public interface Sub {
     }
 
     interface QueryFuncs<QR> {
-
         QueryFunctions<Double, QR> subAmount();
-
         QueryFunctions<String, QR> subtitle();
     }
 
@@ -58,9 +51,7 @@ public interface Sub {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
-
         QR subAmount();
-
         QR subtitle();
     }
 

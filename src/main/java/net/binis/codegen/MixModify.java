@@ -36,9 +36,9 @@ import java.time.OffsetDateTime;
 @Generated(value = "MixModifyPrototype", comments = "MixModifyImpl")
 @Default("net.binis.codegen.TestModifyImpl")
 public interface MixModify extends TestModify {
-
     MixModify.Modify asMixModify();
 
+    // region starters
     static MixModify create() {
         return EntityCreator.create(MixModify.class);
     }
@@ -46,48 +46,33 @@ public interface MixModify extends TestModify {
     static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>, QueryFieldsStart<MixModify, MixModify.QuerySelect<MixModify>>> find() {
         return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class);
     }
+    // endregion
 
     double getMixInAmount();
-
     List<Long> getMixInItems();
-
     Set<SubModify> getMixInSubs();
-
     String getMixInTitle();
 
     void setMixInAmount(double mixInAmount);
-
     void setMixInItems(List<Long> mixInItems);
-
     void setMixInSubs(Set<SubModify> mixInSubs);
-
     void setMixInTitle(String mixInTitle);
 
+    // region inner classes
     interface Fields<T> extends TestModify.Fields<T> {
-
         T mixInAmount(double mixInAmount);
-
         T mixInTitle(String mixInTitle);
     }
 
     interface Modify extends MixModify.Fields<MixModify.Modify> {
-
         MixModify done();
-
         Modify items(List<Long> items);
-
         CodeList<Long, Modify> items();
-
         Modify mixInItems(List<Long> mixInItems);
-
         CodeList<Long, Modify> mixInItems();
-
         Modify mixInSubs(Set<SubModify> mixInSubs);
-
         EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> mixInSubs();
-
         Modify subs(Set<SubModify> subs);
-
         EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
     }
 
@@ -101,19 +86,12 @@ public interface MixModify extends TestModify {
     }
 
     interface QueryFuncs<QR> {
-
         QueryFunctions<Double, QR> amount();
-
         QueryFunctions<OffsetDateTime, QR> date();
-
         QueryFunctions<Long, QR> id();
-
         QueryFunctions<Double, QR> mixInAmount();
-
         QueryFunctions<String, QR> mixInTitle();
-
         QueryFunctions<String, QR> title();
-
         QueryFunctions<TestEnum, QR> type();
     }
 
@@ -121,19 +99,12 @@ public interface MixModify extends TestModify {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
-
         QR amount();
-
         QR date();
-
         QR id();
-
         QR mixInAmount();
-
         QR mixInTitle();
-
         QR title();
-
         QR type();
     }
 
@@ -141,13 +112,10 @@ public interface MixModify extends TestModify {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFields<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFuncs<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
-
         QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QR>> items();
-
         QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QR>> mixInItems();
-
         QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> mixInSubs();
-
         QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs();
     }
+    // endregion
 }

@@ -37,20 +37,16 @@ public interface Sub {
     }
 
     double getSubAmount();
-
     String getSubtitle();
 
     void setSubAmount(double subAmount);
-
     void setSubtitle(String subtitle);
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Sub, Sub.QuerySelect<Number>>>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR> {
-
         QR subAmount(double subAmount);
-
         QR subtitle(String subtitle);
     }
 
@@ -58,9 +54,7 @@ public interface Sub {
     }
 
     interface QueryFuncs<QR> {
-
         QueryFunctions<Double, QR> subAmount();
-
         QueryFunctions<String, QR> subtitle();
     }
 
@@ -68,9 +62,7 @@ public interface Sub {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
-
         QR subAmount();
-
         QR subtitle();
     }
 

@@ -27,6 +27,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     @Transient
     protected Object tag;
 
+    // region constructor & initializer
     {
         CodeFactory.registerType(SubModify.QuerySelect.class, SubModifyQueryExecutorImpl::new, null);
         CodeFactory.registerType(SubModify.class, SubModifyImpl::new, (p, v) -> new EmbeddedSubModifyModifyImpl<>(p, (SubModifyImpl) v));
@@ -37,7 +38,9 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     public SubModifyImpl() {
         super();
     }
+    // endregion
 
+    // region getters
     public double getSubAmount() {
         return subAmount;
     }
@@ -49,7 +52,9 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     public Object getTag() {
         return tag;
     }
+    // endregion
 
+    // region setters
     public void setSubAmount(double subAmount) {
         this.subAmount = subAmount;
     }
@@ -65,7 +70,9 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     public SubModify.Modify with() {
         return new SubModifyModifyImpl();
     }
+    // endregion
 
+    // region inner classes
     protected static class EmbeddedSubModifyModifyImpl<T> implements SubModify.EmbeddedModify<T> {
 
         protected SubModifyImpl entity;
@@ -281,4 +288,5 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return executor.identifier("type", type);
         }
     }
+    // endregion
 }

@@ -6,7 +6,6 @@ import javax.annotation.processing.Generated;
 
 @Generated(value = "TestPrototype", comments = "TestImpl")
 public interface Test extends CompiledBase {
-
     String getTitle();
 
     void setTitle(String title);

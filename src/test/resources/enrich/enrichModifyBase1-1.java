@@ -8,21 +8,15 @@ import java.time.OffsetDateTime;
 
 @Generated(value = "BasePrototype", comments = "BaseImpl")
 public interface Base extends Typeable<TestEnum> {
-
     OffsetDateTime getDate();
-
     Long getId();
 
     void setDate(OffsetDateTime date);
-
     void setId(Long id);
 
     interface Fields<T> {
-
         T date(OffsetDateTime date);
-
         T id(Long id);
-
         T type(TestEnum type);
     }
 }

@@ -32,12 +32,14 @@ public class CodeGenExtension implements BeforeAllCallback, BeforeEachCallback, 
         if (context.getExecutionException().isEmpty()) {
             mockCheckCalls();
         }
+        CodeGenMock.testStop();
     }
 
     @Override
     public void beforeEach(ExtensionContext context) {
         mockQueryClear();
         mockEntityManager();
+        CodeGenMock.testStart();
     }
 
     @Override
@@ -54,4 +56,5 @@ public class CodeGenExtension implements BeforeAllCallback, BeforeEachCallback, 
         cleanEntityManagerMock();
         //TODO: Remove mocked context and executor.
     }
+
 }

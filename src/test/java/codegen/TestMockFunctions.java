@@ -30,6 +30,7 @@ import net.binis.codegen.mock.exception.QueryNotMockedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.Collections;
 import java.util.List;
 
 import static net.binis.codegen.mock.CodeGenMatcher.*;
@@ -94,6 +95,14 @@ class TestMockFunctions {
         verifySave(mock.save()).called(twice());
 
         assertEquals("binis", mock.done().getName());
+    }
+
+    @Test
+    void testContains() {
+        var sub = SubModify.create();
+        mockQuery(TestModify.find().by().subs().contains(any()), Collections.emptyList());
+
+        assertTrue(TestModify.find().by().subs().contains(sub).list().isEmpty());
     }
 
 

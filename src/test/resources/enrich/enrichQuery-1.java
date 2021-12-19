@@ -17,36 +17,24 @@ public interface Test {
     }
 
     double getAmount();
-
     List<Long> getItems();
-
     Test getParent();
-
     Sub getSub();
-
     String getTitle();
 
     void setAmount(double amount);
-
     void setItems(List<Long> items);
-
     void setParent(Test parent);
-
     void setSub(Sub sub);
-
     void setTitle(String title);
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR> {
-
         QR amount(double amount);
-
         QR parent(Test parent);
-
         QR sub(Sub sub);
-
         QR title(String title);
     }
 
@@ -54,27 +42,19 @@ public interface Test {
     }
 
     interface QueryFuncs<QR> {
-
         QueryFunctions<Double, QR> amount();
-
         QueryFunctions<String, QR> title();
     }
 
     interface QueryName<QS, QO, QR> extends Test.QueryFields<QuerySelectOperation<QS, QO, QR>>, Test.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
-
         Test.QueryName<QS, QO, QR> parent();
-
         Sub.QueryName<QS, QO, QR> sub();
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
-
         QR amount();
-
         QR parent();
-
         QR sub();
-
         QR title();
     }
 
@@ -82,11 +62,8 @@ public interface Test {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFields<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, Test.QueryFuncs<QuerySelectOperation<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<Test.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
-
         QueryCollectionFunctions<Long, QuerySelectOperation<Test.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<Test.QueryOrder<QR>, QR>>, QR>> items();
-
         Test.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> parent();
-
         Sub.QueryName<Test.QuerySelect<QR>, Test.QueryOrder<QR>, QR> sub();
     }
 }

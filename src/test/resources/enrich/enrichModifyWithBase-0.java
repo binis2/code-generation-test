@@ -31,6 +31,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
 
     protected String title;
 
+    // region constructor & initializer
     {
         CodeFactory.registerType(TestModify.QuerySelect.class, TestModifyQueryExecutorImpl::new, null);
         CodeFactory.registerType(TestModify.class, TestModifyImpl::new, null);
@@ -40,7 +41,9 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
     public TestModifyImpl() {
         super();
     }
+    // endregion
 
+    // region getters
     public double getAmount() {
         return amount;
     }
@@ -56,7 +59,9 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
     public String getTitle() {
         return title;
     }
+    // endregion
 
+    // region setters
     public void setAmount(double amount) {
         this.amount = amount;
     }
@@ -76,7 +81,9 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
     public TestModify.Modify with() {
         return new TestModifyModifyImpl();
     }
+    // endregion
 
+    // region inner classes
     protected class TestModifyModifyImpl implements TestModify.Modify {
 
         public TestModify.Modify amount(double amount) {
@@ -265,4 +272,5 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
             return executor.identifier("type", type);
         }
     }
+    // endregion
 }

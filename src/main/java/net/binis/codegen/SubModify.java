@@ -36,6 +36,7 @@ import java.time.OffsetDateTime;
 @Default("net.binis.codegen.SubModifyImpl")
 public interface SubModify extends Base, Taggable {
 
+    // region starters
     static SubModify create() {
         return EntityCreator.create(SubModify.class);
     }
@@ -43,35 +44,29 @@ public interface SubModify extends Base, Taggable {
     static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>, QueryFieldsStart<SubModify, SubModify.QuerySelect<SubModify>>> find() {
         return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
     }
+    // endregion
 
     double getSubAmount();
-
     String getSubtitle();
 
     void setSubAmount(double subAmount);
-
     void setSubtitle(String subtitle);
-
     <T> void setTag(T tag);
 
     SubModify.Modify with();
 
+    // region inner classes
     interface EmbeddedModify<T> extends SubModify.Fields<SubModify.EmbeddedModify<T>> {
-
         EmbeddedCodeCollection<EmbeddedModify<T>, SubModify, T> and();
     }
 
     interface Fields<T> extends Base.Fields<T> {
-
         T subAmount(double subAmount);
-
         T subtitle(String subtitle);
-
         T tag(Object tag);
     }
 
     interface Modify extends SubModify.Fields<SubModify.Modify> {
-
         SubModify done();
     }
 
@@ -85,15 +80,10 @@ public interface SubModify extends Base, Taggable {
     }
 
     interface QueryFuncs<QR> {
-
         QueryFunctions<OffsetDateTime, QR> date();
-
         QueryFunctions<Long, QR> id();
-
         QueryFunctions<Double, QR> subAmount();
-
         QueryFunctions<String, QR> subtitle();
-
         QueryFunctions<TestEnum, QR> type();
     }
 
@@ -101,15 +91,10 @@ public interface SubModify extends Base, Taggable {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
-
         QR date();
-
         QR id();
-
         QR subAmount();
-
         QR subtitle();
-
         QR type();
     }
 
@@ -118,4 +103,5 @@ public interface SubModify extends Base, Taggable {
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, SubModify.QueryFields<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, SubModify.QueryFuncs<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
     }
+    // endregion
 }

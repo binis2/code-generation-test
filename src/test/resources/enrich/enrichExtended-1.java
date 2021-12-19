@@ -6,6 +6,5 @@ import javax.annotation.processing.Generated;
 
 @Generated(value = "ExtendedPrototype", comments = "ExtendedImpl")
 public interface Extended {
-
     SubModify getExtended();
 }
