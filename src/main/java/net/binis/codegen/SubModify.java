@@ -87,7 +87,7 @@ public interface SubModify extends Base, Taggable {
         QueryFunctions<TestEnum, QR> type();
     }
 
-    interface QueryName<QS, QO, QR> extends SubModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, SubModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
+    interface QueryName<QS, QO, QR> extends SubModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, SubModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>> {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {

@@ -330,6 +330,13 @@ class QueryEnrichTest extends BaseTest {
 
         checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
+
+        checkQuery("select u from net.binis.codegen.Test u join fetch u.sub j0 ",
+                () -> net.binis.codegen.Test.find().by().sub().fetch().get());
+
+        checkQuery("select u from net.binis.codegen.Test u left join fetch u.sub j0 ",
+                () -> net.binis.codegen.Test.find().by().sub().leftFetch().get());
+
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {

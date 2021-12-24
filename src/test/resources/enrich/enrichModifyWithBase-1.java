@@ -70,7 +70,7 @@ public interface TestModify extends Base {
         QueryFunctions<TestEnum, QR> type();
     }
 
-    interface QueryName<QS, QO, QR> extends TestModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, TestModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
+    interface QueryName<QS, QO, QR> extends TestModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, TestModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>> {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {

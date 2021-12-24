@@ -47,7 +47,7 @@ public interface Sub {
         QueryFunctions<String, QR> subtitle();
     }
 
-    interface QueryName<QS, QO, QR> extends Sub.QueryFields<QuerySelectOperation<QS, QO, QR>>, Sub.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
+    interface QueryName<QS, QO, QR> extends Sub.QueryFields<QuerySelectOperation<QS, QO, QR>>, Sub.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>> {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {

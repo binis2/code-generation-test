@@ -66,7 +66,7 @@ public interface Test {
         QueryFunctions<String, QR> title();
     }
 
-    interface QueryName<QS, QO, QR> extends Test.QueryFields<QuerySelectOperation<QS, QO, QR>>, Test.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
+    interface QueryName<QS, QO, QR> extends Test.QueryFields<QuerySelectOperation<QS, QO, QR>>, Test.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>> {
         Test.QueryName<QS, QO, QR> parent();
         Sub.QueryName<QS, QO, QR> sub();
     }

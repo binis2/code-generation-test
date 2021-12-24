@@ -75,7 +75,7 @@ public interface MixModify extends TestModify {
         QueryFunctions<TestEnum, QR> type();
     }
 
-    interface QueryName<QS, QO, QR> extends MixModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, MixModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>> {
+    interface QueryName<QS, QO, QR> extends MixModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, MixModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>> {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
