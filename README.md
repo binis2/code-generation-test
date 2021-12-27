@@ -2,6 +2,9 @@
 
 Unit testing routines for Binis CodeGen Library.
 
+For usage examples please see [https://github.com/binis2/code-generation]    
+For full project examples please see [https://github.com/binis2/code-generation-examples] 
+
 ### Introduction
 
 Module to help writing unit tests for code that uses Binis CodeGen library. This testing suite is based on JUnit5 and Mockito libraries.
