@@ -1,4 +1,4 @@
-package codegen;
+package codegen.view;
 
 /*-
  * #%L
@@ -20,19 +20,11 @@ package codegen;
  * #L%
  */
 
-import net.binis.codegen.Sub;
-import net.binis.codegen.mock.exception.CodeGenMockException;
-import org.junit.jupiter.api.Test;
+public interface TestProjectionComplex {
 
-import static net.binis.codegen.mock.CodeGenMock.mockContext;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-class TestMockContext {
-
-    @Test
-    void testWithContext() {
-        mockContext();
-        assertThrows(CodeGenMockException.class, () -> Sub.find().by().subtitle("").get());
-    }
+    double getParentAmount();
+    double getParentParentAmount();
+    double getSubSubAmount();
+    String getSubSubtitle();
 
 }

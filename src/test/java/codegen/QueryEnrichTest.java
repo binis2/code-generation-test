@@ -20,6 +20,8 @@ package codegen;
  * #L%
  */
 
+import codegen.view.TestProjection;
+import codegen.view.TestProjectionComplex;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.Sub;
 import net.binis.codegen.SubModifyImpl;
@@ -85,14 +87,27 @@ class QueryEnrichTest extends BaseTest {
     }
 
     @Test
+    void testSimpleProjection() {
+        checkQuery("select u.amount as amount,u.title as title from net.binis.codegen.Test u ",
+                () -> net.binis.codegen.Test.find().by(TestProjection.class).get());
+    }
+
+    @Test
+    void testComplexProjection() {
+        checkQuery("select u.parent.amount as parentAmount,u.parent.parent.amount as parentParentAmount,u.sub.subAmount as subSubAmount,u.sub.subtitle as subSubtitle from net.binis.codegen.Test u ",
+                () -> net.binis.codegen.Test.find().by(TestProjectionComplex.class).get());
+
+    }
+
+    @Test
     void enrichQueryTest() {
-        checkQuery("select u.subAmount from net.binis.codegen.Sub u ",
+        checkQuery("select u.subAmount as subAmount from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().select().subAmount().get());
 
-        checkQuery("select u.subAmount,u.subtitle from net.binis.codegen.Sub u where (u.subAmount > ?1)", List.of(5.0),
+        checkQuery("select u.subAmount as subAmount,u.subtitle as subtitle from net.binis.codegen.Sub u where (u.subAmount > ?1)", List.of(5.0),
                 () -> net.binis.codegen.Sub.find().select().subAmount().subtitle().where().subAmount().greater(5.0).get());
 
-        checkQuery("select u.subAmount,u.subtitle from net.binis.codegen.Sub u where (u.subtitle = ?1) and  (u.subAmount in (select s0.amount from net.binis.codegen.Test s0 where (s0.title = ?2))) ", List.of("test", "asd"),
+        checkQuery("select u.subAmount as subAmount,u.subtitle as subtitle from net.binis.codegen.Sub u where (u.subtitle = ?1) and  (u.subAmount in (select s0.amount as amount from net.binis.codegen.Test s0 where (s0.title = ?2))) ", List.of("test", "asd"),
                 () -> net.binis.codegen.Sub.find().select().subAmount().subtitle().where().subtitle("test").and().subAmount().in(net.binis.codegen.Test.find().select().amount().where().title("asd")).get());
 
         checkQuery("from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.9),
