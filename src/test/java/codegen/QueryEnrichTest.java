@@ -90,7 +90,6 @@ class QueryEnrichTest extends BaseTest {
     void testSimpleProjection() {
         checkQuery("select u.amount as amount,u.title as title from net.binis.codegen.Test u ",
                 () -> net.binis.codegen.Test.find().by(TestProjection.class).get());
-
     }
 
     @Test
@@ -100,16 +99,15 @@ class QueryEnrichTest extends BaseTest {
 
     }
 
-
     @Test
     void enrichQueryTest() {
-        checkQuery("select u.subAmount from net.binis.codegen.Sub u ",
+        checkQuery("select u.subAmount as subAmount from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().select().subAmount().get());
 
-        checkQuery("select u.subAmount,u.subtitle from net.binis.codegen.Sub u where (u.subAmount > ?1)", List.of(5.0),
+        checkQuery("select u.subAmount as subAmount,u.subtitle as subtitle from net.binis.codegen.Sub u where (u.subAmount > ?1)", List.of(5.0),
                 () -> net.binis.codegen.Sub.find().select().subAmount().subtitle().where().subAmount().greater(5.0).get());
 
-        checkQuery("select u.subAmount,u.subtitle from net.binis.codegen.Sub u where (u.subtitle = ?1) and  (u.subAmount in (select s0.amount from net.binis.codegen.Test s0 where (s0.title = ?2))) ", List.of("test", "asd"),
+        checkQuery("select u.subAmount as subAmount,u.subtitle as subtitle from net.binis.codegen.Sub u where (u.subtitle = ?1) and  (u.subAmount in (select s0.amount as amount from net.binis.codegen.Test s0 where (s0.title = ?2))) ", List.of("test", "asd"),
                 () -> net.binis.codegen.Sub.find().select().subAmount().subtitle().where().subtitle("test").and().subAmount().in(net.binis.codegen.Test.find().select().amount().where().title("asd")).get());
 
         checkQuery("from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.9),
