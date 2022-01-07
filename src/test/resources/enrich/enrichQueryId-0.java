@@ -1,26 +1,6 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
-/*-
- * #%L
- * code-generation-test
- * %%
- * Copyright (C) 2021 - 2022 Binis Belev
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
-
 import net.binis.codegen.spring.query.executor.QueryOrderer;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
@@ -33,15 +13,9 @@ import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
-public class TestImpl implements Test {
+public class TestImpl extends BaseImpl implements Test {
 
     protected double amount;
-
-    protected List<Long> items;
-
-    protected Test parent;
-
-    protected Sub sub;
 
     protected String title;
 
@@ -49,25 +23,15 @@ public class TestImpl implements Test {
         CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
         CodeFactory.registerType(Test.class, TestImpl::new, null);
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
+        CodeFactory.registerId(Test.class, "id", String.class);
     }
 
     public TestImpl() {
+        super();
     }
 
     public double getAmount() {
         return amount;
-    }
-
-    public List<Long> getItems() {
-        return items;
-    }
-
-    public Test getParent() {
-        return parent;
-    }
-
-    public Sub getSub() {
-        return sub;
     }
 
     public String getTitle() {
@@ -76,18 +40,6 @@ public class TestImpl implements Test {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public void setItems(List<Long> items) {
-        this.items = items;
-    }
-
-    public void setParent(Test parent) {
-        this.parent = parent;
-    }
-
-    public void setSub(Sub sub) {
-        this.sub = sub;
     }
 
     public void setTitle(String title) {
@@ -112,32 +64,16 @@ public class TestImpl implements Test {
             return identifier("amount");
         }
 
-        public QueryCollectionFunctions items() {
-            return identifier("items");
+        public QuerySelectOperation id(String id) {
+            return identifier("id", id);
+        }
+
+        public QueryFunctions id() {
+            return identifier("id");
         }
 
         public Test.QueryOrder order() {
             return (Test.QueryOrder) orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::orderIdentifier));
-        }
-
-        public QuerySelectOperation parent(Test parent) {
-            return identifier("parent", parent);
-        }
-
-        public Test.QueryName parent() {
-            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
-            ((QueryEmbed) result).setParent("parent", this);
-            return result;
-        }
-
-        public QuerySelectOperation sub(Sub sub) {
-            return identifier("sub", sub);
-        }
-
-        public Sub.QueryName sub() {
-            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
-            ((QueryEmbed) result).setParent("sub", this);
-            return result;
         }
 
         public QuerySelectOperation title(String title) {
@@ -158,12 +94,8 @@ public class TestImpl implements Test {
                 return (QueryOrderOperation) func.apply("amount");
             }
 
-            public QueryOrderOperation parent() {
-                return (QueryOrderOperation) func.apply("parent");
-            }
-
-            public QueryOrderOperation sub() {
-                return (QueryOrderOperation) func.apply("sub");
+            public QueryOrderOperation id() {
+                return (QueryOrderOperation) func.apply("id");
             }
 
             public QueryOrderOperation title() {
@@ -182,24 +114,12 @@ public class TestImpl implements Test {
             return executor.identifier("amount", amount);
         }
 
-        public Test.QueryName parent() {
-            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
-            ((QueryEmbed) result).setParent("parent", executor);
-            return result;
+        public QueryFunctions id() {
+            return executor.identifier("id");
         }
 
-        public QuerySelectOperation parent(Test parent) {
-            return executor.identifier("parent", parent);
-        }
-
-        public Sub.QueryName sub() {
-            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
-            ((QueryEmbed) result).setParent("sub", executor);
-            return result;
-        }
-
-        public QuerySelectOperation sub(Sub sub) {
-            return executor.identifier("sub", sub);
+        public QuerySelectOperation id(String id) {
+            return executor.identifier("id", id);
         }
 
         public QueryFunctions title() {

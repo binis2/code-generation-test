@@ -63,6 +63,21 @@ class QueryEnrichTest extends BaseTest {
     }
 
     @Test
+    void enrichQueryId() {
+        testMulti(List.of(
+                Triple.of("enrich/enrichQueryBase.java", "enrich/enrichQueryBase-0.java", "enrich/enrichQueryBase-1.java"),
+                Triple.of("enrich/enrichQueryId.java", "enrich/enrichQueryId-0.java", "enrich/enrichQueryId-1.java")
+        ));
+    }
+
+    @Test
+    void enrichQueryReserved() {
+        testSingle("enrich/enrichQueryReserved.java", "enrich/enrichQueryReserved-0.java", "enrich/enrichQueryReserved-1.java");
+    }
+
+
+
+    @Test
     void enrichQueryModifier() {
         testMulti(List.of(
                 Triple.of("enrich/enrichQueryModifySub.java", "enrich/enrichQueryModifySub-0.java", "enrich/enrichQueryModifySub-1.java"),
@@ -343,7 +358,7 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (0 = 0) and  (u.id = ?2)", List.of(5.0, 9L),
                 () -> TestModify.find().by().amount(5.0).and().items().containsNone(null).and().id(9L).get());
 
-        checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u ",
+        checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u  group by u.subAmount ",
                 () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
 
         checkQuery("select u from net.binis.codegen.Test u join fetch u.sub j0 ",
