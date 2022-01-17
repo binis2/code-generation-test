@@ -242,25 +242,25 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(5L),
                 () -> net.binis.codegen.Test.find().by().items().contains(5L).get());
 
-        checkQuery("from net.binis.codegen.Test u ", Collections.emptyList(),
+        checkQuery("from net.binis.codegen.Test u where (0 <> 0) ", Collections.emptyList(),
                 () -> net.binis.codegen.Test.find().by().title().in(Collections.emptyList()).get());
 
-        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1)", List.of(5.0),
+        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1) and  (0 <> 0) ", List.of(5.0),
                 () -> net.binis.codegen.Test.find().by().amount(5.0).and().title().in(Collections.emptyList()).get());
 
-        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1)", List.of(5.0),
+        checkQuery("from net.binis.codegen.Test u where (0 <> 0)  and  (u.amount = ?1)", List.of(5.0),
                 () -> net.binis.codegen.Test.find().by().title().in(Collections.emptyList()).and().amount(5.0).get());
 
-        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1) and  (u.sub.subAmount = ?2)", List.of(5.0, 6.0),
+        checkQuery("from net.binis.codegen.Test u where not  (0 <> 0)  and  (u.amount = ?1) and  (u.sub.subAmount = ?2)", List.of(5.0, 6.0),
                 () -> net.binis.codegen.Test.find().by().not().title().in(Collections.emptyList()).and().amount(5.0).and().sub().subAmount(6.0).get());
 
-        checkQuery("from net.binis.codegen.Test u where (u.amount = ?1) and  (u.sub.subAmount = ?2)", List.of(5.0, 6.0),
+        checkQuery("from net.binis.codegen.Test u where (0 <> 0)  and  (u.amount = ?1) and  (u.sub.subAmount = ?2)", List.of(5.0, 6.0),
                 () -> net.binis.codegen.Test.find().by().title().in(Collections.emptyList()).and().amount(5.0).and().sub().subAmount(6.0).get());
 
-        checkQuery("from net.binis.codegen.Test u where (u.sub.subAmount = ?1) or  (u.amount = ?2) and  (u.sub.subAmount = ?3)", List.of(6.0, 5.0, 6.0),
+        checkQuery("from net.binis.codegen.Test u where (u.sub.subAmount = ?1) and  not  (0 <> 0)  or  (u.amount = ?2) and  (u.sub.subAmount = ?3)", List.of(6.0, 5.0, 6.0),
                 () -> net.binis.codegen.Test.find().by().sub().subAmount(6.0).and().not().title().in(Collections.emptyList()).or().amount(5.0).and().sub().subAmount(6.0).get());
 
-        checkQuery("from net.binis.codegen.Test u where (u.sub.subAmount = ?1) or  (u.amount = ?2) and  (u.sub.subAmount = ?3)", List.of(6.0, 5.0, 6.0),
+        checkQuery("from net.binis.codegen.Test u where (u.sub.subAmount = ?1) and  (0 <> 0)  or  (u.amount = ?2) and  (u.sub.subAmount = ?3)", List.of(6.0, 5.0, 6.0),
                 () -> net.binis.codegen.Test.find().by().sub().subAmount(6.0).and().title().in(Collections.emptyList()).or().amount(5.0).and().sub().subAmount(6.0).get());
 
         checkQuery("select u, sum(j0.subAmount),count(j1.subtitle) from net.binis.codegen.TestModify u join u.subs j0 join u.subs j1 where (j0.subtitle is null)  and  (j1.subAmount is null)  or  (u.amount is not null) group by u  order by sum(j0.subAmount) asc,count(j1.subtitle) desc, u.title", Collections.emptyList(),
@@ -323,7 +323,7 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items)", List.of(6L),
                 () -> query.param(0, 6L));
 
-        checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 join fetch u.subs j1 where (u.amount = ?1) ", List.of(5.0),
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 join fetch u.subs j1 where (u.amount = ?1) and  (0 <> 0)   ", List.of(5.0),
                 () -> TestModify.find().by().amount(5.0).and().subs().join(s -> s.where().id().in(Collections.emptyList())).and().subs().joinFetch().get());
 
         checkQuery("select u from net.binis.codegen.TestModify u join fetch u.items j0 where (u.amount = ?1) ", List.of(5.0),

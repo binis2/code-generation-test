@@ -102,7 +102,7 @@ public class CodeGenMock {
 
     public static void mockAsyncExecutor() {
         instantiate(AsyncEntityModifier.class);
-        CodeFactory.forceRegisterType(AsyncExecutor.class, CodeFactory.singleton(CodeExecutor.syncExecutor()), null);
+        CodeExecutor.registerDefaultExecutor(CodeExecutor.syncExecutor());
     }
 
     public static void mockContextAndEntityManager() {
