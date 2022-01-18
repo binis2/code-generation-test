@@ -29,7 +29,6 @@ import net.binis.codegen.mock.exception.QueryCallsMismatchException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
 import net.binis.codegen.spring.AsyncEntityModifier;
 import net.binis.codegen.spring.BasePersistenceOperations;
-import net.binis.codegen.spring.async.AsyncExecutor;
 import net.binis.codegen.spring.async.executor.CodeExecutor;
 import net.binis.codegen.spring.component.ApplicationContextProvider;
 import net.binis.codegen.spring.query.*;
