@@ -24,6 +24,7 @@ import codegen.view.TestProjection;
 import codegen.view.TestProjectionComplex;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.Sub;
+import net.binis.codegen.SubImpl;
 import net.binis.codegen.SubModifyImpl;
 import net.binis.codegen.TestModify;
 import net.binis.codegen.generation.core.Helpers;
@@ -361,11 +362,22 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u  group by u.subAmount ",
                 () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
 
+        checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u  group by u.subAmount ",
+                () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
+
+
         checkQuery("select u from net.binis.codegen.Test u join fetch u.sub j0 ",
                 () -> net.binis.codegen.Test.find().by().sub().fetch().get());
 
         checkQuery("select u from net.binis.codegen.Test u left join fetch u.sub j0 ",
                 () -> net.binis.codegen.Test.find().by().sub().leftFetch().get());
+
+        var dummy = new SubImpl();
+        checkQuery("from net.binis.codegen.Test u where (u.sub in ?1)", List.of(List.of(dummy)),
+                () -> net.binis.codegen.Test.find().by().sub().in(List.of(dummy)).get());
+
+        checkQuery("from net.binis.codegen.Test u where (u.sub in (select s0 from net.binis.codegen.Sub s0 )) ",
+                () -> net.binis.codegen.Test.find().by().sub().in(Sub.find().by()).get());
 
     }
 
