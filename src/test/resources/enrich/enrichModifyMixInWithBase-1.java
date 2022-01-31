@@ -75,7 +75,7 @@ public interface MixModify extends TestModify {
         QueryFunctions<TestEnum, QR> type();
     }
 
-    interface QueryName<QS, QO, QR> extends MixModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, MixModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>> {
+    interface QueryName<QS, QO, QR, QF> extends MixModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, MixModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>, QF> {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
@@ -91,7 +91,7 @@ public interface MixModify extends TestModify {
     interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>> {
     }
 
-    interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFields<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFuncs<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
+    interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<MixModify.QueryName<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR, MixModify>>, MixModify.QueryFields<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, MixModify.QueryFuncs<QuerySelectOperation<MixModify.QuerySelect<QR>, MixModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
         QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QR>> items();
         QueryCollectionFunctions<Long, QuerySelectOperation<MixModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QR>> mixInItems();
         QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<MixModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<MixModify.QueryOrder<QR>, QR>>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> mixInSubs();
