@@ -116,6 +116,12 @@ class QueryEnrichTest extends BaseTest {
     }
 
     @Test
+    void testAsync() {
+        var job = net.binis.codegen.Test.find().asyncC(t -> log.info("Testing instantiation of AsyncDispatcher"));
+        job.join();
+    }
+
+    @Test
     void enrichQueryTest() {
         checkQuery("select u.subAmount as subAmount from net.binis.codegen.Sub u ",
                 () -> net.binis.codegen.Sub.find().select().subAmount().get());
