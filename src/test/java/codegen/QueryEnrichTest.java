@@ -76,7 +76,10 @@ class QueryEnrichTest extends BaseTest {
         testSingle("enrich/enrichQueryReserved.java", "enrich/enrichQueryReserved-0.java", "enrich/enrichQueryReserved-1.java");
     }
 
-
+    @Test
+    void enrichQueryJoinable() {
+        testSingle("enrich/enrichQueryJoinable.java", "enrich/enrichQueryJoinable-0.java", "enrich/enrichQueryJoinable-1.java");
+    }
 
     @Test
     void enrichQueryModifier() {

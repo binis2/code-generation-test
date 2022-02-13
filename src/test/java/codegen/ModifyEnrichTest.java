@@ -72,12 +72,13 @@ class ModifyEnrichTest extends BaseTest {
     }
 
     @Test
+    void enrichModifyEmbeddable() {
+        testSingle("enrich/enrichModifyEmbeddable.java", "enrich/enrichModifyEmbeddable-0.java", "enrich/enrichModifyEmbeddable-1.java");
+    }
+
+    @Test
     void enrichMockEntity() {
         testSingle("enrich/TestMockEntityPrototype.java", "enrich/TestMockEntityPrototype-0.java", "enrich/TestMockEntityPrototype-1.java", "./src/main/java/net/binis/codegen");
     }
-
-
-
-
 
 }
