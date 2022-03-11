@@ -59,7 +59,7 @@ class ModifyEnrichTest extends BaseTest {
                 Triple.of("enrich/enrichModifySubWithBase.java", "enrich/enrichModifySubWithBase-0.java", "enrich/enrichModifySubWithBase-1.java"),
                 Triple.of("enrich/enrichModifyWithBase.java", "enrich/enrichModifyWithBaseAndMixIn-0.java", "enrich/enrichModifyWithBase-1.java"),
                 Triple.of("enrich/enrichModifyMixInWithBase.java", null, "enrich/enrichModifyMixInWithBase-1.java")
-        ), "./src/main/java/net/binis/codegen");
+        ), "./src/test/java/net/binis/codegen");
     }
 
     @Test
@@ -78,7 +78,7 @@ class ModifyEnrichTest extends BaseTest {
 
     @Test
     void enrichMockEntity() {
-        testSingle("enrich/TestMockEntityPrototype.java", "enrich/TestMockEntityPrototype-0.java", "enrich/TestMockEntityPrototype-1.java", "./src/main/java/net/binis/codegen");
+        testSingle("enrich/TestMockEntityPrototype.java", "enrich/TestMockEntityPrototype-0.java", "enrich/TestMockEntityPrototype-1.java", "./src/test/java/net/binis/codegen");
     }
 
 }

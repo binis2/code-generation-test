@@ -60,7 +60,7 @@ class QueryEnrichTest extends BaseTest {
         testMulti(List.of(
                 Triple.of("enrich/enrichQuerySub.java", "enrich/enrichQuerySub-0.java", "enrich/enrichQuerySub-1.java"),
                 Triple.of("enrich/enrichQuery.java", "enrich/enrichQuery-0.java", "enrich/enrichQuery-1.java")
-        ), "./src/main/java/net/binis/codegen");
+        ), "./src/test/java/net/binis/codegen");
     }
 
     @Test
@@ -127,16 +127,16 @@ class QueryEnrichTest extends BaseTest {
     @Test
     void enrichQueryTest() {
         checkQuery("select u.subAmount as subAmount from net.binis.codegen.Sub u ",
-                () -> net.binis.codegen.Sub.find().select().subAmount().get());
+                () -> Sub.find().select().subAmount().get());
 
         checkQuery("select u.subAmount as subAmount,u.subtitle as subtitle from net.binis.codegen.Sub u where (u.subAmount > ?1)", List.of(5.0),
-                () -> net.binis.codegen.Sub.find().select().subAmount().subtitle().where().subAmount().greater(5.0).get());
+                () -> Sub.find().select().subAmount().subtitle().where().subAmount().greater(5.0).get());
 
         checkQuery("select u.subAmount as subAmount,u.subtitle as subtitle from net.binis.codegen.Sub u where (u.subtitle = ?1) and  (u.subAmount in (select s0.amount as amount from net.binis.codegen.Test s0 where (s0.title = ?2))) ", List.of("test", "asd"),
-                () -> net.binis.codegen.Sub.find().select().subAmount().subtitle().where().subtitle("test").and().subAmount().in(net.binis.codegen.Test.find().select().amount().where().title("asd")).get());
+                () -> Sub.find().select().subAmount().subtitle().where().subtitle("test").and().subAmount().in(net.binis.codegen.Test.find().select().amount().where().title("asd")).get());
 
         checkQuery("from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.9),
-                () -> net.binis.codegen.Sub.find().by().subAmount(5.9).get());
+                () -> Sub.find().by().subAmount(5.9).get());
 
         checkQuery("from net.binis.codegen.Test u where (u.parent.parent.parent.title = ?1)", List.of("asd"),
                 () -> net.binis.codegen.Test.find().by().parent().parent().parent().title().equal("asd").get());
@@ -244,7 +244,7 @@ class QueryEnrichTest extends BaseTest {
                 () -> net.binis.codegen.Test.find().by().parent().parent().title().length().greater(5L)._if(false, query -> query.and().amount(5))._else(query -> query.and().amount(6)).get());
 
         checkQuery("select avg(u.subAmount) from net.binis.codegen.Sub u where (u.subAmount = ?1)", List.of(5.0),
-                () -> net.binis.codegen.Sub.find().aggregate().avg().subAmount().where().subAmount(5).get());
+                () -> Sub.find().aggregate().avg().subAmount().where().subAmount(5).get());
 
         checkQuery("from net.binis.codegen.Test u where (?1 member of u.items) and  (?2 not member of u.items) and  (u.items is not empty) and  (u.items is empty)", List.of(5L, 6L),
                 () -> net.binis.codegen.Test.find().by().items().contains(5L).and().items().notContains(6L).and().items().isNotEmpty().and().items().isEmpty().get());
@@ -369,10 +369,10 @@ class QueryEnrichTest extends BaseTest {
                 () -> TestModify.find().by().amount(5.0).and().items().containsNone(null).and().id(9L).get());
 
         checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u  group by u.subAmount ",
-                () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
+                () -> Sub.find().aggregate().distinct().subAmount().get());
 
         checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u  group by u.subAmount ",
-                () -> net.binis.codegen.Sub.find().aggregate().distinct().subAmount().get());
+                () -> Sub.find().aggregate().distinct().subAmount().get());
 
 
         checkQuery("select u from net.binis.codegen.Test u join fetch u.sub j0 ",
