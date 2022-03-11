@@ -171,7 +171,7 @@ public class CodeGenMock {
     }
 
     public static MockedQueryContext mockQuery(String query, List<Object> params, Object returnObject) {
-        MockedQueryContextImpl.MockedQueryParams result = null;
+        MockedQueryContextImpl.MockedQueryParams result;
 
         if (isNull(mockedProcessor) || !mockedProcessor.equals(QueryProcessor.getProcessor())) {
             QueryProcessor.setProcessor(createMockedProcessor());
@@ -337,6 +337,7 @@ public class CodeGenMock {
         mockedResponses.clear();
     }
 
+    @SuppressWarnings("unchecked")
     static QueryProcessor.Processor createMockedProcessor() {
         mockedProcessor = (executor, manager, query, params, resultType, resultClass, mapClass, isNative, isModifying, pagable, flush, lock, hints, filters) -> {
             CodeGenMock.checkContext();
