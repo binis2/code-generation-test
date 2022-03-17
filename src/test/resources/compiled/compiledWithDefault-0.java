@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 @Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl implements Test {
 
-    protected boolean test;
+    protected boolean test = true;
 
     protected String title;
 
