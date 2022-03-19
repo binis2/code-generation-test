@@ -40,6 +40,8 @@ import java.time.OffsetDateTime;
 @Generated(value = "SubModifyPrototype", comments = "SubModify")
 public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<SubModify.Modify> {
 
+    protected SubModify parent;
+
     protected double subAmount;
 
     protected String subtitle;
@@ -61,6 +63,10 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     // endregion
 
     // region getters
+    public SubModify getParent() {
+        return parent;
+    }
+
     public double getSubAmount() {
         return subAmount;
     }
@@ -75,6 +81,10 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     // endregion
 
     // region setters
+    public void setParent(SubModify parent) {
+        this.parent = parent;
+    }
+
     public void setSubAmount(double subAmount) {
         this.subAmount = subAmount;
     }
@@ -118,6 +128,11 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return this;
         }
 
+        public SubModify.EmbeddedModify<T> parent(SubModify parent) {
+            entity.parent = parent;
+            return this;
+        }
+
         public SubModify.EmbeddedModify<T> subAmount(double subAmount) {
             entity.subAmount = subAmount;
             return this;
@@ -152,6 +167,11 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public SubModify.Modify id(Long id) {
             SubModifyImpl.this.id = id;
+            return this;
+        }
+
+        public SubModify.Modify parent(SubModify parent) {
+            SubModifyImpl.this.parent = parent;
             return this;
         }
 
@@ -206,6 +226,16 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return (SubModify.QueryOrder) orderStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::orderIdentifier));
         }
 
+        public QuerySelectOperation parent(SubModify parent) {
+            return identifier("parent", parent);
+        }
+
+        public SubModify.QueryName parent() {
+            var result = EntityCreator.create(SubModify.QueryName.class, "net.binis.codegen.SubModifyImpl");
+            ((QueryEmbed) result).setParent("parent", this);
+            return result;
+        }
+
         public QuerySelectOperation subAmount(double subAmount) {
             return identifier("subAmount", subAmount);
         }
@@ -248,6 +278,10 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
                 return (QueryOrderOperation) func.apply("id");
             }
 
+            public QueryOrderOperation parent() {
+                return (QueryOrderOperation) func.apply("parent");
+            }
+
             public QueryOrderOperation subAmount() {
                 return (QueryOrderOperation) func.apply("subAmount");
             }
@@ -278,6 +312,16 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public QuerySelectOperation id(Long id) {
             return executor.identifier("id", id);
+        }
+
+        public SubModify.QueryName parent() {
+            var result = EntityCreator.create(SubModify.QueryName.class, "net.binis.codegen.SubModifyImpl");
+            ((QueryEmbed) result).setParent("parent", executor);
+            return result;
+        }
+
+        public QuerySelectOperation parent(SubModify parent) {
+            return executor.identifier("parent", parent);
         }
 
         public QueryFunctions subAmount() {

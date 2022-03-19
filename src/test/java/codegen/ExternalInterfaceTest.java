@@ -48,8 +48,14 @@ class ExternalInterfaceTest extends BaseTest {
     }
 
     @Test
+    void testCompiledPrototypeWithDefaultFunctionOverride() {
+        testSingle("compiled/compiledWithDefaultOverride.java", "compiled/compiledWithDefaultOverride-0.java", "compiled/compiledWithDefaultOverride-1.java", 2);
+    }
+
+    @Test
     void testCompiledPrototypeWithDefaultFunction() {
         testSingle("compiled/compiledWithDefault.java", "compiled/compiledWithDefault-0.java", "compiled/compiledWithDefault-1.java", 2);
     }
+
 
 }

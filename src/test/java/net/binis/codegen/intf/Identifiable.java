@@ -1,4 +1,4 @@
-package net.binis.codegen.prototype;
+package net.binis.codegen.intf;
 
 /*-
  * #%L
@@ -20,19 +20,8 @@ package net.binis.codegen.prototype;
  * #L%
  */
 
-import net.binis.codegen.annotation.CodeImplementation;
-import net.binis.codegen.annotation.CodePrototype;
-import net.binis.codegen.annotation.Default;
+public interface Identifiable {
 
-@CodePrototype(generateImplementation = false)
-public interface CompiledPrototype {
-
-    @Default("true")
-    boolean test();
-
-    @CodeImplementation("return !test")
-    default boolean isTestable() {
-        return !test();
-    }
+    Long getId();
 
 }

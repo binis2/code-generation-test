@@ -22,7 +22,7 @@ public class TestImpl implements Test {
     }
 
     public boolean isTestable() {
-        return !test;
+        return this.test;
     }
 
     public void setTest(boolean test) {

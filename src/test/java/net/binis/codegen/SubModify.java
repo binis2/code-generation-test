@@ -23,6 +23,7 @@ package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.intf.Taggable;
+import net.binis.codegen.intf.Identifiable;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
@@ -34,7 +35,7 @@ import java.time.OffsetDateTime;
 
 @Generated(value = "SubModifyPrototype", comments = "SubModifyImpl")
 @Default("net.binis.codegen.SubModifyImpl")
-public interface SubModify extends Base, Taggable {
+public interface SubModify extends Base, Taggable, Identifiable {
 
     // region starters
     static SubModify create() {
@@ -46,9 +47,11 @@ public interface SubModify extends Base, Taggable {
     }
     // endregion
 
+    SubModify getParent();
     double getSubAmount();
     String getSubtitle();
 
+    void setParent(SubModify parent);
     void setSubAmount(double subAmount);
     void setSubtitle(String subtitle);
     <T> void setTag(T tag);
@@ -61,6 +64,7 @@ public interface SubModify extends Base, Taggable {
     }
 
     interface Fields<T> extends Base.Fields<T> {
+        T parent(SubModify parent);
         T subAmount(double subAmount);
         T subtitle(String subtitle);
         T tag(Object tag);
@@ -88,11 +92,13 @@ public interface SubModify extends Base, Taggable {
     }
 
     interface QueryName<QS, QO, QR, QF> extends SubModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, SubModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>, QF> {
+        SubModify.QueryName<QS, QO, QR, SubModify> parent();
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR> {
         QR date();
         QR id();
+        QR parent();
         QR subAmount();
         QR subtitle();
         QR type();
@@ -102,6 +108,7 @@ public interface SubModify extends Base, Taggable {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR, SubModify>>, SubModify.QueryFields<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, SubModify.QueryFuncs<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
+        SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR, SubModify> parent();
     }
     // endregion
 }

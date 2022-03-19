@@ -22,11 +22,9 @@ package codegen;
 
 import codegen.view.TestProjection;
 import codegen.view.TestProjectionComplex;
+import codegen.view.TestProjectionComplex2;
 import lombok.extern.slf4j.Slf4j;
-import net.binis.codegen.Sub;
-import net.binis.codegen.SubImpl;
-import net.binis.codegen.SubModifyImpl;
-import net.binis.codegen.TestModify;
+import net.binis.codegen.*;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.test.BaseTest;
@@ -115,7 +113,12 @@ class QueryEnrichTest extends BaseTest {
     void testComplexProjection() {
         checkQuery("select u.parent.amount as parentAmount,u.parent.parent.amount as parentParentAmount,u.sub.subAmount as subSubAmount,u.sub.subtitle as subSubtitle from net.binis.codegen.Test u ",
                 () -> net.binis.codegen.Test.find().by(TestProjectionComplex.class).get());
+    }
 
+    @Test
+    void testComplexProjection2() {
+        checkQuery("select u.id as id,u.parent.id as parentId,u.tag as tag,u.type as type from net.binis.codegen.SubModify u ",
+                () -> SubModify.find().by(TestProjectionComplex2.class).get());
     }
 
     @Test

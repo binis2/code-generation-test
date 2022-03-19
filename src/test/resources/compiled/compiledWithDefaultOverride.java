@@ -8,4 +8,8 @@ public interface TestPrototype extends CompiledPrototype {
 
     String title();
 
+    default boolean isTestable() {
+        return test();
+    }
+
 }

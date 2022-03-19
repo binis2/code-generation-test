@@ -1,10 +1,10 @@
-package net.binis.codegen.prototype;
+package codegen.view;
 
 /*-
  * #%L
  * code-generation-test
  * %%
- * Copyright (C) 2021 - 2022 Binis Belev
+ * Copyright (C) 2021 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,15 @@ package net.binis.codegen.prototype;
  * #L%
  */
 
-import net.binis.codegen.annotation.CodeImplementation;
-import net.binis.codegen.annotation.CodePrototype;
-import net.binis.codegen.annotation.Default;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.intf.Identifiable;
+import net.binis.codegen.intf.Taggable;
+import net.binis.codegen.intf.Typeable;
 
-@CodePrototype(generateImplementation = false)
-public interface CompiledPrototype {
+public interface TestProjectionComplex2 extends Identifiable, Taggable, Typeable<TestEnum> {
 
-    @Default("true")
-    boolean test();
+    Long getId();
 
-    @CodeImplementation("return !test")
-    default boolean isTestable() {
-        return !test();
-    }
+    Long getParentId();
 
 }
