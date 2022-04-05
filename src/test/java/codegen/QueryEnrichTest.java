@@ -371,12 +371,8 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.TestModify u where (u.amount = ?1) and  (0 = 0) and  (u.id = ?2)", List.of(5.0, 9L),
                 () -> TestModify.find().by().amount(5.0).and().items().containsNone(null).and().id(9L).get());
 
-        checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u  group by u.subAmount ",
+        checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u ",
                 () -> Sub.find().aggregate().distinct().subAmount().get());
-
-        checkQuery("select distinct u.subAmount  from net.binis.codegen.Sub u  group by u.subAmount ",
-                () -> Sub.find().aggregate().distinct().subAmount().get());
-
 
         checkQuery("select u from net.binis.codegen.Test u join fetch u.sub j0 ",
                 () -> net.binis.codegen.Test.find().by().sub().fetch().get());
