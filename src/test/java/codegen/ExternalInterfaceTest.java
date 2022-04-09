@@ -25,6 +25,8 @@ import net.binis.codegen.test.BaseTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class ExternalInterfaceTest extends BaseTest {
 
     @BeforeEach
@@ -55,6 +57,18 @@ class ExternalInterfaceTest extends BaseTest {
     @Test
     void testCompiledPrototypeWithDefaultFunction() {
         testSingle("compiled/compiledWithDefault.java", "compiled/compiledWithDefault-0.java", "compiled/compiledWithDefault-1.java", 2);
+    }
+
+    @Test
+    void testCompiledPrototypeWithFieldOverride() {
+        assertThrows(NoClassDefFoundError.class, () ->
+                testSingle("compiled/compiledWithDefaultWithFieldOverride.java", "compiled/compiledWithDefaultWithFieldOverride-0.java", "compiled/compiledWithDefaultWithFieldOverride-1.java", 2));
+    }
+
+    @Test
+    void testCompiledPrototypeWithFieldInitialize() {
+        assertThrows(NoClassDefFoundError.class, () ->
+                testSingle("compiled/compiledWithDefaultWithFieldInitialize.java", "compiled/compiledWithDefaultWithFieldInitialize-0.java", "compiled/compiledWithDefaultWithFieldInitialize-1.java", 2));
     }
 
 

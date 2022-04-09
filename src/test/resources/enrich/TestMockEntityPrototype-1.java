@@ -37,6 +37,7 @@ public interface TestMock {
     }
 
     interface Modify extends TestMock.Fields<TestMock.Modify> {
+        TestMock.Modify _if(boolean condition, java.util.function.Consumer<TestMock.Modify> consumer);
         TestMock delete();
         TestMock detach();
         TestMock done();
