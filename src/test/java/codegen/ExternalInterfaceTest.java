@@ -61,14 +61,12 @@ class ExternalInterfaceTest extends BaseTest {
 
     @Test
     void testCompiledPrototypeWithFieldOverride() {
-        assertThrows(NoClassDefFoundError.class, () ->
-                testSingle("compiled/compiledWithDefaultWithFieldOverride.java", "compiled/compiledWithDefaultWithFieldOverride-0.java", "compiled/compiledWithDefaultWithFieldOverride-1.java", 2));
+        testSingle("compiled/compiledWithDefaultWithFieldOverride.java", "compiled/compiledWithDefaultWithFieldOverride-0.java", "compiled/compiledWithDefaultWithFieldOverride-1.java", 2);
     }
 
     @Test
     void testCompiledPrototypeWithFieldInitialize() {
-        assertThrows(NoClassDefFoundError.class, () ->
-                testSingle("compiled/compiledWithDefaultWithFieldInitialize.java", "compiled/compiledWithDefaultWithFieldInitialize-0.java", "compiled/compiledWithDefaultWithFieldInitialize-1.java", 2));
+        testSingle("compiled/compiledWithDefaultWithFieldInitialize.java", "compiled/compiledWithDefaultWithFieldInitialize-0.java", "compiled/compiledWithDefaultWithFieldInitialize-1.java", 2);
     }
 
 

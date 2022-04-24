@@ -1,5 +1,5 @@
 /*Generated code by Binis' code generator.*/
-package net.binis.codegen;
+package net.binis.codegen.test;
 
 import net.binis.codegen.intf.*;
 import javax.annotation.processing.Generated;

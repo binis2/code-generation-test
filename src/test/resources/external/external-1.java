@@ -1,5 +1,5 @@
 /*Generated code by Binis' code generator.*/
-package net.binis.codegen;
+package net.binis.codegen.test;
 
 import net.binis.codegen.intf.Typeable;
 import net.binis.codegen.intf.ExternalInterface;
