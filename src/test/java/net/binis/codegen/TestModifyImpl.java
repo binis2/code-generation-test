@@ -21,24 +21,23 @@ package net.binis.codegen;
  * #L%
  */
 
-import net.binis.codegen.spring.query.executor.QueryOrderer;
-import net.binis.codegen.spring.query.executor.QueryExecutor;
-import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
-import net.binis.codegen.spring.query.*;
-import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.enums.TestEnum;
-import net.binis.codegen.creator.EntityCreator;
-import net.binis.codegen.collection.EmbeddedCodeSetImpl;
-import net.binis.codegen.collection.EmbeddedCodeCollection;
-import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
+import net.binis.codegen.collection.CodeListImpl;
+import net.binis.codegen.collection.EmbeddedCodeCollection;
+import net.binis.codegen.collection.EmbeddedCodeSetImpl;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.modifier.Modifiable;
+import net.binis.codegen.spring.query.*;
+import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
+import net.binis.codegen.spring.query.executor.QueryExecutor;
+import net.binis.codegen.spring.query.executor.QueryOrderer;
+
 import javax.annotation.processing.Generated;
-import java.util.function.Function;
-import java.util.Set;
-import java.util.Optional;
-import java.util.List;
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 
 @Generated(value = "TestModifyPrototype", comments = "TestModify")
 public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, Modifiable<TestModify.Modify> {
@@ -333,6 +332,26 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("type");
         }
 
+        @Override
+        public Object done() {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation join(Function join) {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation leftJoin(Function join) {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation joinFetch(Function join) {
+            return null;
+        }
+
         protected class MixModifyQueryOrderImpl extends QueryOrderer implements MixModify.QueryOrder, MixModify.QueryAggregate {
 
             protected MixModifyQueryOrderImpl(MixModifyQueryExecutorImpl executor, Function<String, Object> func) {
@@ -485,6 +504,26 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
 
         public QueryFunctions type() {
             return identifier("type");
+        }
+
+        @Override
+        public Object done() {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation join(Function join) {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation leftJoin(Function join) {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation joinFetch(Function join) {
+            return null;
         }
 
         protected class TestModifyQueryOrderImpl extends QueryOrderer implements TestModify.QueryOrder, TestModify.QueryAggregate {

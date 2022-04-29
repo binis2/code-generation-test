@@ -21,21 +21,20 @@ package net.binis.codegen;
  * #L%
  */
 
-import net.binis.codegen.spring.query.executor.QueryOrderer;
-import net.binis.codegen.spring.query.executor.QueryExecutor;
-import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
-import net.binis.codegen.spring.query.*;
-import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.enums.TestEnum;
-import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
-import javax.persistence.Transient;
+import net.binis.codegen.creator.EntityCreator;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.modifier.Modifiable;
+import net.binis.codegen.spring.query.*;
+import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
+import net.binis.codegen.spring.query.executor.QueryExecutor;
+import net.binis.codegen.spring.query.executor.QueryOrderer;
+
 import javax.annotation.processing.Generated;
-import java.util.function.Function;
-import java.util.Optional;
-import java.util.List;
+import javax.persistence.Transient;
 import java.time.OffsetDateTime;
+import java.util.function.Function;
 
 @Generated(value = "SubModifyPrototype", comments = "SubModify")
 public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<SubModify.Modify> {
@@ -262,6 +261,26 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public QueryFunctions type() {
             return identifier("type");
+        }
+
+        @Override
+        public Object done() {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation join(Function join) {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation leftJoin(Function join) {
+            return null;
+        }
+
+        @Override
+        public QuerySelectOperation joinFetch(Function join) {
+            return null;
         }
 
         protected class SubModifyQueryOrderImpl extends QueryOrderer implements SubModify.QueryOrder, SubModify.QueryAggregate {

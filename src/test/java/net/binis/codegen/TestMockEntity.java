@@ -21,10 +21,10 @@ package net.binis.codegen;
  * #L%
  */
 
-import net.binis.codegen.spring.BaseEntityModifier;
-import net.binis.codegen.modifier.Modifier;
-import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.modifier.Modifiable;
+import net.binis.codegen.spring.BaseEntityModifierImpl;
+
 import javax.annotation.processing.Generated;
 
 @Generated(value = "TestMockEntityPrototype", comments = "TestMock")
@@ -91,7 +91,7 @@ public class TestMockEntity implements TestMock, Modifiable<TestMock.Modify> {
         return new TestMockEntityModifyImpl();
     }
 
-    protected class TestMockEntityModifyImpl extends BaseEntityModifier<TestMock.Modify, TestMock> implements TestMock.Modify {
+    protected class TestMockEntityModifyImpl extends BaseEntityModifierImpl<Modify, TestMock> implements TestMock.Modify {
 
         protected TestMockEntityModifyImpl() {
             setObject(TestMockEntity.this);
