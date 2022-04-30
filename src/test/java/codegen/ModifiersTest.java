@@ -25,10 +25,12 @@ import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.test.BaseTest;
+import org.apache.commons.lang3.tuple.Triple;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Comparator;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -39,6 +41,15 @@ public class ModifiersTest extends BaseTest {
     @Before
     public void cleanUp() {
         Helpers.cleanUp();
+    }
+
+    @Test
+    public void testGenerate() {
+        testMulti(List.of(
+                Triple.of("enrich/enrichModifyBase2.java", "enrich/enrichModifyBase1-0.java", "enrich/enrichModifyBase1-1.java"),
+                Triple.of("enrich/enrichModifyNew.java", "enrich/enrichModifyNew-0.java", "enrich/enrichModifyNew-1.java"),
+                Triple.of("enrich/enrichModifyNew2.java", "enrich/enrichModifyNew2-0.java", "enrich/enrichModifyNew2-1.java")
+        ));
     }
 
     @Test
@@ -106,7 +117,6 @@ public class ModifiersTest extends BaseTest {
 
         assertTrue(transaction.getAccount().isActive());
         assertEquals("1234", transaction.getAccount().getAccountNumber());
-
     }
 
 }
