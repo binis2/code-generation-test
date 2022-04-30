@@ -21,6 +21,7 @@ package codegen;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
@@ -45,11 +46,11 @@ public class ModifiersTest extends BaseTest {
 
     @Test
     public void testGenerate() {
-        testMulti(List.of(
-                Triple.of("enrich/enrichModifyBase2.java", "enrich/enrichModifyBase1-0.java", "enrich/enrichModifyBase1-1.java"),
+        testMultiExecute(List.of(
+                Triple.of("enrich/enrichModifyBase2.java", "enrich/enrichModifyBase2-0.java", "enrich/enrichModifyBase2-1.java"),
                 Triple.of("enrich/enrichModifyNew.java", "enrich/enrichModifyNew-0.java", "enrich/enrichModifyNew-1.java"),
                 Triple.of("enrich/enrichModifyNew2.java", "enrich/enrichModifyNew2-0.java", "enrich/enrichModifyNew2-1.java")
-        ));
+        ), "enrich/enrichModifyNewExecute.java");
     }
 
     @Test
@@ -75,7 +76,7 @@ public class ModifiersTest extends BaseTest {
                 .transactions()
                     ._add()
                         .amount(5.0)
-                        .externalId("asdasd")
+                        .type(TestEnum.FIRST)
                         ._and()
                     ._add()
                         .amount(4.0)
@@ -91,7 +92,7 @@ public class ModifiersTest extends BaseTest {
                 .account()
                     .active(true)
                     .accountNumber("1234")
-                    .externalId("asd")
+                    .balance(6.0)
                 .done()
         .done();
 
@@ -102,7 +103,7 @@ public class ModifiersTest extends BaseTest {
                 .transactions()
                     ._add(t -> t
                             .amount(5)
-                            .description("desc"))
+                            .id(5L))
                 .done()
         .done();
 
@@ -112,11 +113,20 @@ public class ModifiersTest extends BaseTest {
                 .account(a -> a
                     .active(true)
                     .accountNumber("1234")
-                    .externalId("asd"))
+                    .balance(6.0))
                 .done();
 
         assertTrue(transaction.getAccount().isActive());
         assertEquals("1234", transaction.getAccount().getAccountNumber());
+
+        account = Account.create()
+                .strings()
+                    .add("asd")
+                    .add("fgh")
+                    ._if(true, l -> l.add("jkl"))
+                .done()
+        .done();
+        assertEquals(3, account.getStrings().size());
     }
 
 }

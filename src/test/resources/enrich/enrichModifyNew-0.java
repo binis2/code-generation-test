@@ -1,114 +1,163 @@
 /*Generated code by Binis' code generator.*/
-package net.binis.codegen;
+package net.binis.codegen.modifier.test;
 
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.collection.EmbeddedCodeSetImpl;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.collection.EmbeddedCodeListImpl;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
-import java.util.Set;
 import java.util.List;
+import java.time.OffsetDateTime;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModify")
-public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify> {
+@Generated(value = "AccountEntityPrototype", comments = "Account")
+public class AccountEntity extends BaseImpl implements Account, Modifiable<Account.Modify> {
 
-    protected double amount;
+    protected String accountNumber;
 
-    protected List<Long> items;
+    protected boolean active;
 
-    protected SubModify prototype;
+    protected double available;
 
-    protected Set<SubModify> subs;
+    protected double balance;
 
-    protected String title;
+    protected double pending;
 
-    public TestModifyImpl() {
+    protected List<String> strings;
+
+    protected List<Transaction> transactions;
+
+    // region constructor & initializer
+    {
+        CodeFactory.registerType(Account.class, AccountEntity::new, (p, v) -> ((AccountEntity) v).new AccountEntitySoloModifyImpl(p));
     }
 
-    public double getAmount() {
-        return amount;
+    public AccountEntity() {
+        super();
+    }
+    // endregion
+
+    // region getters
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public List<Long> getItems() {
-        return items;
+    public double getAvailable() {
+        return available;
     }
 
-    public SubModify getPrototype() {
-        return prototype;
+    public double getBalance() {
+        return balance;
     }
 
-    public Set<SubModify> getSubs() {
-        return subs;
+    public double getPending() {
+        return pending;
     }
 
-    public String getTitle() {
-        return title;
+    public List<String> getStrings() {
+        return strings;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setItems(List<Long> items) {
-        this.items = items;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setSubs(Set<SubModify> subs) {
-        this.subs = subs;
+    public Account.Modify with() {
+        return new AccountEntityModifyImpl();
     }
+    // endregion
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    // region inner classes
+    protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
-    public TestModify.Modify with() {
-        return new TestModifyModifyImpl();
-    }
-
-    protected class TestModifyModifyImpl implements TestModify.Modify {
-
-        public TestModify.Modify amount(double amount) {
-            TestModifyImpl.this.amount = amount;
-            return this;
+        protected AccountEntityEmbeddedModifyImpl(Object parent) {
+            this.parent = (R) parent;
         }
 
-        public TestModify done() {
-            return TestModifyImpl.this;
+        protected AccountEntityEmbeddedModifyImpl() {
+            setObject((R) AccountEntity.this);
         }
 
-        public TestModify.Modify items(List<Long> items) {
-            TestModifyImpl.this.items = items;
-            return this;
+        public T accountNumber(String accountNumber) {
+            AccountEntity.this.accountNumber = accountNumber;
+            return (T) this;
         }
 
-        public CodeList<Long, TestModify.Modify> items() {
-            if (TestModifyImpl.this.items == null) {
-                TestModifyImpl.this.items = new java.util.ArrayList<>();
+        public T active(boolean active) {
+            AccountEntity.this.active = active;
+            return (T) this;
+        }
+
+        public T available(double available) {
+            AccountEntity.this.available = available;
+            return (T) this;
+        }
+
+        public T balance(double balance) {
+            AccountEntity.this.balance = balance;
+            return (T) this;
+        }
+
+        public T date(OffsetDateTime date) {
+            AccountEntity.this.date = date;
+            return (T) this;
+        }
+
+        public T id(Long id) {
+            AccountEntity.this.id = id;
+            return (T) this;
+        }
+
+        public T pending(double pending) {
+            AccountEntity.this.pending = pending;
+            return (T) this;
+        }
+
+        public T strings(List<String> strings) {
+            AccountEntity.this.strings = strings;
+            return (T) this;
+        }
+
+        public CodeList strings() {
+            if (AccountEntity.this.strings == null) {
+                AccountEntity.this.strings = new java.util.ArrayList<>();
             }
-            return new CodeListImpl<>(this, TestModifyImpl.this.items);
+            return new CodeListImpl<>(this, AccountEntity.this.strings);
         }
 
-        public TestModify.Modify prototype(SubModify prototype) {
-            TestModifyImpl.this.prototype = prototype;
-            return this;
+        public T transactions(List<Transaction> transactions) {
+            AccountEntity.this.transactions = transactions;
+            return (T) this;
         }
 
-        public TestModify.Modify subs(Set<SubModify> subs) {
-            TestModifyImpl.this.subs = subs;
-            return this;
-        }
-
-        public EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, TestModify.Modify> subs() {
-            if (TestModifyImpl.this.subs == null) {
-                TestModifyImpl.this.subs = new java.util.HashSet<>();
+        public EmbeddedCodeCollection transactions() {
+            if (AccountEntity.this.transactions == null) {
+                AccountEntity.this.transactions = new java.util.ArrayList<>();
             }
-            return new EmbeddedCodeSetImpl<>(this, TestModifyImpl.this.subs, SubModify.class);
+            return new EmbeddedCodeListImpl<>(this, AccountEntity.this.transactions, Transaction.class);
         }
 
-        public TestModify.Modify title(String title) {
-            TestModifyImpl.this.title = title;
-            return this;
+        public T type(TestEnum type) {
+            AccountEntity.this.type = type;
+            return (T) this;
         }
     }
+
+    protected class AccountEntityModifyImpl extends AccountEntityEmbeddedModifyImpl<Account.Modify, Account> implements Account.Modify {
+    }
+
+    protected class AccountEntitySoloModifyImpl extends AccountEntityEmbeddedModifyImpl implements Account.EmbeddedSoloModify {
+
+        protected AccountEntitySoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+    // endregion
 }

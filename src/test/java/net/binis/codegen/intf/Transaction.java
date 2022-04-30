@@ -1,18 +1,19 @@
 package net.binis.codegen.intf;
 
-import net.binis.codegen.annotation.Default;
-import net.binis.codegen.collection.EmbeddedCodeCollection;
-import net.binis.codegen.creator.EntityCreatorModifier;
+import net.binis.codegen.Base;
 import net.binis.codegen.modifier.BaseModifier;
-import net.binis.codegen.spring.BaseEntityModifier;
-
+import net.binis.codegen.intf.Taggable;
+import net.binis.codegen.intf.Account;
+import net.binis.codegen.creator.EntityCreatorModifier;
+import net.binis.codegen.collection.EmbeddedCodeCollection;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
-import java.time.OffsetDateTime;
 import java.util.function.Consumer;
+import java.time.OffsetDateTime;
 
 @Generated(value = "TransactionEntityPrototype", comments = "TransactionEntity")
 @Default("net.binis.codegen.impl.TransactionEntity")
-public interface Transaction extends BaseInterface, Taggable {
+public interface Transaction extends Base, Taggable {
 
     // region starters
     static Transaction.Modify create() {
@@ -23,36 +24,38 @@ public interface Transaction extends BaseInterface, Taggable {
     Account getAccount();
     double getAmount();
     Account getCounterparty();
+    Transaction getParent();
     OffsetDateTime getTimestamp();
 
     Transaction.Modify with();
 
     // region inner classes
-    interface EmbeddedModify<T, R> extends Transaction.Fields<T>, BaseModifier<T, R> {
-        Account.EmbeddedSoloModify<EmbeddedModify<T, R>> account();
-    }
-
-    interface Modify extends Transaction.EmbeddedModify<Transaction.Modify, Transaction>, BaseEntityModifier<Transaction.Modify, Transaction> {
-        Modify account(Consumer<Account.Modify> init);
-    }
-
-    interface EmbeddedCollectionModify<R> extends EmbeddedModify<EmbeddedCollectionModify<R>, R> {
+    interface EmbeddedCollectionModify<R> extends Transaction.EmbeddedModify<Transaction.EmbeddedCollectionModify<R>, R> {
         EmbeddedCodeCollection<Transaction.EmbeddedCollectionModify<R>, Transaction, R> _and();
     }
 
-    interface EmbeddedSoloModify<R> extends EmbeddedModify<EmbeddedSoloModify<R>, R> {
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Transaction.Fields<T> {
+        Account.EmbeddedSoloModify<EmbeddedModify<T, R>> account();
+        Account.EmbeddedSoloModify<EmbeddedModify<T, R>> counterparty();
+        Transaction.EmbeddedSoloModify<EmbeddedModify<T, R>> parent();
     }
 
-    interface Fields<T> extends BaseInterface.Fields<T> {
+    interface EmbeddedSoloModify<R> extends Transaction.EmbeddedModify<Transaction.EmbeddedSoloModify<R>, R> {
+    }
+
+    interface Fields<T> extends Base.Fields<T> {
         T account(Account account);
         T amount(double amount);
         T counterparty(Account counterparty);
-        T description(String description);
-        T externalId(String externalId);
+        T parent(Transaction parent);
         T tag(Object tag);
         T timestamp(OffsetDateTime timestamp);
-        T title(String title);
     }
 
+    interface Modify extends EmbeddedModify<Transaction.Modify, Transaction> {
+        Modify account(Consumer<Account.Modify> init);
+        Modify counterparty(Consumer<Account.Modify> init);
+        Modify parent(Consumer<Transaction.Modify> init);
+    }
     // endregion
 }

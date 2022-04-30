@@ -1,62 +1,39 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.impl;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import net.binis.codegen.collection.EmbeddedCodeCollection;
-import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.intf.Account;
-import net.binis.codegen.intf.Previewable;
+
+import net.binis.codegen.BaseImpl;
 import net.binis.codegen.intf.Transaction;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.spring.BaseEntityModifierImpl;
-
-import javax.persistence.Column;
+import net.binis.codegen.intf.Account;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.collection.EmbeddedCodeCollection;
 import javax.persistence.Transient;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
+import javax.annotation.processing.Generated;
 import java.util.function.Consumer;
+import java.time.OffsetDateTime;
 
-import static java.util.Objects.nonNull;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(onlyExplicitlyIncluded = true)
-@SuppressWarnings("unchecked")
-public class TransactionEntity extends BaseEntity implements Transaction, Previewable, Modifiable<Transaction.Modify> {
-
-    // region constants
-    public static final String TABLE_NAME = "transactions";
-
-    public static final long serialVersionUID = 2023385096577883838L;
-    // endregion
+@Generated(value = "TransactionEntityPrototype", comments = "Transaction")
+public class TransactionEntity extends BaseImpl implements Transaction, Modifiable<Transaction.Modify> {
 
     protected Account account;
 
-    @Column(nullable = false)
     protected double amount;
 
     protected Account counterparty;
 
-    protected String description;
+    protected Transaction parent;
 
-    protected String externalId;
-
-    @Transient
+    @Transient()
     protected Object tag;
 
     protected OffsetDateTime timestamp;
 
-    protected String title;
-
     // region constructor & initializer
     {
-        CodeFactory.registerType(Transaction.class, TransactionEntity::new, (p, v) ->
-                p instanceof EmbeddedCodeCollection ?
-                        ((TransactionEntity) v).new TransactionEntityCollectionModifyImpl(p) :
-                        ((TransactionEntity) v).new TransactionEntitySingleModifyImpl(p));
-        CodeFactory.registerId(Transaction.class, "id", Long.class);
+        CodeFactory.registerType(Transaction.class, TransactionEntity::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((TransactionEntity) v).new TransactionEntityCollectionModifyImpl(p) : ((TransactionEntity) v).new TransactionEntitySoloModifyImpl(p));
     }
 
     public TransactionEntity() {
@@ -65,11 +42,29 @@ public class TransactionEntity extends BaseEntity implements Transaction, Previe
     // endregion
 
     // region getters
-    @Transient
-    public String getPreview() {
-        return this.timestamp.format(DateTimeFormatter.ISO_OFFSET_DATE) + " (" + this.title + " for $" + this.amount + ")" + " -> account: " + (nonNull(this.account) ? ((Previewable) this.account).getPreview() : "no account");
+    public Account getAccount() {
+        return account;
     }
-    // endregion
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public Account getCounterparty() {
+        return counterparty;
+    }
+
+    public Transaction getParent() {
+        return parent;
+    }
+
+    public Object getTag() {
+        return tag;
+    }
+
+    public OffsetDateTime getTimestamp() {
+        return timestamp;
+    }
 
     public Transaction.Modify with() {
         return new TransactionEntityModifyImpl();
@@ -77,38 +72,18 @@ public class TransactionEntity extends BaseEntity implements Transaction, Previe
     // endregion
 
     // region inner classes
-    protected class TransactionEntityModifyImpl extends TransactionEntityEmbeddedModifyImpl<Transaction.Modify, Transaction> implements Transaction.Modify {
+    protected class TransactionEntityCollectionModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedCollectionModify {
 
-        @Override
-        public Modify account(Consumer<Account.Modify> init) {
-            if (TransactionEntity.this.account == null) {
-                TransactionEntity.this.account = CodeFactory.create(Account.class);
-            }
-
-            init.accept(TransactionEntity.this.account.with());
-
-            return this;
-        }
-    }
-
-    protected class TransactionEntityCollectionModifyImpl extends TransactionEntityEmbeddedModifyImpl implements EmbeddedCollectionModify {
         protected TransactionEntityCollectionModifyImpl(Object parent) {
             super(parent);
         }
 
-        @Override
         public EmbeddedCodeCollection _and() {
             return (EmbeddedCodeCollection) parent;
         }
     }
 
-    protected class TransactionEntitySingleModifyImpl extends TransactionEntityEmbeddedModifyImpl implements EmbeddedSoloModify {
-        protected TransactionEntitySingleModifyImpl(Object parent) {
-            super(parent);
-        }
-    }
-
-    protected class TransactionEntityEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Transaction.EmbeddedModify<T, R> {
+    protected class TransactionEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Transaction.EmbeddedModify<T, R> {
 
         protected TransactionEntityEmbeddedModifyImpl(Object parent) {
             this.parent = (R) parent;
@@ -118,10 +93,16 @@ public class TransactionEntity extends BaseEntity implements Transaction, Previe
             setObject((R) TransactionEntity.this);
         }
 
-        @Override
         public T account(Account account) {
             TransactionEntity.this.account = account;
             return (T) this;
+        }
+
+        public Account.EmbeddedSoloModify<EmbeddedModify<T, R>> account() {
+            if (TransactionEntity.this.account == null) {
+                TransactionEntity.this.account = CodeFactory.create(Account.class);
+            }
+            return CodeFactory.modify(this, TransactionEntity.this.account, Account.class);
         }
 
         public T amount(double amount) {
@@ -134,13 +115,15 @@ public class TransactionEntity extends BaseEntity implements Transaction, Previe
             return (T) this;
         }
 
-        public T description(String description) {
-            TransactionEntity.this.description = description;
-            return (T) this;
+        public Account.EmbeddedSoloModify<EmbeddedModify<T, R>> counterparty() {
+            if (TransactionEntity.this.counterparty == null) {
+                TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
+            }
+            return CodeFactory.modify(this, TransactionEntity.this.counterparty, Account.class);
         }
 
-        public T externalId(String externalId) {
-            TransactionEntity.this.externalId = externalId;
+        public T date(OffsetDateTime date) {
+            TransactionEntity.this.date = date;
             return (T) this;
         }
 
@@ -149,9 +132,16 @@ public class TransactionEntity extends BaseEntity implements Transaction, Previe
             return (T) this;
         }
 
-        public T modified(OffsetDateTime modified) {
-            TransactionEntity.this.modified = modified;
+        public T parent(Transaction parent) {
+            TransactionEntity.this.parent = parent;
             return (T) this;
+        }
+
+        public Transaction.EmbeddedSoloModify<EmbeddedModify<T, R>> parent() {
+            if (TransactionEntity.this.parent == null) {
+                TransactionEntity.this.parent = CodeFactory.create(Transaction.class);
+            }
+            return CodeFactory.modify(this, TransactionEntity.this.parent, Transaction.class);
         }
 
         public T tag(Object tag) {
@@ -164,17 +154,43 @@ public class TransactionEntity extends BaseEntity implements Transaction, Previe
             return (T) this;
         }
 
-        public T title(String title) {
-            TransactionEntity.this.title = title;
+        public T type(TestEnum type) {
+            TransactionEntity.this.type = type;
             return (T) this;
         }
+    }
 
-        @Override
-        public Account.EmbeddedSoloModify<EmbeddedModify<T, R>> account() {
+    protected class TransactionEntityModifyImpl extends TransactionEntityEmbeddedModifyImpl<Transaction.Modify, Transaction> implements Transaction.Modify {
+
+        public Modify account(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.account == null) {
                 TransactionEntity.this.account = CodeFactory.create(Account.class);
             }
-            return CodeFactory.modify(this, TransactionEntity.this.account, Account.class);
+            init.accept(TransactionEntity.this.account.with());
+            return this;
+        }
+
+        public Modify counterparty(Consumer<Account.Modify> init) {
+            if (TransactionEntity.this.counterparty == null) {
+                TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
+            }
+            init.accept(TransactionEntity.this.counterparty.with());
+            return this;
+        }
+
+        public Modify parent(Consumer<Transaction.Modify> init) {
+            if (TransactionEntity.this.parent == null) {
+                TransactionEntity.this.parent = CodeFactory.create(Transaction.class);
+            }
+            init.accept(TransactionEntity.this.parent.with());
+            return this;
+        }
+    }
+
+    protected class TransactionEntitySoloModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedSoloModify {
+
+        protected TransactionEntitySoloModifyImpl(Object parent) {
+            super(parent);
         }
     }
     // endregion

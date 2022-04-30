@@ -1,38 +1,61 @@
 /*Generated code by Binis' code generator.*/
-package net.binis.codegen;
+package net.binis.codegen.modifier.test;
 
-import net.binis.codegen.intf.Prototypable;
+import net.binis.codegen.modifier.BaseModifier;
+import net.binis.codegen.intf.Taggable;
+import net.binis.codegen.intf.Account;
+import net.binis.codegen.creator.EntityCreatorModifier;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
-import net.binis.codegen.collection.CodeList;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
-import java.util.Set;
-import java.util.List;
+import java.util.function.Consumer;
+import java.time.OffsetDateTime;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModifyImpl")
-public interface TestModify extends Prototypable<SubModify> {
+@Generated(value = "TransactionEntityPrototype", comments = "TransactionEntity")
+@Default("net.binis.codegen.modifier.test.TransactionEntity")
+public interface Transaction extends Base, Taggable {
+
+    // region starters
+    static Transaction.Modify create() {
+        return (Transaction.Modify) EntityCreatorModifier.create(Transaction.class).with();
+    }
+    // endregion
+
+    Account getAccount();
     double getAmount();
-    List<Long> getItems();
-    Set<SubModify> getSubs();
-    String getTitle();
+    Account getCounterparty();
+    Transaction getParent();
+    OffsetDateTime getTimestamp();
 
-    void setAmount(double amount);
-    void setItems(List<Long> items);
-    void setSubs(Set<SubModify> subs);
-    void setTitle(String title);
+    Transaction.Modify with();
 
-    TestModify.Modify with();
+    // region inner classes
+    interface EmbeddedCollectionModify<R> extends Transaction.EmbeddedModify<Transaction.EmbeddedCollectionModify<R>, R> {
+        EmbeddedCodeCollection<Transaction.EmbeddedCollectionModify<R>, Transaction, R> _and();
+    }
 
-    interface Fields<T> {
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Transaction.Fields<T> {
+        Account.EmbeddedSoloModify<EmbeddedModify<T, R>> account();
+        Account.EmbeddedSoloModify<EmbeddedModify<T, R>> counterparty();
+        Transaction.EmbeddedSoloModify<EmbeddedModify<T, R>> parent();
+    }
+
+    interface EmbeddedSoloModify<R> extends Transaction.EmbeddedModify<Transaction.EmbeddedSoloModify<R>, R> {
+    }
+
+    interface Fields<T> extends Base.Fields<T> {
+        T account(Account account);
         T amount(double amount);
-        T prototype(SubModify prototype);
-        T title(String title);
+        T counterparty(Account counterparty);
+        T parent(Transaction parent);
+        T tag(Object tag);
+        T timestamp(OffsetDateTime timestamp);
     }
 
-    interface Modify extends TestModify.Fields<TestModify.Modify> {
-        TestModify done();
-        Modify items(List<Long> items);
-        CodeList<Long, Modify> items();
-        Modify subs(Set<SubModify> subs);
-        EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
+    interface Modify extends EmbeddedModify<Transaction.Modify, Transaction> {
+        Modify account(Consumer<Account.Modify> init);
+        Modify counterparty(Consumer<Account.Modify> init);
+        Modify parent(Consumer<Transaction.Modify> init);
     }
+    // endregion
 }

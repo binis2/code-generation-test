@@ -1,7 +1,6 @@
 /*Generated code by Binis' code generator.*/
-package net.binis.codegen;
+package net.binis.codegen.modifier.test;
 
-import net.binis.codegen.spring.BaseEntityModifier;
 import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.creator.EntityCreatorModifier;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
@@ -11,7 +10,7 @@ import javax.annotation.processing.Generated;
 import java.util.List;
 
 @Generated(value = "AccountEntityPrototype", comments = "AccountEntity")
-@Default("net.binis.codegen.AccountEntity")
+@Default("net.binis.codegen.modifier.test.AccountEntity")
 public interface Account extends Base {
 
     // region starters
@@ -50,7 +49,7 @@ public interface Account extends Base {
         T pending(double pending);
     }
 
-    interface Modify extends BaseEntityModifier<Account.Modify, Account>, EmbeddedModify<Account.Modify, Account> {
+    interface Modify extends EmbeddedModify<Account.Modify, Account> {
     }
     // endregion
 }

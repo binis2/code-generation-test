@@ -1,81 +1,60 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.impl;
 
-import lombok.ToString;
-import net.binis.codegen.intf.BaseInterface;
-import org.springframework.data.annotation.LastModifiedBy;
+/*-
+ * #%L
+ * code-generation-test
+ * %%
+ * Copyright (C) 2021 - 2022 Binis Belev
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 
+import net.binis.codegen.Base;
+import net.binis.codegen.enums.TestEnum;
 import javax.annotation.processing.Generated;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import java.time.OffsetDateTime;
 
-@Generated(value = "BaseEntityPrototype", comments = "BaseInterface")
-@MappedSuperclass
-@Access(AccessType.FIELD)
-public class BaseEntity implements BaseInterface {
+@Generated(value = "BasePrototype", comments = "Base")
+public class BaseEntity implements Base {
 
-    private static final long serialVersionUID = 2715722432365286225L;
+    protected OffsetDateTime date;
 
-    protected OffsetDateTime created;
-
-    protected String createdBy;
-
-    @Id
-    @ToString.Include
     protected Long id;
 
-    protected OffsetDateTime modified;
-
-    protected String modifiedBy;
+    protected TestEnum type;
 
     public BaseEntity() {
     }
 
-    public <T> T as(Class<T> cls) {
-        return cls.cast(this);
-    }
-
-    public OffsetDateTime getCreated() {
-        return created;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
+    public OffsetDateTime getDate() {
+        return date;
     }
 
     public Long getId() {
         return id;
     }
 
-    public OffsetDateTime getModified() {
-        return modified;
+    public TestEnum getType() {
+        return type;
     }
 
-    @LastModifiedBy
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setCreated(OffsetDateTime created) {
-        this.created = created;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setDate(OffsetDateTime date) {
+        this.date = date;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setModified(OffsetDateTime modified) {
-        this.modified = modified;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
     }
 }

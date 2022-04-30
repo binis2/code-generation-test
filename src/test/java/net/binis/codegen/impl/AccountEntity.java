@@ -1,61 +1,41 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.impl;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import net.binis.codegen.collection.EmbeddedCodeCollection;
-import net.binis.codegen.collection.EmbeddedCodeListImpl;
-import net.binis.codegen.enums.TestEnum;
-import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.BaseImpl;
 import net.binis.codegen.intf.Account;
-import net.binis.codegen.intf.Previewable;
 import net.binis.codegen.intf.Transaction;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.spring.BaseEntityModifierImpl;
-import org.springframework.data.annotation.Transient;
-
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.collection.EmbeddedCodeListImpl;
+import net.binis.codegen.collection.EmbeddedCodeCollection;
+import net.binis.codegen.collection.CodeListImpl;
+import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
-import java.time.OffsetDateTime;
 import java.util.List;
+import java.time.OffsetDateTime;
 
 @Generated(value = "AccountEntityPrototype", comments = "Account")
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(onlyExplicitlyIncluded = true)
-@SuppressWarnings("unchecked")
-public class AccountEntity extends BaseEntity implements Account, Previewable, Modifiable<Account.Modify> {
-
-    // region constants
-    public static final String TABLE_NAME = "accounts";
-
-    private static final long serialVersionUID = -640283484493905851L;
-    // endregion
+public class AccountEntity extends BaseImpl implements Account, Modifiable<Account.Modify> {
 
     protected String accountNumber;
 
-    protected boolean active = true;
+    protected boolean active;
 
     protected double available;
 
     protected double balance;
-    protected String description;
-
-    protected String externalId;
-
-    protected String name;
 
     protected double pending;
 
-    protected List<Transaction> transactions;
+    protected List<String> strings;
 
-    protected TestEnum type = TestEnum.FIRST;
+    protected List<Transaction> transactions;
 
     // region constructor & initializer
     {
-        CodeFactory.registerType(Account.class, AccountEntity::new, (p, v) ->
-                ((AccountEntity) v).new AccountEntitySingleModifyImpl(p));
-        CodeFactory.registerId(Account.class, "id", Long.class);
+        CodeFactory.registerType(Account.class, AccountEntity::new, (p, v) -> ((AccountEntity) v).new AccountEntitySoloModifyImpl(p));
     }
 
     public AccountEntity() {
@@ -64,9 +44,32 @@ public class AccountEntity extends BaseEntity implements Account, Previewable, M
     // endregion
 
     // region getters
-    @Transient
-    public String getPreview() {
-        return getName() + " [" + this.accountNumber + "]";
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getAvailable() {
+        return available;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public double getPending() {
+        return pending;
+    }
+
+    public List<String> getStrings() {
+        return strings;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public Account.Modify with() {
@@ -75,16 +78,7 @@ public class AccountEntity extends BaseEntity implements Account, Previewable, M
     // endregion
 
     // region inner classes
-    protected class AccountEntityModifyImpl extends AccountEntityEmbeddedModifyImpl<Account.Modify, Account> implements Account.Modify {
-    }
-
-    protected class AccountEntitySingleModifyImpl extends AccountEntity.AccountEntityEmbeddedModifyImpl implements Account.EmbeddedSoloModify {
-        protected AccountEntitySingleModifyImpl(Object parent) {
-            super(parent);
-        }
-    }
-
-    protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
+    protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
         protected AccountEntityEmbeddedModifyImpl(Object parent) {
             this.parent = (R) parent;
@@ -114,13 +108,8 @@ public class AccountEntity extends BaseEntity implements Account, Previewable, M
             return (T) this;
         }
 
-        public T description(String description) {
-            AccountEntity.this.description = description;
-            return (T) this;
-        }
-
-        public T externalId(String externalId) {
-            AccountEntity.this.externalId = externalId;
+        public T date(OffsetDateTime date) {
+            AccountEntity.this.date = date;
             return (T) this;
         }
 
@@ -129,19 +118,21 @@ public class AccountEntity extends BaseEntity implements Account, Previewable, M
             return (T) this;
         }
 
-        public T modified(OffsetDateTime modified) {
-            AccountEntity.this.modified = modified;
-            return (T) this;
-        }
-
-        public T name(String name) {
-            AccountEntity.this.name = name;
-            return (T) this;
-        }
-
         public T pending(double pending) {
             AccountEntity.this.pending = pending;
             return (T) this;
+        }
+
+        public T strings(List<String> strings) {
+            AccountEntity.this.strings = strings;
+            return (T) this;
+        }
+
+        public CodeList strings() {
+            if (AccountEntity.this.strings == null) {
+                AccountEntity.this.strings = new java.util.ArrayList<>();
+            }
+            return new CodeListImpl<>(this, AccountEntity.this.strings);
         }
 
         public T transactions(List<Transaction> transactions) {
@@ -160,8 +151,16 @@ public class AccountEntity extends BaseEntity implements Account, Previewable, M
             AccountEntity.this.type = type;
             return (T) this;
         }
-
     }
 
+    protected class AccountEntityModifyImpl extends AccountEntityEmbeddedModifyImpl<Account.Modify, Account> implements Account.Modify {
+    }
+
+    protected class AccountEntitySoloModifyImpl extends AccountEntityEmbeddedModifyImpl implements Account.EmbeddedSoloModify {
+
+        protected AccountEntitySoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
     // endregion
 }
