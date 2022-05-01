@@ -1,19 +1,40 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.impl;
 
+/*-
+ * #%L
+ * code-generation-test
+ * %%
+ * Copyright (C) 2021 - 2022 Binis Belev
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 
 import net.binis.codegen.BaseImpl;
-import net.binis.codegen.intf.Transaction;
-import net.binis.codegen.modifier.impl.BaseModifierImpl;
-import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.intf.Account;
-import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
-import javax.persistence.Transient;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.intf.Account;
+import net.binis.codegen.intf.Transaction;
+import net.binis.codegen.modifier.Modifiable;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
+
 import javax.annotation.processing.Generated;
-import java.util.function.Consumer;
+import javax.persistence.Transient;
 import java.time.OffsetDateTime;
+import java.util.function.Consumer;
 
 @Generated(value = "TransactionEntityPrototype", comments = "Transaction")
 public class TransactionEntity extends BaseImpl implements Transaction, Modifiable<Transaction.Modify> {
@@ -67,7 +88,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
     }
 
     public Transaction.Modify with() {
-        return new TransactionEntityModifyImpl();
+        return new TransactionEntityModifyImpl(this);
     }
     // endregion
 
@@ -85,12 +106,8 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
 
     protected class TransactionEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Transaction.EmbeddedModify<T, R> {
 
-        protected TransactionEntityEmbeddedModifyImpl(Object parent) {
-            this.parent = (R) parent;
-        }
-
-        protected TransactionEntityEmbeddedModifyImpl() {
-            setObject((R) TransactionEntity.this);
+        protected TransactionEntityEmbeddedModifyImpl(R parent) {
+            super(parent);
         }
 
         public T account(Account account) {
@@ -161,6 +178,10 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
     }
 
     protected class TransactionEntityModifyImpl extends TransactionEntityEmbeddedModifyImpl<Transaction.Modify, Transaction> implements Transaction.Modify {
+
+        protected TransactionEntityModifyImpl(Transaction parent) {
+            super(parent);
+        }
 
         public Modify account(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.account == null) {

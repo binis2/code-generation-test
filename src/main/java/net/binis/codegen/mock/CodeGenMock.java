@@ -27,10 +27,11 @@ import net.binis.codegen.mock.exception.CodeGenMockException;
 import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryCallsMismatchException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
-import net.binis.codegen.spring.AsyncEntityModifier;
-import net.binis.codegen.spring.BasePersistenceOperations;
+import net.binis.codegen.spring.modifier.AsyncEntityModifier;
+import net.binis.codegen.spring.modifier.BasePersistenceOperations;
 import net.binis.codegen.spring.async.executor.CodeExecutor;
 import net.binis.codegen.spring.component.ApplicationContextProvider;
+import net.binis.codegen.spring.modifier.impl.AsyncEntityModifierImpl;
 import net.binis.codegen.spring.query.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
@@ -100,7 +101,7 @@ public class CodeGenMock {
     }
 
     public static void mockAsyncExecutor() {
-        instantiate(AsyncEntityModifier.class);
+        new MockAsyncEntityModifierImpl(null);
         CodeExecutor.registerDefaultExecutor(CodeExecutor.syncExecutor());
     }
 
@@ -480,6 +481,13 @@ public class CodeGenMock {
 
     public static void clearCodeFactoryMock() {
         CodeFactory.clearEnvelopingFactory();
+    }
+
+    public static class MockAsyncEntityModifierImpl extends AsyncEntityModifierImpl {
+
+        protected MockAsyncEntityModifierImpl(Object parent) {
+            super(parent);
+        }
     }
 
 }

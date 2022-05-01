@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.test;
 
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.*;
 import javax.annotation.processing.Generated;
 
@@ -16,7 +17,6 @@ public interface Test extends ExternalInterface<String>, Available, Previewable,
         T tag(Object tag);
     }
 
-    interface Modify extends Test.Fields<Test.Modify> {
-        Test done();
+    interface Modify extends Test.Fields<Test.Modify>, BaseModifier<Test.Modify, Test> {
     }
 }

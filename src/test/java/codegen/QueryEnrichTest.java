@@ -386,7 +386,6 @@ class QueryEnrichTest extends BaseTest {
 
         checkQuery("from net.binis.codegen.Test u where (u.sub in (select s0 from net.binis.codegen.Sub s0 )) ",
                 () -> net.binis.codegen.Test.find().by().sub().in(Sub.find().by()).get());
-
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {

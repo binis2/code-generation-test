@@ -5,6 +5,7 @@ import net.binis.codegen.spring.query.executor.QueryOrderer;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.creator.EntityCreator;
@@ -46,23 +47,37 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
     }
 
     public Sub.Modify with() {
-        return new SubModifyImpl();
+        return new SubModifyImpl(this);
     }
 
-    protected class SubModifyImpl implements Sub.Modify {
+    protected class SubImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Sub.EmbeddedModify<T, R> {
 
-        public Sub done() {
-            return SubImpl.this;
+        protected SubImplEmbeddedModifyImpl(R parent) {
+            super(parent);
         }
 
-        public Sub.Modify subAmount(double subAmount) {
+        public T subAmount(double subAmount) {
             SubImpl.this.subAmount = subAmount;
-            return this;
+            return (T) this;
         }
 
-        public Sub.Modify subtitle(String subtitle) {
+        public T subtitle(String subtitle) {
             SubImpl.this.subtitle = subtitle;
-            return this;
+            return (T) this;
+        }
+    }
+
+    protected class SubImplSoloModifyImpl extends SubImplEmbeddedModifyImpl implements Sub.EmbeddedSoloModify {
+
+        protected SubImplSoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+
+    protected class SubModifyImpl extends SubImplEmbeddedModifyImpl<Sub.Modify, Sub> implements Sub.Modify {
+
+        protected SubModifyImpl(Sub parent) {
+            super(parent);
         }
     }
 

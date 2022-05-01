@@ -2,6 +2,8 @@
 package net.binis.codegen.test;
 
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.spring.modifier.BaseEntityModifier;
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.Typeable;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreatorModifier;
@@ -29,8 +31,14 @@ public interface Test extends Generic<TestPayload>, Typeable<TestEnum> {
     Test.Modify with();
 
     // region inner classes
-    interface EmbeddedModify<T> extends Test.Fields<Test.EmbeddedModify<T>> {
-        EmbeddedCodeCollection<EmbeddedModify<T>, Test, T> and();
+    interface EmbeddedCollectionModify<R> extends Test.EmbeddedModify<Test.EmbeddedCollectionModify<R>, R> {
+        EmbeddedCodeCollection<Test.EmbeddedCollectionModify<R>, Test, R> _and();
+    }
+
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Test.Fields<T> {
+    }
+
+    interface EmbeddedSoloModify<R> extends Test.EmbeddedModify<Test.EmbeddedSoloModify<R>, R> {
     }
 
     interface Fields<T> {
@@ -38,8 +46,7 @@ public interface Test extends Generic<TestPayload>, Typeable<TestEnum> {
         T type(TestEnum type);
     }
 
-    interface Modify extends Test.Fields<Test.Modify> {
-        Test done();
+    interface Modify extends EmbeddedModify<Test.Modify, Test>, BaseEntityModifier<Test.Modify, Test> {
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>> {

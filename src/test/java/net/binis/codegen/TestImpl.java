@@ -21,16 +21,16 @@ package net.binis.codegen;
  * #L%
  */
 
-import net.binis.codegen.creator.EntityCreator;
-import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.spring.query.*;
-import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
-import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.executor.QueryOrderer;
-
+import net.binis.codegen.spring.query.executor.QueryExecutor;
+import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
+import net.binis.codegen.spring.query.*;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.creator.EntityCreator;
 import javax.annotation.processing.Generated;
-import java.util.List;
 import java.util.function.Function;
+import java.util.Optional;
+import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl implements Test {
@@ -146,26 +146,6 @@ public class TestImpl implements Test {
 
         public QueryFunctions title() {
             return identifier("title");
-        }
-
-        @Override
-        public Object done() {
-            return null;
-        }
-
-        @Override
-        public QuerySelectOperation join(Function join) {
-            return null;
-        }
-
-        @Override
-        public QuerySelectOperation leftJoin(Function join) {
-            return null;
-        }
-
-        @Override
-        public QuerySelectOperation joinFetch(Function join) {
-            return null;
         }
 
         protected class TestQueryOrderImpl extends QueryOrderer implements Test.QueryOrder, Test.QueryAggregate {

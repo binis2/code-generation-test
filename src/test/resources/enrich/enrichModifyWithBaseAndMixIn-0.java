@@ -5,6 +5,7 @@ import net.binis.codegen.spring.query.executor.QueryOrderer;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
@@ -62,7 +63,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
 
     // region getters
     public MixModify.Modify asMixModify() {
-        return new MixModifyModifyImpl();
+        return new MixModifyModifyImpl(this);
     }
 
     public double getAmount() {
@@ -132,12 +133,16 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     }
 
     public TestModify.Modify with() {
-        return new TestModifyModifyImpl();
+        return new TestModifyModifyImpl(this);
     }
     // endregion
 
     // region inner classes
-    protected class MixModifyModifyImpl implements MixModify.Modify {
+    protected class MixModifyModifyImpl extends BaseModifierImpl<MixModify.Modify, MixModify> implements MixModify.Modify {
+
+        protected MixModifyModifyImpl(MixModify parent) {
+            super(parent);
+        }
 
         public MixModify.Modify amount(double amount) {
             TestModifyImpl.this.amount = amount;
@@ -163,7 +168,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public CodeList<Long, MixModify.Modify> items() {
+        public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
             }
@@ -180,7 +185,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public CodeList<Long, MixModify.Modify> mixInItems() {
+        public CodeList mixInItems() {
             if (TestModifyImpl.this.mixInItems == null) {
                 TestModifyImpl.this.mixInItems = new java.util.ArrayList<>();
             }
@@ -192,7 +197,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, MixModify.Modify> mixInSubs() {
+        public EmbeddedCodeCollection mixInSubs() {
             if (TestModifyImpl.this.mixInSubs == null) {
                 TestModifyImpl.this.mixInSubs = new java.util.HashSet<>();
             }
@@ -209,7 +214,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, MixModify.Modify> subs() {
+        public EmbeddedCodeCollection subs() {
             if (TestModifyImpl.this.subs == null) {
                 TestModifyImpl.this.subs = new java.util.HashSet<>();
             }
@@ -349,7 +354,11 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
-    protected class TestModifyModifyImpl implements TestModify.Modify {
+    protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
+
+        protected TestModifyModifyImpl(TestModify parent) {
+            super(parent);
+        }
 
         public TestModify.Modify amount(double amount) {
             TestModifyImpl.this.amount = amount;
@@ -375,7 +384,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public CodeList<Long, TestModify.Modify> items() {
+        public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
             }
@@ -387,7 +396,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, TestModify.Modify> subs() {
+        public EmbeddedCodeCollection subs() {
             if (TestModifyImpl.this.subs == null) {
                 TestModifyImpl.this.subs = new java.util.HashSet<>();
             }

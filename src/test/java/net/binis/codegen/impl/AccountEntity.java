@@ -1,6 +1,26 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.impl;
 
+/*-
+ * #%L
+ * code-generation-test
+ * %%
+ * Copyright (C) 2021 - 2022 Binis Belev
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import net.binis.codegen.BaseImpl;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
@@ -73,19 +93,15 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     }
 
     public Account.Modify with() {
-        return new AccountEntityModifyImpl();
+        return new AccountEntityModifyImpl(this);
     }
     // endregion
 
     // region inner classes
     protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
-        protected AccountEntityEmbeddedModifyImpl(Object parent) {
-            this.parent = (R) parent;
-        }
-
-        protected AccountEntityEmbeddedModifyImpl() {
-            setObject((R) AccountEntity.this);
+        protected AccountEntityEmbeddedModifyImpl(R parent) {
+            super(parent);
         }
 
         public T accountNumber(String accountNumber) {
@@ -154,6 +170,9 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     }
 
     protected class AccountEntityModifyImpl extends AccountEntityEmbeddedModifyImpl<Account.Modify, Account> implements Account.Modify {
+        protected AccountEntityModifyImpl(Account parent) {
+            super(parent);
+        }
     }
 
     protected class AccountEntitySoloModifyImpl extends AccountEntityEmbeddedModifyImpl implements Account.EmbeddedSoloModify {

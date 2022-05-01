@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.test;
 
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
@@ -18,9 +19,16 @@ public interface TestModify {
 
     TestModify.Modify with();
 
-    interface EmbeddedModify<T> extends TestModify.Fields<TestModify.EmbeddedModify<T>> {
-        EmbeddedCodeCollection<EmbeddedModify<T>, TestModify, T> and();
-        EmbeddedModify<T> items(List<Long> items);
+    interface EmbeddedCollectionModify<R> extends TestModify.EmbeddedModify<TestModify.EmbeddedCollectionModify<R>, R> {
+        EmbeddedCodeCollection<TestModify.EmbeddedCollectionModify<R>, TestModify, R> _and();
+    }
+
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, TestModify.Fields<T> {
+        T items(List<Long> items);
+        CodeList<Long, TestModify.EmbeddedModify<T, R>> items();
+    }
+
+    interface EmbeddedSoloModify<R> extends TestModify.EmbeddedModify<TestModify.EmbeddedSoloModify<R>, R> {
     }
 
     interface Fields<T> {
@@ -28,9 +36,6 @@ public interface TestModify {
         T title(String title);
     }
 
-    interface Modify extends TestModify.Fields<TestModify.Modify> {
-        TestModify done();
-        Modify items(List<Long> items);
-        CodeList<Long, Modify> items();
+    interface Modify extends EmbeddedModify<TestModify.Modify, TestModify> {
     }
 }

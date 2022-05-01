@@ -21,10 +21,10 @@ package net.binis.codegen;
  * #L%
  */
 
+import net.binis.codegen.spring.modifier.BaseEntityModifier;
 import net.binis.codegen.creator.EntityCreatorModifier;
 import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
-import java.util.function.Function;
 
 @Generated(value = "TestMockEntityPrototype", comments = "TestMockEntity")
 @Default("net.binis.codegen.TestMockEntity")
@@ -56,15 +56,6 @@ public interface TestMock {
         T name(String name);
     }
 
-    interface Modify extends TestMock.Fields<TestMock.Modify> {
-        TestMock.Modify _if(boolean condition, java.util.function.Consumer<TestMock.Modify> consumer);
-        TestMock delete();
-        TestMock detach();
-        TestMock done();
-        TestMock merge();
-        TestMock refresh();
-        TestMock save();
-        TestMock saveAndFlush();
-        TestMock transaction(Function<TestMock.Modify, TestMock> function);
+    interface Modify extends TestMock.Fields<TestMock.Modify>, BaseEntityModifier<TestMock.Modify, TestMock> {
     }
 }

@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.test;
 
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import javax.persistence.Transient;
 import javax.annotation.processing.Generated;
@@ -43,10 +44,14 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public Test.Modify with() {
-        return new TestModifyImpl();
+        return new TestModifyImpl(this);
     }
 
-    protected class TestModifyImpl implements Test.Modify {
+    protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
+
+        protected TestModifyImpl(Test parent) {
+            super(parent);
+        }
 
         public Test.Modify available(boolean available) {
             TestImpl.this.available = available;

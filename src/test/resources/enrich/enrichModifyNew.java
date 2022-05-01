@@ -1,7 +1,6 @@
 package net.binis.codegen.modifier.test;
 
 import net.binis.codegen.annotation.builder.CodeBuilder;
-import net.binis.codegen.spring.BaseEntityModifier;
 
 import java.util.List;
 
