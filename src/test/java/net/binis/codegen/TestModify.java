@@ -22,6 +22,7 @@ package net.binis.codegen;
  */
 
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
@@ -65,12 +66,11 @@ public interface TestModify extends Base {
         T title(String title);
     }
 
-    interface Modify extends TestModify.Fields<TestModify.Modify> {
-        TestModify done();
+    interface Modify extends TestModify.Fields<TestModify.Modify>, BaseModifier<TestModify.Modify, TestModify> {
         Modify items(List<Long> items);
-        CodeList<Long, Modify> items();
+        CodeList<Long, TestModify.Modify> items();
         Modify subs(Set<SubModify> subs);
-        EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
+        EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<TestModify.Modify>, SubModify, TestModify.Modify> subs();
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<TestModify, TestModify.QuerySelect<Number>>>>> {

@@ -21,8 +21,7 @@ package net.binis.codegen;
  * #L%
  */
 
-import net.binis.codegen.spring.BaseEntityModifier;
-import net.binis.codegen.modifier.Modifier;
+import net.binis.codegen.spring.modifier.impl.BaseEntityModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import javax.annotation.processing.Generated;
@@ -88,13 +87,13 @@ public class TestMockEntity implements TestMock, Modifiable<TestMock.Modify> {
     }
 
     public TestMock.Modify with() {
-        return new TestMockEntityModifyImpl();
+        return new TestMockEntityModifyImpl(this);
     }
 
-    protected class TestMockEntityModifyImpl extends BaseEntityModifier<TestMock.Modify, TestMock> implements TestMock.Modify {
+    protected class TestMockEntityModifyImpl extends BaseEntityModifierImpl<TestMock.Modify, TestMock> implements TestMock.Modify {
 
-        protected TestMockEntityModifyImpl() {
-            setObject(TestMockEntity.this);
+        protected TestMockEntityModifyImpl(TestMock parent) {
+            super(parent);
         }
 
         public TestMock.Modify actionLink(String actionLink) {

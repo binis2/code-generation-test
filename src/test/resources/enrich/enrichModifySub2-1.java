@@ -23,6 +23,9 @@ public interface SubModify extends Prototypable<SubModify> {
     interface EmbeddedModify<T, R> extends BaseModifier<T, R>, SubModify.Fields<T> {
     }
 
+    interface EmbeddedSoloModify<R> extends SubModify.EmbeddedModify<SubModify.EmbeddedSoloModify<R>, R> {
+    }
+
     interface Fields<T> {
         T prototype(SubModify prototype);
         T subAmount(double subAmount);

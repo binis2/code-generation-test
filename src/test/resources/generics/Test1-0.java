@@ -5,6 +5,7 @@ import net.binis.codegen.spring.query.executor.QueryOrderer;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.spring.modifier.impl.BaseEntityModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
@@ -26,7 +27,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     {
         CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
         CodeFactory.registerType(Test.QueryOrder.class, () -> Test.find().aggregate(), null);
-        CodeFactory.registerType(Test.class, TestImpl::new, (p, v) -> new EmbeddedTestModifyImpl<>(p, (TestImpl) v));
+        CodeFactory.registerType(Test.class, TestImpl::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((TestImpl) v).new TestImplCollectionModifyImpl(p) : ((TestImpl) v).new TestImplSoloModifyImpl(p));
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
     }
 
@@ -41,51 +42,50 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     }
 
     public Test.Modify with() {
-        return new TestModifyImpl();
+        return new TestModifyImpl(this);
     }
     // endregion
 
     // region inner classes
-    protected static class EmbeddedTestModifyImpl<T> implements Test.EmbeddedModify<T> {
+    protected class TestImplCollectionModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedCollectionModify {
 
-        protected TestImpl entity;
-
-        protected T parent;
-
-        protected EmbeddedTestModifyImpl(T parent, TestImpl entity) {
-            this.parent = parent;
-            this.entity = entity;
+        protected TestImplCollectionModifyImpl(Object parent) {
+            super(parent);
         }
 
-        public EmbeddedCodeCollection<Test.EmbeddedModify<T>, Test, T> and() {
+        public EmbeddedCodeCollection _and() {
             return (EmbeddedCodeCollection) parent;
-        }
-
-        public Test.EmbeddedModify<T> payload(TestPayload payload) {
-            entity.payload = payload;
-            return this;
-        }
-
-        public Test.EmbeddedModify<T> type(TestEnum type) {
-            entity.type = type;
-            return this;
         }
     }
 
-    protected class TestModifyImpl implements Test.Modify {
+    protected class TestImplEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Test.EmbeddedModify<T, R> {
 
-        public Test done() {
-            return TestImpl.this;
+        protected TestImplEmbeddedModifyImpl(R parent) {
+            super(parent);
         }
 
-        public Test.Modify payload(TestPayload payload) {
+        public T payload(TestPayload payload) {
             TestImpl.this.payload = payload;
-            return this;
+            return (T) this;
         }
 
-        public Test.Modify type(TestEnum type) {
+        public T type(TestEnum type) {
             TestImpl.this.type = type;
-            return this;
+            return (T) this;
+        }
+    }
+
+    protected class TestImplSoloModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedSoloModify {
+
+        protected TestImplSoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+
+    protected class TestModifyImpl extends TestImplEmbeddedModifyImpl<Test.Modify, Test> implements Test.Modify {
+
+        protected TestModifyImpl(Test parent) {
+            super(parent);
         }
     }
 

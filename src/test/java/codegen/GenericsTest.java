@@ -44,5 +44,4 @@ class GenericsTest extends BaseTest {
         ));
     }
 
-
 }

@@ -2,10 +2,12 @@
 package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.CodeList;
 import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
+import java.util.function.Consumer;
 import java.util.Optional;
 import java.util.List;
 
@@ -31,6 +33,16 @@ public interface Test {
 
     Test.Modify with();
 
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Test.Fields<T> {
+        T items(List<Long> items);
+        CodeList<Long, Test.EmbeddedModify<T, R>> items();
+        Test.EmbeddedSoloModify<EmbeddedModify<T, R>> parent();
+        Sub.EmbeddedSoloModify<EmbeddedModify<T, R>> sub();
+    }
+
+    interface EmbeddedSoloModify<R> extends Test.EmbeddedModify<Test.EmbeddedSoloModify<R>, R> {
+    }
+
     interface Fields<T> {
         T amount(double amount);
         T parent(Test parent);
@@ -38,10 +50,9 @@ public interface Test {
         T title(String title);
     }
 
-    interface Modify extends Test.Fields<Test.Modify> {
-        Test done();
-        Modify items(List<Long> items);
-        CodeList<Long, Modify> items();
+    interface Modify extends EmbeddedModify<Test.Modify, Test> {
+        Modify parent(Consumer<Test.Modify> init);
+        Modify sub(Consumer<Sub.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>> {

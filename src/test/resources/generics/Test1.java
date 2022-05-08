@@ -3,6 +3,7 @@ package net.binis.codegen.test;
 import net.binis.codegen.annotation.Default;
 import net.binis.codegen.annotation.Embeddable;
 import net.binis.codegen.annotation.builder.CodeQueryBuilder;
+import net.binis.codegen.annotation.type.EmbeddedModifierType;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.intf.Typeable;
 import net.binis.codegen.spring.annotation.Joinable;

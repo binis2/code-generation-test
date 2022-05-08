@@ -5,6 +5,7 @@ import net.binis.codegen.spring.query.executor.QueryOrderer;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.creator.EntityCreator;
@@ -12,6 +13,7 @@ import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
 import java.util.function.Function;
+import java.util.function.Consumer;
 import java.util.Optional;
 import java.util.List;
 
@@ -78,44 +80,88 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public Test.Modify with() {
-        return new TestModifyImpl();
+        return new TestModifyImpl(this);
     }
 
-    protected class TestModifyImpl implements Test.Modify {
+    protected class TestImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Test.EmbeddedModify<T, R> {
 
-        public Test.Modify amount(double amount) {
+        protected TestImplEmbeddedModifyImpl(R parent) {
+            super(parent);
+        }
+
+        public T amount(double amount) {
             TestImpl.this.amount = amount;
-            return this;
+            return (T) this;
         }
 
-        public Test done() {
-            return TestImpl.this;
-        }
-
-        public Test.Modify items(List<Long> items) {
+        public T items(List<Long> items) {
             TestImpl.this.items = items;
-            return this;
+            return (T) this;
         }
 
-        public CodeList<Long, Test.Modify> items() {
+        public CodeList items() {
             if (TestImpl.this.items == null) {
                 TestImpl.this.items = new java.util.ArrayList<>();
             }
             return new CodeListImpl<>(this, TestImpl.this.items);
         }
 
-        public Test.Modify parent(Test parent) {
+        public T parent(Test parent) {
             TestImpl.this.parent = parent;
-            return this;
+            return (T) this;
         }
 
-        public Test.Modify sub(Sub sub) {
+        public Test.EmbeddedSoloModify<EmbeddedModify<T, R>> parent() {
+            if (TestImpl.this.parent == null) {
+                TestImpl.this.parent = CodeFactory.create(Test.class);
+            }
+            return CodeFactory.modify(this, TestImpl.this.parent, Test.class);
+        }
+
+        public T sub(Sub sub) {
             TestImpl.this.sub = sub;
+            return (T) this;
+        }
+
+        public Sub.EmbeddedSoloModify<EmbeddedModify<T, R>> sub() {
+            if (TestImpl.this.sub == null) {
+                TestImpl.this.sub = CodeFactory.create(Sub.class);
+            }
+            return CodeFactory.modify(this, TestImpl.this.sub, Sub.class);
+        }
+
+        public T title(String title) {
+            TestImpl.this.title = title;
+            return (T) this;
+        }
+    }
+
+    protected class TestImplSoloModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedSoloModify {
+
+        protected TestImplSoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+
+    protected class TestModifyImpl extends TestImplEmbeddedModifyImpl<Test.Modify, Test> implements Test.Modify {
+
+        protected TestModifyImpl(Test parent) {
+            super(parent);
+        }
+
+        public Modify parent(Consumer<Test.Modify> init) {
+            if (TestImpl.this.parent == null) {
+                TestImpl.this.parent = CodeFactory.create(Test.class);
+            }
+            init.accept(TestImpl.this.parent.with());
             return this;
         }
 
-        public Test.Modify title(String title) {
-            TestImpl.this.title = title;
+        public Modify sub(Consumer<Sub.Modify> init) {
+            if (TestImpl.this.sub == null) {
+                TestImpl.this.sub = CodeFactory.create(Sub.class);
+            }
+            init.accept(TestImpl.this.sub.with());
             return this;
         }
     }

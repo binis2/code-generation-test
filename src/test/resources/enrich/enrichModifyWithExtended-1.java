@@ -1,11 +1,13 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
 import net.binis.codegen.base.Extended;
 import javax.annotation.processing.Generated;
+import java.util.function.Consumer;
 import java.util.Set;
 import java.util.List;
 
@@ -30,11 +32,12 @@ public interface TestModify extends Prototypable<SubModify>, Extended {
         T title(String title);
     }
 
-    interface Modify extends TestModify.Fields<TestModify.Modify> {
-        TestModify done();
+    interface Modify extends TestModify.Fields<TestModify.Modify>, BaseModifier<TestModify.Modify, TestModify> {
+        SubModify.EmbeddedSoloModify<Modify> extended();
+        Modify extended(Consumer<SubModify.Modify> init);
         Modify items(List<Long> items);
-        CodeList<Long, Modify> items();
+        CodeList<Long, TestModify.Modify> items();
         Modify subs(Set<SubModify> subs);
-        EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
+        EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<TestModify.Modify>, SubModify, TestModify.Modify> subs();
     }
 }

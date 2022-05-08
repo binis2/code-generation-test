@@ -1,8 +1,8 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.test;
 
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
@@ -46,66 +46,60 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
     }
 
     public TestModify.Modify with() {
-        return new TestModifyModifyImpl();
+        return new TestModifyModifyImpl(this);
     }
 
-    protected static class EmbeddedTestModifyModifyImpl<T> implements TestModify.EmbeddedModify<T> {
+    protected class TestModifyImplCollectionModifyImpl extends TestModifyImplEmbeddedModifyImpl implements TestModify.EmbeddedCollectionModify {
 
-        protected TestModifyImpl entity;
-
-        protected T parent;
-
-        protected EmbeddedTestModifyModifyImpl(T parent, TestModifyImpl entity) {
-            this.parent = parent;
-            this.entity = entity;
+        protected TestModifyImplCollectionModifyImpl(Object parent) {
+            super(parent);
         }
 
-        public TestModify.EmbeddedModify<T> amount(double amount) {
-            entity.amount = amount;
-            return this;
-        }
-
-        public EmbeddedCodeCollection<TestModify.EmbeddedModify<T>, TestModify, T> and() {
+        public EmbeddedCodeCollection _and() {
             return (EmbeddedCodeCollection) parent;
         }
-
-        public TestModify.EmbeddedModify<T> items(List<Long> items) {
-            entity.items = items;
-            return this;
-        }
-
-        public TestModify.EmbeddedModify<T> title(String title) {
-            entity.title = title;
-            return this;
-        }
     }
 
-    protected class TestModifyModifyImpl implements TestModify.Modify {
+    protected class TestModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements TestModify.EmbeddedModify<T, R> {
 
-        public TestModify.Modify amount(double amount) {
+        protected TestModifyImplEmbeddedModifyImpl(R parent) {
+            super(parent);
+        }
+
+        public T amount(double amount) {
             TestModifyImpl.this.amount = amount;
-            return this;
+            return (T) this;
         }
 
-        public TestModify done() {
-            return TestModifyImpl.this;
-        }
-
-        public TestModify.Modify items(List<Long> items) {
+        public T items(List<Long> items) {
             TestModifyImpl.this.items = items;
-            return this;
+            return (T) this;
         }
 
-        public CodeList<Long, TestModify.Modify> items() {
+        public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
             }
             return new CodeListImpl<>(this, TestModifyImpl.this.items);
         }
 
-        public TestModify.Modify title(String title) {
+        public T title(String title) {
             TestModifyImpl.this.title = title;
-            return this;
+            return (T) this;
+        }
+    }
+
+    protected class TestModifyImplSoloModifyImpl extends TestModifyImplEmbeddedModifyImpl implements TestModify.EmbeddedSoloModify {
+
+        protected TestModifyImplSoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+
+    protected class TestModifyModifyImpl extends TestModifyImplEmbeddedModifyImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
+
+        protected TestModifyModifyImpl(TestModify parent) {
+            super(parent);
         }
     }
 }

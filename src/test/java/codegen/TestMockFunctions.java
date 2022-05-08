@@ -43,7 +43,10 @@ class TestMockFunctions {
 
     @Test
     void test() {
-        assertNotNull(TestMock.create().save().with().merge());
+        assertNotNull(TestMock.create()
+                .save()
+                .with()
+                .merge());
     }
 
     @Test
@@ -72,7 +75,7 @@ class TestMockFunctions {
     void testMultiMock() {
         var mockObj = mock(TestModify.class);
         mockQuery(TestModify.find().by().id(5L), mockObj);
-        
+
         assertThrows(QueryAlreadyMockedException.class, () -> mockQuery(TestModify.find().by().id(5L), mock(TestModify.class)));
         assertEquals(mockObj, TestModify.find().by().id(5L).get().get());
     }
@@ -104,6 +107,5 @@ class TestMockFunctions {
 
         assertTrue(TestModify.find().by().subs().contains(sub).list().isEmpty());
     }
-
 
 }

@@ -25,6 +25,7 @@ import net.binis.codegen.spring.query.executor.QueryOrderer;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
@@ -33,6 +34,7 @@ import net.binis.codegen.collection.EmbeddedCodeCollection;
 import javax.persistence.Transient;
 import javax.annotation.processing.Generated;
 import java.util.function.Function;
+import java.util.function.Consumer;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
@@ -52,7 +54,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     // region constructor & initializer
     {
         CodeFactory.registerType(SubModify.QuerySelect.class, SubModifyQueryExecutorImpl::new, null);
-        CodeFactory.registerType(SubModify.class, SubModifyImpl::new, (p, v) -> new EmbeddedSubModifyModifyImpl<>(p, (SubModifyImpl) v));
+        CodeFactory.registerType(SubModify.class, SubModifyImpl::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((SubModifyImpl) v).new SubModifyImplCollectionModifyImpl(p) : ((SubModifyImpl) v).new SubModifyImplSoloModifyImpl(p));
         CodeFactory.registerType(SubModify.QueryName.class, SubModifyQueryNameImpl::new, null);
         CodeFactory.registerType(SubModify.QueryOrder.class, () -> SubModify.find().aggregate(), null);
     }
@@ -98,100 +100,89 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     }
 
     public SubModify.Modify with() {
-        return new SubModifyModifyImpl();
+        return new SubModifyModifyImpl(this);
     }
     // endregion
 
     // region inner classes
-    protected static class EmbeddedSubModifyModifyImpl<T> implements SubModify.EmbeddedModify<T> {
+    protected class SubModifyImplCollectionModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedCollectionModify {
 
-        protected SubModifyImpl entity;
-
-        protected T parent;
-
-        protected EmbeddedSubModifyModifyImpl(T parent, SubModifyImpl entity) {
-            this.parent = parent;
-            this.entity = entity;
+        protected SubModifyImplCollectionModifyImpl(Object parent) {
+            super(parent);
         }
 
-        public EmbeddedCodeCollection<SubModify.EmbeddedModify<T>, SubModify, T> and() {
+        public EmbeddedCodeCollection _and() {
             return (EmbeddedCodeCollection) parent;
-        }
-
-        public SubModify.EmbeddedModify<T> date(OffsetDateTime date) {
-            entity.date = date;
-            return this;
-        }
-
-        public SubModify.EmbeddedModify<T> id(Long id) {
-            entity.id = id;
-            return this;
-        }
-
-        public SubModify.EmbeddedModify<T> parent(SubModify parent) {
-            entity.parent = parent;
-            return this;
-        }
-
-        public SubModify.EmbeddedModify<T> subAmount(double subAmount) {
-            entity.subAmount = subAmount;
-            return this;
-        }
-
-        public SubModify.EmbeddedModify<T> subtitle(String subtitle) {
-            entity.subtitle = subtitle;
-            return this;
-        }
-
-        public SubModify.EmbeddedModify<T> tag(Object tag) {
-            entity.tag = tag;
-            return this;
-        }
-
-        public SubModify.EmbeddedModify<T> type(TestEnum type) {
-            entity.type = type;
-            return this;
         }
     }
 
-    protected class SubModifyModifyImpl implements SubModify.Modify {
+    protected class SubModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubModify.EmbeddedModify<T, R> {
 
-        public SubModify.Modify date(OffsetDateTime date) {
+        protected SubModifyImplEmbeddedModifyImpl(R parent) {
+            super(parent);
+        }
+
+        public T date(OffsetDateTime date) {
             SubModifyImpl.this.date = date;
-            return this;
+            return (T) this;
         }
 
-        public SubModify done() {
-            return SubModifyImpl.this;
-        }
-
-        public SubModify.Modify id(Long id) {
+        public T id(Long id) {
             SubModifyImpl.this.id = id;
-            return this;
+            return (T) this;
         }
 
-        public SubModify.Modify parent(SubModify parent) {
+        public T parent(SubModify parent) {
             SubModifyImpl.this.parent = parent;
-            return this;
+            return (T) this;
         }
 
-        public SubModify.Modify subAmount(double subAmount) {
+        public SubModify.EmbeddedSoloModify<EmbeddedModify<T, R>> parent() {
+            if (SubModifyImpl.this.parent == null) {
+                SubModifyImpl.this.parent = CodeFactory.create(SubModify.class);
+            }
+            return CodeFactory.modify(this, SubModifyImpl.this.parent, SubModify.class);
+        }
+
+        public T subAmount(double subAmount) {
             SubModifyImpl.this.subAmount = subAmount;
-            return this;
+            return (T) this;
         }
 
-        public SubModify.Modify subtitle(String subtitle) {
+        public T subtitle(String subtitle) {
             SubModifyImpl.this.subtitle = subtitle;
-            return this;
+            return (T) this;
         }
 
-        public SubModify.Modify tag(Object tag) {
+        public T tag(Object tag) {
             SubModifyImpl.this.tag = tag;
-            return this;
+            return (T) this;
         }
 
-        public SubModify.Modify type(TestEnum type) {
+        public T type(TestEnum type) {
             SubModifyImpl.this.type = type;
+            return (T) this;
+        }
+    }
+
+    protected class SubModifyImplSoloModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedSoloModify {
+
+        protected SubModifyImplSoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+
+    protected class SubModifyModifyImpl extends SubModifyImplEmbeddedModifyImpl<SubModify.Modify, SubModify> implements SubModify.Modify {
+
+        protected SubModifyModifyImpl(SubModify parent) {
+            super(parent);
+        }
+
+        public Modify parent(Consumer<SubModify.Modify> init) {
+            if (SubModifyImpl.this.parent == null) {
+                SubModifyImpl.this.parent = CodeFactory.create(SubModify.class);
+            }
+            init.accept(SubModifyImpl.this.parent.with());
             return this;
         }
     }

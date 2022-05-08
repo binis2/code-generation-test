@@ -2,6 +2,7 @@
 package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
@@ -24,13 +25,18 @@ public interface Sub {
 
     Sub.Modify with();
 
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Sub.Fields<T> {
+    }
+
+    interface EmbeddedSoloModify<R> extends Sub.EmbeddedModify<Sub.EmbeddedSoloModify<R>, R> {
+    }
+
     interface Fields<T> {
         T subAmount(double subAmount);
         T subtitle(String subtitle);
     }
 
-    interface Modify extends Sub.Fields<Sub.Modify> {
-        Sub done();
+    interface Modify extends EmbeddedModify<Sub.Modify, Sub> {
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Sub, Sub.QuerySelect<Number>>>>> {

@@ -387,6 +387,12 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test u where (u.sub in (select s0 from net.binis.codegen.Sub s0 )) ",
                 () -> net.binis.codegen.Test.find().by().sub().in(Sub.find().by()).get());
 
+        checkQuery("from net.binis.codegen.Test u where (u.sub is null)",
+                () -> net.binis.codegen.Test.find().by().sub().isNull().get());
+
+        checkQuery("from net.binis.codegen.Test u where (u.sub is not null)",
+                () -> net.binis.codegen.Test.find().by().sub().isNotNull().get());
+
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {

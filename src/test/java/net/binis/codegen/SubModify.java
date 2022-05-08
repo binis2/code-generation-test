@@ -22,6 +22,7 @@ package net.binis.codegen;
  */
 
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.Taggable;
 import net.binis.codegen.intf.Identifiable;
 import net.binis.codegen.enums.TestEnum;
@@ -29,6 +30,7 @@ import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
+import java.util.function.Consumer;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
@@ -59,8 +61,15 @@ public interface SubModify extends Base, Taggable, Identifiable {
     SubModify.Modify with();
 
     // region inner classes
-    interface EmbeddedModify<T> extends SubModify.Fields<SubModify.EmbeddedModify<T>> {
-        EmbeddedCodeCollection<EmbeddedModify<T>, SubModify, T> and();
+    interface EmbeddedCollectionModify<R> extends SubModify.EmbeddedModify<SubModify.EmbeddedCollectionModify<R>, R> {
+        EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<R>, SubModify, R> _and();
+    }
+
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, SubModify.Fields<T> {
+        SubModify.EmbeddedSoloModify<EmbeddedModify<T, R>> parent();
+    }
+
+    interface EmbeddedSoloModify<R> extends SubModify.EmbeddedModify<SubModify.EmbeddedSoloModify<R>, R> {
     }
 
     interface Fields<T> extends Base.Fields<T> {
@@ -70,8 +79,8 @@ public interface SubModify extends Base, Taggable, Identifiable {
         T tag(Object tag);
     }
 
-    interface Modify extends SubModify.Fields<SubModify.Modify> {
-        SubModify done();
+    interface Modify extends EmbeddedModify<SubModify.Modify, SubModify> {
+        Modify parent(Consumer<SubModify.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<SubModify, SubModify.QuerySelect<Number>>>>> {

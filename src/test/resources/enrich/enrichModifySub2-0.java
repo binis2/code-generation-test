@@ -75,6 +75,13 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
     }
 
+    protected class SubModifyImplSoloModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedSoloModify {
+
+        protected SubModifyImplSoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+
     protected class SubModifyModifyImpl extends SubModifyImplEmbeddedModifyImpl<SubModify.Modify, SubModify> implements SubModify.Modify {
 
         protected SubModifyModifyImpl(SubModify parent) {

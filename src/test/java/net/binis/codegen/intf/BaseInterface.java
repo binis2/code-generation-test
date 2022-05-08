@@ -1,10 +1,10 @@
-package net.binis.codegen.prototype;
+package net.binis.codegen.intf;
 
 /*-
  * #%L
  * code-generation-test
  * %%
- * Copyright (C) 2021 Binis Belev
+ * Copyright (C) 2021 - 2022 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,19 @@ package net.binis.codegen.prototype;
  * #L%
  */
 
-import net.binis.codegen.annotation.CodePrototype;
-import net.binis.codegen.enrich.CreatorModifierEnricher;
-import net.binis.codegen.enrich.ModifierEnricher;
-import net.binis.codegen.spring.modifier.BaseEntityModifier;
+import javax.annotation.processing.Generated;
+import java.time.OffsetDateTime;
+import java.io.Serializable;
 
-@CodePrototype(
-        baseModifierClass = BaseEntityModifier.class,
-        enrichers = {ModifierEnricher.class, CreatorModifierEnricher.class})
-public interface TestMockEntityPrototype {
+@Generated(value = "BaseEntityPrototype", comments = "BaseEntity")
+public interface BaseInterface extends Serializable, Identifiable {
+    <T> T as(Class<T> cls);
 
-    String code();
-    String name();
-    String description();
-    String buttonText();
-    String actionLink();
+    OffsetDateTime getCreated();
+    OffsetDateTime getModified();
 
+    interface Fields<T> {
+        T id(Long id);
+        T modified(OffsetDateTime modified);
+    }
 }

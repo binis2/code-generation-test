@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen.test;
 
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.Previewable;
 import net.binis.codegen.intf.ExternalInterface;
 import net.binis.codegen.intf.Available;
@@ -23,7 +24,6 @@ public interface Test extends ExternalInterface<String>, Available, Previewable 
         T key(String key);
     }
 
-    interface Modify extends Test.Fields<Test.Modify> {
-        Test done();
+    interface Modify extends Test.Fields<Test.Modify>, BaseModifier<Test.Modify, Test> {
     }
 }

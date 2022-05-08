@@ -2,6 +2,7 @@
 package net.binis.codegen;
 
 import net.binis.codegen.spring.query.*;
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
@@ -44,16 +45,15 @@ public interface MixModify extends TestModify {
         T mixInTitle(String mixInTitle);
     }
 
-    interface Modify extends MixModify.Fields<MixModify.Modify> {
-        MixModify done();
+    interface Modify extends MixModify.Fields<MixModify.Modify>, BaseModifier<MixModify.Modify, MixModify> {
         Modify items(List<Long> items);
-        CodeList<Long, Modify> items();
+        CodeList<Long, MixModify.Modify> items();
         Modify mixInItems(List<Long> mixInItems);
-        CodeList<Long, Modify> mixInItems();
+        CodeList<Long, MixModify.Modify> mixInItems();
         Modify mixInSubs(Set<SubModify> mixInSubs);
-        EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> mixInSubs();
+        EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<MixModify.Modify>, SubModify, MixModify.Modify> mixInSubs();
         Modify subs(Set<SubModify> subs);
-        EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
+        EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<MixModify.Modify>, SubModify, MixModify.Modify> subs();
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<MixModify, MixModify.QuerySelect<Number>>>>> {
