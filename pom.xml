@@ -52,7 +52,7 @@
     </scm>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>18</java.version>
         <license.licenseName>apache_v2</license.licenseName>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <resource.delimiter>@</resource.delimiter>
