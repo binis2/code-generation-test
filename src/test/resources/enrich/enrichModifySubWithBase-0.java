@@ -33,9 +33,10 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
     // region constructor & initializer
     {
-        CodeFactory.registerType(SubModify.QuerySelect.class, SubModifyQueryExecutorImpl::new, null);
         CodeFactory.registerType(SubModify.class, SubModifyImpl::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((SubModifyImpl) v).new SubModifyImplCollectionModifyImpl(p) : ((SubModifyImpl) v).new SubModifyImplSoloModifyImpl(p));
         CodeFactory.registerType(SubModify.QueryName.class, SubModifyQueryNameImpl::new, null);
+        CodeFactory.registerType(SubModify.QuerySelect.class, SubModifySelectQueryExecutorImpl::new, null);
+        CodeFactory.registerType(SubModify.QueryOperationFields.class, SubModifyFieldsQueryExecutorImpl::new, null);
         CodeFactory.registerType(SubModify.QueryOrder.class, () -> SubModify.find().aggregate(), null);
     }
 
@@ -85,6 +86,15 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     // endregion
 
     // region inner classes
+    protected static class SubModifyFieldsQueryExecutorImpl extends SubModifyQueryExecutorImpl implements SubModify.QueryFieldsStart, EmbeddedFields {
+
+        public SubModify.QueryOperationFields parent() {
+            var result = EntityCreator.create(SubModify.QueryOperationFields.class, "net.binis.codegen.SubModifyImpl");
+            ((QueryEmbed) result).setParent("parent", this);
+            return result;
+        }
+    }
+
     protected class SubModifyImplCollectionModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedCollectionModify {
 
         protected SubModifyImplCollectionModifyImpl(Object parent) {
@@ -167,10 +177,14 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
-    protected static class SubModifyQueryExecutorImpl extends QueryExecutor implements SubModify.QuerySelect, SubModify.QueryFieldsStart {
+    protected static abstract class SubModifyQueryExecutorImpl extends QueryExecutor {
 
         protected SubModifyQueryExecutorImpl() {
-            super(SubModify.class, () -> new SubModifyQueryNameImpl());
+            super(SubModify.class, () -> new SubModifyQueryNameImpl(), parent -> {
+                var result = new SubModifyFieldsQueryExecutorImpl();
+                result.parent = (QueryExecutor) parent;
+                return result;
+            });
         }
 
         public QueryAggregateOperation aggregate() {
@@ -199,12 +213,6 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public QuerySelectOperation parent(SubModify parent) {
             return identifier("parent", parent);
-        }
-
-        public SubModify.QueryName parent() {
-            var result = EntityCreator.create(SubModify.QueryName.class, "net.binis.codegen.SubModifyImpl");
-            ((QueryEmbed) result).setParent("parent", this);
-            return result;
         }
 
         public QuerySelectOperation subAmount(double subAmount) {
@@ -249,8 +257,10 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
                 return (QueryOrderOperation) func.apply("id");
             }
 
-            public QueryOrderOperation parent() {
-                return (QueryOrderOperation) func.apply("parent");
+            public SubModify.QueryOperationFields parent() {
+                var result = EntityCreator.create(SubModify.QueryOperationFields.class, "net.binis.codegen.SubModifyImpl");
+                ((QueryEmbed) result).setParent("parent", executor);
+                return result;
             }
 
             public QueryOrderOperation subAmount() {
@@ -321,6 +331,15 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
         public QuerySelectOperation type(TestEnum type) {
             return executor.identifier("type", type);
+        }
+    }
+
+    protected static class SubModifySelectQueryExecutorImpl extends SubModifyQueryExecutorImpl implements SubModify.QuerySelect {
+
+        public SubModify.QueryName parent() {
+            var result = EntityCreator.create(SubModify.QueryName.class, "net.binis.codegen.SubModifyImpl");
+            ((QueryEmbed) result).setParent("parent", this);
+            return result;
         }
     }
     // endregion

@@ -40,9 +40,10 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
 
     // region constructor & initializer
     {
-        CodeFactory.registerType(TestModify.QuerySelect.class, TestModifyQueryExecutorImpl::new, null);
         CodeFactory.registerType(TestModify.class, TestModifyImpl::new, null);
         CodeFactory.registerType(TestModify.QueryName.class, TestModifyQueryNameImpl::new, null);
+        CodeFactory.registerType(TestModify.QuerySelect.class, TestModifyQueryExecutorImpl::new, null);
+        CodeFactory.registerType(TestModify.QueryOperationFields.class, TestModifyQueryExecutorImpl::new, null);
     }
 
     public TestModifyImpl() {
@@ -154,7 +155,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
     protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
-            super(TestModify.class, () -> new TestModifyQueryNameImpl());
+            super(TestModify.class, () -> new TestModifyQueryNameImpl(), parent -> parent);
         }
 
         public QueryAggregateOperation aggregate() {

@@ -73,7 +73,7 @@ public interface TestModify extends Base {
     interface QueryName<QS, QO, QR, QF> extends TestModify.QueryFields<QuerySelectOperation<QS, QO, QR>>, TestModify.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>, QF> {
     }
 
-    interface QueryOperationFields<QR> extends QueryScript<QR> {
+    interface QueryOperationFields<QR> extends QueryScript<QR>, QuerySelf<QR> {
         QR amount();
         QR date();
         QR id();
@@ -81,7 +81,7 @@ public interface TestModify extends Base {
         QR type();
     }
 
-    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>> {
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>, QueryExecute<QR> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR, TestModify>>, TestModify.QueryFields<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFuncs<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {

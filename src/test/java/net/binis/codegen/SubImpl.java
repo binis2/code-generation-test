@@ -40,9 +40,10 @@ public class SubImpl implements Sub {
     protected String subtitle;
 
     {
-        CodeFactory.registerType(Sub.QuerySelect.class, SubQueryExecutorImpl::new, null);
         CodeFactory.registerType(Sub.class, SubImpl::new, null);
         CodeFactory.registerType(Sub.QueryName.class, SubQueryNameImpl::new, null);
+        CodeFactory.registerType(Sub.QuerySelect.class, SubQueryExecutorImpl::new, null);
+        CodeFactory.registerType(Sub.QueryOperationFields.class, SubQueryExecutorImpl::new, null);
     }
 
     public SubImpl() {
@@ -67,7 +68,7 @@ public class SubImpl implements Sub {
     protected static class SubQueryExecutorImpl extends QueryExecutor implements Sub.QuerySelect, Sub.QueryFieldsStart {
 
         protected SubQueryExecutorImpl() {
-            super(Sub.class, () -> new SubQueryNameImpl());
+            super(Sub.class, () -> new SubQueryNameImpl(), parent -> parent);
         }
 
         public QueryAggregateOperation aggregate() {

@@ -68,12 +68,14 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
 
     // region constructor & initializer
     {
-        CodeFactory.registerType(TestModify.QuerySelect.class, TestModifyQueryExecutorImpl::new, null);
         CodeFactory.registerType(TestModify.class, TestModifyImpl::new, null);
         CodeFactory.registerType(TestModify.QueryName.class, TestModifyQueryNameImpl::new, null);
-        CodeFactory.registerType(MixModify.QuerySelect.class, MixModifyQueryExecutorImpl::new, null);
+        CodeFactory.registerType(TestModify.QuerySelect.class, TestModifyQueryExecutorImpl::new, null);
+        CodeFactory.registerType(TestModify.QueryOperationFields.class, TestModifyQueryExecutorImpl::new, null);
         CodeFactory.registerType(MixModify.class, TestModifyImpl::new, null);
         CodeFactory.registerType(MixModify.QueryName.class, TestModifyQueryNameImpl::new, null);
+        CodeFactory.registerType(MixModify.QuerySelect.class, MixModifyQueryExecutorImpl::new, null);
+        CodeFactory.registerType(MixModify.QueryOperationFields.class, MixModifyQueryExecutorImpl::new, null);
     }
 
     public TestModifyImpl() {
@@ -255,7 +257,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected static class MixModifyQueryExecutorImpl extends QueryExecutor implements MixModify.QuerySelect, MixModify.QueryFieldsStart {
 
         protected MixModifyQueryExecutorImpl() {
-            super(MixModify.class, () -> new TestModifyQueryNameImpl());
+            super(MixModify.class, () -> new TestModifyQueryNameImpl(), parent -> parent);
         }
 
         public QueryAggregateOperation aggregate() {
@@ -437,7 +439,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
-            super(TestModify.class, () -> new TestModifyQueryNameImpl());
+            super(TestModify.class, () -> new TestModifyQueryNameImpl(), parent -> parent);
         }
 
         public QueryAggregateOperation aggregate() {

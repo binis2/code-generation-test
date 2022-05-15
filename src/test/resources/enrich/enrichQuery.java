@@ -7,14 +7,14 @@ import net.binis.codegen.enrich.QueryEnricher;
 import java.util.List;
 
 @CodePrototype(enrichers = {QueryEnricher.class})
-public interface TestPrototype {
+public interface Test2Prototype {
     String title();
 
     double amount();
 
     List<Long> items();
 
-    TestPrototype parent();
+    Test2Prototype parent();
 
     SubPrototype sub();
 }
