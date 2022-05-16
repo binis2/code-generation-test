@@ -130,6 +130,15 @@ class QueryEnrichTest extends BaseTest {
     @Test
     void enrichQueryTest() {
 
+        checkQuery("select u as self from net.binis.codegen.Sub u ",
+                () -> Sub.find().select()._self().get());
+
+        checkQuery("select u as self from net.binis.codegen.Sub u  order by u desc",
+                () -> Sub.find().select()._self().where().order()._self().desc().get());
+
+        checkQuery("select u.parent.parent.parent as parent from net.binis.codegen.Test2 u  order by u.parent.parent.parent desc",
+                () -> Test2.find().select().parent().parent().parent()._self().where().order().parent().parent().parent()._self().desc().get());
+
         checkQuery("select u.subAmount as subAmount from net.binis.codegen.Sub u ",
                 () -> Sub.find().select().subAmount().get());
 
