@@ -31,9 +31,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     protected String title;
 
     {
-        CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
         CodeFactory.registerType(Test.class, TestImpl::new, null);
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
+        CodeFactory.registerType(Test.QuerySelect.class, TestSelectQueryExecutorImpl::new, null);
+        CodeFactory.registerType(Test.QueryOperationFields.class, TestFieldsQueryExecutorImpl::new, null);
     }
 
     public TestImpl() {
@@ -81,6 +82,21 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     public Test.Modify with() {
         return new TestModifyImpl(this);
+    }
+
+    protected static class TestFieldsQueryExecutorImpl extends TestQueryExecutorImpl implements Test.QueryFieldsStart, EmbeddedFields {
+
+        public Test.QueryOperationFields parent() {
+            var result = EntityCreator.create(Test.QueryOperationFields.class, "net.binis.codegen.TestImpl");
+            ((QueryEmbed) result).setParent("parent", this);
+            return result;
+        }
+
+        public Sub.QueryOperationFields sub() {
+            var result = EntityCreator.create(Sub.QueryOperationFields.class, "net.binis.codegen.SubImpl");
+            ((QueryEmbed) result).setParent("sub", this);
+            return result;
+        }
     }
 
     protected class TestImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Test.EmbeddedModify<T, R> {
@@ -166,10 +182,14 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
-    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect, Test.QueryFieldsStart {
+    protected static abstract class TestQueryExecutorImpl extends QueryExecutor {
 
         protected TestQueryExecutorImpl() {
-            super(Test.class, () -> new TestQueryNameImpl());
+            super(Test.class, () -> new TestQueryNameImpl(), parent -> {
+                var result = new TestFieldsQueryExecutorImpl();
+                result.parent = (QueryExecutor) parent;
+                return result;
+            });
         }
 
         public QueryAggregateOperation aggregate() {
@@ -196,20 +216,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return identifier("parent", parent);
         }
 
-        public Test.QueryName parent() {
-            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
-            ((QueryEmbed) result).setParent("parent", this);
-            return result;
-        }
-
         public QuerySelectOperation sub(Sub sub) {
             return identifier("sub", sub);
-        }
-
-        public Sub.QueryName sub() {
-            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
-            ((QueryEmbed) result).setParent("sub", this);
-            return result;
         }
 
         public QuerySelectOperation title(String title) {
@@ -230,12 +238,16 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
                 return (QueryOrderOperation) func.apply("amount");
             }
 
-            public QueryOrderOperation parent() {
-                return (QueryOrderOperation) func.apply("parent");
+            public Test.QueryOperationFields parent() {
+                var result = EntityCreator.create(Test.QueryOperationFields.class, "net.binis.codegen.TestImpl");
+                ((QueryEmbed) result).setParent("parent", executor);
+                return result;
             }
 
-            public QueryOrderOperation sub() {
-                return (QueryOrderOperation) func.apply("sub");
+            public Sub.QueryOperationFields sub() {
+                var result = EntityCreator.create(Sub.QueryOperationFields.class, "net.binis.codegen.SubImpl");
+                ((QueryEmbed) result).setParent("sub", executor);
+                return result;
             }
 
             public QueryOrderOperation title() {
@@ -280,6 +292,21 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
         public QuerySelectOperation title(String title) {
             return executor.identifier("title", title);
+        }
+    }
+
+    protected static class TestSelectQueryExecutorImpl extends TestQueryExecutorImpl implements Test.QuerySelect {
+
+        public Test.QueryName parent() {
+            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
+            ((QueryEmbed) result).setParent("parent", this);
+            return result;
+        }
+
+        public Sub.QueryName sub() {
+            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
+            ((QueryEmbed) result).setParent("sub", this);
+            return result;
         }
     }
 }

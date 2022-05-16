@@ -32,26 +32,27 @@ import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "Test")
-public class TestImpl implements Test {
+@Generated(value = "Test2Prototype", comments = "Test2")
+public class Test2Impl implements Test2 {
 
     protected double amount;
 
     protected List<Long> items;
 
-    protected Test parent;
+    protected Test2 parent;
 
     protected Sub sub;
 
     protected String title;
 
     {
-        CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
-        CodeFactory.registerType(Test.class, TestImpl::new, null);
-        CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
+        CodeFactory.registerType(Test2.class, Test2Impl::new, null);
+        CodeFactory.registerType(Test2.QueryName.class, Test2QueryNameImpl::new, null);
+        CodeFactory.registerType(Test2.QuerySelect.class, Test2SelectQueryExecutorImpl::new, null);
+        CodeFactory.registerType(Test2.QueryOperationFields.class, Test2FieldsQueryExecutorImpl::new, null);
     }
 
-    public TestImpl() {
+    public Test2Impl() {
     }
 
     public double getAmount() {
@@ -62,7 +63,7 @@ public class TestImpl implements Test {
         return items;
     }
 
-    public Test getParent() {
+    public Test2 getParent() {
         return parent;
     }
 
@@ -82,7 +83,7 @@ public class TestImpl implements Test {
         this.items = items;
     }
 
-    public void setParent(Test parent) {
+    public void setParent(Test2 parent) {
         this.parent = parent;
     }
 
@@ -94,14 +95,33 @@ public class TestImpl implements Test {
         this.title = title;
     }
 
-    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect, Test.QueryFieldsStart {
+    protected static class Test2FieldsQueryExecutorImpl extends Test2QueryExecutorImpl implements Test2.QueryFieldsStart, EmbeddedFields {
 
-        protected TestQueryExecutorImpl() {
-            super(Test.class, () -> new TestQueryNameImpl());
+        public Test2.QueryOperationFields parent() {
+            var result = EntityCreator.create(Test2.QueryOperationFields.class, "net.binis.codegen.Test2Impl");
+            ((QueryEmbed) result).setParent("parent", this);
+            return result;
+        }
+
+        public Sub.QueryOperationFields sub() {
+            var result = EntityCreator.create(Sub.QueryOperationFields.class, "net.binis.codegen.SubImpl");
+            ((QueryEmbed) result).setParent("sub", this);
+            return result;
+        }
+    }
+
+    protected static abstract class Test2QueryExecutorImpl extends QueryExecutor {
+
+        protected Test2QueryExecutorImpl() {
+            super(Test2.class, () -> new Test2QueryNameImpl(), parent -> {
+                var result = new Test2FieldsQueryExecutorImpl();
+                result.parent = (QueryExecutor) parent;
+                return result;
+            });
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) aggregateStart(new Test2QueryOrderImpl(this, Test2QueryExecutorImpl.this::aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
@@ -116,28 +136,16 @@ public class TestImpl implements Test {
             return identifier("items");
         }
 
-        public Test.QueryOrder order() {
-            return (Test.QueryOrder) orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::orderIdentifier));
+        public Test2.QueryOrder order() {
+            return (Test2.QueryOrder) orderStart(new Test2QueryOrderImpl(this, Test2QueryExecutorImpl.this::orderIdentifier));
         }
 
-        public QuerySelectOperation parent(Test parent) {
+        public QuerySelectOperation parent(Test2 parent) {
             return identifier("parent", parent);
-        }
-
-        public Test.QueryName parent() {
-            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
-            ((QueryEmbed) result).setParent("parent", this);
-            return result;
         }
 
         public QuerySelectOperation sub(Sub sub) {
             return identifier("sub", sub);
-        }
-
-        public Sub.QueryName sub() {
-            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
-            ((QueryEmbed) result).setParent("sub", this);
-            return result;
         }
 
         public QuerySelectOperation title(String title) {
@@ -148,9 +156,9 @@ public class TestImpl implements Test {
             return identifier("title");
         }
 
-        protected class TestQueryOrderImpl extends QueryOrderer implements Test.QueryOrder, Test.QueryAggregate {
+        protected class Test2QueryOrderImpl extends QueryOrderer implements Test2.QueryOrder, Test2.QueryAggregate {
 
-            protected TestQueryOrderImpl(TestQueryExecutorImpl executor, Function<String, Object> func) {
+            protected Test2QueryOrderImpl(Test2QueryExecutorImpl executor, Function<String, Object> func) {
                 super(executor, func);
             }
 
@@ -158,12 +166,16 @@ public class TestImpl implements Test {
                 return (QueryOrderOperation) func.apply("amount");
             }
 
-            public QueryOrderOperation parent() {
-                return (QueryOrderOperation) func.apply("parent");
+            public Test2.QueryOperationFields parent() {
+                var result = EntityCreator.create(Test2.QueryOperationFields.class, "net.binis.codegen.Test2Impl");
+                ((QueryEmbed) result).setParent("parent", executor);
+                return result;
             }
 
-            public QueryOrderOperation sub() {
-                return (QueryOrderOperation) func.apply("sub");
+            public Sub.QueryOperationFields sub() {
+                var result = EntityCreator.create(Sub.QueryOperationFields.class, "net.binis.codegen.SubImpl");
+                ((QueryEmbed) result).setParent("sub", executor);
+                return result;
             }
 
             public QueryOrderOperation title() {
@@ -172,7 +184,7 @@ public class TestImpl implements Test {
         }
     }
 
-    protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
+    protected static class Test2QueryNameImpl extends BaseQueryNameImpl implements Test2.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {
             return executor.identifier("amount");
@@ -182,13 +194,13 @@ public class TestImpl implements Test {
             return executor.identifier("amount", amount);
         }
 
-        public Test.QueryName parent() {
-            var result = EntityCreator.create(Test.QueryName.class, "net.binis.codegen.TestImpl");
+        public Test2.QueryName parent() {
+            var result = EntityCreator.create(Test2.QueryName.class, "net.binis.codegen.Test2Impl");
             ((QueryEmbed) result).setParent("parent", executor);
             return result;
         }
 
-        public QuerySelectOperation parent(Test parent) {
+        public QuerySelectOperation parent(Test2 parent) {
             return executor.identifier("parent", parent);
         }
 
@@ -208,6 +220,21 @@ public class TestImpl implements Test {
 
         public QuerySelectOperation title(String title) {
             return executor.identifier("title", title);
+        }
+    }
+
+    protected static class Test2SelectQueryExecutorImpl extends Test2QueryExecutorImpl implements Test2.QuerySelect {
+
+        public Test2.QueryName parent() {
+            var result = EntityCreator.create(Test2.QueryName.class, "net.binis.codegen.Test2Impl");
+            ((QueryEmbed) result).setParent("parent", this);
+            return result;
+        }
+
+        public Sub.QueryName sub() {
+            var result = EntityCreator.create(Sub.QueryName.class, "net.binis.codegen.SubImpl");
+            ((QueryEmbed) result).setParent("sub", this);
+            return result;
         }
     }
 }

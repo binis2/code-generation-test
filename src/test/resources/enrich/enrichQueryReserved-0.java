@@ -54,9 +54,10 @@ public class TestReservedImpl implements TestReserved {
     protected String tuples;
 
     {
-        CodeFactory.registerType(TestReserved.QuerySelect.class, TestReservedQueryExecutorImpl::new, null);
         CodeFactory.registerType(TestReserved.class, TestReservedImpl::new, null);
         CodeFactory.registerType(TestReserved.QueryName.class, TestReservedQueryNameImpl::new, null);
+        CodeFactory.registerType(TestReserved.QuerySelect.class, TestReservedQueryExecutorImpl::new, null);
+        CodeFactory.registerType(TestReserved.QueryOperationFields.class, TestReservedQueryExecutorImpl::new, null);
     }
 
     public TestReservedImpl() {
@@ -217,7 +218,7 @@ public class TestReservedImpl implements TestReserved {
     protected static class TestReservedQueryExecutorImpl extends QueryExecutor implements TestReserved.QuerySelect, TestReserved.QueryFieldsStart {
 
         protected TestReservedQueryExecutorImpl() {
-            super(TestReserved.class, () -> new TestReservedQueryNameImpl());
+            super(TestReserved.class, () -> new TestReservedQueryNameImpl(), parent -> parent);
         }
 
         public QuerySelectOperation _count(String count) {

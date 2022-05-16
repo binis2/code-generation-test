@@ -84,16 +84,16 @@ public interface SubModify extends Base, Taggable, Identifiable {
         SubModify.QueryName<QS, QO, QR, SubModify> parent();
     }
 
-    interface QueryOperationFields<QR> extends QueryScript<QR> {
+    interface QueryOperationFields<QR> extends QueryScript<QR>, QuerySelf<QR> {
         QR date();
         QR id();
-        QR parent();
+        SubModify.QueryOperationFields<QR> parent();
         QR subAmount();
         QR subtitle();
         QR type();
     }
 
-    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>> {
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>>, QueryExecute<QR> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<SubModify.QueryName<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR, SubModify>>, SubModify.QueryFields<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, SubModify.QueryFuncs<QuerySelectOperation<SubModify.QuerySelect<QR>, SubModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<SubModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {

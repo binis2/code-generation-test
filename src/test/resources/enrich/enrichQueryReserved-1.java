@@ -105,7 +105,7 @@ public interface TestReserved {
     interface QueryName<QS, QO, QR, QF> extends TestReserved.QueryFields<QuerySelectOperation<QS, QO, QR>>, TestReserved.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>, QF> {
     }
 
-    interface QueryOperationFields<QR> extends QueryScript<QR> {
+    interface QueryOperationFields<QR> extends QueryScript<QR>, QuerySelf<QR> {
         QR _count();
         QR _delete();
         QR _ensure();
@@ -125,7 +125,7 @@ public interface TestReserved {
         QR _tuples();
     }
 
-    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QueryExecute<QR>, QueryScript<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>> {
+    interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QueryExecute<QR> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestReserved.QueryName<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR, TestReserved>>, TestReserved.QueryFields<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, TestReserved.QueryFuncs<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {

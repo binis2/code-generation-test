@@ -20,9 +20,10 @@ public class TestImpl extends BaseImpl implements Test {
     protected String title;
 
     {
-        CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
         CodeFactory.registerType(Test.class, TestImpl::new, null);
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
+        CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
+        CodeFactory.registerType(Test.QueryOperationFields.class, TestQueryExecutorImpl::new, null);
         CodeFactory.registerId(Test.class, "id", String.class);
     }
 
@@ -49,7 +50,7 @@ public class TestImpl extends BaseImpl implements Test {
     protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect, Test.QueryFieldsStart {
 
         protected TestQueryExecutorImpl() {
-            super(Test.class, () -> new TestQueryNameImpl());
+            super(Test.class, () -> new TestQueryNameImpl(), parent -> parent);
         }
 
         public QueryAggregateOperation aggregate() {
