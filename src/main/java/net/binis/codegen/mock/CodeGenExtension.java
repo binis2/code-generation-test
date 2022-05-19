@@ -23,6 +23,7 @@ package net.binis.codegen.mock;
 import net.binis.codegen.spring.query.QueryProcessor;
 import org.junit.jupiter.api.extension.*;
 
+import static net.binis.codegen.factory.CodeFactory.cleanAllEnvelopedTypes;
 import static net.binis.codegen.mock.CodeGenMock.*;
 
 public class CodeGenExtension implements BeforeAllCallback, BeforeEachCallback, AfterAllCallback, AfterEachCallback {
@@ -33,6 +34,7 @@ public class CodeGenExtension implements BeforeAllCallback, BeforeEachCallback, 
             mockCheckCalls();
         }
         CodeGenMock.testStop();
+        cleanAllEnvelopedTypes();
     }
 
     @Override

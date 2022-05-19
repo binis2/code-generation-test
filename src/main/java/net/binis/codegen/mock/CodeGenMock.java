@@ -47,6 +47,8 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static net.binis.codegen.factory.CodeFactory.cleanAllEnvelopedTypes;
+import static net.binis.codegen.factory.CodeFactory.clearEnvelopingFactory;
 import static net.binis.codegen.tools.Reflection.instantiate;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -480,7 +482,7 @@ public class CodeGenMock {
     }
 
     public static void clearCodeFactoryMock() {
-        CodeFactory.clearEnvelopingFactory();
+        clearEnvelopingFactory();
     }
 
     public static class MockAsyncEntityModifierImpl extends AsyncEntityModifierImpl {

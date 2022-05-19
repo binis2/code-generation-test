@@ -25,6 +25,7 @@ import codegen.view.TestProjectionComplex;
 import codegen.view.TestProjectionComplex2;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
+import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
@@ -41,8 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static net.binis.codegen.mock.CodeGenMatcher.orderedList;
 import static net.binis.codegen.mock.CodeGenMatcher.twice;
-import static net.binis.codegen.mock.CodeGenMock.mockQuery;
-import static net.binis.codegen.mock.CodeGenMock.mockQueryProcessor;
+import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
