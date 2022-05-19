@@ -20,6 +20,7 @@ package codegen;
  * #L%
  */
 
+import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.SubModify;
 import net.binis.codegen.TestMock;
 import net.binis.codegen.TestMockEntity;
@@ -40,6 +41,7 @@ import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+@Slf4j
 @ExtendWith(CodeGenExtension.class)
 class TestMockFunctions {
 
@@ -93,11 +95,16 @@ class TestMockFunctions {
 
     @Test
     void testPersistence() {
+        var opCheck = onSave(() -> log.info("Save called!"));
+        var clsCheck = onSaveClass(TestMock.class, o -> log.info("Save called on {}!", o));
         var mock = TestMock.create();
         verify(MockPersistenceOperation.SAVE, mock.done()).called(never());
         verifySave(mock.save()).called(once());
         onSave(mock.done(), () -> mock.name("binis"));
         verifySave(mock.save()).called(twice());
+
+        clsCheck.called(twice());
+        opCheck.called(twice());
 
         assertEquals("binis", mock.done().getName());
     }

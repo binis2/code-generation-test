@@ -38,7 +38,12 @@ import static net.binis.codegen.tools.Tools.nullCheck;
 public class MockEntityManager implements EntityManager {
 
     private final Map<MockPersistenceOperation, Map<Object, Long>> counts = new EnumMap<>(MockPersistenceOperation.class);
+    private final Map<MockPersistenceOperation, Map<Class, Long>> countsClass = new EnumMap<>(MockPersistenceOperation.class);
+    private final Map<MockPersistenceOperation, Long> countsOperation = new EnumMap<>(MockPersistenceOperation.class);
+
     private final Map<MockPersistenceOperation, Map<Object, BiConsumer<MockPersistenceOperation, Object>>> onOperation = new EnumMap<>(MockPersistenceOperation.class);
+    private final Map<MockPersistenceOperation, Map<Class, BiConsumer<MockPersistenceOperation, Object>>> onOperationClass = new EnumMap<>(MockPersistenceOperation.class);
+    private final Map<MockPersistenceOperation, BiConsumer<MockPersistenceOperation, Object>> onOperationOperation = new EnumMap<>(MockPersistenceOperation.class);
     private Object context;
 
     @Override
@@ -299,7 +304,7 @@ public class MockEntityManager implements EntityManager {
 
     public long calls(MockPersistenceOperation operation, Object obj) {
         var result = 0L;
-        var cnt = counts.get(operation);
+        var cnt = obj instanceof Class ? countsClass.get(operation) : counts.get(operation);
         if (nonNull(cnt)) {
             var l = cnt.get(obj);
             if (nonNull(l)) {
@@ -309,6 +314,16 @@ public class MockEntityManager implements EntityManager {
         return result;
     }
 
+    public long calls(MockPersistenceOperation operation) {
+        var result = 0L;
+        var cnt = countsOperation.get(operation);
+        if (nonNull(cnt)) {
+            result = cnt;
+        }
+        return result;
+    }
+
+
     public void onOperation(MockPersistenceOperation operation, Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
         onOperation.computeIfAbsent(operation, o -> new IdentityHashMap<>())
                 .compute(obj, (o, v) -> consumer);
@@ -317,12 +332,38 @@ public class MockEntityManager implements EntityManager {
     private void makeItCount(MockPersistenceOperation operation, Object obj) {
         context = obj;
         counts.computeIfAbsent(operation, o -> new IdentityHashMap<>())
-                .compute(obj, (o, v) -> nullCheck(v, vv -> vv + 1, 1L));
+                .compute(obj, this::applyCount);
+
+        countsClass.computeIfAbsent(operation, o -> new IdentityHashMap<>())
+                .compute(obj.getClass(), this::applyCount);
+
+        for (var i : obj.getClass().getInterfaces()) {
+            countsClass.computeIfAbsent(operation, o -> new IdentityHashMap<>())
+                    .compute(i, this::applyCount);
+        }
+
+        countsOperation.compute(operation, this::applyCount);
 
         var consumer = onOperation.computeIfAbsent(operation, o -> new IdentityHashMap<>()).get(obj);
         if (nonNull(consumer)) {
             consumer.accept(operation, obj);
         }
+
+        var consumerClass = onOperationClass.computeIfAbsent(operation, o -> new IdentityHashMap<>()).get(obj.getClass());
+        if (nonNull(consumerClass)) {
+            consumerClass.accept(operation, obj);
+        }
+
+        var consumerOperation = onOperationOperation.get(operation);
+        if (nonNull(consumerOperation)) {
+            consumerOperation.accept(operation, obj);
+        }
+
     }
+
+    private Long applyCount(Object k, Long v) {
+        return nullCheck(v, vv -> vv + 1, 1L);
+    }
+
 
 }
