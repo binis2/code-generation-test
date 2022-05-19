@@ -96,7 +96,7 @@ class TestMockFunctions {
     @Test
     void testPersistence() {
         var opCheck = onSave(() -> log.info("Save called!"));
-        var clsCheck = onSaveClass(TestMock.class, o -> log.info("Save called on {}!", o));
+        var clsCheck = onSave(TestMock.class, o -> log.info("Save called on {}!", o));
         var mock = TestMock.create();
         verify(MockPersistenceOperation.SAVE, mock.done()).called(never());
         verifySave(mock.save()).called(once());
