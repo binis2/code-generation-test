@@ -150,7 +150,7 @@ public class CodeGenMock {
         } else if (q.startsWith("select distinct u ")) {
             q = q.replace("select distinct u ", "select count(distinct u) ");
         } else {
-            q = "select count(*) " + q;
+            q = "select count(*) " + q.substring(q.indexOf("from"));
         }
 
         return mockQuery(q, ((QueryAccessor) query).getParams(), count);
@@ -167,6 +167,22 @@ public class CodeGenMock {
 
         return mockCountQuery(query, result);
     }
+
+    public static MockedQueryContext mockDeleteQuery(Queryable query) {
+        return mockDeleteQuery(query, 1);
+    }
+
+    public static MockedQueryContext mockDeleteQuery(Queryable query, int deleted) {
+        return mockDeleteQuery(query, () -> deleted);
+    }
+
+    public static MockedQueryContext mockDeleteQuery(Queryable query, Supplier<Integer> deleted) {
+        var q = query.print();
+        q = "delete " + q.substring(q.indexOf("from"));
+
+        return mockQuery(q, ((QueryAccessor) query).getParams(), deleted);
+    }
+
 
     public static MockedQueryContext mockQuery(String query, Object returnObject) {
         return mockQuery(query, null, returnObject);

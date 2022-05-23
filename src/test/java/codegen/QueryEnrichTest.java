@@ -40,8 +40,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static net.binis.codegen.mock.CodeGenMatcher.orderedList;
-import static net.binis.codegen.mock.CodeGenMatcher.twice;
+import static net.binis.codegen.mock.CodeGenMatcher.*;
 import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -94,6 +93,7 @@ class QueryEnrichTest extends BaseTest {
         var cnt = new AtomicInteger();
 
         mockQuery(Sub.find().by(), orderedList(List.of(List.of(mock(Sub.class)), Collections.emptyList()))).called(twice());
+        mockCountQuery(Sub.find().by(), 1L).called(never());
         Sub.find().by().paginated(1, s -> cnt.incrementAndGet());
 
         assertEquals(1, cnt.get());

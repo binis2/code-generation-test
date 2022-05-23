@@ -94,6 +94,15 @@ class TestMockFunctions {
     }
 
     @Test
+    void testDelete() {
+        mockDeleteQuery(TestModify.find().by().id(5L), orderedList(List.of(5, 0))).called(times(2));
+
+        assertEquals(5, TestModify.find().by().id(5L).remove());
+        TestModify.find().by().id(5L).delete();
+    }
+
+
+    @Test
     void testPersistence() {
         var opCheck = onSave(() -> log.info("Save called!"));
         var clsCheck = onSave(TestMock.class, o -> log.info("Save called on {}!", o));
