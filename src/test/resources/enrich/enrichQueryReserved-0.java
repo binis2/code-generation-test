@@ -215,7 +215,7 @@ public class TestReservedImpl implements TestReserved {
         this.tuples = tuples;
     }
 
-    protected static class TestReservedQueryExecutorImpl extends QueryExecutor implements TestReserved.QuerySelect, TestReserved.QueryFieldsStart {
+    protected static class TestReservedQueryExecutorImpl extends QueryExecutor implements TestReserved.QueryUpdate, TestReserved.QuerySelect, TestReserved.QueryFieldsStart {
 
         protected TestReservedQueryExecutorImpl() {
             super(TestReserved.class, () -> new TestReservedQueryNameImpl(), parent -> parent);

@@ -254,7 +254,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
-    protected static class MixModifyQueryExecutorImpl extends QueryExecutor implements MixModify.QuerySelect, MixModify.QueryFieldsStart {
+    protected static class MixModifyQueryExecutorImpl extends QueryExecutor implements MixModify.QueryUpdate, MixModify.QuerySelect, MixModify.QueryFieldsStart {
 
         protected MixModifyQueryExecutorImpl() {
             super(MixModify.class, () -> new TestModifyQueryNameImpl(), parent -> parent);
@@ -436,7 +436,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
-    protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QuerySelect, TestModify.QueryFieldsStart {
+    protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QueryUpdate, TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
             super(TestModify.class, () -> new TestModifyQueryNameImpl(), parent -> parent);

@@ -90,7 +90,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
     }
 
-    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect, Test.QueryFieldsStart {
+    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QueryUpdate, Test.QuerySelect, Test.QueryFieldsStart {
 
         protected TestQueryExecutorImpl() {
             super(Test.class, () -> new TestQueryNameImpl(), parent -> parent);

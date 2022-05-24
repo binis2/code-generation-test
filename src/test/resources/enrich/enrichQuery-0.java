@@ -90,7 +90,7 @@ public class Test2Impl implements Test2 {
         }
     }
 
-    protected static abstract class Test2QueryExecutorImpl extends QueryExecutor {
+    protected static abstract class Test2QueryExecutorImpl extends QueryExecutor implements Test2.QueryUpdate {
 
         protected Test2QueryExecutorImpl() {
             super(Test2.class, () -> new Test2QueryNameImpl(), parent -> {

@@ -26,6 +26,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.LongSupplier;
 
+import static java.util.Objects.nonNull;
 import static org.junit.Assert.assertEquals;
 
 @Builder
@@ -37,7 +38,12 @@ public class MockedPersistenceContextImpl implements MockedPersistenceContext {
 
     public MockedPersistenceContext called(LongSupplier times) {
         var expected = times.getAsLong();
-        var actual = em.calls(operation, obj);
+        var actual = 0L;
+        if (nonNull(obj)) {
+            actual = em.calls(operation, obj);
+        } else {
+            actual = em.calls(operation);
+        }
         assertEquals(expected, actual);
         return this;
     }

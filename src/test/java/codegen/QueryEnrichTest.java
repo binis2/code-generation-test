@@ -25,6 +25,7 @@ import codegen.view.TestProjectionComplex;
 import codegen.view.TestProjectionComplex2;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
+import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
@@ -39,10 +40,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static net.binis.codegen.mock.CodeGenMatcher.orderedList;
-import static net.binis.codegen.mock.CodeGenMatcher.twice;
-import static net.binis.codegen.mock.CodeGenMock.mockQuery;
-import static net.binis.codegen.mock.CodeGenMock.mockQueryProcessor;
+import static net.binis.codegen.mock.CodeGenMatcher.*;
+import static net.binis.codegen.mock.CodeGenMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -94,6 +93,7 @@ class QueryEnrichTest extends BaseTest {
         var cnt = new AtomicInteger();
 
         mockQuery(Sub.find().by(), orderedList(List.of(List.of(mock(Sub.class)), Collections.emptyList()))).called(twice());
+        mockCountQuery(Sub.find().by(), 1L).called(never());
         Sub.find().by().paginated(1, s -> cnt.incrementAndGet());
 
         assertEquals(1, cnt.get());
@@ -424,6 +424,16 @@ class QueryEnrichTest extends BaseTest {
 
     }
 
+    @Test
+    void enrichQueryUpdateTest() {
+        checkQuery("update net.binis.codegen.Test2 u set u.amount = ?1,u.title = ?2 ", List.of(5.0, "asd"), 0,
+                () -> Test2.find().update().amount(5.0).title("asd").run());
+
+        checkQuery("update net.binis.codegen.Test2 u set u.amount = ?1,u.title = ?2 where (u.parent is null)", List.of(5.0, "asd"), 0,
+                () -> Test2.find().update().amount(5.0).title("asd").where().parent(null).run());
+
+    }
+
     private void checkQuery(String expected, List<Object> params, Runnable query) {
         checkQuery(expected, params, null, query);
     }
@@ -435,7 +445,7 @@ class QueryEnrichTest extends BaseTest {
     private void checkQuery(String expected, List<Object> params, Object result, Runnable query) {
         mockQueryProcessor((q, p) -> {
             assertEquals(expected, q);
-            assertEquals(params.size(), p.size());
+            assertEquals(params.size(), p.size(), "Parameters count don't match!");
             for (int i = 0; i < params.size(); i++) {
                 assertEquals(params.get(i), p.get(i));
             }

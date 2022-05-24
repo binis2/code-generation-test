@@ -27,10 +27,9 @@ import net.binis.codegen.mock.exception.CodeGenMockException;
 import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryCallsMismatchException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
-import net.binis.codegen.spring.modifier.AsyncEntityModifier;
-import net.binis.codegen.spring.modifier.BasePersistenceOperations;
 import net.binis.codegen.spring.async.executor.CodeExecutor;
 import net.binis.codegen.spring.component.ApplicationContextProvider;
+import net.binis.codegen.spring.modifier.BasePersistenceOperations;
 import net.binis.codegen.spring.modifier.impl.AsyncEntityModifierImpl;
 import net.binis.codegen.spring.query.*;
 import org.springframework.context.ApplicationContext;
@@ -47,6 +46,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static net.binis.codegen.factory.CodeFactory.clearEnvelopingFactory;
 import static net.binis.codegen.tools.Reflection.instantiate;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -54,6 +54,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Slf4j
+@SuppressWarnings("unchecked")
 public class CodeGenMock {
 
     private static boolean inProgress;
@@ -149,7 +150,7 @@ public class CodeGenMock {
         } else if (q.startsWith("select distinct u ")) {
             q = q.replace("select distinct u ", "select count(distinct u) ");
         } else {
-            q = "select count(*) " + q;
+            q = "select count(*) " + q.substring(q.indexOf("from"));
         }
 
         return mockQuery(q, ((QueryAccessor) query).getParams(), count);
@@ -166,6 +167,22 @@ public class CodeGenMock {
 
         return mockCountQuery(query, result);
     }
+
+    public static MockedQueryContext mockDeleteQuery(Queryable query) {
+        return mockDeleteQuery(query, 1);
+    }
+
+    public static MockedQueryContext mockDeleteQuery(Queryable query, int deleted) {
+        return mockDeleteQuery(query, () -> deleted);
+    }
+
+    public static MockedQueryContext mockDeleteQuery(Queryable query, Supplier<Integer> deleted) {
+        var q = query.print();
+        q = "delete " + q.substring(q.indexOf("from"));
+
+        return mockQuery(q, ((QueryAccessor) query).getParams(), deleted);
+    }
+
 
     public static MockedQueryContext mockQuery(String query, Object returnObject) {
         return mockQuery(query, null, returnObject);
@@ -216,123 +233,239 @@ public class CodeGenMock {
                 }));
     }
 
-    public static MockedPersistenceContext verify(MockPersistenceOperation operation, Object obj) {
+    protected static <T> T withMockEntityManager(Function<MockEntityManager, T> func) {
         var em = BasePersistenceOperations.getEntityManager();
         if (em instanceof MockEntityManager) {
-            return MockedPersistenceContextImpl.builder().obj(obj).em((MockEntityManager) em).operation(operation).build();
+            return func.apply((MockEntityManager) em);
         } else {
             throw new GenericCodeGenException("Entity manager is not mocked!");
         }
     }
 
-    public static MockedPersistenceContext onSave(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        return verify(MockPersistenceOperation.SAVE, obj).on(consumer);
+    public static MockedPersistenceContext verify(MockPersistenceOperation operation, Object obj) {
+        return withMockEntityManager(em ->
+                MockedPersistenceContextImpl.builder().obj(obj).em(em).operation(operation).build());
     }
 
-    public static MockedPersistenceContext onOperation(MockPersistenceOperation operation, Object obj, Runnable task) {
+    public static MockedPersistenceContext verify(MockPersistenceOperation operation) {
+        return withMockEntityManager(em ->
+                MockedPersistenceContextImpl.builder().em(em).operation(operation).build());
+    }
+
+    public static <T> MockedPersistenceContext onOperation(MockPersistenceOperation operation, T obj, Runnable task) {
         return verify(operation, obj).on(task);
     }
 
-    public static MockedPersistenceContext onOperation(MockPersistenceOperation operation, Object obj, Consumer<Object> consumer) {
-        return verify(operation, obj).on(consumer);
+    public static <T> MockedPersistenceContext onOperation(MockPersistenceOperation operation, T obj, Consumer<T> consumer) {
+        return verify(operation, obj).on((Consumer) consumer);
     }
 
-    public static MockedPersistenceContext onOperation(MockPersistenceOperation operation, Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        return verify(operation, obj).on(consumer);
+    public static <T> MockedPersistenceContext onOperation(MockPersistenceOperation operation, T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(operation, obj).on((BiConsumer) consumer);
     }
 
-    public static MockedPersistenceContext onSave(Object obj, Runnable task) {
+    public static MockedPersistenceContext onOperation(MockPersistenceOperation operation, Runnable task) {
+        return verify(operation).on(task);
+    }
+
+    public static <T> MockedPersistenceContext onOperation(MockPersistenceOperation operation, Consumer<T> consumer) {
+        return verify(operation).on((Consumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onOperation(MockPersistenceOperation operation, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(operation).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onSave(T obj, Runnable task) {
         return verify(MockPersistenceOperation.SAVE, obj).on(task);
     }
 
-    public static MockedPersistenceContext onSave(Object obj, Consumer<Object> consumer) {
-        return verify(MockPersistenceOperation.SAVE, obj).on(consumer);
+    public static MockedPersistenceContext onSave(Runnable task) {
+        return verify(MockPersistenceOperation.SAVE).on(task);
     }
 
-    public static MockedPersistenceContext onDetach(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        return verify(MockPersistenceOperation.DETACH, obj).on(consumer);
+    public static <T> MockedPersistenceContext onSave(T obj, Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.SAVE, obj).on((Consumer) consumer);
     }
 
-    public static MockedPersistenceContext onDetach(Object obj, Runnable task) {
+    public static <T> MockedPersistenceContext onSave(Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.SAVE).on((Consumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onSave(T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.SAVE, obj).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onSave(BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.SAVE).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onDetach(T obj, Runnable task) {
         return verify(MockPersistenceOperation.DETACH, obj).on(task);
     }
 
-    public static MockedPersistenceContext onDetach(Object obj, Consumer<Object> consumer) {
-        return verify(MockPersistenceOperation.DETACH, obj).on(consumer);
+    public static MockedPersistenceContext onDetach(Runnable task) {
+        return verify(MockPersistenceOperation.DETACH).on(task);
     }
 
-    public static MockedPersistenceContext onRefresh(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        return verify(MockPersistenceOperation.REFRESH, obj).on(consumer);
+    public static <T> MockedPersistenceContext onDetach(T obj, Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.DETACH, obj).on((Consumer) consumer);
     }
 
-    public static MockedPersistenceContext onRefresh(Object obj, Runnable task) {
+    public static <T> MockedPersistenceContext onDetach(Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.DETACH).on((Consumer) consumer);
+    }
+    public static <T> MockedPersistenceContext onDetach(T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.DETACH, obj).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onDetach(BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.DETACH).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onRefresh(T obj, Runnable task) {
         return verify(MockPersistenceOperation.REFRESH, obj).on(task);
     }
 
-    public static MockedPersistenceContext onRefresh(Object obj, Consumer<Object> consumer) {
-        return verify(MockPersistenceOperation.REFRESH, obj).on(consumer);
+    public static MockedPersistenceContext onRefresh(Runnable task) {
+        return verify(MockPersistenceOperation.REFRESH).on(task);
     }
 
-    public static MockedPersistenceContext onDelete(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        return verify(MockPersistenceOperation.DELETE, obj).on(consumer);
+    public static <T> MockedPersistenceContext onRefresh(T obj, Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.REFRESH, obj).on((Consumer) consumer);
     }
 
-    public static MockedPersistenceContext onDelete(Object obj, Runnable task) {
+    public static <T> MockedPersistenceContext onRefresh(Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.REFRESH).on((Consumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onRefresh(T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.REFRESH, obj).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onRefresh(BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.REFRESH).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onDelete(T obj, Runnable task) {
         return verify(MockPersistenceOperation.DELETE, obj).on(task);
     }
 
-    public static MockedPersistenceContext onDelete(Object obj, Consumer<Object> consumer) {
-        return verify(MockPersistenceOperation.DELETE, obj).on(consumer);
+    public static MockedPersistenceContext onDelete(Runnable task) {
+        return verify(MockPersistenceOperation.DELETE).on(task);
     }
 
-    public static MockedPersistenceContext onMerge(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        return verify(MockPersistenceOperation.MERGE, obj).on(consumer);
+    public static <T> MockedPersistenceContext onDelete(T obj, Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.DELETE, obj).on((Consumer) consumer);
     }
 
-    public static MockedPersistenceContext onMerge(Object obj, Runnable task) {
+    public static <T> MockedPersistenceContext onDelete(Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.DELETE).on((Consumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onDelete(T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.DELETE, obj).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onDelete(BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.DELETE).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onMerge(T obj, Runnable task) {
         return verify(MockPersistenceOperation.MERGE, obj).on(task);
     }
 
-    public static MockedPersistenceContext onMerge(Object obj, Consumer<Object> consumer) {
-        return verify(MockPersistenceOperation.MERGE, obj).on(consumer);
+    public static <T> MockedPersistenceContext onMerge(Runnable task) {
+        return verify(MockPersistenceOperation.MERGE).on(task);
     }
 
-    public static MockedPersistenceContext onFlush(Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        return verify(MockPersistenceOperation.FLUSH, obj).on(consumer);
+    public static <T> MockedPersistenceContext onMerge(T obj, Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.MERGE, obj).on((Consumer) consumer);
     }
 
-    public static MockedPersistenceContext onFlush(Object obj, Runnable task) {
+    public static <T> MockedPersistenceContext onMerge(Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.MERGE).on((Consumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onMerge(T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.MERGE, obj).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onMerge(BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.MERGE).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onFlush(T obj, Runnable task) {
         return verify(MockPersistenceOperation.FLUSH, obj).on(task);
     }
 
-    public static MockedPersistenceContext onFlush(Object obj, Consumer<Object> consumer) {
-        return verify(MockPersistenceOperation.FLUSH, obj).on(consumer);
+    public static MockedPersistenceContext onFlush(Runnable task) {
+        return verify(MockPersistenceOperation.FLUSH).on(task);
+    }
+
+    public static <T> MockedPersistenceContext onFlush(T obj, Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.FLUSH, obj).on((Consumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onFlush(Consumer<T> consumer) {
+        return verify(MockPersistenceOperation.FLUSH).on((Consumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onFlush(T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.FLUSH, obj).on((BiConsumer) consumer);
+    }
+
+    public static <T> MockedPersistenceContext onFlush(BiConsumer<MockPersistenceOperation, T> consumer) {
+        return verify(MockPersistenceOperation.FLUSH).on((BiConsumer) consumer);
     }
 
     public static MockedPersistenceContext verifySave(Object obj) {
         return verify(MockPersistenceOperation.SAVE, obj);
     }
 
+    public static MockedPersistenceContext verifySave() {
+        return verify(MockPersistenceOperation.SAVE);
+    }
+
     public static MockedPersistenceContext verifyDetach(Object obj) {
         return verify(MockPersistenceOperation.DETACH, obj);
+    }
+
+    public static MockedPersistenceContext verifyDetach() {
+        return verify(MockPersistenceOperation.DETACH);
     }
 
     public static MockedPersistenceContext verifyRefresh(Object obj) {
         return verify(MockPersistenceOperation.REFRESH, obj);
     }
 
+    public static MockedPersistenceContext verifyRefresh() {
+        return verify(MockPersistenceOperation.REFRESH);
+    }
+
     public static MockedPersistenceContext verifyDelete(Object obj) {
         return verify(MockPersistenceOperation.DELETE, obj);
+    }
+
+    public static MockedPersistenceContext verifyDelete() {
+        return verify(MockPersistenceOperation.DELETE);
     }
 
     public static MockedPersistenceContext verifyMerge(Object obj) {
         return verify(MockPersistenceOperation.MERGE, obj);
     }
 
+    public static MockedPersistenceContext verifyMerge() {
+        return verify(MockPersistenceOperation.MERGE);
+    }
+
     public static MockedPersistenceContext verifySaveAndFlush(Object obj) {
         return verify(MockPersistenceOperation.FLUSH, obj);
     }
 
+    public static MockedPersistenceContext verifySaveAndFlush() {
+        return verify(MockPersistenceOperation.FLUSH);
+    }
 
     public static void mockQueryClear() {
         mockedResponses.clear();
@@ -480,7 +613,7 @@ public class CodeGenMock {
     }
 
     public static void clearCodeFactoryMock() {
-        CodeFactory.clearEnvelopingFactory();
+        clearEnvelopingFactory();
     }
 
     public static class MockAsyncEntityModifierImpl extends AsyncEntityModifierImpl {
