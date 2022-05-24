@@ -12,7 +12,7 @@ import java.util.List;
 @Default("net.binis.codegen.Test2Impl")
 public interface Test2 {
 
-    static QueryStarter<Test2, Test2.QuerySelect<Test2>, QueryAggregateOperation<QueryOperationFields<Test2.QueryAggregate<Number, Test2.QuerySelect<Number>>>>, QueryFieldsStart<Test2, Test2.QuerySelect<Test2>>> find() {
+    static QueryStarter<Test2, Test2.QuerySelect<Test2>, QueryAggregateOperation<QueryOperationFields<Test2.QueryAggregate<Number, Test2.QuerySelect<Number>>>>, QueryFieldsStart<Test2, Test2.QuerySelect<Test2>>, QueryUpdate<Test2, Test2.QuerySelect<Test2>>> find() {
         return (QueryStarter) EntityCreator.create(Test2.QuerySelect.class);
     }
 
@@ -65,5 +65,8 @@ public interface Test2 {
         QueryCollectionFunctions<Long, QuerySelectOperation<Test2.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<Test2.QueryOrder<QR>, QR>>, QR>> items();
         Test2.QueryName<Test2.QuerySelect<QR>, Test2.QueryOrder<QR>, QR, Test2> parent();
         Sub.QueryName<Test2.QuerySelect<QR>, Test2.QueryOrder<QR>, QR, Sub> sub();
+    }
+
+    interface QueryUpdate<QR, QS> extends QueryFields<QueryUpdate<QR, QS>>, QueryWhere<QS>, QueryScript<QueryUpdate<QR, QS>>, UpdatableQuery {
     }
 }

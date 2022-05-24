@@ -12,7 +12,7 @@ import java.util.List;
 @Default("net.binis.codegen.TestReservedImpl")
 public interface TestReserved {
 
-    static QueryStarter<TestReserved, TestReserved.QuerySelect<TestReserved>, QueryAggregateOperation<QueryOperationFields<TestReserved.QueryAggregate<Number, TestReserved.QuerySelect<Number>>>>, QueryFieldsStart<TestReserved, TestReserved.QuerySelect<TestReserved>>> find() {
+    static QueryStarter<TestReserved, TestReserved.QuerySelect<TestReserved>, QueryAggregateOperation<QueryOperationFields<TestReserved.QueryAggregate<Number, TestReserved.QuerySelect<Number>>>>, QueryFieldsStart<TestReserved, TestReserved.QuerySelect<TestReserved>>, QueryUpdate<TestReserved, TestReserved.QuerySelect<TestReserved>>> find() {
         return (QueryStarter) EntityCreator.create(TestReserved.QuerySelect.class);
     }
 
@@ -131,5 +131,8 @@ public interface TestReserved {
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestReserved.QueryName<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR, TestReserved>>, TestReserved.QueryFields<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, TestReserved.QueryFuncs<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
         QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> _list();
         QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> _references();
+    }
+
+    interface QueryUpdate<QR, QS> extends QueryFields<QueryUpdate<QR, QS>>, QueryWhere<QS>, QueryScript<QueryUpdate<QR, QS>>, UpdatableQuery {
     }
 }

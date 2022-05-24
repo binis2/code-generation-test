@@ -23,7 +23,7 @@ public interface TestModify extends Base {
         return EntityCreator.create(TestModify.class);
     }
 
-    static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>> find() {
+    static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>, QueryUpdate<TestModify, TestModify.QuerySelect<TestModify>>> find() {
         return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
     }
     // endregion
@@ -87,6 +87,9 @@ public interface TestModify extends Base {
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestModify.QueryName<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR, TestModify>>, TestModify.QueryFields<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, TestModify.QueryFuncs<QuerySelectOperation<TestModify.QuerySelect<QR>, TestModify.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
         QueryCollectionFunctions<Long, QuerySelectOperation<TestModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>, QR>> items();
         QueryJoinCollectionFunctions<SubModify, QuerySelectOperation<TestModify.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestModify.QueryOrder<QR>, QR>>, QR>, QueryJoinAggregateOperation<SubModify.QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>, SubModify.QuerySelect<Number>>> subs();
+    }
+
+    interface QueryUpdate<QR, QS> extends QueryFields<QueryUpdate<QR, QS>>, QueryWhere<QS>, QueryScript<QueryUpdate<QR, QS>>, UpdatableQuery {
     }
     // endregion
 }

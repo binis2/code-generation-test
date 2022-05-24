@@ -424,6 +424,16 @@ class QueryEnrichTest extends BaseTest {
 
     }
 
+    @Test
+    void enrichQueryUpdateTest() {
+        checkQuery("update net.binis.codegen.Test2 u set u.amount = ?1,u.title = ?2 ", List.of(5.0, "asd"), 0,
+                () -> Test2.find().update().amount(5.0).title("asd").run());
+
+        checkQuery("update net.binis.codegen.Test2 u set u.amount = ?1,u.title = ?2 where (u.parent is null)", List.of(5.0, "asd"), 0,
+                () -> Test2.find().update().amount(5.0).title("asd").where().parent(null).run());
+
+    }
+
     private void checkQuery(String expected, List<Object> params, Runnable query) {
         checkQuery(expected, params, null, query);
     }
@@ -435,7 +445,7 @@ class QueryEnrichTest extends BaseTest {
     private void checkQuery(String expected, List<Object> params, Object result, Runnable query) {
         mockQueryProcessor((q, p) -> {
             assertEquals(expected, q);
-            assertEquals(params.size(), p.size());
+            assertEquals(params.size(), p.size(), "Parameters count don't match!");
             for (int i = 0; i < params.size(); i++) {
                 assertEquals(params.get(i), p.get(i));
             }

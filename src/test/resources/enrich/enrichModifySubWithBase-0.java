@@ -177,7 +177,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
-    protected static abstract class SubModifyQueryExecutorImpl extends QueryExecutor {
+    protected static abstract class SubModifyQueryExecutorImpl extends QueryExecutor implements SubModify.QueryUpdate {
 
         protected SubModifyQueryExecutorImpl() {
             super(SubModify.class, () -> new SubModifyQueryNameImpl(), parent -> {

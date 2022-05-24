@@ -47,7 +47,7 @@ public class TestImpl extends BaseImpl implements Test {
         this.title = title;
     }
 
-    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QuerySelect, Test.QueryFieldsStart {
+    protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QueryUpdate, Test.QuerySelect, Test.QueryFieldsStart {
 
         protected TestQueryExecutorImpl() {
             super(Test.class, () -> new TestQueryNameImpl(), parent -> parent);

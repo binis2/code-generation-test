@@ -182,7 +182,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
-    protected static abstract class TestQueryExecutorImpl extends QueryExecutor {
+    protected static abstract class TestQueryExecutorImpl extends QueryExecutor implements Test.QueryUpdate {
 
         protected TestQueryExecutorImpl() {
             super(Test.class, () -> new TestQueryNameImpl(), parent -> {
