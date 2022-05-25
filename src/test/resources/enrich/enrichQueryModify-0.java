@@ -127,7 +127,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return (T) this;
         }
 
-        public Test.EmbeddedSoloModify<EmbeddedModify<T, R>> parent() {
+        public Test.EmbeddedSoloModify<Test.EmbeddedModify<T, R>> parent() {
             if (TestImpl.this.parent == null) {
                 TestImpl.this.parent = CodeFactory.create(Test.class);
             }
@@ -139,7 +139,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return (T) this;
         }
 
-        public Sub.EmbeddedSoloModify<EmbeddedModify<T, R>> sub() {
+        public Sub.EmbeddedSoloModify<Test.EmbeddedModify<T, R>> sub() {
             if (TestImpl.this.sub == null) {
                 TestImpl.this.sub = CodeFactory.create(Sub.class);
             }
@@ -165,7 +165,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             super(parent);
         }
 
-        public Modify parent(Consumer<Test.Modify> init) {
+        public Test.Modify parent(Consumer<Test.Modify> init) {
             if (TestImpl.this.parent == null) {
                 TestImpl.this.parent = CodeFactory.create(Test.class);
             }
@@ -173,7 +173,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public Modify sub(Consumer<Sub.Modify> init) {
+        public Test.Modify sub(Consumer<Sub.Modify> init) {
             if (TestImpl.this.sub == null) {
                 TestImpl.this.sub = CodeFactory.create(Sub.class);
             }

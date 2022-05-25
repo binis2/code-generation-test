@@ -70,19 +70,15 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     }
 
     public Account.Modify with() {
-        return new AccountEntityModifyImpl();
+        return new AccountEntityModifyImpl(this);
     }
     // endregion
 
     // region inner classes
     protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
-        protected AccountEntityEmbeddedModifyImpl(Object parent) {
-            this.parent = (R) parent;
-        }
-
-        protected AccountEntityEmbeddedModifyImpl() {
-            setObject((R) AccountEntity.this);
+        protected AccountEntityEmbeddedModifyImpl(R parent) {
+            super(parent);
         }
 
         public T accountNumber(String accountNumber) {
@@ -151,6 +147,10 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     }
 
     protected class AccountEntityModifyImpl extends AccountEntityEmbeddedModifyImpl<Account.Modify, Account> implements Account.Modify {
+
+        protected AccountEntityModifyImpl(Account parent) {
+            super(parent);
+        }
     }
 
     protected class AccountEntitySoloModifyImpl extends AccountEntityEmbeddedModifyImpl implements Account.EmbeddedSoloModify {

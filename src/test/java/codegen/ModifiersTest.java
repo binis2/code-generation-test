@@ -49,7 +49,9 @@ public class ModifiersTest extends BaseTest {
         testMultiExecute(List.of(
                 Triple.of("enrich/enrichModifyBase2.java", "enrich/enrichModifyBase2-0.java", "enrich/enrichModifyBase2-1.java"),
                 Triple.of("enrich/enrichModifyNew.java", "enrich/enrichModifyNew-0.java", "enrich/enrichModifyNew-1.java"),
-                Triple.of("enrich/enrichModifyNew2.java", "enrich/enrichModifyNew2-0.java", "enrich/enrichModifyNew2-1.java")
+                Triple.of("enrich/enrichModifyNew2.java", "enrich/enrichModifyNew2-0.java", "enrich/enrichModifyNew2-1.java"),
+                Triple.of("enrich/enrichModifyNew3.java", null, "enrich/enrichModifyNew3-1.java"),
+                Triple.of("enrich/enrichModifyNew4.java", "enrich/enrichModifyNew4-0.java", "enrich/enrichModifyNew4-1.java")
         ), "enrich/enrichModifyNewExecute.java");
     }
 

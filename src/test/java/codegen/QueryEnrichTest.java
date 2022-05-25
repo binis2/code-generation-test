@@ -27,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
-import net.binis.codegen.intf.Account;
-import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.test.BaseTest;
 import org.apache.commons.lang3.tuple.Triple;

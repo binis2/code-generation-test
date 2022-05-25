@@ -147,7 +147,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return (T) this;
         }
 
-        public SubModify.EmbeddedSoloModify<EmbeddedModify<T, R>> parent() {
+        public SubModify.EmbeddedSoloModify<SubModify.EmbeddedModify<T, R>> parent() {
             if (SubModifyImpl.this.parent == null) {
                 SubModifyImpl.this.parent = CodeFactory.create(SubModify.class);
             }
@@ -188,7 +188,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             super(parent);
         }
 
-        public Modify parent(Consumer<SubModify.Modify> init) {
+        public SubModify.Modify parent(Consumer<SubModify.Modify> init) {
             if (SubModifyImpl.this.parent == null) {
                 SubModifyImpl.this.parent = CodeFactory.create(SubModify.class);
             }

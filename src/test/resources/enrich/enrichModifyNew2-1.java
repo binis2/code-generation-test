@@ -24,7 +24,6 @@ public interface Transaction extends Base, Taggable {
     Account getAccount();
     double getAmount();
     Account getCounterparty();
-    Transaction getParent();
     OffsetDateTime getTimestamp();
 
     Transaction.Modify with();
@@ -37,7 +36,6 @@ public interface Transaction extends Base, Taggable {
     interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Transaction.Fields<T> {
         Account.EmbeddedSoloModify<EmbeddedModify<T, R>> account();
         Account.EmbeddedSoloModify<EmbeddedModify<T, R>> counterparty();
-        Transaction.EmbeddedSoloModify<EmbeddedModify<T, R>> parent();
     }
 
     interface EmbeddedSoloModify<R> extends Transaction.EmbeddedModify<Transaction.EmbeddedSoloModify<R>, R> {
@@ -47,7 +45,6 @@ public interface Transaction extends Base, Taggable {
         T account(Account account);
         T amount(double amount);
         T counterparty(Account counterparty);
-        T parent(Transaction parent);
         T tag(Object tag);
         T timestamp(OffsetDateTime timestamp);
     }
@@ -55,7 +52,6 @@ public interface Transaction extends Base, Taggable {
     interface Modify extends EmbeddedModify<Transaction.Modify, Transaction> {
         Modify account(Consumer<Account.Modify> init);
         Modify counterparty(Consumer<Account.Modify> init);
-        Modify parent(Consumer<Transaction.Modify> init);
     }
     // endregion
 }
