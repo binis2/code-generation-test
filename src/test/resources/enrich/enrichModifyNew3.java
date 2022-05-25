@@ -7,10 +7,7 @@ import net.binis.codegen.intf.Taggable;
 
 import java.time.OffsetDateTime;
 
-@CodeBuilder
-public interface TransactionEntityPrototype extends BasePrototype, Taggable {
-    AccountEntityPrototype account();
-    double amount();
-    AccountEntityPrototype counterparty();
-    OffsetDateTime timestamp();
+@CodeBuilder(mixInClass = TransactionEntityPrototype.class)
+public interface SubTransactionEntityPrototype extends TransactionEntityPrototype, Taggable {
+    TransactionEntityPrototype parent();
 }

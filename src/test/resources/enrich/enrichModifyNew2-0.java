@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TransactionEntityPrototype", comments = "Transaction")
-public class TransactionEntity extends BaseImpl implements Transaction, Modifiable<Transaction.Modify> {
+public class TransactionEntity extends BaseImpl implements Transaction, SubTransaction, Modifiable<Transaction.Modify> {
 
     protected Account account;
 
@@ -31,6 +31,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
     // region constructor & initializer
     {
         CodeFactory.registerType(Transaction.class, TransactionEntity::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((TransactionEntity) v).new TransactionEntityCollectionModifyImpl(p) : ((TransactionEntity) v).new TransactionEntitySoloModifyImpl(p));
+        CodeFactory.registerType(SubTransaction.class, TransactionEntity::new, (p, v) -> ((TransactionEntity) v).new SubTransactionEntitySoloModifyImpl(p));
     }
 
     public TransactionEntity() {
@@ -39,6 +40,10 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
     // endregion
 
     // region getters
+    public SubTransaction.Modify asSubTransaction() {
+        return new SubTransactionEntityModifyImpl(this);
+    }
+
     public Account getAccount() {
         return account;
     }
@@ -64,30 +69,15 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
     }
 
     public Transaction.Modify with() {
-        return new TransactionEntityModifyImpl();
+        return new TransactionEntityModifyImpl(this);
     }
     // endregion
 
     // region inner classes
-    protected class TransactionEntityCollectionModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedCollectionModify {
+    protected class SubTransactionEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubTransaction.EmbeddedModify<T, R> {
 
-        protected TransactionEntityCollectionModifyImpl(Object parent) {
+        protected SubTransactionEntityEmbeddedModifyImpl(R parent) {
             super(parent);
-        }
-
-        public EmbeddedCodeCollection _and() {
-            return (EmbeddedCodeCollection) parent;
-        }
-    }
-
-    protected class TransactionEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Transaction.EmbeddedModify<T, R> {
-
-        protected TransactionEntityEmbeddedModifyImpl(Object parent) {
-            this.parent = (R) parent;
-        }
-
-        protected TransactionEntityEmbeddedModifyImpl() {
-            setObject((R) TransactionEntity.this);
         }
 
         public T account(Account account) {
@@ -95,7 +85,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
             return (T) this;
         }
 
-        public Account.EmbeddedSoloModify<EmbeddedModify<T, R>> account() {
+        public Account.EmbeddedSoloModify<SubTransaction.EmbeddedModify<T, R>> account() {
             if (TransactionEntity.this.account == null) {
                 TransactionEntity.this.account = CodeFactory.create(Account.class);
             }
@@ -112,7 +102,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
             return (T) this;
         }
 
-        public Account.EmbeddedSoloModify<EmbeddedModify<T, R>> counterparty() {
+        public Account.EmbeddedSoloModify<SubTransaction.EmbeddedModify<T, R>> counterparty() {
             if (TransactionEntity.this.counterparty == null) {
                 TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
             }
@@ -134,7 +124,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
             return (T) this;
         }
 
-        public Transaction.EmbeddedSoloModify<EmbeddedModify<T, R>> parent() {
+        public Transaction.EmbeddedSoloModify<SubTransaction.EmbeddedModify<T, R>> parent() {
             if (TransactionEntity.this.parent == null) {
                 TransactionEntity.this.parent = CodeFactory.create(Transaction.class);
             }
@@ -157,9 +147,13 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
         }
     }
 
-    protected class TransactionEntityModifyImpl extends TransactionEntityEmbeddedModifyImpl<Transaction.Modify, Transaction> implements Transaction.Modify {
+    protected class SubTransactionEntityModifyImpl extends SubTransactionEntityEmbeddedModifyImpl<SubTransaction.Modify, SubTransaction> implements SubTransaction.Modify {
 
-        public Modify account(Consumer<Account.Modify> init) {
+        protected SubTransactionEntityModifyImpl(SubTransaction parent) {
+            super(parent);
+        }
+
+        public SubTransaction.Modify account(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.account == null) {
                 TransactionEntity.this.account = CodeFactory.create(Account.class);
             }
@@ -167,7 +161,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
             return this;
         }
 
-        public Modify counterparty(Consumer<Account.Modify> init) {
+        public SubTransaction.Modify counterparty(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.counterparty == null) {
                 TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
             }
@@ -175,11 +169,113 @@ public class TransactionEntity extends BaseImpl implements Transaction, Modifiab
             return this;
         }
 
-        public Modify parent(Consumer<Transaction.Modify> init) {
+        public SubTransaction.Modify parent(Consumer<Transaction.Modify> init) {
             if (TransactionEntity.this.parent == null) {
                 TransactionEntity.this.parent = CodeFactory.create(Transaction.class);
             }
             init.accept(TransactionEntity.this.parent.with());
+            return this;
+        }
+    }
+
+    protected class SubTransactionEntitySoloModifyImpl extends SubTransactionEntityEmbeddedModifyImpl implements SubTransaction.EmbeddedSoloModify {
+
+        protected SubTransactionEntitySoloModifyImpl(Object parent) {
+            super(parent);
+        }
+    }
+
+    protected class TransactionEntityCollectionModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedCollectionModify {
+
+        protected TransactionEntityCollectionModifyImpl(Object parent) {
+            super(parent);
+        }
+
+        public EmbeddedCodeCollection _and() {
+            return (EmbeddedCodeCollection) parent;
+        }
+    }
+
+    protected class TransactionEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Transaction.EmbeddedModify<T, R> {
+
+        protected TransactionEntityEmbeddedModifyImpl(R parent) {
+            super(parent);
+        }
+
+        public T account(Account account) {
+            TransactionEntity.this.account = account;
+            return (T) this;
+        }
+
+        public Account.EmbeddedSoloModify<Transaction.EmbeddedModify<T, R>> account() {
+            if (TransactionEntity.this.account == null) {
+                TransactionEntity.this.account = CodeFactory.create(Account.class);
+            }
+            return CodeFactory.modify(this, TransactionEntity.this.account, Account.class);
+        }
+
+        public T amount(double amount) {
+            TransactionEntity.this.amount = amount;
+            return (T) this;
+        }
+
+        public T counterparty(Account counterparty) {
+            TransactionEntity.this.counterparty = counterparty;
+            return (T) this;
+        }
+
+        public Account.EmbeddedSoloModify<Transaction.EmbeddedModify<T, R>> counterparty() {
+            if (TransactionEntity.this.counterparty == null) {
+                TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
+            }
+            return CodeFactory.modify(this, TransactionEntity.this.counterparty, Account.class);
+        }
+
+        public T date(OffsetDateTime date) {
+            TransactionEntity.this.date = date;
+            return (T) this;
+        }
+
+        public T id(Long id) {
+            TransactionEntity.this.id = id;
+            return (T) this;
+        }
+
+        public T tag(Object tag) {
+            TransactionEntity.this.tag = tag;
+            return (T) this;
+        }
+
+        public T timestamp(OffsetDateTime timestamp) {
+            TransactionEntity.this.timestamp = timestamp;
+            return (T) this;
+        }
+
+        public T type(TestEnum type) {
+            TransactionEntity.this.type = type;
+            return (T) this;
+        }
+    }
+
+    protected class TransactionEntityModifyImpl extends TransactionEntityEmbeddedModifyImpl<Transaction.Modify, Transaction> implements Transaction.Modify {
+
+        protected TransactionEntityModifyImpl(Transaction parent) {
+            super(parent);
+        }
+
+        public Transaction.Modify account(Consumer<Account.Modify> init) {
+            if (TransactionEntity.this.account == null) {
+                TransactionEntity.this.account = CodeFactory.create(Account.class);
+            }
+            init.accept(TransactionEntity.this.account.with());
+            return this;
+        }
+
+        public Transaction.Modify counterparty(Consumer<Account.Modify> init) {
+            if (TransactionEntity.this.counterparty == null) {
+                TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
+            }
+            init.accept(TransactionEntity.this.counterparty.with());
             return this;
         }
     }
