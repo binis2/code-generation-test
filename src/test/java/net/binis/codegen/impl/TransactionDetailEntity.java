@@ -1,27 +1,47 @@
-/*Generated code by Binis' code generator.*/
-package net.binis.codegen.modifier.test;
+package net.binis.codegen.impl;
 
-import net.binis.codegen.spring.query.executor.QueryOrderer;
-import net.binis.codegen.spring.query.executor.QueryExecutor;
-import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
-import net.binis.codegen.spring.query.*;
-import net.binis.codegen.modifier.impl.BaseModifierImpl;
-import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.enums.TestEnum;
+/*-
+ * #%L
+ * code-generation-test
+ * %%
+ * Copyright (C) 2021 - 2022 Binis Belev
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import net.binis.codegen.creator.EntityCreator;
-import javax.persistence.Transient;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.intf.SubTransaction;
+import net.binis.codegen.intf.TransactionDetail;
+import net.binis.codegen.modifier.Modifiable;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
+import net.binis.codegen.spring.query.*;
+import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
+import net.binis.codegen.spring.query.executor.QueryExecutor;
+import net.binis.codegen.spring.query.executor.QueryOrderer;
+
 import javax.annotation.processing.Generated;
-import java.util.function.Function;
-import java.util.function.Consumer;
-import java.util.Optional;
-import java.util.List;
+import javax.persistence.Transient;
 import java.time.OffsetDateTime;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Generated(value = "TransactionDetailEntityPrototype", comments = "TransactionDetail")
-public class TransactionDetailEntity extends BaseImpl implements TransactionDetail, Modifiable<TransactionDetail.Modify> {
+public class TransactionDetailEntity extends BaseEntity implements TransactionDetail, Modifiable<TransactionDetail.Modify> {
 
-    protected SubTransaction parented;
+    protected SubTransaction parent;
 
     @Transient()
     protected Object tag;
@@ -40,8 +60,8 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
     // endregion
 
     // region getters
-    public SubTransaction getParented() {
-        return parented;
+    public SubTransaction getParent() {
+        return parent;
     }
 
     public Object getTag() {
@@ -74,23 +94,23 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return this;
         }
 
-        public TransactionDetail.Modify parented(SubTransaction parented) {
-            TransactionDetailEntity.this.parented = parented;
+        public TransactionDetail.Modify parent(SubTransaction parent) {
+            TransactionDetailEntity.this.parent = parent;
             return this;
         }
 
-        public SubTransaction.EmbeddedSoloModify<TransactionDetail.Modify> parented() {
-            if (TransactionDetailEntity.this.parented == null) {
-                TransactionDetailEntity.this.parented = CodeFactory.create(SubTransaction.class);
+        public SubTransaction.EmbeddedSoloModify<TransactionDetail.Modify> parent() {
+            if (TransactionDetailEntity.this.parent == null) {
+                TransactionDetailEntity.this.parent = CodeFactory.create(SubTransaction.class);
             }
-            return CodeFactory.modify(this, TransactionDetailEntity.this.parented, SubTransaction.class);
+            return CodeFactory.modify(this, TransactionDetailEntity.this.parent, SubTransaction.class);
         }
 
-        public TransactionDetail.Modify parented(Consumer<SubTransaction.Modify> init) {
-            if (TransactionDetailEntity.this.parented == null) {
-                TransactionDetailEntity.this.parented = CodeFactory.create(SubTransaction.class);
+        public TransactionDetail.Modify parent(Consumer<SubTransaction.Modify> init) {
+            if (TransactionDetailEntity.this.parent == null) {
+                TransactionDetailEntity.this.parent = CodeFactory.create(SubTransaction.class);
             }
-            init.accept(TransactionDetailEntity.this.parented.asSubTransaction());
+            init.accept(TransactionDetailEntity.this.parent.asSubTransaction());
             return this;
         }
 
@@ -107,9 +127,9 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
 
     protected static class TransactionDetailFieldsQueryExecutorImpl extends TransactionDetailQueryExecutorImpl implements TransactionDetail.QueryFieldsStart, EmbeddedFields {
 
-        public SubTransaction.QueryOperationFields parented() {
+        public SubTransaction.QueryOperationFields parent() {
             var result = EntityCreator.create(SubTransaction.QueryOperationFields.class, "net.binis.codegen.modifier.test.TransactionEntity");
-            ((QueryEmbed) result).setParent("parented", this);
+            ((QueryEmbed) result).setParent("parent", this);
             return result;
         }
     }
@@ -148,8 +168,8 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return (TransactionDetail.QueryOrder) orderStart(new TransactionDetailQueryOrderImpl(this, TransactionDetailQueryExecutorImpl.this::orderIdentifier));
         }
 
-        public QuerySelectOperation parented(SubTransaction parented) {
-            return identifier("parented", parented);
+        public QuerySelectOperation parent(SubTransaction parent) {
+            return identifier("parent", parent);
         }
 
         public QuerySelectOperation tag(Object tag) {
@@ -178,9 +198,9 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
                 return (QueryOrderOperation) func.apply("id");
             }
 
-            public SubTransaction.QueryOperationFields parented() {
+            public SubTransaction.QueryOperationFields parent() {
                 var result = EntityCreator.create(SubTransaction.QueryOperationFields.class, "net.binis.codegen.modifier.test.TransactionEntity");
-                ((QueryEmbed) result).setParent("parented", executor);
+                ((QueryEmbed) result).setParent("parent", executor);
                 return result;
             }
 
@@ -208,14 +228,12 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return executor.identifier("id", id);
         }
 
-        public SubTransaction.QueryName parented() {
-            var result = EntityCreator.create(SubTransaction.QueryName.class, "net.binis.codegen.modifier.test.TransactionEntity");
-            ((QueryEmbed) result).setParent("parented", executor);
-            return result;
+        public QueryFunctions parent() {
+            return executor.identifier("parent");
         }
 
-        public QuerySelectOperation parented(SubTransaction parented) {
-            return executor.identifier("parented", parented);
+        public QuerySelectOperation parent(SubTransaction parent) {
+            return executor.identifier("parent", parent);
         }
 
         public QuerySelectOperation tag(Object tag) {
@@ -232,12 +250,6 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
     }
 
     protected static class TransactionDetailSelectQueryExecutorImpl extends TransactionDetailQueryExecutorImpl implements TransactionDetail.QuerySelect {
-
-        public SubTransaction.QueryName parented() {
-            var result = EntityCreator.create(SubTransaction.QueryName.class, "net.binis.codegen.modifier.test.TransactionEntity");
-            ((QueryEmbed) result).setParent("parented", this);
-            return result;
-        }
     }
     // endregion
 }

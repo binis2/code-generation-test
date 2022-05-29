@@ -25,27 +25,32 @@ import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
+import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.test.BaseTest;
 import org.apache.commons.lang3.tuple.Triple;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static net.binis.codegen.mock.CodeGenMatcher.once;
+import static net.binis.codegen.mock.CodeGenMock.verifySave;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
-public class ModifiersTest extends BaseTest {
+@ExtendWith(CodeGenExtension.class)
+class ModifiersTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void testGenerate() {
+    void testGenerate() {
         testMultiExecute(List.of(
                 Triple.of("enrich/enrichModifyBase2.java", "enrich/enrichModifyBase2-0.java", "enrich/enrichModifyBase2-1.java"),
                 Triple.of("enrich/enrichModifyNew.java", "enrich/enrichModifyNew-0.java", "enrich/enrichModifyNew-1.java"),
@@ -56,12 +61,16 @@ public class ModifiersTest extends BaseTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         var account = Account.create()
                 .transactions()
                 ._sort(Comparator.comparingDouble(Transaction::getAmount))
                 .done()
-        .done();
+                .strings()
+                    .add("asd")
+                    ._if(true, m -> m.add("asd2"))
+                .done()
+        .save();
 
         assertTrue(account.getTransactions().isEmpty());
 
@@ -129,6 +138,8 @@ public class ModifiersTest extends BaseTest {
                 .done()
         .done();
         assertEquals(3, account.getStrings().size());
+
+        verifySave().called(once());
     }
 
 }

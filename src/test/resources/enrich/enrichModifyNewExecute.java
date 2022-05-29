@@ -14,7 +14,10 @@ public class Execute extends TestExecutor {
                 .transactions()
                     ._sort(Comparator.comparingDouble(Transaction::getAmount))
                 .done()
-        .done();
+                .strings()
+                    .add("asd")
+                .done()
+        .test();
 
         assertTrue(account.getTransactions().isEmpty());
 
