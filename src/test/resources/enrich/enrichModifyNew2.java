@@ -1,13 +1,12 @@
 package net.binis.codegen.modifier.test;
 
 import net.binis.codegen.annotation.builder.CodeBuilder;
-import net.binis.codegen.impl.AccountEntity;
-import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Taggable;
+import net.binis.codegen.spring.modifier.BaseEntityModifier;
 
 import java.time.OffsetDateTime;
 
-@CodeBuilder
+@CodeBuilder(baseModifierClass = BaseEntityModifier.class)
 public interface TransactionEntityPrototype extends BasePrototype, Taggable {
     AccountEntityPrototype account();
     double amount();

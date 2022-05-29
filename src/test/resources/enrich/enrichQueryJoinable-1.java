@@ -60,77 +60,83 @@ public interface TestReserved {
     }
 
     interface QueryFields<QR> extends QueryScript<QR> {
-        QR _count(String count);
-        QR _delete(String delete);
-        QR _ensure(String ensure);
-        QR _exists(String exists);
-        QR _filter(String filter);
-        QR _flush(String flush);
-        QR _get(String get);
-        QR _hint(String hint);
-        QR _lock(String lock);
-        QR _page(String page);
-        QR _prepare(String prepare);
-        QR _projection(String projection);
-        QR _reference(String reference);
-        QR _remove(String remove);
-        QR _top(String top);
-        QR _tuple(String tuple);
-        QR _tuples(String tuples);
+        QR count_(String count);
+        QR delete_(String delete);
+        QR ensure_(String ensure);
+        QR exists_(String exists);
+        QR filter_(String filter);
+        QR flush_(String flush);
+
+        QR get_(String get);
+
+        QR hint_(String hint);
+        QR lock_(String lock);
+        QR page_(String page);
+        QR prepare_(String prepare);
+        QR projection_(String projection);
+        QR reference_(String reference);
+        QR remove_(String remove);
+        QR top_(String top);
+        QR tuple_(String tuple);
+        QR tuples_(String tuples);
     }
 
     interface QueryFieldsStart<QR, QS> extends QueryExecute<QR>, QueryWhere<QS>, QueryOperationFields<QueryFieldsStart<QR, QS>> {
     }
 
     interface QueryFuncs<QR> {
-        QueryFunctions<String, QR> _count();
-        QueryFunctions<String, QR> _delete();
-        QueryFunctions<String, QR> _ensure();
-        QueryFunctions<String, QR> _exists();
-        QueryFunctions<String, QR> _filter();
-        QueryFunctions<String, QR> _flush();
-        QueryFunctions<String, QR> _get();
-        QueryFunctions<String, QR> _hint();
-        QueryFunctions<String, QR> _lock();
-        QueryFunctions<String, QR> _page();
-        QueryFunctions<String, QR> _prepare();
-        QueryFunctions<String, QR> _projection();
-        QueryFunctions<String, QR> _reference();
-        QueryFunctions<String, QR> _remove();
-        QueryFunctions<String, QR> _top();
-        QueryFunctions<String, QR> _tuple();
-        QueryFunctions<String, QR> _tuples();
+        QueryFunctions<String, QR> count_();
+        QueryFunctions<String, QR> delete_();
+        QueryFunctions<String, QR> ensure_();
+        QueryFunctions<String, QR> exists_();
+        QueryFunctions<String, QR> filter_();
+        QueryFunctions<String, QR> flush_();
+
+        QueryFunctions<String, QR> get_();
+
+        QueryFunctions<String, QR> hint_();
+        QueryFunctions<String, QR> lock_();
+        QueryFunctions<String, QR> page_();
+        QueryFunctions<String, QR> prepare_();
+        QueryFunctions<String, QR> projection_();
+        QueryFunctions<String, QR> reference_();
+        QueryFunctions<String, QR> remove_();
+        QueryFunctions<String, QR> top_();
+        QueryFunctions<String, QR> tuple_();
+        QueryFunctions<String, QR> tuples_();
     }
 
     interface QueryName<QS, QO, QR, QF> extends TestReserved.QueryFields<QuerySelectOperation<QS, QO, QR>>, TestReserved.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>, QF> {
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR>, QuerySelf<QR> {
-        QR _count();
-        QR _delete();
-        QR _ensure();
-        QR _exists();
-        QR _filter();
-        QR _flush();
-        QR _get();
-        QR _hint();
-        QR _lock();
-        QR _page();
-        QR _prepare();
-        QR _projection();
-        QR _reference();
-        QR _remove();
-        QR _top();
-        QR _tuple();
-        QR _tuples();
+        QR count_();
+        QR delete_();
+        QR ensure_();
+        QR exists_();
+        QR filter_();
+        QR flush_();
+
+        QR get_();
+
+        QR hint_();
+        QR lock_();
+        QR page_();
+        QR prepare_();
+        QR projection_();
+        QR reference_();
+        QR remove_();
+        QR top_();
+        QR tuple_();
+        QR tuples_();
     }
 
     interface QueryOrder<QR> extends QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QueryExecute<QR> {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestReserved.QueryName<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR, TestReserved>>, TestReserved.QueryFields<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, TestReserved.QueryFuncs<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
-        QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> _list();
-        QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> _references();
+        QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> list_();
+        QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> references_();
     }
 
     interface QueryUpdate<QR, QS> extends QueryFields<QueryUpdate<QR, QS>>, QueryWhere<QS>, QueryScript<QueryUpdate<QR, QS>>, UpdatableQuery {

@@ -222,156 +222,156 @@ public class TestReservedImpl implements TestReserved {
             super(TestReserved.class, () -> new TestReservedQueryNameImpl(), parent -> parent);
         }
 
-        public QuerySelectOperation _count(String count) {
-            return identifier("count", count);
-        }
-
-        public QueryFunctions _count() {
-            return identifier("count");
-        }
-
-        public QuerySelectOperation _delete(String delete) {
-            return identifier("delete", delete);
-        }
-
-        public QueryFunctions _delete() {
-            return identifier("delete");
-        }
-
-        public QuerySelectOperation _ensure(String ensure) {
-            return identifier("ensure", ensure);
-        }
-
-        public QueryFunctions _ensure() {
-            return identifier("ensure");
-        }
-
-        public QuerySelectOperation _exists(String exists) {
-            return identifier("exists", exists);
-        }
-
-        public QueryFunctions _exists() {
-            return identifier("exists");
-        }
-
-        public QuerySelectOperation _filter(String filter) {
-            return identifier("filter", filter);
-        }
-
-        public QueryFunctions _filter() {
-            return identifier("filter");
-        }
-
-        public QuerySelectOperation _flush(String flush) {
-            return identifier("flush", flush);
-        }
-
-        public QueryFunctions _flush() {
-            return identifier("flush");
-        }
-
-        public QuerySelectOperation _get(String get) {
-            return identifier("get", get);
-        }
-
-        public QueryFunctions _get() {
-            return identifier("get");
-        }
-
-        public QuerySelectOperation _hint(String hint) {
-            return identifier("hint", hint);
-        }
-
-        public QueryFunctions _hint() {
-            return identifier("hint");
-        }
-
-        public QueryCollectionFunctions _list() {
-            return identifier("list");
-        }
-
-        public QuerySelectOperation _lock(String lock) {
-            return identifier("lock", lock);
-        }
-
-        public QueryFunctions _lock() {
-            return identifier("lock");
-        }
-
-        public QuerySelectOperation _page(String page) {
-            return identifier("page", page);
-        }
-
-        public QueryFunctions _page() {
-            return identifier("page");
-        }
-
-        public QuerySelectOperation _prepare(String prepare) {
-            return identifier("prepare", prepare);
-        }
-
-        public QueryFunctions _prepare() {
-            return identifier("prepare");
-        }
-
-        public QuerySelectOperation _projection(String projection) {
-            return identifier("projection", projection);
-        }
-
-        public QueryFunctions _projection() {
-            return identifier("projection");
-        }
-
-        public QuerySelectOperation _reference(String reference) {
-            return identifier("reference", reference);
-        }
-
-        public QueryFunctions _reference() {
-            return identifier("reference");
-        }
-
-        public QueryCollectionFunctions _references() {
-            return identifier("references");
-        }
-
-        public QuerySelectOperation _remove(String remove) {
-            return identifier("remove", remove);
-        }
-
-        public QueryFunctions _remove() {
-            return identifier("remove");
-        }
-
-        public QuerySelectOperation _top(String top) {
-            return identifier("top", top);
-        }
-
-        public QueryFunctions _top() {
-            return identifier("top");
-        }
-
-        public QuerySelectOperation _tuple(String tuple) {
-            return identifier("tuple", tuple);
-        }
-
-        public QueryFunctions _tuple() {
-            return identifier("tuple");
-        }
-
-        public QuerySelectOperation _tuples(String tuples) {
-            return identifier("tuples", tuples);
-        }
-
-        public QueryFunctions _tuples() {
-            return identifier("tuples");
-        }
-
         public QueryAggregateOperation aggregate() {
             return (QueryAggregateOperation) aggregateStart(new TestReservedQueryOrderImpl(this, TestReservedQueryExecutorImpl.this::aggregateIdentifier));
         }
 
+        public QuerySelectOperation count_(String count) {
+            return identifier("count", count);
+        }
+
+        public QueryFunctions count_() {
+            return identifier("count");
+        }
+
+        public QuerySelectOperation delete_(String delete) {
+            return identifier("delete", delete);
+        }
+
+        public QueryFunctions delete_() {
+            return identifier("delete");
+        }
+
+        public QuerySelectOperation ensure_(String ensure) {
+            return identifier("ensure", ensure);
+        }
+
+        public QueryFunctions ensure_() {
+            return identifier("ensure");
+        }
+
+        public QuerySelectOperation exists_(String exists) {
+            return identifier("exists", exists);
+        }
+
+        public QueryFunctions exists_() {
+            return identifier("exists");
+        }
+
+        public QuerySelectOperation filter_(String filter) {
+            return identifier("filter", filter);
+        }
+
+        public QueryFunctions filter_() {
+            return identifier("filter");
+        }
+
+        public QuerySelectOperation flush_(String flush) {
+            return identifier("flush", flush);
+        }
+
+        public QueryFunctions flush_() {
+            return identifier("flush");
+        }
+
+        public QuerySelectOperation get_(String get) {
+            return identifier("get", get);
+        }
+
+        public QueryFunctions get_() {
+            return identifier("get");
+        }
+
+        public QuerySelectOperation hint_(String hint) {
+            return identifier("hint", hint);
+        }
+
+        public QueryFunctions hint_() {
+            return identifier("hint");
+        }
+
+        public QueryCollectionFunctions list_() {
+            return identifier("list");
+        }
+
+        public QuerySelectOperation lock_(String lock) {
+            return identifier("lock", lock);
+        }
+
+        public QueryFunctions lock_() {
+            return identifier("lock");
+        }
+
         public TestReserved.QueryOrder order() {
             return (TestReserved.QueryOrder) orderStart(new TestReservedQueryOrderImpl(this, TestReservedQueryExecutorImpl.this::orderIdentifier));
+        }
+
+        public QuerySelectOperation page_(String page) {
+            return identifier("page", page);
+        }
+
+        public QueryFunctions page_() {
+            return identifier("page");
+        }
+
+        public QuerySelectOperation prepare_(String prepare) {
+            return identifier("prepare", prepare);
+        }
+
+        public QueryFunctions prepare_() {
+            return identifier("prepare");
+        }
+
+        public QuerySelectOperation projection_(String projection) {
+            return identifier("projection", projection);
+        }
+
+        public QueryFunctions projection_() {
+            return identifier("projection");
+        }
+
+        public QuerySelectOperation reference_(String reference) {
+            return identifier("reference", reference);
+        }
+
+        public QueryFunctions reference_() {
+            return identifier("reference");
+        }
+
+        public QueryCollectionFunctions references_() {
+            return identifier("references");
+        }
+
+        public QuerySelectOperation remove_(String remove) {
+            return identifier("remove", remove);
+        }
+
+        public QueryFunctions remove_() {
+            return identifier("remove");
+        }
+
+        public QuerySelectOperation top_(String top) {
+            return identifier("top", top);
+        }
+
+        public QueryFunctions top_() {
+            return identifier("top");
+        }
+
+        public QuerySelectOperation tuple_(String tuple) {
+            return identifier("tuple", tuple);
+        }
+
+        public QueryFunctions tuple_() {
+            return identifier("tuple");
+        }
+
+        public QuerySelectOperation tuples_(String tuples) {
+            return identifier("tuples", tuples);
+        }
+
+        public QueryFunctions tuples_() {
+            return identifier("tuples");
         }
 
         protected class TestReservedQueryOrderImpl extends QueryOrderer implements TestReserved.QueryOrder, TestReserved.QueryAggregate {
@@ -380,71 +380,71 @@ public class TestReservedImpl implements TestReserved {
                 super(executor, func);
             }
 
-            public QueryOrderOperation _count() {
+            public QueryOrderOperation count_() {
                 return (QueryOrderOperation) func.apply("count");
             }
 
-            public QueryOrderOperation _delete() {
+            public QueryOrderOperation delete_() {
                 return (QueryOrderOperation) func.apply("delete");
             }
 
-            public QueryOrderOperation _ensure() {
+            public QueryOrderOperation ensure_() {
                 return (QueryOrderOperation) func.apply("ensure");
             }
 
-            public QueryOrderOperation _exists() {
+            public QueryOrderOperation exists_() {
                 return (QueryOrderOperation) func.apply("exists");
             }
 
-            public QueryOrderOperation _filter() {
+            public QueryOrderOperation filter_() {
                 return (QueryOrderOperation) func.apply("filter");
             }
 
-            public QueryOrderOperation _flush() {
+            public QueryOrderOperation flush_() {
                 return (QueryOrderOperation) func.apply("flush");
             }
 
-            public QueryOrderOperation _get() {
+            public QueryOrderOperation get_() {
                 return (QueryOrderOperation) func.apply("get");
             }
 
-            public QueryOrderOperation _hint() {
+            public QueryOrderOperation hint_() {
                 return (QueryOrderOperation) func.apply("hint");
             }
 
-            public QueryOrderOperation _lock() {
+            public QueryOrderOperation lock_() {
                 return (QueryOrderOperation) func.apply("lock");
             }
 
-            public QueryOrderOperation _page() {
+            public QueryOrderOperation page_() {
                 return (QueryOrderOperation) func.apply("page");
             }
 
-            public QueryOrderOperation _prepare() {
+            public QueryOrderOperation prepare_() {
                 return (QueryOrderOperation) func.apply("prepare");
             }
 
-            public QueryOrderOperation _projection() {
+            public QueryOrderOperation projection_() {
                 return (QueryOrderOperation) func.apply("projection");
             }
 
-            public QueryOrderOperation _reference() {
+            public QueryOrderOperation reference_() {
                 return (QueryOrderOperation) func.apply("reference");
             }
 
-            public QueryOrderOperation _remove() {
+            public QueryOrderOperation remove_() {
                 return (QueryOrderOperation) func.apply("remove");
             }
 
-            public QueryOrderOperation _top() {
+            public QueryOrderOperation top_() {
                 return (QueryOrderOperation) func.apply("top");
             }
 
-            public QueryOrderOperation _tuple() {
+            public QueryOrderOperation tuple_() {
                 return (QueryOrderOperation) func.apply("tuple");
             }
 
-            public QueryOrderOperation _tuples() {
+            public QueryOrderOperation tuples_() {
                 return (QueryOrderOperation) func.apply("tuples");
             }
         }
@@ -452,139 +452,139 @@ public class TestReservedImpl implements TestReserved {
 
     protected static class TestReservedQueryNameImpl extends BaseQueryNameImpl implements TestReserved.QueryName, QueryEmbed {
 
-        public QueryFunctions _count() {
+        public QueryFunctions count_() {
             return executor.identifier("count");
         }
 
-        public QuerySelectOperation _count(String count) {
+        public QuerySelectOperation count_(String count) {
             return executor.identifier("count", count);
         }
 
-        public QueryFunctions _delete() {
+        public QueryFunctions delete_() {
             return executor.identifier("delete");
         }
 
-        public QuerySelectOperation _delete(String delete) {
+        public QuerySelectOperation delete_(String delete) {
             return executor.identifier("delete", delete);
         }
 
-        public QueryFunctions _ensure() {
+        public QueryFunctions ensure_() {
             return executor.identifier("ensure");
         }
 
-        public QuerySelectOperation _ensure(String ensure) {
+        public QuerySelectOperation ensure_(String ensure) {
             return executor.identifier("ensure", ensure);
         }
 
-        public QueryFunctions _exists() {
+        public QueryFunctions exists_() {
             return executor.identifier("exists");
         }
 
-        public QuerySelectOperation _exists(String exists) {
+        public QuerySelectOperation exists_(String exists) {
             return executor.identifier("exists", exists);
         }
 
-        public QueryFunctions _filter() {
+        public QueryFunctions filter_() {
             return executor.identifier("filter");
         }
 
-        public QuerySelectOperation _filter(String filter) {
+        public QuerySelectOperation filter_(String filter) {
             return executor.identifier("filter", filter);
         }
 
-        public QueryFunctions _flush() {
+        public QueryFunctions flush_() {
             return executor.identifier("flush");
         }
 
-        public QuerySelectOperation _flush(String flush) {
+        public QuerySelectOperation flush_(String flush) {
             return executor.identifier("flush", flush);
         }
 
-        public QueryFunctions _get() {
+        public QueryFunctions get_() {
             return executor.identifier("get");
         }
 
-        public QuerySelectOperation _get(String get) {
+        public QuerySelectOperation get_(String get) {
             return executor.identifier("get", get);
         }
 
-        public QueryFunctions _hint() {
+        public QueryFunctions hint_() {
             return executor.identifier("hint");
         }
 
-        public QuerySelectOperation _hint(String hint) {
+        public QuerySelectOperation hint_(String hint) {
             return executor.identifier("hint", hint);
         }
 
-        public QueryFunctions _lock() {
+        public QueryFunctions lock_() {
             return executor.identifier("lock");
         }
 
-        public QuerySelectOperation _lock(String lock) {
+        public QuerySelectOperation lock_(String lock) {
             return executor.identifier("lock", lock);
         }
 
-        public QueryFunctions _page() {
+        public QueryFunctions page_() {
             return executor.identifier("page");
         }
 
-        public QuerySelectOperation _page(String page) {
+        public QuerySelectOperation page_(String page) {
             return executor.identifier("page", page);
         }
 
-        public QueryFunctions _prepare() {
+        public QueryFunctions prepare_() {
             return executor.identifier("prepare");
         }
 
-        public QuerySelectOperation _prepare(String prepare) {
+        public QuerySelectOperation prepare_(String prepare) {
             return executor.identifier("prepare", prepare);
         }
 
-        public QueryFunctions _projection() {
+        public QueryFunctions projection_() {
             return executor.identifier("projection");
         }
 
-        public QuerySelectOperation _projection(String projection) {
+        public QuerySelectOperation projection_(String projection) {
             return executor.identifier("projection", projection);
         }
 
-        public QueryFunctions _reference() {
+        public QueryFunctions reference_() {
             return executor.identifier("reference");
         }
 
-        public QuerySelectOperation _reference(String reference) {
+        public QuerySelectOperation reference_(String reference) {
             return executor.identifier("reference", reference);
         }
 
-        public QueryFunctions _remove() {
+        public QueryFunctions remove_() {
             return executor.identifier("remove");
         }
 
-        public QuerySelectOperation _remove(String remove) {
+        public QuerySelectOperation remove_(String remove) {
             return executor.identifier("remove", remove);
         }
 
-        public QueryFunctions _top() {
+        public QueryFunctions top_() {
             return executor.identifier("top");
         }
 
-        public QuerySelectOperation _top(String top) {
+        public QuerySelectOperation top_(String top) {
             return executor.identifier("top", top);
         }
 
-        public QueryFunctions _tuple() {
+        public QueryFunctions tuple_() {
             return executor.identifier("tuple");
         }
 
-        public QuerySelectOperation _tuple(String tuple) {
+        public QuerySelectOperation tuple_(String tuple) {
             return executor.identifier("tuple", tuple);
         }
 
-        public QueryFunctions _tuples() {
+        public QueryFunctions tuples_() {
             return executor.identifier("tuples");
         }
 
-        public QuerySelectOperation _tuples(String tuples) {
+        public QuerySelectOperation tuples_(String tuples) {
             return executor.identifier("tuples", tuples);
         }
     }

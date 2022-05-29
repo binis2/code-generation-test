@@ -1,18 +1,36 @@
-/*Generated code by Binis' code generator.*/
-package net.binis.codegen.modifier.test;
+package net.binis.codegen.intf;
 
-import net.binis.codegen.spring.query.*;
-import net.binis.codegen.modifier.BaseModifier;
-import net.binis.codegen.intf.Taggable;
-import net.binis.codegen.enums.TestEnum;
-import net.binis.codegen.creator.EntityCreatorModifier;
-import net.binis.codegen.creator.EntityCreator;
+/*-
+ * #%L
+ * code-generation-test
+ * %%
+ * Copyright (C) 2021 - 2022 Binis Belev
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import net.binis.codegen.Base;
 import net.binis.codegen.annotation.Default;
+import net.binis.codegen.creator.EntityCreator;
+import net.binis.codegen.creator.EntityCreatorModifier;
+import net.binis.codegen.enums.TestEnum;
+import net.binis.codegen.modifier.BaseModifier;
+import net.binis.codegen.spring.query.*;
+
 import javax.annotation.processing.Generated;
-import java.util.function.Consumer;
-import java.util.Optional;
-import java.util.List;
 import java.time.OffsetDateTime;
+import java.util.function.Consumer;
 
 @Generated(value = "TransactionDetailEntityPrototype", comments = "TransactionDetailEntity")
 @Default("net.binis.codegen.modifier.test.TransactionDetailEntity")
@@ -28,19 +46,19 @@ public interface TransactionDetail extends Base, Taggable {
     }
     // endregion
 
-    SubTransaction getParented();
+    SubTransaction getParent();
 
     TransactionDetail.Modify with();
 
     // region inner classes
     interface Fields<T> extends Base.Fields<T> {
-        T parented(SubTransaction parented);
+        T parent(SubTransaction parent);
         T tag(Object tag);
     }
 
     interface Modify extends TransactionDetail.Fields<TransactionDetail.Modify>, BaseModifier<TransactionDetail.Modify, TransactionDetail> {
-        SubTransaction.EmbeddedSoloModify<Modify> parented();
-        Modify parented(Consumer<SubTransaction.Modify> init);
+        SubTransaction.EmbeddedSoloModify<Modify> parent();
+        Modify parent(Consumer<SubTransaction.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TransactionDetail.QueryAggregate<TransactionDetail, TransactionDetail.QuerySelect<Number>>>>> {
@@ -59,13 +77,12 @@ public interface TransactionDetail extends Base, Taggable {
     }
 
     interface QueryName<QS, QO, QR, QF> extends TransactionDetail.QueryFields<QuerySelectOperation<QS, QO, QR>>, TransactionDetail.QueryFuncs<QuerySelectOperation<QS, QO, QR>>, QueryFetch<QuerySelectOperation<QS, QO, QR>, QF> {
-        SubTransaction.QueryName<QS, QO, QR, SubTransaction> parented();
     }
 
     interface QueryOperationFields<QR> extends QueryScript<QR>, QuerySelf<QR> {
         QR date();
         QR id();
-        SubTransaction.QueryOperationFields<QR> parented();
+        SubTransaction.QueryOperationFields<QR> parent();
         QR type();
     }
 
@@ -73,7 +90,6 @@ public interface TransactionDetail extends Base, Taggable {
     }
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TransactionDetail.QueryName<TransactionDetail.QuerySelect<QR>, TransactionDetail.QueryOrder<QR>, QR, TransactionDetail>>, TransactionDetail.QueryFields<QuerySelectOperation<TransactionDetail.QuerySelect<QR>, TransactionDetail.QueryOrder<QR>, QR>>, TransactionDetail.QueryFuncs<QuerySelectOperation<TransactionDetail.QuerySelect<QR>, TransactionDetail.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TransactionDetail.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
-        SubTransaction.QueryName<TransactionDetail.QuerySelect<QR>, TransactionDetail.QueryOrder<QR>, QR, SubTransaction> parented();
     }
 
     interface QueryUpdate<QR, QS> extends QueryFields<QueryUpdate<QR, QS>>, QueryWhere<QS>, QueryScript<QueryUpdate<QR, QS>>, UpdatableQuery {

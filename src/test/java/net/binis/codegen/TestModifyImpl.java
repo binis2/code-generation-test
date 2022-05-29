@@ -160,6 +160,9 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     // endregion
 
     // region inner classes
+    protected static class MixModifyFieldsQueryExecutorImpl extends MixModifyQueryExecutorImpl implements MixModify.QueryFieldsStart, EmbeddedFields {
+    }
+
     protected class MixModifyModifyImpl extends BaseModifierImpl<MixModify.Modify, MixModify> implements MixModify.Modify {
 
         protected MixModifyModifyImpl(MixModify parent) {
@@ -374,6 +377,9 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
                 return (QueryOrderOperation) func.apply("type");
             }
         }
+    }
+
+    protected static class MixModifySelectQueryExecutorImpl extends MixModifyQueryExecutorImpl implements MixModify.QuerySelect {
     }
 
     protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
