@@ -5,7 +5,6 @@ import net.binis.codegen.spring.query.executor.QueryOrderer;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.*;
-import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
@@ -19,6 +18,7 @@ import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
+import codegen.modifier.impl.TestModifierImpl;
 
 @Generated(value = "AccountEntityPrototype", comments = "Account")
 public class AccountEntity extends BaseImpl implements Account, Modifiable<Account.Modify> {
@@ -85,7 +85,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     // endregion
 
     // region inner classes
-    protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
+    protected class AccountEntityEmbeddedModifyImpl<T, R> extends TestModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
         protected AccountEntityEmbeddedModifyImpl(R parent) {
             super(parent);

@@ -31,6 +31,7 @@ import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.modifier.impl.BaseModifierImpl;
+import net.binis.codegen.spring.modifier.impl.BaseEntityModifierImpl;
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
 import net.binis.codegen.spring.query.executor.QueryExecutor;
@@ -106,7 +107,7 @@ public class AccountEntity extends BaseEntity implements Account, Modifiable<Acc
     // endregion
 
     // region inner classes
-    protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
+    protected class AccountEntityEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
         protected AccountEntityEmbeddedModifyImpl(R parent) {
             super(parent);

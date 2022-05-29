@@ -34,7 +34,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "SubTransactionEntityPrototype", comments = "SubTransactionEntity")
-@Default("net.binis.codegen.modifier.test.TransactionEntity")
+@Default("net.binis.codegen.impl.TransactionEntity")
 public interface SubTransaction extends Taggable, Transaction {
     SubTransaction.Modify asSubTransaction();
 

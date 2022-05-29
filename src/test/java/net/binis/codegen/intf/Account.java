@@ -21,6 +21,7 @@ package net.binis.codegen.intf;
  */
 
 import net.binis.codegen.Base;
+import net.binis.codegen.spring.modifier.BaseEntityModifier;
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.enums.TestEnum;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "AccountEntityPrototype", comments = "AccountEntity")
-@Default("net.binis.codegen.modifier.test.AccountEntity")
+@Default("net.binis.codegen.impl.AccountEntity")
 public interface Account extends Base {
 
     // region starters
@@ -60,7 +61,7 @@ public interface Account extends Base {
     Account.Modify with();
 
     // region inner classes
-    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Account.Fields<T> {
+    interface EmbeddedModify<T, R> extends BaseEntityModifier<T, R>, Account.Fields<T> {
         T strings(List<String> strings);
         CodeList<String, Account.EmbeddedModify<T, R>> strings();
         T transactions(List<Transaction> transactions);

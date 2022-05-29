@@ -37,7 +37,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TransactionEntityPrototype", comments = "TransactionEntity")
-@Default("net.binis.codegen.modifier.test.TransactionEntity")
+@Default("net.binis.codegen.impl.TransactionEntity")
 public interface Transaction extends Base, Taggable {
 
     // region starters

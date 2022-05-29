@@ -13,6 +13,7 @@ import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
+import codegen.modifier.TestModifier;
 
 @Generated(value = "AccountEntityPrototype", comments = "AccountEntity")
 @Default("net.binis.codegen.modifier.test.AccountEntity")
@@ -42,9 +43,9 @@ public interface Account extends Base {
     // region inner classes
     interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Account.Fields<T> {
         T strings(List<String> strings);
-        CodeList<String, Account.EmbeddedModify<T, R>> strings();
+        CodeList<String, T> strings();
         T transactions(List<Transaction> transactions);
-        EmbeddedCodeCollection<Transaction.EmbeddedCollectionModify<Account.EmbeddedModify<T, R>>, Transaction, Account.EmbeddedModify<T, R>> transactions();
+        EmbeddedCodeCollection<Transaction.EmbeddedCollectionModify<Account.EmbeddedModify<T, R>>, Transaction, T> transactions();
     }
 
     interface EmbeddedSoloModify<R> extends Account.EmbeddedModify<Account.EmbeddedSoloModify<R>, R> {
@@ -58,7 +59,7 @@ public interface Account extends Base {
         T pending(double pending);
     }
 
-    interface Modify extends EmbeddedModify<Account.Modify, Account> {
+    interface Modify extends EmbeddedModify<Account.Modify, Account>, TestModifier<Account.Modify, Account> {
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Account.QueryAggregate<Account, Account.QuerySelect<Number>>>>> {
