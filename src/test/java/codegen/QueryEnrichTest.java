@@ -25,7 +25,6 @@ import codegen.view.TestProjectionComplex;
 import codegen.view.TestProjectionComplex2;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.test.BaseTest;
@@ -403,6 +402,10 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test2 u where (u.sub is not null)",
                 () -> Test2.find().by().sub().isNotNull().get());
 
+    }
+
+    @Test
+    void enrichQuerySelfTest() {
         checkQuery("select u.sub as sub,u.amount as amount,u.sub.subAmount as subAmount from net.binis.codegen.Test2 u where (u.sub.subAmount is not null) order by u.sub desc,u.sub.subAmount asc",
                 () -> Test2.find()
                         .select()
@@ -419,9 +422,7 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("select distinct u.sub from net.binis.codegen.Test2 u join u.sub j0 join fetch u.parent.parent j1 ",
                 () -> Test2.find().aggregate()
                         .distinct().sub()._self().where().sub().join().and().parent().parent().fetch().get());
-
     }
-
     @Test
     void enrichQueryUpdateTest() {
         checkQuery("update net.binis.codegen.Test2 u set u.amount = ?1,u.title = ?2 ", List.of(5.0, "asd"), 0,
