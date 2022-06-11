@@ -168,7 +168,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             super(parent);
         }
 
-        public SubTransaction.Modify account(Consumer<Account.Modify> init) {
+        public SubTransaction.Modify account$(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.account == null) {
                 TransactionEntity.this.account = CodeFactory.create(Account.class);
             }
@@ -176,7 +176,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return this;
         }
 
-        public SubTransaction.Modify counterparty(Consumer<Account.Modify> init) {
+        public SubTransaction.Modify counterparty$(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.counterparty == null) {
                 TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
             }
@@ -184,7 +184,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return this;
         }
 
-        public SubTransaction.Modify parent(Consumer<Transaction.Modify> init) {
+        public SubTransaction.Modify parent$(Consumer<Transaction.Modify> init) {
             if (TransactionEntity.this.parent == null) {
                 TransactionEntity.this.parent = CodeFactory.create(Transaction.class);
             }
@@ -440,7 +440,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             super(parent);
         }
 
-        public Transaction.Modify account(Consumer<Account.Modify> init) {
+        public Transaction.Modify account$(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.account == null) {
                 TransactionEntity.this.account = CodeFactory.create(Account.class);
             }
@@ -448,7 +448,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return this;
         }
 
-        public Transaction.Modify counterparty(Consumer<Account.Modify> init) {
+        public Transaction.Modify counterparty$(Consumer<Account.Modify> init) {
             if (TransactionEntity.this.counterparty == null) {
                 TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
             }

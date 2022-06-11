@@ -59,8 +59,8 @@ public interface Transaction extends Base, Taggable {
     }
 
     interface Modify extends EmbeddedModify<Transaction.Modify, Transaction>, BaseEntityModifier<Transaction.Modify, Transaction> {
-        Modify account(Consumer<Account.Modify> init);
-        Modify counterparty(Consumer<Account.Modify> init);
+        Modify account$(Consumer<Account.Modify> init);
+        Modify counterparty$(Consumer<Account.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Transaction.QueryAggregate<Transaction, Transaction.QuerySelect<Number>>>>> {

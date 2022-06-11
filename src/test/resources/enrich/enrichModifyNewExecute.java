@@ -58,7 +58,7 @@ public class Execute extends TestExecutor {
 
         account = Account.create()
                 .transactions()
-                    ._add(t -> t
+                    ._add$(t -> t
                             .amount(5)
                             .id(1L))
                 .done()
@@ -67,7 +67,7 @@ public class Execute extends TestExecutor {
         assertEquals(1, account.getTransactions().size());
 
         transaction = Transaction.create()
-                .account(a -> a
+                .account$(a -> a
                         .active(true)
                         .accountNumber("1234")
                         .balance(6.0))

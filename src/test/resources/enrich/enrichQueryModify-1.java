@@ -51,8 +51,8 @@ public interface Test {
     }
 
     interface Modify extends EmbeddedModify<Test.Modify, Test> {
-        Modify parent(Consumer<Test.Modify> init);
-        Modify sub(Consumer<Sub.Modify> init);
+        Modify parent$(Consumer<Test.Modify> init);
+        Modify sub$(Consumer<Sub.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>> {

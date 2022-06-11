@@ -40,7 +40,7 @@ public interface TransactionDetail extends Base, Taggable {
 
     interface Modify extends TransactionDetail.Fields<TransactionDetail.Modify>, BaseModifier<TransactionDetail.Modify, TransactionDetail> {
         SubTransaction.EmbeddedSoloModify<Modify> parented();
-        Modify parented(Consumer<SubTransaction.Modify> init);
+        Modify parented$(Consumer<SubTransaction.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TransactionDetail.QueryAggregate<TransactionDetail, TransactionDetail.QuerySelect<Number>>>>> {
