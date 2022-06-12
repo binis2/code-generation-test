@@ -112,7 +112,7 @@ class ModifiersTest extends BaseTest {
 
         account = Account.create()
                 .transactions()
-                    ._add(t -> t
+                    ._add$(t -> t
                             .amount(5)
                             .id(5L))
                 .done()

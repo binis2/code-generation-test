@@ -86,7 +86,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return CodeFactory.modify(this, TransactionDetailEntity.this.parented, SubTransaction.class);
         }
 
-        public TransactionDetail.Modify parented(Consumer<SubTransaction.Modify> init) {
+        public TransactionDetail.Modify parented$(Consumer<SubTransaction.Modify> init) {
             if (TransactionDetailEntity.this.parented == null) {
                 TransactionDetailEntity.this.parented = CodeFactory.create(SubTransaction.class);
             }

@@ -112,7 +112,7 @@ onSave(mockObj, () -> mockObj.id(5L));
     <dependency>
         <groupId>dev.binis</groupId>
         <artifactId>code-generator-test</artifactId>
-        <version>0.2.5</version>
+        <version>0.3.0</version>
     </dependency>
 ```
 
@@ -122,4 +122,6 @@ Core - [https://github.com/binis2/code-generation-core]
 Generation Module - [https://github.com/binis2/code-generation]   
 Spring Extension - [https://github.com/binis2/code-generation-spring]   
 Annotation processor - [https://github.com/binis2/code-generation-annotation]   
-Validation and Sanitization extension - [https://github.com/binis2/code-generation-validation] 
+Validation and Sanitization extension - [https://github.com/binis2/code-generation-validation]   
+Jackson support - [https://github.com/binis2/code-generation-jackson]   
+Spring Boot configuration - [https://github.com/binis2/code-generation-spring-configuration]   

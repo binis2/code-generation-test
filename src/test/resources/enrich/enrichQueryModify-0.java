@@ -165,7 +165,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             super(parent);
         }
 
-        public Test.Modify parent(Consumer<Test.Modify> init) {
+        public Test.Modify parent$(Consumer<Test.Modify> init) {
             if (TestImpl.this.parent == null) {
                 TestImpl.this.parent = CodeFactory.create(Test.class);
             }
@@ -173,7 +173,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public Test.Modify sub(Consumer<Sub.Modify> init) {
+        public Test.Modify sub$(Consumer<Sub.Modify> init) {
             if (TestImpl.this.sub == null) {
                 TestImpl.this.sub = CodeFactory.create(Sub.class);
             }

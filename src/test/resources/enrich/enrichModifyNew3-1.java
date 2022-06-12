@@ -47,9 +47,9 @@ public interface SubTransaction extends Taggable, Transaction {
     }
 
     interface Modify extends EmbeddedModify<SubTransaction.Modify, SubTransaction> {
-        Modify account(Consumer<Account.Modify> init);
-        Modify counterparty(Consumer<Account.Modify> init);
-        Modify parent(Consumer<Transaction.Modify> init);
+        Modify account$(Consumer<Account.Modify> init);
+        Modify counterparty$(Consumer<Account.Modify> init);
+        Modify parent$(Consumer<Transaction.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubTransaction.QueryAggregate<SubTransaction, SubTransaction.QuerySelect<Number>>>>> {

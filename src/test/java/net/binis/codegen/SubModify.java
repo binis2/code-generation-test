@@ -80,7 +80,7 @@ public interface SubModify extends Base, Taggable, Identifiable {
     }
 
     interface Modify extends EmbeddedModify<SubModify.Modify, SubModify> {
-        Modify parent(Consumer<SubModify.Modify> init);
+        Modify parent$(Consumer<SubModify.Modify> init);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<SubModify, SubModify.QuerySelect<Number>>>>> {

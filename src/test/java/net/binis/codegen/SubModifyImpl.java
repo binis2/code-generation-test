@@ -188,7 +188,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             super(parent);
         }
 
-        public SubModify.Modify parent(Consumer<SubModify.Modify> init) {
+        public SubModify.Modify parent$(Consumer<SubModify.Modify> init) {
             if (SubModifyImpl.this.parent == null) {
                 SubModifyImpl.this.parent = CodeFactory.create(SubModify.class);
             }

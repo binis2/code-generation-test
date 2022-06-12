@@ -106,7 +106,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return CodeFactory.modify(this, TestModifyImpl.this.extended, SubModify.class);
         }
 
-        public TestModify.Modify extended(Consumer<SubModify.Modify> init) {
+        public TestModify.Modify extended$(Consumer<SubModify.Modify> init) {
             if (TestModifyImpl.this.extended == null) {
                 TestModifyImpl.this.extended = CodeFactory.create(SubModify.class);
             }
