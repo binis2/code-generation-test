@@ -87,10 +87,9 @@ class TestMockFunctions {
     @Test
     void testMultiResponse() {
         mockCountQuery(TestModify.find().by().id(5L), orderedList(List.of(5L, 0L))).called(times(2)).fails(false);
-        mockExistsQuery(TestModify.find().by().id(5L), true);
 
         assertEquals(5L, TestModify.find().by().id(5L).count());
-        assertFalse(TestModify.find().by().id(5L).exists());
+        assertEquals(0L, TestModify.find().by().id(5L).count());
     }
 
     @Test
@@ -134,6 +133,14 @@ class TestMockFunctions {
                 f.create().with().name("asd").done(), null);
 
         assertEquals("asd", TestMock.create().done().getName());
+    }
+
+    @Test
+    void testMockExists() {
+        mockExistsQuery(TestModify.find().by(), ordered(true, false)).called(twice());
+
+        assertTrue(TestModify.find().by().exists());
+        assertFalse(TestModify.find().by().exists());
     }
 
 }

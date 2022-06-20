@@ -157,15 +157,14 @@ public class CodeGenMock {
     }
 
     public static MockedQueryContext mockExistsQuery(Queryable query, boolean exists) {
-        return mockCountQuery(query, exists ? 1L : 0L);
+        return mockQuery(query, exists ? query : null);
     }
 
-    public static MockedQueryContext mockExistsQuery(Queryable query, BooleanSupplier exists) {
+    public static MockedQueryContext mockExistsQuery(Queryable query, Supplier<Boolean> exists) {
+        Supplier<?> result = () ->
+                exists.get() ? query : null;
 
-        Supplier<Long> result = () ->
-                exists.getAsBoolean() ? 1L : 0L;
-
-        return mockCountQuery(query, result);
+        return mockQuery(query, result);
     }
 
     public static MockedQueryContext mockDeleteQuery(Queryable query) {
