@@ -234,7 +234,7 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test2 u where length(title) > 5  and  (u.amount > 10)  order by  title ", Collections.emptyList(),
                 () -> Test2.find().by().script("length(title) > 5").and().amount().script("> 10").order().script("title").get());
 
-        checkQuery("from net.binis.codegen.Test2 u where (u.amount = ?1) and  length(title) > 5  order by  title ", List.of(5.0),
+        checkQuery("from net.binis.codegen.Test2 u where (u.amount = ?1) and length(title) > 5  order by  title ", List.of(5.0),
                 () -> Test2.find().by().amount(5.0).and().script("length(title) > 5").order().script("title").get());
 
         checkQuery("from net.binis.codegen.Test2 u where (u.amount between ?1 and ?2)", List.of(5.0, 6.0),
