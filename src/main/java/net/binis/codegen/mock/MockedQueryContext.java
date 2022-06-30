@@ -29,4 +29,6 @@ public interface MockedQueryContext {
     MockedQueryContext called(LongSupplier times);
     MockedQueryContext fails(boolean fails);
 
+    MockedQueryContext ignore();
+
 }
