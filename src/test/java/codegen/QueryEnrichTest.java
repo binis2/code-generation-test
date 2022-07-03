@@ -402,6 +402,9 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("from net.binis.codegen.Test2 u where (u.sub is not null)",
                 () -> Test2.find().by().sub().isNotNull().get());
 
+        checkQuery("select count(*) from net.binis.codegen.Sub u ", Collections.emptyList(), 0L,
+                () -> Sub.find().by().order().subAmount().count());
+
     }
 
     @Test

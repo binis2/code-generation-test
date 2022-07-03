@@ -167,6 +167,24 @@ public class CodeGenMock {
         return mockQuery(query, result);
     }
 
+    public static MockedQueryContext mockPageQuery(Queryable query, List<Object> page) {
+        return mockPageQuery(query, 1L, page);
+    }
+
+    public static MockedQueryContext mockPageQuery(Queryable query, Supplier<List<Object>> pages) {
+        return mockPageQuery(query, 1L, pages);
+    }
+
+    public static MockedQueryContext mockPageQuery(Queryable query, long count, List<Object> page) {
+        mockCountQuery(query, count).ignore();
+        return mockQuery(query, page);
+    }
+
+    public static MockedQueryContext mockPageQuery(Queryable query, long count, Supplier<List<Object>> pages) {
+        mockCountQuery(query, count).ignore();
+        return mockQuery(query, pages);
+    }
+
     public static MockedQueryContext mockDeleteQuery(Queryable query) {
         return mockDeleteQuery(query, 1);
     }
@@ -227,7 +245,9 @@ public class CodeGenMock {
                     if (mock.isFails()) {
                         logError(key, mock.getParams(), mock.getMatch(), mock.getExpected());
                     } else {
-                        logWarning(key, mock.getParams(), mock.getMatch(), mock.getExpected());
+                        if (!mock.isIgnored()) {
+                            logWarning(key, mock.getParams(), mock.getMatch(), mock.getExpected());
+                        }
                     }
                 }));
     }

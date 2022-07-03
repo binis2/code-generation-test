@@ -30,6 +30,7 @@ import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.mock.MockPersistenceOperation;
 import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
+import net.binis.codegen.tools.Holder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -141,6 +142,49 @@ class TestMockFunctions {
 
         assertTrue(TestModify.find().by().exists());
         assertFalse(TestModify.find().by().exists());
+    }
+
+    @Test
+    void testMockPage() {
+        mockPageQuery(TestModify.find().by(), 2, ordered(List.of(TestModify.create().with().id(1L).done()), List.of(TestModify.create().with().id(2L).done()))).called(twice());
+
+        var page1 = TestModify.find().by().page(1);
+
+        assertEquals(2L , page1.getTotalElements());
+        assertEquals(2L , page1.getTotalPages());
+        assertEquals(1L , page1.getContent().size());
+        assertEquals(1L , page1.getContent().get(0).getId());
+
+        var page2 = TestModify.find().by().page(page1.nextPageable());
+
+        assertEquals(2L , page2.getTotalElements());
+        assertEquals(2L , page2.getTotalPages());
+        assertEquals(1L , page2.getContent().size());
+        assertEquals(2L , page2.getContent().get(0).getId());
+    }
+
+    @Test
+    void testMockPaged() {
+        mockPageQuery(TestModify.find().by(), 2, ordered(List.of(TestModify.create().with().id(1L).done()), List.of(TestModify.create().with().id(2L).done()), Collections.emptyList())).called(thrice());
+
+        TestModify.find().by().paged(1, page -> {
+            assertEquals(Integer.MAX_VALUE , page.getTotalElements());
+            assertEquals(Integer.MAX_VALUE , page.getTotalPages());
+            assertEquals(1L , page.getContent().size());
+
+            assertEquals(page.getNumber(), page.getContent().get(0).getId() - 1);
+        });
+    }
+
+    @Test
+    void testMockPaginated() {
+        mockPageQuery(TestModify.find().by(), 2, ordered(List.of(TestModify.create().with().id(1L).done()), List.of(TestModify.create().with().id(2L).done()), Collections.emptyList())).called(thrice());
+
+        var idx = Holder.of(1L);
+        TestModify.find().by().paginated(1, page -> {
+            assertEquals(idx.get(), page.getId());
+            idx.set(idx.get() + 1);
+        });
     }
 
 }

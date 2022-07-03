@@ -112,7 +112,7 @@ onSave(mockObj, () -> mockObj.id(5L));
     <dependency>
         <groupId>dev.binis</groupId>
         <artifactId>code-generator-test</artifactId>
-        <version>0.3.1</version>
+        <version>0.3.3</version>
     </dependency>
 ```
 

@@ -61,6 +61,8 @@ class MockedQueryContextImpl {
         private int expected = 1;
         @Builder.Default
         private boolean fails = true;
+        @Builder.Default
+        private boolean ignored = false;
 
 
         void touch() {
@@ -87,6 +89,14 @@ class MockedQueryContextImpl {
             this.fails = fails;
             return this;
         }
+
+        @Override
+        public MockedQueryContext ignore() {
+            this.fails = false;
+            this.ignored = true;
+            return this;
+        }
+
     }
 
 }
