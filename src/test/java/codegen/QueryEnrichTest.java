@@ -408,6 +408,16 @@ class QueryEnrichTest extends BaseTest {
     }
 
     @Test
+    void enrichQueryCollectionsTest() {
+        checkQuery("from net.binis.codegen.Test2 u where (size(u.items) = ?1)", List.of(5),
+                () -> Test2.find().by().items().size().equal(5).get());
+
+        checkQuery("from net.binis.codegen.Test2 u where (size(u.items) = ?1)", List.of(5),
+                () -> Test2.find().by().items().size(5).get());
+
+    }
+
+    @Test
     void enrichQuerySelfTest() {
         checkQuery("select u.sub as sub,u.amount as amount,u.sub.subAmount as subAmount from net.binis.codegen.Test2 u where (u.sub.subAmount is not null) order by u.sub desc,u.sub.subAmount asc",
                 () -> Test2.find()

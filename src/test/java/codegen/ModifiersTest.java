@@ -140,6 +140,7 @@ class ModifiersTest extends BaseTest {
         assertEquals(3, account.getStrings().size());
 
         verifySave().called(once());
+        verifySave(Account.class).called(once());
     }
 
 }
