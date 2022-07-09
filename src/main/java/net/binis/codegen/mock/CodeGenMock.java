@@ -21,13 +21,14 @@ package net.binis.codegen.mock;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import net.binis.codegen.async.executor.CodeExecutor;
+import net.binis.codegen.async.executor.Executors;
 import net.binis.codegen.exception.GenericCodeGenException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.mock.exception.CodeGenMockException;
 import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryCallsMismatchException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
-import net.binis.codegen.spring.async.executor.CodeExecutor;
 import net.binis.codegen.spring.component.ApplicationContextProvider;
 import net.binis.codegen.spring.modifier.BasePersistenceOperations;
 import net.binis.codegen.spring.modifier.impl.AsyncEntityModifierImpl;
@@ -104,7 +105,7 @@ public class CodeGenMock {
 
     public static void mockAsyncExecutor() {
         new MockAsyncEntityModifierImpl(null);
-        CodeExecutor.registerDefaultExecutor(CodeExecutor.syncExecutor());
+        CodeExecutor.registerDefaultExecutor(Executors.syncExecutor());
     }
 
     public static void mockContextAndEntityManager() {
