@@ -33,7 +33,6 @@ import net.binis.codegen.spring.component.ApplicationContextProvider;
 import net.binis.codegen.spring.modifier.BasePersistenceOperations;
 import net.binis.codegen.spring.modifier.impl.AsyncEntityModifierImpl;
 import net.binis.codegen.spring.query.*;
-import net.binis.codegen.spring.query.exception.QueryBuilderException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -146,37 +145,18 @@ public class CodeGenMock {
     }
 
     public static MockedQueryContext mockCountQuery(Queryable query, Supplier<Long> count) {
-        var q = ((QueryAccessor) query).getCountQuery();
-        if (q.startsWith("select u ")) {
-            q = q.replace("select u ", "select count(u) ");
-        } else if (q.startsWith("select distinct u ")) {
-            q = q.replace("select distinct u ", "select count(distinct u) ");
-        } else {
-            q = "select count(*) " + q.substring(q.indexOf("from"));
-        }
-
-        return mockQuery(q, ((QueryAccessor) query).getParams(), count);
+        var q = (QueryAccessor) query;
+        return mockQuery(q.getCountQuery(), q.getParams(), count);
     }
 
     public static MockedQueryContext mockExistsQuery(Queryable query, boolean exists) {
-        try {
-            ((QueryAccessor) query).checkReferenceConditions();
-        } catch (QueryBuilderException ex) {
-            //Do nothing
-        }
-        return mockQuery(query, exists ? query : null);
+        var q = (QueryAccessor) query;
+        return mockQuery(q.getExistsQuery(), q.getParams(), exists);
     }
 
     public static MockedQueryContext mockExistsQuery(Queryable query, Supplier<Boolean> exists) {
-        Supplier<?> result = () ->
-                exists.get() ? query : null;
-
-        try {
-            ((QueryAccessor) query).checkReferenceConditions();
-        } catch (QueryBuilderException ex) {
-            //Do nothing
-        }
-        return mockQuery(query, result);
+        var q = (QueryAccessor) query;
+        return mockQuery(q.getExistsQuery(), q.getParams(), exists);
     }
 
     public static MockedQueryContext mockPageQuery(Queryable query, List<Object> page) {
@@ -528,6 +508,7 @@ public class CodeGenMock {
                 case TUPLE:
                     return Optional.ofNullable(value);
                 case COUNT:
+                case EXISTS:
                 case REMOVE:
                 case EXECUTE:
                     return value;

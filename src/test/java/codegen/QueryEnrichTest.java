@@ -100,7 +100,50 @@ class QueryEnrichTest extends BaseTest {
     void testJoin() {
         checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 where (j0.id = ?1) ", List.of(5L),
                 () -> TestModify.find().by().subs().join(s -> s.where().id(5L)).get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 where (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().subs().join(s -> s.where().id(5L)).and().title().isNotNull().get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 where (u.amount is not null) and  (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().amount().isNotNull().and().subs().join(s -> s.where().id(5L)).and().title().isNotNull().get());
     }
+
+    @Test
+    void testJoinFetch() {
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join fetch u.subs j0 where (j0.id = ?1) ", List.of(5L),
+                () -> TestModify.find().by().subs().joinFetch(s -> s.where().id(5L)).get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join fetch u.subs j0 where (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().subs().joinFetch(s -> s.where().id(5L)).and().title().isNotNull().get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.amount is not null) and  (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().amount().isNotNull().and().subs().joinFetch(s -> s.where().id(5L)).and().title().isNotNull().get());
+    }
+
+    @Test
+    void testJoinFetch2() {
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.title is not null)",
+                () -> TestModify.find().by().subs().joinFetch().and().title().isNotNull().get());
+
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0 ",
+                () -> TestModify.find().by().subs().joinFetch().get());
+
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.amount is not null)  and  (u.title is not null)",
+                () -> TestModify.find().by().amount().isNotNull().and().subs().joinFetch().and().title().isNotNull().get());
+    }
+
+    @Test
+    void testJoinFetchOneToOne() {
+        checkQuery("select u from net.binis.codegen.SubModify u join fetch u.parent j0 where (u.subAmount is not null)",
+                () -> SubModify.find().by().parent().fetch().and().subAmount().isNotNull().get());
+
+        checkQuery("select u from net.binis.codegen.SubModify u left join fetch u.parent j0 ",
+                () -> SubModify.find().by().parent().leftFetch().get());
+
+        checkQuery("select u from net.binis.codegen.SubModify u left join fetch u.parent j0 where (u.subAmount is not null)  and  (u.date is not null)",
+                () -> SubModify.find().by().subAmount().isNotNull().and().parent().leftFetch().and().date().isNotNull().get());
+    }
+
 
     @Test
     void testSimpleProjection() {

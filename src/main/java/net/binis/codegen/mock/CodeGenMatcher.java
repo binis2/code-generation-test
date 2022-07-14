@@ -22,7 +22,6 @@ package net.binis.codegen.mock;
 
 import net.binis.codegen.tools.Holder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.LongSupplier;
@@ -72,6 +71,7 @@ public class CodeGenMatcher {
         return null;
     }
 
+    @SafeVarargs
     public static <T> Supplier<T> ordered(T... list) {
         return orderedList(Arrays.asList(list));
     }
