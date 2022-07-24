@@ -12,6 +12,7 @@ import java.util.List;
 @Default("net.binis.codegen.SubImpl")
 public interface Sub {
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>, QueryFieldsStart<Sub, Sub.QuerySelect<Sub>>, QueryUpdate<Sub, Sub.QuerySelect<Sub>>> find() {
         return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class);
     }
@@ -22,7 +23,7 @@ public interface Sub {
     void setSubAmount(double subAmount);
     void setSubtitle(String subtitle);
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Sub, Sub.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Sub, Sub.QuerySelect<Number>>>>, Sub.QueryAggregate<Sub, Sub.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR> {

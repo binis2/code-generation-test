@@ -20,10 +20,12 @@ public interface MixModify extends TestModify {
     MixModify.Modify asMixModify();
 
     // region starters
+    @SuppressWarnings(value = "unchecked")
     static MixModify create() {
         return EntityCreator.create(MixModify.class);
     }
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>, QueryFieldsStart<MixModify, MixModify.QuerySelect<MixModify>>, QueryUpdate<MixModify, MixModify.QuerySelect<MixModify>>> find() {
         return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class);
     }
@@ -56,7 +58,7 @@ public interface MixModify extends TestModify {
         EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<MixModify.Modify>, SubModify, MixModify.Modify> subs();
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<MixModify, MixModify.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<MixModify, MixModify.QuerySelect<Number>>>>, MixModify.QueryAggregate<MixModify, MixModify.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, MixModify.Fields<QR> {

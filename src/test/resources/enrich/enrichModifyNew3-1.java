@@ -20,10 +20,12 @@ public interface SubTransaction extends Taggable, Transaction {
     SubTransaction.Modify asSubTransaction();
 
     // region starters
+    @SuppressWarnings(value = "unchecked")
     static SubTransaction.Modify create() {
         return ((SubTransaction) EntityCreatorModifier.create(SubTransaction.class)).asSubTransaction();
     }
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<SubTransaction, SubTransaction.QuerySelect<SubTransaction>, QueryAggregateOperation<QueryOperationFields<SubTransaction.QueryAggregate<Number, SubTransaction.QuerySelect<Number>>>>, QueryFieldsStart<SubTransaction, SubTransaction.QuerySelect<SubTransaction>>, QueryUpdate<SubTransaction, SubTransaction.QuerySelect<SubTransaction>>> find() {
         return (QueryStarter) EntityCreator.create(SubTransaction.QuerySelect.class);
     }
@@ -52,7 +54,7 @@ public interface SubTransaction extends Taggable, Transaction {
         Modify parent$(Consumer<Transaction.Modify> init);
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubTransaction.QueryAggregate<SubTransaction, SubTransaction.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubTransaction.QueryAggregate<SubTransaction, SubTransaction.QuerySelect<Number>>>>, SubTransaction.QueryAggregate<SubTransaction, SubTransaction.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, SubTransaction.Fields<QR> {

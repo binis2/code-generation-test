@@ -21,6 +21,7 @@ import java.time.OffsetDateTime;
 import codegen.modifier.impl.TestModifierImpl;
 
 @Generated(value = "AccountEntityPrototype", comments = "Account")
+@SuppressWarnings(value = "unchecked")
 public class AccountEntity extends BaseImpl implements Account, Modifiable<Account.Modify> {
 
     protected String accountNumber;

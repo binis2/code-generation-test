@@ -12,6 +12,7 @@ import java.util.List;
 @Default("net.binis.codegen.TestReservedImpl")
 public interface TestReserved {
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<TestReserved, TestReserved.QuerySelect<TestReserved>, QueryAggregateOperation<QueryOperationFields<TestReserved.QueryAggregate<Number, TestReserved.QuerySelect<Number>>>>, QueryFieldsStart<TestReserved, TestReserved.QuerySelect<TestReserved>>, QueryUpdate<TestReserved, TestReserved.QuerySelect<TestReserved>>> find() {
         return (QueryStarter) EntityCreator.create(TestReserved.QuerySelect.class);
     }
@@ -56,7 +57,7 @@ public interface TestReserved {
     void setTuple(String tuple);
     void setTuples(String tuples);
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TestReserved.QueryAggregate<TestReserved, TestReserved.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TestReserved.QueryAggregate<TestReserved, TestReserved.QuerySelect<Number>>>>, TestReserved.QueryAggregate<TestReserved, TestReserved.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR> {

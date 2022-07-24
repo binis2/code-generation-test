@@ -21,6 +21,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TransactionEntityPrototype", comments = "Transaction")
+@SuppressWarnings(value = "unchecked")
 public class TransactionEntity extends BaseImpl implements Transaction, SubTransaction, Modifiable<Transaction.Modify> {
 
     protected Account account;

@@ -20,6 +20,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "SubModifyPrototype", comments = "SubModify")
+@SuppressWarnings(value = "unchecked")
 public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<SubModify.Modify> {
 
     protected SubModify parent;

@@ -19,6 +19,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TransactionDetailEntityPrototype", comments = "TransactionDetail")
+@SuppressWarnings(value = "unchecked")
 public class TransactionDetailEntity extends BaseImpl implements TransactionDetail, Modifiable<TransactionDetail.Modify> {
 
     protected SubTransaction parented;

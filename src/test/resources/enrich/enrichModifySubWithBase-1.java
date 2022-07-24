@@ -20,10 +20,12 @@ import java.time.OffsetDateTime;
 public interface SubModify extends Base, Taggable, Identifiable {
 
     // region starters
+    @SuppressWarnings(value = "unchecked")
     static SubModify create() {
         return EntityCreator.create(SubModify.class);
     }
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>, QueryFieldsStart<SubModify, SubModify.QuerySelect<SubModify>>, QueryUpdate<SubModify, SubModify.QuerySelect<SubModify>>> find() {
         return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
     }
@@ -63,7 +65,7 @@ public interface SubModify extends Base, Taggable, Identifiable {
         Modify parent$(Consumer<SubModify.Modify> init);
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<SubModify, SubModify.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<SubModify, SubModify.QuerySelect<Number>>>>, SubModify.QueryAggregate<SubModify, SubModify.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, SubModify.Fields<QR> {
