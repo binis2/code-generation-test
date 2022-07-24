@@ -26,6 +26,7 @@ import codegen.view.TestProjectionComplex2;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
 import net.binis.codegen.generation.core.Helpers;
+import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.test.BaseTest;
 import org.apache.commons.lang3.tuple.Triple;
@@ -487,6 +488,54 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("update net.binis.codegen.Test2 u set u.amount = ?1,u.title = ?2 where (u.parent is null)", List.of(5.0, "asd"), 0,
                 () -> Test2.find().update().amount(5.0).title("asd").where().parent(null).run());
 
+    }
+
+    @Test
+    void enrichQueryAggregateTest() {
+        checkQuery("select u.parent.sub,count(u.amount) from net.binis.codegen.Test2 u  group by u.parent.sub ",
+                () -> Test2.find().aggregate()
+                        .group().parent().sub()._self().and()
+                        .cnt().amount()
+                        .get());
+
+
+        checkQuery("select distinct u.parent.sub,count(u) from net.binis.codegen.Test2 u ",
+                () -> Test2.find().aggregate()
+                        .distinct().parent().sub()._self().and()
+                        .cnt()._self()
+                        .get());
+
+
+        checkQuery("select count(u.amount),sum(u.sub.subAmount),max(u.parent.parent.parent.amount),distinct u.sub.subAmount,sum(u.sub),max(u.parent.parent.parent),distinct u.parent.parent.sub from net.binis.codegen.Test2 u ",
+                () -> Test2.find().aggregate()
+                        .cnt().amount().and()
+                        .sum().sub().subAmount().and()
+                        .max().parent().parent().parent().amount().and()
+                        .distinct().sub().subAmount().and()
+                        .sum().sub()._self().and()
+                        .max().parent().parent().parent()._self().and()
+                        .distinct().parent().parent().sub()._self()
+                        .get());
+    }
+
+    @Test
+    void enrichQueryAggregateAliasTest() {
+        checkQuery("select u.parent.sub as field1,count(u.amount) as field2 from net.binis.codegen.Test2 u  group by u.parent.sub ",
+                () -> Test2.find().aggregate()
+                        .group().parent().sub()._self().alias("field1").and()
+                        .cnt().amount().alias("field2")
+                        .get());
+
+        checkQuery("select count(u.amount) as field1,sum(u.sub.subAmount) as field2,max(u.parent.parent.parent.amount) as field3,distinct u.sub.subAmount as field4,sum(u.sub) as field5,max(u.parent.parent.parent) as field6,distinct u.parent.parent.sub as field7 from net.binis.codegen.Test2 u ",
+                () -> Test2.find().aggregate()
+                        .cnt().amount().alias("field1").and()
+                        .sum().sub().subAmount().alias("field2").and()
+                        .max().parent().parent().parent().amount().alias("field3").and()
+                        .distinct().sub().subAmount().alias("field4").and()
+                        .sum().sub()._self().alias("field5").and()
+                        .max().parent().parent().parent()._self().alias("field6").and()
+                        .distinct().parent().parent().sub()._self().alias("field7")
+                        .get());
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {
