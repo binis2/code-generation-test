@@ -491,6 +491,14 @@ class QueryEnrichTest extends BaseTest {
     }
 
     @Test
+    void enrichQueryEqualsQueryTest() {
+        checkQuery("from net.binis.codegen.Test2 u where (u.sub = (select s0.sub as sub from net.binis.codegen.Test2 s0 where (s0.amount = ?1))) ", List.of(0.5),
+                () -> Test2.find().by().sub().equal(Test2.find().select().sub()._self().where().amount(0.5)).get());
+
+    }
+
+
+    @Test
     void enrichQueryAggregateTest() {
         checkQuery("select u.parent.sub,count(u.amount) from net.binis.codegen.Test2 u  group by u.parent.sub ",
                 () -> Test2.find().aggregate()
