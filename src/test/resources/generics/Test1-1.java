@@ -19,10 +19,12 @@ import java.util.List;
 public interface Test extends Generic<TestPayload>, Typeable<TestEnum> {
 
     // region starters
+    @SuppressWarnings(value = "unchecked")
     static Test.Modify create() {
         return (Test.Modify) EntityCreatorModifier.create(Test.class).with();
     }
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>, QueryFieldsStart<Test, Test.QuerySelect<Test>>, QueryUpdate<Test, Test.QuerySelect<Test>>> find() {
         return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
     }
@@ -49,7 +51,7 @@ public interface Test extends Generic<TestPayload>, Typeable<TestEnum> {
     interface Modify extends EmbeddedModify<Test.Modify, Test>, BaseEntityModifier<Test.Modify, Test> {
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>, Test.QueryAggregate<Test, Test.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, Test.Fields<QR> {

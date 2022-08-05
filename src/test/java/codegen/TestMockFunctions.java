@@ -146,16 +146,16 @@ class TestMockFunctions {
 
     @Test
     void testMockPage() {
-        mockPageQuery(TestModify.find().by(), 2, ordered(List.of(TestModify.create().with().id(1L).done()), List.of(TestModify.create().with().id(2L).done()))).called(twice());
+        mockPageQuery(TestModify.find().by().order().id(), 2, ordered(List.of(TestModify.create().with().id(1L).done()), List.of(TestModify.create().with().id(2L).done()))).called(twice());
 
-        var page1 = TestModify.find().by().page(1);
+        var page1 = TestModify.find().by().order().id().page(1);
 
         assertEquals(2L , page1.getTotalElements());
         assertEquals(2L , page1.getTotalPages());
         assertEquals(1L , page1.getContent().size());
         assertEquals(1L , page1.getContent().get(0).getId());
 
-        var page2 = TestModify.find().by().page(page1.nextPageable());
+        var page2 = TestModify.find().by().order().id().page(page1.nextPageable());
 
         assertEquals(2L , page2.getTotalElements());
         assertEquals(2L , page2.getTotalPages());

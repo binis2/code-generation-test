@@ -39,10 +39,12 @@ import java.time.OffsetDateTime;
 public interface TestModify extends Base {
 
     // region starters
+    @SuppressWarnings(value = "unchecked")
     static TestModify create() {
         return EntityCreator.create(TestModify.class);
     }
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>, QueryUpdate<TestModify, TestModify.QuerySelect<TestModify>>> find() {
         return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
     }
@@ -73,7 +75,7 @@ public interface TestModify extends Base {
         EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<TestModify.Modify>, SubModify, TestModify.Modify> subs();
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<TestModify, TestModify.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<TestModify, TestModify.QuerySelect<Number>>>>, TestModify.QueryAggregate<TestModify, TestModify.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, TestModify.Fields<QR> {

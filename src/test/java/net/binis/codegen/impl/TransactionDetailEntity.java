@@ -39,6 +39,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Generated(value = "TransactionDetailEntityPrototype", comments = "TransactionDetail")
+@SuppressWarnings(value = "unchecked")
 public class TransactionDetailEntity extends BaseEntity implements TransactionDetail, Modifiable<TransactionDetail.Modify> {
 
     protected SubTransaction parent;

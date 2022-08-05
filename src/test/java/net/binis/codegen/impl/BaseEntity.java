@@ -24,6 +24,7 @@ package net.binis.codegen.impl;
 import net.binis.codegen.Base;
 import net.binis.codegen.enums.TestEnum;
 import javax.annotation.processing.Generated;
+import javax.persistence.Id;
 import java.time.OffsetDateTime;
 
 @Generated(value = "BasePrototype", comments = "Base")
@@ -31,6 +32,7 @@ public class BaseEntity implements Base {
 
     protected OffsetDateTime date;
 
+    @Id
     protected Long id;
 
     protected TestEnum type;

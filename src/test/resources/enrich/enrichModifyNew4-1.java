@@ -19,10 +19,12 @@ import java.time.OffsetDateTime;
 public interface TransactionDetail extends Base, Taggable {
 
     // region starters
+    @SuppressWarnings(value = "unchecked")
     static TransactionDetail.Modify create() {
         return (TransactionDetail.Modify) EntityCreatorModifier.create(TransactionDetail.class).with();
     }
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<TransactionDetail, TransactionDetail.QuerySelect<TransactionDetail>, QueryAggregateOperation<QueryOperationFields<TransactionDetail.QueryAggregate<Number, TransactionDetail.QuerySelect<Number>>>>, QueryFieldsStart<TransactionDetail, TransactionDetail.QuerySelect<TransactionDetail>>, QueryUpdate<TransactionDetail, TransactionDetail.QuerySelect<TransactionDetail>>> find() {
         return (QueryStarter) EntityCreator.create(TransactionDetail.QuerySelect.class);
     }
@@ -43,7 +45,7 @@ public interface TransactionDetail extends Base, Taggable {
         Modify parented$(Consumer<SubTransaction.Modify> init);
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TransactionDetail.QueryAggregate<TransactionDetail, TransactionDetail.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TransactionDetail.QueryAggregate<TransactionDetail, TransactionDetail.QuerySelect<Number>>>>, TransactionDetail.QueryAggregate<TransactionDetail, TransactionDetail.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, TransactionDetail.Fields<QR> {

@@ -42,6 +42,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TestModifyPrototype", comments = "TestModify")
+@SuppressWarnings(value = "unchecked")
 public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, Modifiable<TestModify.Modify> {
 
     // region constants

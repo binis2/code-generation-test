@@ -15,6 +15,7 @@ import java.util.List;
 @Default("net.binis.codegen.TestImpl")
 public interface Test {
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>, QueryFieldsStart<Test, Test.QuerySelect<Test>>, QueryUpdate<Test, Test.QuerySelect<Test>>> find() {
         return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
     }
@@ -55,7 +56,7 @@ public interface Test {
         Modify sub$(Consumer<Sub.Modify> init);
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Test, Test.QuerySelect<Number>>>>, Test.QueryAggregate<Test, Test.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, Test.Fields<QR> {

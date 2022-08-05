@@ -43,6 +43,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Generated(value = "TransactionEntityPrototype", comments = "Transaction")
+@SuppressWarnings(value = "unchecked")
 public class TransactionEntity extends BaseEntity implements Transaction, SubTransaction, Modifiable<Transaction.Modify> {
 
     protected Account account;

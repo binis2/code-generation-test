@@ -26,6 +26,7 @@ import codegen.view.TestProjectionComplex2;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
 import net.binis.codegen.generation.core.Helpers;
+import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.mock.CodeGenExtension;
 import net.binis.codegen.test.BaseTest;
 import org.apache.commons.lang3.tuple.Triple;
@@ -100,7 +101,50 @@ class QueryEnrichTest extends BaseTest {
     void testJoin() {
         checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 where (j0.id = ?1) ", List.of(5L),
                 () -> TestModify.find().by().subs().join(s -> s.where().id(5L)).get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 where (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().subs().join(s -> s.where().id(5L)).and().title().isNotNull().get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join u.subs j0 where (u.amount is not null) and  (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().amount().isNotNull().and().subs().join(s -> s.where().id(5L)).and().title().isNotNull().get());
     }
+
+    @Test
+    void testJoinFetch() {
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join fetch u.subs j0 where (j0.id = ?1) ", List.of(5L),
+                () -> TestModify.find().by().subs().joinFetch(s -> s.where().id(5L)).get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join fetch u.subs j0 where (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().subs().joinFetch(s -> s.where().id(5L)).and().title().isNotNull().get());
+
+        checkQuery("select distinct u from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.amount is not null) and  (j0.id = ?1)  and  (u.title is not null)", List.of(5L),
+                () -> TestModify.find().by().amount().isNotNull().and().subs().joinFetch(s -> s.where().id(5L)).and().title().isNotNull().get());
+    }
+
+    @Test
+    void testJoinFetch2() {
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.title is not null)",
+                () -> TestModify.find().by().subs().joinFetch().and().title().isNotNull().get());
+
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0 ",
+                () -> TestModify.find().by().subs().joinFetch().get());
+
+        checkQuery("select u from net.binis.codegen.TestModify u join fetch u.subs j0 where (u.amount is not null)  and  (u.title is not null)",
+                () -> TestModify.find().by().amount().isNotNull().and().subs().joinFetch().and().title().isNotNull().get());
+    }
+
+    @Test
+    void testJoinFetchOneToOne() {
+        checkQuery("select u from net.binis.codegen.SubModify u join fetch u.parent j0 where (u.subAmount is not null)",
+                () -> SubModify.find().by().parent().fetch().and().subAmount().isNotNull().get());
+
+        checkQuery("select u from net.binis.codegen.SubModify u left join fetch u.parent j0 ",
+                () -> SubModify.find().by().parent().leftFetch().get());
+
+        checkQuery("select u from net.binis.codegen.SubModify u left join fetch u.parent j0 where (u.subAmount is not null)  and  (u.date is not null)",
+                () -> SubModify.find().by().subAmount().isNotNull().and().parent().leftFetch().and().date().isNotNull().get());
+    }
+
 
     @Test
     void testSimpleProjection() {
@@ -408,6 +452,16 @@ class QueryEnrichTest extends BaseTest {
     }
 
     @Test
+    void enrichQueryCollectionsTest() {
+        checkQuery("from net.binis.codegen.Test2 u where (size(u.items) = ?1)", List.of(5),
+                () -> Test2.find().by().items().size().equal(5).get());
+
+        checkQuery("from net.binis.codegen.Test2 u where (size(u.items) = ?1)", List.of(5),
+                () -> Test2.find().by().items().size(5).get());
+
+    }
+
+    @Test
     void enrichQuerySelfTest() {
         checkQuery("select u.sub as sub,u.amount as amount,u.sub.subAmount as subAmount from net.binis.codegen.Test2 u where (u.sub.subAmount is not null) order by u.sub desc,u.sub.subAmount asc",
                 () -> Test2.find()
@@ -434,6 +488,62 @@ class QueryEnrichTest extends BaseTest {
         checkQuery("update net.binis.codegen.Test2 u set u.amount = ?1,u.title = ?2 where (u.parent is null)", List.of(5.0, "asd"), 0,
                 () -> Test2.find().update().amount(5.0).title("asd").where().parent(null).run());
 
+    }
+
+    @Test
+    void enrichQueryEqualsQueryTest() {
+        checkQuery("from net.binis.codegen.Test2 u where (u.sub = (select s0.sub as sub from net.binis.codegen.Test2 s0 where (s0.amount = ?1))) ", List.of(0.5),
+                () -> Test2.find().by().sub().equal(Test2.find().select().sub()._self().where().amount(0.5)).get());
+
+    }
+
+
+    @Test
+    void enrichQueryAggregateTest() {
+        checkQuery("select u.parent.sub,count(u.amount) from net.binis.codegen.Test2 u  group by u.parent.sub ",
+                () -> Test2.find().aggregate()
+                        .group().parent().sub()._self().and()
+                        .cnt().amount()
+                        .get());
+
+
+        checkQuery("select distinct u.parent.sub,count(u) from net.binis.codegen.Test2 u ",
+                () -> Test2.find().aggregate()
+                        .distinct().parent().sub()._self().and()
+                        .cnt()._self()
+                        .get());
+
+
+        checkQuery("select count(u.amount),sum(u.sub.subAmount),max(u.parent.parent.parent.amount),distinct u.sub.subAmount,sum(u.sub),max(u.parent.parent.parent),distinct u.parent.parent.sub from net.binis.codegen.Test2 u ",
+                () -> Test2.find().aggregate()
+                        .cnt().amount().and()
+                        .sum().sub().subAmount().and()
+                        .max().parent().parent().parent().amount().and()
+                        .distinct().sub().subAmount().and()
+                        .sum().sub()._self().and()
+                        .max().parent().parent().parent()._self().and()
+                        .distinct().parent().parent().sub()._self()
+                        .get());
+    }
+
+    @Test
+    void enrichQueryAggregateAliasTest() {
+        checkQuery("select u.parent.sub as field1,count(u.amount) as field2 from net.binis.codegen.Test2 u  group by u.parent.sub ",
+                () -> Test2.find().aggregate()
+                        .group().parent().sub()._self().alias("field1").and()
+                        .cnt().amount().alias("field2")
+                        .get());
+
+        checkQuery("select count(u.amount) as field1,sum(u.sub.subAmount) as field2,max(u.parent.parent.parent.amount) as field3,distinct u.sub.subAmount as field4,sum(u.sub) as field5,max(u.parent.parent.parent) as field6,distinct u.parent.parent.sub as field7 from net.binis.codegen.Test2 u ",
+                () -> Test2.find().aggregate()
+                        .cnt().amount().alias("field1").and()
+                        .sum().sub().subAmount().alias("field2").and()
+                        .max().parent().parent().parent().amount().alias("field3").and()
+                        .distinct().sub().subAmount().alias("field4").and()
+                        .sum().sub()._self().alias("field5").and()
+                        .max().parent().parent().parent()._self().alias("field6").and()
+                        .distinct().parent().parent().sub()._self().alias("field7")
+                        .get());
     }
 
     private void checkQuery(String expected, List<Object> params, Runnable query) {

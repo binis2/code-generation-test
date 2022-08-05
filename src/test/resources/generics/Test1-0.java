@@ -18,6 +18,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
+@SuppressWarnings(value = "unchecked")
 public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiable<Test.Modify> {
 
     @Column

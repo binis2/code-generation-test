@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.function.Function;
 
 @Generated(value = "AccountEntityPrototype", comments = "Account")
+@SuppressWarnings("unchecked")
 public class AccountEntity extends BaseEntity implements Account, Modifiable<Account.Modify> {
 
     protected String accountNumber;

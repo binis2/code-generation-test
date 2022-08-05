@@ -30,6 +30,7 @@ import javax.annotation.processing.Generated;
 @Default("net.binis.codegen.TestMockEntity")
 public interface TestMock {
 
+    @SuppressWarnings(value = "unchecked")
     static TestMock.Modify create() {
         return (TestMock.Modify) EntityCreatorModifier.create(TestMock.class).with();
     }

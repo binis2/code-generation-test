@@ -20,10 +20,12 @@ import codegen.modifier.TestModifier;
 public interface Account extends Base {
 
     // region starters
+    @SuppressWarnings(value = "unchecked")
     static Account.Modify create() {
         return (Account.Modify) EntityCreatorModifier.create(Account.class).with();
     }
 
+    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Account, Account.QuerySelect<Account>, QueryAggregateOperation<QueryOperationFields<Account.QueryAggregate<Number, Account.QuerySelect<Number>>>>, QueryFieldsStart<Account, Account.QuerySelect<Account>>, QueryUpdate<Account, Account.QuerySelect<Account>>> find() {
         return (QueryStarter) EntityCreator.create(Account.QuerySelect.class);
     }
@@ -62,7 +64,7 @@ public interface Account extends Base {
     interface Modify extends EmbeddedModify<Account.Modify, Account>, TestModifier<Account.Modify, Account> {
     }
 
-    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Account.QueryAggregate<Account, Account.QuerySelect<Number>>>>> {
+    interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<Account.QueryAggregate<Account, Account.QuerySelect<Number>>>>, Account.QueryAggregate<Account, Account.QuerySelect<Number>>> {
     }
 
     interface QueryFields<QR> extends QueryScript<QR>, Account.Fields<QR> {

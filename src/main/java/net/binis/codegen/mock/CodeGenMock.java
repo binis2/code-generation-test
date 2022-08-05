@@ -21,13 +21,14 @@ package net.binis.codegen.mock;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import net.binis.codegen.async.executor.CodeExecutor;
+import net.binis.codegen.async.executor.Executors;
 import net.binis.codegen.exception.GenericCodeGenException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.mock.exception.CodeGenMockException;
 import net.binis.codegen.mock.exception.QueryAlreadyMockedException;
 import net.binis.codegen.mock.exception.QueryCallsMismatchException;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
-import net.binis.codegen.spring.async.executor.CodeExecutor;
 import net.binis.codegen.spring.component.ApplicationContextProvider;
 import net.binis.codegen.spring.modifier.BasePersistenceOperations;
 import net.binis.codegen.spring.modifier.impl.AsyncEntityModifierImpl;
@@ -103,7 +104,7 @@ public class CodeGenMock {
 
     public static void mockAsyncExecutor() {
         new MockAsyncEntityModifierImpl(null);
-        CodeExecutor.registerDefaultExecutor(CodeExecutor.syncExecutor());
+        CodeExecutor.registerDefaultExecutor(Executors.syncExecutor());
     }
 
     public static void mockContextAndEntityManager() {
@@ -144,27 +145,18 @@ public class CodeGenMock {
     }
 
     public static MockedQueryContext mockCountQuery(Queryable query, Supplier<Long> count) {
-        var q = query.print();
-        if (q.startsWith("select u ")) {
-            q = q.replace("select u ", "select count(u) ");
-        } else if (q.startsWith("select distinct u ")) {
-            q = q.replace("select distinct u ", "select count(distinct u) ");
-        } else {
-            q = "select count(*) " + q.substring(q.indexOf("from"));
-        }
-
-        return mockQuery(q, ((QueryAccessor) query).getParams(), count);
+        var q = (QueryAccessor) query;
+        return mockQuery(q.getCountQuery(), q.getParams(), count);
     }
 
     public static MockedQueryContext mockExistsQuery(Queryable query, boolean exists) {
-        return mockQuery(query, exists ? query : null);
+        var q = (QueryAccessor) query;
+        return mockQuery(q.getExistsQuery(), q.getParams(), exists);
     }
 
     public static MockedQueryContext mockExistsQuery(Queryable query, Supplier<Boolean> exists) {
-        Supplier<?> result = () ->
-                exists.get() ? query : null;
-
-        return mockQuery(query, result);
+        var q = (QueryAccessor) query;
+        return mockQuery(q.getExistsQuery(), q.getParams(), exists);
     }
 
     public static MockedQueryContext mockPageQuery(Queryable query, List<Object> page) {
@@ -334,6 +326,7 @@ public class CodeGenMock {
     public static <T> MockedPersistenceContext onDetach(Consumer<T> consumer) {
         return verify(MockPersistenceOperation.DETACH).on((Consumer) consumer);
     }
+
     public static <T> MockedPersistenceContext onDetach(T obj, BiConsumer<MockPersistenceOperation, T> consumer) {
         return verify(MockPersistenceOperation.DETACH, obj).on((BiConsumer) consumer);
     }
@@ -510,15 +503,18 @@ public class CodeGenMock {
             mock.get().touch();
 
             switch (resultType) {
+                case REFERENCE:
                 case SINGLE:
                 case TUPLE:
                     return Optional.ofNullable(value);
                 case COUNT:
+                case EXISTS:
                 case REMOVE:
                 case EXECUTE:
                     return value;
                 case LIST:
                 case TUPLES:
+                case REFERENCES:
                     return value instanceof List ? value : List.of(value);
                 case PAGE:
                     return value instanceof Page ? value : new PageImpl(value instanceof List ? (List) value : List.of(value), pagable, Integer.MAX_VALUE);
