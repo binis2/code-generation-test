@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.binis</groupId>
     <artifactId>code-generation-test</artifactId>
-    <version>0.3.8</version>
+    <version>0.3.9</version>
     <name>code-generation-test</name>
     <description>Test capabilities for Binis code generation library</description>
     <url>https://github.com/binis2/code-generation</url>
@@ -54,7 +54,7 @@
     <properties>
         <java.version>11</java.version>
         <license.licenseName>apache_v2</license.licenseName>
-        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <junit.jupiter.version>5.9.0</junit.jupiter.version>
         <resource.delimiter>@</resource.delimiter>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generator</artifactId>
-            <version>0.3.8</version>
+            <version>0.3.9</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
