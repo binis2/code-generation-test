@@ -6,6 +6,7 @@ import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.Optional;
+import java.util.Map;
 import java.util.List;
 
 @Generated(value = "TestReservedPrototype", comments = "TestReservedImpl")
@@ -27,6 +28,7 @@ public interface TestReserved {
     String getHint();
     List<String> getList();
     String getLock();
+    Map<String, TestReserved> getMap();
     String getPage();
     String getPrepare();
     String getProjection();
@@ -47,6 +49,7 @@ public interface TestReserved {
     void setHint(String hint);
     void setList(List<String> list);
     void setLock(String lock);
+    void setMap(Map<String, TestReserved> map);
     void setPage(String page);
     void setPrepare(String prepare);
     void setProjection(String projection);
@@ -137,6 +140,7 @@ public interface TestReserved {
 
     interface QuerySelect<QR> extends QueryExecute<QR>, QueryModifiers<TestReserved.QueryName<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR, TestReserved>>, TestReserved.QueryFields<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, TestReserved.QueryFuncs<QuerySelectOperation<TestReserved.QuerySelect<QR>, TestReserved.QueryOrder<QR>, QR>>, QueryOrderStart<QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>>, QueryBracket<QuerySelect<QR>> {
         QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> list_();
+        QueryJoinCollectionFunctions<TestReserved, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>, QueryJoinAggregateOperation<TestReserved.QueryOperationFields<TestReserved.QueryAggregate<Number, TestReserved.QuerySelect<Number>>>, TestReserved.QuerySelect<Number>>> map();
         QueryCollectionFunctions<String, QuerySelectOperation<TestReserved.QuerySelect<QR>, QueryOperationFields<QueryOrderOperation<TestReserved.QueryOrder<QR>, QR>>, QR>> references_();
     }
 

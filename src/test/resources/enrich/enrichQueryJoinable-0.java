@@ -10,6 +10,7 @@ import net.binis.codegen.creator.EntityCreator;
 import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.Optional;
+import java.util.Map;
 import java.util.List;
 
 @Generated(value = "TestReservedPrototype", comments = "TestReserved")
@@ -35,6 +36,8 @@ public class TestReservedImpl implements TestReserved {
     protected List<String> list;
 
     protected String lock;
+
+    protected Map<String, TestReserved> map;
 
     protected String page;
 
@@ -103,6 +106,10 @@ public class TestReservedImpl implements TestReserved {
 
     public String getLock() {
         return lock;
+    }
+
+    public Map<String, TestReserved> getMap() {
+        return map;
     }
 
     public String getPage() {
@@ -179,6 +186,10 @@ public class TestReservedImpl implements TestReserved {
 
     public void setLock(String lock) {
         this.lock = lock;
+    }
+
+    public void setMap(Map<String, TestReserved> map) {
+        this.map = map;
     }
 
     public void setPage(String page) {
@@ -301,6 +312,10 @@ public class TestReservedImpl implements TestReserved {
 
         public QueryFunctions lock_() {
             return identifier("lock");
+        }
+
+        public QueryJoinCollectionFunctions map() {
+            return (QueryJoinCollectionFunctions) joinStart("map", TestReserved.QueryOrder.class);
         }
 
         public TestReserved.QueryOrder order() {
