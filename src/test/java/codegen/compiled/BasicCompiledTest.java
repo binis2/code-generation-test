@@ -20,14 +20,27 @@ package codegen.compiled;
  * #L%
  */
 
+import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BasicCompiledTest extends BaseTest {
+class BasicCompiledTest extends BaseTest {
+
+    @BeforeEach
+    public void cleanUp() {
+        Helpers.cleanUp();
+    }
 
     @Test
-    public void test() {
+    void test() {
         testSingle("compiled/compiled.java", "compiled/compiled-0.java", "compiled/compiled-1.java", 2);
+    }
+
+    @Test
+    void testEnum() {
+        testSingle("compiled/compiledEnum.java", null, "compiled/compiledEnum-1.java", 2);
     }
 
 }
