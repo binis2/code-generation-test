@@ -43,4 +43,9 @@ class BasicCompiledTest extends BaseTest {
         testSingle("compiled/compiledEnum.java", null, "compiled/compiledEnum-1.java", 2);
     }
 
+    @Test
+    void testEnumWithOrdinal() {
+        testSingle("compiled/compiledEnum2.java", null, "compiled/compiledEnum2-1.java", 2);
+    }
+
 }

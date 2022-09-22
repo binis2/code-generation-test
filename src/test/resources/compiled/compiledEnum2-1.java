@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 @Generated(value = "ExtendedCompiledEnumPrototype", comments = "CompiledEnumImpl")
 public interface ExtendedCompiledEnum extends CodeEnum {
 
-    static final CompiledEnum EXTENDED = CodeFactory.initializeEnumValue(CompiledEnum.class, "EXTENDED", 2, "extended");
+    static final CompiledEnum EXTENDED = CodeFactory.initializeEnumValue(CompiledEnum.class, "EXTENDED", 100, "extended");
 
     static final CompiledEnum KNOWN = CompiledEnum.KNOWN;
 
