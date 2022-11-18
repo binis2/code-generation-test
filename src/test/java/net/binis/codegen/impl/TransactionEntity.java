@@ -61,12 +61,12 @@ public class TransactionEntity extends BaseEntity implements Transaction, SubTra
 
     // region constructor & initializer
     {
-        CodeFactory.registerType(Transaction.class, TransactionEntity::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((TransactionEntity) v).new TransactionEntityCollectionModifyImpl(p) : ((TransactionEntity) v).new TransactionEntitySoloModifyImpl(p));
+        CodeFactory.registerType(Transaction.class, TransactionEntity::new, (p, v, r) -> p instanceof EmbeddedCodeCollection ? ((TransactionEntity) v).new TransactionEntityCollectionModifyImpl(p) : ((TransactionEntity) v).new TransactionEntitySoloModifyImpl(p));
         CodeFactory.registerType(Transaction.QueryName.class, TransactionQueryNameImpl::new, null);
         CodeFactory.registerType(Transaction.QuerySelect.class, TransactionSelectQueryExecutorImpl::new, null);
         CodeFactory.registerType(Transaction.QueryOperationFields.class, TransactionFieldsQueryExecutorImpl::new, null);
         CodeFactory.registerType(Transaction.QueryOrder.class, () -> Transaction.find().aggregate(), null);
-        CodeFactory.registerType(SubTransaction.class, TransactionEntity::new, (p, v) -> ((TransactionEntity) v).new SubTransactionEntitySoloModifyImpl(p));
+        CodeFactory.registerType(SubTransaction.class, TransactionEntity::new, (p, v, r) -> ((TransactionEntity) v).new SubTransactionEntitySoloModifyImpl(p));
         CodeFactory.registerType(SubTransaction.QueryName.class, TransactionQueryNameImpl::new, null);
         CodeFactory.registerType(SubTransaction.QuerySelect.class, SubTransactionSelectQueryExecutorImpl::new, null);
         CodeFactory.registerType(SubTransaction.QueryOperationFields.class, SubTransactionFieldsQueryExecutorImpl::new, null);

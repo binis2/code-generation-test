@@ -27,7 +27,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     // region constructor & initializer
     {
         CodeFactory.registerType(Test.QueryOrder.class, () -> Test.find().aggregate(), null);
-        CodeFactory.registerType(Test.class, TestImpl::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((TestImpl) v).new TestImplCollectionModifyImpl(p) : ((TestImpl) v).new TestImplSoloModifyImpl(p));
+        CodeFactory.registerType(Test.class, TestImpl::new, (p, v, r) -> p instanceof EmbeddedCodeCollection ? ((TestImpl) v).new TestImplCollectionModifyImpl(p) : ((TestImpl) v).new TestImplSoloModifyImpl(p));
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
         CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
         CodeFactory.registerType(Test.QueryOperationFields.class, TestQueryExecutorImpl::new, null);

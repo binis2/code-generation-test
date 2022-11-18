@@ -34,7 +34,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
 
     // region constructor & initializer
     {
-        CodeFactory.registerType(SubModify.class, SubModifyImpl::new, (p, v) -> p instanceof EmbeddedCodeCollection ? ((SubModifyImpl) v).new SubModifyImplCollectionModifyImpl(p) : ((SubModifyImpl) v).new SubModifyImplSoloModifyImpl(p));
+        CodeFactory.registerType(SubModify.class, SubModifyImpl::new, (p, v, r) -> p instanceof EmbeddedCodeCollection ? ((SubModifyImpl) v).new SubModifyImplCollectionModifyImpl(p) : ((SubModifyImpl) v).new SubModifyImplSoloModifyImpl(p));
         CodeFactory.registerType(SubModify.QueryName.class, SubModifyQueryNameImpl::new, null);
         CodeFactory.registerType(SubModify.QuerySelect.class, SubModifySelectQueryExecutorImpl::new, null);
         CodeFactory.registerType(SubModify.QueryOperationFields.class, SubModifyFieldsQueryExecutorImpl::new, null);

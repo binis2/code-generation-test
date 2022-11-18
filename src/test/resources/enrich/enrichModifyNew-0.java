@@ -40,7 +40,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
 
     // region constructor & initializer
     {
-        CodeFactory.registerType(Account.class, AccountEntity::new, (p, v) -> ((AccountEntity) v).new AccountEntitySoloModifyImpl(p));
+        CodeFactory.registerType(Account.class, AccountEntity::new, (p, v, r) -> ((AccountEntity) v).new AccountEntitySoloModifyImpl(p));
         CodeFactory.registerType(Account.QueryName.class, AccountQueryNameImpl::new, null);
         CodeFactory.registerType(Account.QuerySelect.class, AccountQueryExecutorImpl::new, null);
         CodeFactory.registerType(Account.QueryOperationFields.class, AccountQueryExecutorImpl::new, null);
