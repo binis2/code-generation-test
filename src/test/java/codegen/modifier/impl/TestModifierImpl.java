@@ -21,13 +21,7 @@ package codegen.modifier.impl;
  */
 
 import lombok.extern.slf4j.Slf4j;
-import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.modifier.impl.BaseModifierImpl;
-import net.binis.codegen.spring.modifier.BaseEntityModifier;
-import net.binis.codegen.spring.modifier.BasePersistenceOperations;
-
-import javax.persistence.EntityManager;
-import java.util.function.Function;
 
 @Slf4j
 public abstract class TestModifierImpl<T, R> extends BaseModifierImpl<T, R> {

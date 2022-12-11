@@ -4,7 +4,7 @@ import net.binis.codegen.test.TestExecutor;
 
 import java.util.Comparator;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Execute extends TestExecutor {
 

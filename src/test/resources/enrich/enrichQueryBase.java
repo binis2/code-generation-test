@@ -2,7 +2,7 @@ package net.binis.codegen;
 
 import net.binis.codegen.annotation.CodePrototype;
 
-import javax.persistence.Id;
+import jakarta.persistence.Id;
 
 @CodePrototype(base = true)
 public interface BasePrototype {

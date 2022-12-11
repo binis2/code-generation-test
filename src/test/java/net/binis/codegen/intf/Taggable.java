@@ -20,7 +20,7 @@ package net.binis.codegen.intf;
  * #L%
  */
 
-import javax.persistence.Transient;
+import jakarta.persistence.Transient;
 
 public interface Taggable {
 

@@ -1,8 +1,8 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
-import javax.persistence.OneToOne;
 import javax.annotation.processing.Generated;
+import jakarta.persistence.OneToOne;
 
 @Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl extends CompiledWithImplementationImpl implements Test {

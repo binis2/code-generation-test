@@ -8,7 +8,7 @@ import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.intf.Typeable;
 import net.binis.codegen.spring.annotation.Joinable;
 
-import javax.persistence.Column;
+import jakarta.persistence.Column;
 
 @CodeQueryBuilder
 @Embeddable

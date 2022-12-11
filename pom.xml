@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.binis</groupId>
     <artifactId>code-generation-test</artifactId>
-    <version>0.4.3</version>
+    <version>1.0.0</version>
     <name>code-generation-test</name>
     <description>Test capabilities for Binis code generation library</description>
     <url>https://github.com/binis2/code-generation</url>
@@ -52,7 +52,7 @@
     </scm>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <license.licenseName>apache_v2</license.licenseName>
         <junit.jupiter.version>5.9.0</junit.jupiter.version>
         <resource.delimiter>@</resource.delimiter>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generator</artifactId>
-            <version>0.4.3</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.3.22</version>
+            <version>6.0.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -110,7 +110,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M5</version>
+                    <version>3.0.0-M7</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

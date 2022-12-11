@@ -20,6 +20,7 @@ package net.binis.codegen.impl;
  * #L%
  */
 
+import jakarta.persistence.Transient;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.factory.CodeFactory;
@@ -33,7 +34,6 @@ import net.binis.codegen.spring.query.executor.QueryExecutor;
 import net.binis.codegen.spring.query.executor.QueryOrderer;
 
 import javax.annotation.processing.Generated;
-import javax.persistence.Transient;
 import java.time.OffsetDateTime;
 import java.util.function.Consumer;
 import java.util.function.Function;

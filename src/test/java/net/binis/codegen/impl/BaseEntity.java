@@ -21,10 +21,10 @@ package net.binis.codegen.impl;
  * #L%
  */
 
+import jakarta.persistence.Id;
 import net.binis.codegen.Base;
 import net.binis.codegen.enums.TestEnum;
 import javax.annotation.processing.Generated;
-import javax.persistence.Id;
 import java.time.OffsetDateTime;
 
 @Generated(value = "BasePrototype", comments = "Base")

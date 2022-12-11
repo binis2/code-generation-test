@@ -20,6 +20,7 @@ package net.binis.codegen.mock;
  * #L%
  */
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.async.executor.CodeExecutor;
 import net.binis.codegen.async.executor.Executors;
@@ -40,7 +41,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;

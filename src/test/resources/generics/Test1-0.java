@@ -11,11 +11,11 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
-import javax.persistence.Column;
 import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
+import jakarta.persistence.Column;
 
 @Generated(value = "TestPrototype", comments = "Test")
 @SuppressWarnings(value = "unchecked")

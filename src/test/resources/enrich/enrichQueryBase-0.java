@@ -1,8 +1,8 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
-import javax.persistence.Id;
 import javax.annotation.processing.Generated;
+import jakarta.persistence.Id;
 
 @Generated(value = "BasePrototype", comments = "Base")
 public class BaseImpl implements Base {

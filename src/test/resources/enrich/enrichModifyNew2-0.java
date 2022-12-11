@@ -12,13 +12,13 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.enums.TestEnum;
 import net.binis.codegen.creator.EntityCreator;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
-import javax.persistence.Transient;
 import javax.annotation.processing.Generated;
 import java.util.function.Function;
 import java.util.function.Consumer;
 import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
+import jakarta.persistence.Transient;
 
 @Generated(value = "TransactionEntityPrototype", comments = "Transaction")
 @SuppressWarnings(value = "unchecked")

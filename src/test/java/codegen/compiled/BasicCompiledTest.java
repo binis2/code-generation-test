@@ -22,7 +22,6 @@ package codegen.compiled;
 
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

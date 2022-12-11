@@ -3,8 +3,8 @@ package net.binis.codegen.test;
 
 import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
-import javax.persistence.Transient;
 import javax.annotation.processing.Generated;
+import jakarta.persistence.Transient;
 
 @Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
