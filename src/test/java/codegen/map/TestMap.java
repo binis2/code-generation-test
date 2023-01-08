@@ -22,6 +22,8 @@ public interface TestMap {
     Long getLong1();
     String getString1();
 
+    boolean isConvert1();
+
     TestMap.Modify with();
 
     // region inner classes
@@ -30,6 +32,7 @@ public interface TestMap {
         T int2(Integer int2);
         T long1(Long long1);
         T string1(String string1);
+        T convert1(boolean convert1);
     }
 
     interface Modify extends TestMap.Fields<TestMap.Modify>, BaseModifier<TestMap.Modify, TestMap> {

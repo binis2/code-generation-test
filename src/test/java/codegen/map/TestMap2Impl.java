@@ -17,6 +17,8 @@ public class TestMap2Impl implements TestMap2, Modifiable<TestMap2.Modify> {
 
     protected String string1;
 
+    private String convert1;
+
     // region constructor & initializer
     {
         CodeFactory.registerType(TestMap2.class, TestMap2Impl::new, null);
@@ -41,6 +43,11 @@ public class TestMap2Impl implements TestMap2, Modifiable<TestMap2.Modify> {
 
     public String getString1() {
         return string1;
+    }
+
+    @Override
+    public String getConvert1() {
+        return convert1;
     }
 
     public TestMap2.Modify with() {
@@ -76,6 +83,12 @@ public class TestMap2Impl implements TestMap2, Modifiable<TestMap2.Modify> {
 
         public TestMap2.Modify string1(String string1) {
             TestMap2Impl.this.string1 = string1;
+            return this;
+        }
+
+        @Override
+        public Modify convert1(String convert1) {
+            TestMap2Impl.this.convert1 = convert1;
             return this;
         }
     }

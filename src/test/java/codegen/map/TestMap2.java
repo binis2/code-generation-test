@@ -21,6 +21,7 @@ public interface TestMap2 {
     int getInt2();
     long getLong1();
     String getString1();
+    String getConvert1();
 
     TestMap2.Modify with();
 
@@ -30,6 +31,7 @@ public interface TestMap2 {
         T int2(int int2);
         T long1(long long1);
         T string1(String string1);
+        T convert1(String convert1);
     }
 
     interface Modify extends TestMap2.Fields<TestMap2.Modify>, BaseModifier<TestMap2.Modify, TestMap2> {

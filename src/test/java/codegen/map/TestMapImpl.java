@@ -17,6 +17,8 @@ public class TestMapImpl implements TestMap, Modifiable<TestMap.Modify> {
 
     protected String string1;
 
+    protected boolean convert1;
+
     // region constructor & initializer
     {
         CodeFactory.registerType(TestMap.class, TestMapImpl::new, null);
@@ -41,6 +43,11 @@ public class TestMapImpl implements TestMap, Modifiable<TestMap.Modify> {
 
     public String getString1() {
         return string1;
+    }
+
+    @Override
+    public boolean isConvert1() {
+        return convert1;
     }
 
     public TestMap.Modify with() {
@@ -76,6 +83,12 @@ public class TestMapImpl implements TestMap, Modifiable<TestMap.Modify> {
 
         public TestMap.Modify string1(String string1) {
             TestMapImpl.this.string1 = string1;
+            return this;
+        }
+
+        @Override
+        public Modify convert1(boolean convert1) {
+            TestMapImpl.this.convert1 = convert1;
             return this;
         }
     }

@@ -2,12 +2,19 @@ package codegen;
 
 import codegen.map.TestMap;
 import codegen.map.TestMap2;
+import net.binis.codegen.config.DefaultMappings;
 import net.binis.codegen.map.Mapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MapperTest {
+
+    @BeforeAll
+    static void init() {
+        DefaultMappings.initialize();
+    }
 
     @Test
     void testSame() {
@@ -21,6 +28,7 @@ class MapperTest {
         assertEquals(test.getString1(), resultTest.getString1());
         assertEquals(test.getLong1(), resultTest.getLong1());
         assertEquals(test.getInt1(), resultTest.getInt1());
+        assertFalse(resultTest.isConvert1());
     }
 
     @Test
@@ -29,6 +37,7 @@ class MapperTest {
                 .string1("test")
                 .long1(1L)
                 .int1(2)
+                .convert1(true)
                 .done();
         var resultTest = Mapper.map(test, TestMap2.create().done());
         assertEquals(test.getString1(), resultTest.getString1());
@@ -36,6 +45,7 @@ class MapperTest {
         assertEquals(test.getInt1(), (int) resultTest.getInt1());
         assertNull(test.getInt2());
         assertEquals(0, resultTest.getInt2());
+        assertEquals("true", resultTest.getConvert1());
     }
 
     @Test
