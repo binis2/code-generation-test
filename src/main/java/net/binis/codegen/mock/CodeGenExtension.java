@@ -20,6 +20,8 @@ package net.binis.codegen.mock;
  * #L%
  */
 
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.map.MapperFactory;
 import net.binis.codegen.spring.query.QueryProcessor;
 import org.junit.jupiter.api.extension.*;
 
@@ -42,6 +44,7 @@ public class CodeGenExtension implements BeforeAllCallback, BeforeEachCallback, 
         mockQueryClear();
         mockEntityManager();
         CodeGenMock.testStart();
+        CodeFactory.create(MapperFactory.class).clearAllMappings();
     }
 
     @Override
