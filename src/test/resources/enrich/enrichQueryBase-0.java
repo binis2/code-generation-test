@@ -13,7 +13,6 @@ public class BaseImpl implements Base {
     public BaseImpl() {
     }
 
-    @Id
     public String getId() {
         return id;
     }
