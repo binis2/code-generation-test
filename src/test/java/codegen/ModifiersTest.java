@@ -26,7 +26,7 @@ import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.mock.CodeGenExtension;
-import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.test.BaseCodeGenTest;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
 @ExtendWith(CodeGenExtension.class)
-class ModifiersTest extends BaseTest {
+class ModifiersTest extends BaseCodeGenTest {
 
     @BeforeEach
     public void cleanUp() {

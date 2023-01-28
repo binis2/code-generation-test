@@ -26,9 +26,8 @@ import codegen.view.TestProjectionComplex2;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.*;
 import net.binis.codegen.generation.core.Helpers;
-import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.mock.CodeGenExtension;
-import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.test.BaseCodeGenTest;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +44,7 @@ import static org.mockito.Mockito.mock;
 
 @Slf4j
 @ExtendWith(CodeGenExtension.class)
-class QueryEnrichTest extends BaseTest {
+class QueryEnrichTest extends BaseCodeGenTest {
 
     @BeforeEach
     public void cleanUp() {
