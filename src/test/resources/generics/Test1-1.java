@@ -16,15 +16,14 @@ import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.test.TestImpl")
+@SuppressWarnings("unchecked")
 public interface Test extends Generic<TestPayload>, Typeable<TestEnum> {
 
     // region starters
-    @SuppressWarnings(value = "unchecked")
     static Test.Modify create() {
         return (Test.Modify) EntityCreatorModifier.create(Test.class).with();
     }
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>, QueryFieldsStart<Test, Test.QuerySelect<Test>>, QueryUpdate<Test, Test.QuerySelect<Test>>> find() {
         return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
     }

@@ -18,7 +18,7 @@ import java.util.List;
 import jakarta.persistence.Column;
 
 @Generated(value = "TestPrototype", comments = "Test")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiable<Test.Modify> {
 
     @Column
@@ -49,6 +49,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     // endregion
 
     // region inner classes
+    @SuppressWarnings("unchecked")
     protected class TestImplCollectionModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedCollectionModify {
 
         protected TestImplCollectionModifyImpl(Object parent) {
@@ -60,6 +61,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestImplEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Test.EmbeddedModify<T, R> {
 
         protected TestImplEmbeddedModifyImpl(R parent) {
@@ -77,6 +79,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestImplSoloModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedSoloModify {
 
         protected TestImplSoloModifyImpl(Object parent) {
@@ -84,6 +87,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends TestImplEmbeddedModifyImpl<Test.Modify, Test> implements Test.Modify {
 
         protected TestModifyImpl(Test parent) {

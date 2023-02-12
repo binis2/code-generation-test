@@ -11,9 +11,9 @@ import java.util.List;
 
 @Generated(value = "TestReservedPrototype", comments = "TestReservedImpl")
 @Default("net.binis.codegen.TestReservedImpl")
+@SuppressWarnings("unchecked")
 public interface TestReserved {
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<TestReserved, TestReserved.QuerySelect<TestReserved>, QueryAggregateOperation<QueryOperationFields<TestReserved.QueryAggregate<Number, TestReserved.QuerySelect<Number>>>>, QueryFieldsStart<TestReserved, TestReserved.QuerySelect<TestReserved>>, QueryUpdate<TestReserved, TestReserved.QuerySelect<TestReserved>>> find() {
         return (QueryStarter) EntityCreator.create(TestReserved.QuerySelect.class);
     }

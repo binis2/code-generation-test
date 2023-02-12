@@ -21,7 +21,7 @@ import java.time.OffsetDateTime;
 import codegen.modifier.impl.TestModifierImpl;
 
 @Generated(value = "AccountEntityPrototype", comments = "Account")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class AccountEntity extends BaseImpl implements Account, Modifiable<Account.Modify> {
 
     protected String accountNumber;
@@ -86,6 +86,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     // endregion
 
     // region inner classes
+    @SuppressWarnings("unchecked")
     protected class AccountEntityEmbeddedModifyImpl<T, R> extends TestModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
         protected AccountEntityEmbeddedModifyImpl(R parent) {
@@ -157,6 +158,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class AccountEntityModifyImpl extends AccountEntityEmbeddedModifyImpl<Account.Modify, Account> implements Account.Modify {
 
         protected AccountEntityModifyImpl(Account parent) {
@@ -164,6 +166,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class AccountEntitySoloModifyImpl extends AccountEntityEmbeddedModifyImpl implements Account.EmbeddedSoloModify {
 
         protected AccountEntitySoloModifyImpl(Object parent) {

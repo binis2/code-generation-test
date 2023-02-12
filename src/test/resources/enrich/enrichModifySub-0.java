@@ -42,6 +42,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         return new SubModifyModifyImpl(this);
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyImplCollectionModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedCollectionModify {
 
         protected SubModifyImplCollectionModifyImpl(Object parent) {
@@ -53,6 +54,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubModify.EmbeddedModify<T, R> {
 
         protected SubModifyImplEmbeddedModifyImpl(R parent) {
@@ -75,6 +77,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyModifyImpl extends SubModifyImplEmbeddedModifyImpl<SubModify.Modify, SubModify> implements SubModify.Modify {
 
         protected SubModifyModifyImpl(SubModify parent) {

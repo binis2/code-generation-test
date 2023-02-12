@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "SubPrototype", comments = "Sub")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class SubImpl implements Sub, Modifiable<Sub.Modify> {
 
     protected double subAmount;
@@ -52,6 +52,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         return new SubModifyImpl(this);
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Sub.EmbeddedModify<T, R> {
 
         protected SubImplEmbeddedModifyImpl(R parent) {
@@ -69,6 +70,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubImplSoloModifyImpl extends SubImplEmbeddedModifyImpl implements Sub.EmbeddedSoloModify {
 
         protected SubImplSoloModifyImpl(Object parent) {
@@ -76,6 +78,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyImpl extends SubImplEmbeddedModifyImpl<Sub.Modify, Sub> implements Sub.Modify {
 
         protected SubModifyImpl(Sub parent) {

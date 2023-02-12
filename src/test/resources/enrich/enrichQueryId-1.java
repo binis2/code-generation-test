@@ -10,9 +10,9 @@ import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.TestImpl")
+@SuppressWarnings("unchecked")
 public interface Test extends Base {
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Test, Test.QuerySelect<Test>, QueryAggregateOperation<QueryOperationFields<Test.QueryAggregate<Number, Test.QuerySelect<Number>>>>, QueryFieldsStart<Test, Test.QuerySelect<Test>>, QueryUpdate<Test, Test.QuerySelect<Test>>> find() {
         return (QueryStarter) EntityCreator.create(Test.QuerySelect.class);
     }

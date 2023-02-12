@@ -17,15 +17,14 @@ import java.time.OffsetDateTime;
 
 @Generated(value = "SubModifyPrototype", comments = "SubModifyImpl")
 @Default("net.binis.codegen.SubModifyImpl")
+@SuppressWarnings("unchecked")
 public interface SubModify extends Base, Taggable, Identifiable {
 
     // region starters
-    @SuppressWarnings(value = "unchecked")
     static SubModify create() {
         return EntityCreator.create(SubModify.class);
     }
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<SubModify, SubModify.QuerySelect<SubModify>, QueryAggregateOperation<QueryOperationFields<SubModify.QueryAggregate<Number, SubModify.QuerySelect<Number>>>>, QueryFieldsStart<SubModify, SubModify.QuerySelect<SubModify>>, QueryUpdate<SubModify, SubModify.QuerySelect<SubModify>>> find() {
         return (QueryStarter) EntityCreator.create(SubModify.QuerySelect.class);
     }

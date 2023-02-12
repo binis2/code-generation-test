@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "Test2Prototype", comments = "Test2")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class Test2Impl implements Test2 {
 
     protected double amount;

@@ -11,9 +11,9 @@ import java.util.List;
 
 @Generated(value = "SubPrototype", comments = "SubImpl")
 @Default("net.binis.codegen.SubImpl")
+@SuppressWarnings("unchecked")
 public interface Sub {
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Sub, Sub.QuerySelect<Sub>, QueryAggregateOperation<QueryOperationFields<Sub.QueryAggregate<Number, Sub.QuerySelect<Number>>>>, QueryFieldsStart<Sub, Sub.QuerySelect<Sub>>, QueryUpdate<Sub, Sub.QuerySelect<Sub>>> find() {
         return (QueryStarter) EntityCreator.create(Sub.QuerySelect.class);
     }

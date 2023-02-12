@@ -36,16 +36,15 @@ import java.time.OffsetDateTime;
 
 @Generated(value = "MixModifyPrototype", comments = "MixModifyImpl")
 @Default("net.binis.codegen.TestModifyImpl")
+@SuppressWarnings("unchecked")
 public interface MixModify extends TestModify {
     MixModify.Modify asMixModify();
 
     // region starters
-    @SuppressWarnings(value = "unchecked")
     static MixModify create() {
         return EntityCreator.create(MixModify.class);
     }
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<MixModify, MixModify.QuerySelect<MixModify>, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<Number, MixModify.QuerySelect<Number>>>>, QueryFieldsStart<MixModify, MixModify.QuerySelect<MixModify>>, QueryUpdate<MixModify, MixModify.QuerySelect<MixModify>>> find() {
         return (QueryStarter) EntityCreator.create(MixModify.QuerySelect.class);
     }

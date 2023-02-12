@@ -16,15 +16,14 @@ import java.time.OffsetDateTime;
 
 @Generated(value = "TestModifyPrototype", comments = "TestModifyImpl")
 @Default("net.binis.codegen.TestModifyImpl")
+@SuppressWarnings("unchecked")
 public interface TestModify extends Base {
 
     // region starters
-    @SuppressWarnings(value = "unchecked")
     static TestModify create() {
         return EntityCreator.create(TestModify.class);
     }
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<TestModify, TestModify.QuerySelect<TestModify>, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<Number, TestModify.QuerySelect<Number>>>>, QueryFieldsStart<TestModify, TestModify.QuerySelect<TestModify>>, QueryUpdate<TestModify, TestModify.QuerySelect<TestModify>>> find() {
         return (QueryStarter) EntityCreator.create(TestModify.QuerySelect.class);
     }

@@ -22,7 +22,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TestModifyPrototype", comments = "TestModify")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, Modifiable<TestModify.Modify> {
 
     // region constants
@@ -144,6 +144,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected static class MixModifyFieldsQueryExecutorImpl extends MixModifyQueryExecutorImpl implements MixModify.QueryFieldsStart, EmbeddedFields {
     }
 
+    @SuppressWarnings("unchecked")
     protected class MixModifyModifyImpl extends BaseModifierImpl<MixModify.Modify, MixModify> implements MixModify.Modify {
 
         protected MixModifyModifyImpl(MixModify parent) {
@@ -363,6 +364,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected static class MixModifySelectQueryExecutorImpl extends MixModifyQueryExecutorImpl implements MixModify.QuerySelect {
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
 
         protected TestModifyModifyImpl(TestModify parent) {

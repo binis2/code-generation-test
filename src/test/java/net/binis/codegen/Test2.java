@@ -30,9 +30,9 @@ import java.util.List;
 
 @Generated(value = "Test2Prototype", comments = "Test2Impl")
 @Default("net.binis.codegen.Test2Impl")
+@SuppressWarnings("unchecked")
 public interface Test2 {
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<Test2, Test2.QuerySelect<Test2>, QueryAggregateOperation<QueryOperationFields<Test2.QueryAggregate<Number, Test2.QuerySelect<Number>>>>, QueryFieldsStart<Test2, Test2.QuerySelect<Test2>>, QueryUpdate<Test2, Test2.QuerySelect<Test2>>> find() {
         return (QueryStarter) EntityCreator.create(Test2.QuerySelect.class);
     }

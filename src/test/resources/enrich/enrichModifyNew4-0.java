@@ -19,7 +19,7 @@ import java.time.OffsetDateTime;
 import jakarta.persistence.Transient;
 
 @Generated(value = "TransactionDetailEntityPrototype", comments = "TransactionDetail")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TransactionDetailEntity extends BaseImpl implements TransactionDetail, Modifiable<TransactionDetail.Modify> {
 
     protected SubTransaction parented;

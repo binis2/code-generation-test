@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected double amount;
@@ -100,6 +100,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Test.EmbeddedModify<T, R> {
 
         protected TestImplEmbeddedModifyImpl(R parent) {
@@ -153,6 +154,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestImplSoloModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedSoloModify {
 
         protected TestImplSoloModifyImpl(Object parent) {
@@ -160,6 +162,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends TestImplEmbeddedModifyImpl<Test.Modify, Test> implements Test.Modify {
 
         protected TestModifyImpl(Test parent) {

@@ -49,6 +49,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
         return new TestModifyModifyImpl(this);
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestModifyImplCollectionModifyImpl extends TestModifyImplEmbeddedModifyImpl implements TestModify.EmbeddedCollectionModify {
 
         protected TestModifyImplCollectionModifyImpl(Object parent) {
@@ -60,6 +61,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements TestModify.EmbeddedModify<T, R> {
 
         protected TestModifyImplEmbeddedModifyImpl(R parent) {
@@ -89,6 +91,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestModifyImplSoloModifyImpl extends TestModifyImplEmbeddedModifyImpl implements TestModify.EmbeddedSoloModify {
 
         protected TestModifyImplSoloModifyImpl(Object parent) {
@@ -96,6 +99,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TestModifyModifyImpl extends TestModifyImplEmbeddedModifyImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
 
         protected TestModifyModifyImpl(TestModify parent) {

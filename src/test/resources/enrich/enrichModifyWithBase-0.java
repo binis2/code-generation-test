@@ -22,7 +22,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 
 @Generated(value = "TestModifyPrototype", comments = "TestModify")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<TestModify.Modify> {
 
     // region constants
@@ -93,6 +93,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
     // endregion
 
     // region inner classes
+    @SuppressWarnings("unchecked")
     protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
 
         protected TestModifyModifyImpl(TestModify parent) {

@@ -8,9 +8,9 @@ import javax.annotation.processing.Generated;
 
 @Generated(value = "TestMockEntityPrototype", comments = "TestMockEntity")
 @Default("net.binis.codegen.TestMockEntity")
+@SuppressWarnings("unchecked")
 public interface TestMock {
 
-    @SuppressWarnings(value = "unchecked")
     static TestMock.Modify create() {
         return (TestMock.Modify) EntityCreatorModifier.create(TestMock.class).with();
     }

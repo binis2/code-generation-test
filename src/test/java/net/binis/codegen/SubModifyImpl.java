@@ -40,7 +40,7 @@ import java.time.OffsetDateTime;
 import jakarta.persistence.Transient;
 
 @Generated(value = "SubModifyPrototype", comments = "SubModify")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<SubModify.Modify> {
 
     protected SubModify parent;
@@ -116,6 +116,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyImplCollectionModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedCollectionModify {
 
         protected SubModifyImplCollectionModifyImpl(Object parent) {
@@ -127,6 +128,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubModify.EmbeddedModify<T, R> {
 
         protected SubModifyImplEmbeddedModifyImpl(R parent) {
@@ -176,6 +178,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyImplSoloModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedSoloModify {
 
         protected SubModifyImplSoloModifyImpl(Object parent) {
@@ -183,6 +186,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyModifyImpl extends SubModifyImplEmbeddedModifyImpl<SubModify.Modify, SubModify> implements SubModify.Modify {
 
         protected SubModifyModifyImpl(SubModify parent) {

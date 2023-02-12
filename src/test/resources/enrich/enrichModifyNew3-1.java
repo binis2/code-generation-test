@@ -16,16 +16,15 @@ import java.time.OffsetDateTime;
 
 @Generated(value = "SubTransactionEntityPrototype", comments = "SubTransactionEntity")
 @Default("net.binis.codegen.modifier.test.TransactionEntity")
+@SuppressWarnings("unchecked")
 public interface SubTransaction extends Taggable, Transaction {
     SubTransaction.Modify asSubTransaction();
 
     // region starters
-    @SuppressWarnings(value = "unchecked")
     static SubTransaction.Modify create() {
         return ((SubTransaction) EntityCreatorModifier.create(SubTransaction.class)).asSubTransaction();
     }
 
-    @SuppressWarnings(value = "unchecked")
     static QueryStarter<SubTransaction, SubTransaction.QuerySelect<SubTransaction>, QueryAggregateOperation<QueryOperationFields<SubTransaction.QueryAggregate<Number, SubTransaction.QuerySelect<Number>>>>, QueryFieldsStart<SubTransaction, SubTransaction.QuerySelect<SubTransaction>>, QueryUpdate<SubTransaction, SubTransaction.QuerySelect<SubTransaction>>> find() {
         return (QueryStarter) EntityCreator.create(SubTransaction.QuerySelect.class);
     }

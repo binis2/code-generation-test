@@ -21,7 +21,7 @@ import java.time.OffsetDateTime;
 import jakarta.persistence.Transient;
 
 @Generated(value = "TransactionEntityPrototype", comments = "Transaction")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TransactionEntity extends BaseImpl implements Transaction, SubTransaction, Modifiable<Transaction.Modify> {
 
     protected Account account;
@@ -90,6 +90,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
     // endregion
 
     // region inner classes
+    @SuppressWarnings("unchecked")
     protected class SubTransactionEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubTransaction.EmbeddedModify<T, R> {
 
         protected SubTransactionEntityEmbeddedModifyImpl(R parent) {
@@ -163,6 +164,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubTransactionEntityModifyImpl extends SubTransactionEntityEmbeddedModifyImpl<SubTransaction.Modify, SubTransaction> implements SubTransaction.Modify {
 
         protected SubTransactionEntityModifyImpl(SubTransaction parent) {
@@ -194,6 +196,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubTransactionEntitySoloModifyImpl extends SubTransactionEntityEmbeddedModifyImpl implements SubTransaction.EmbeddedSoloModify {
 
         protected SubTransactionEntitySoloModifyImpl(Object parent) {
@@ -363,6 +366,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TransactionEntityCollectionModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedCollectionModify {
 
         protected TransactionEntityCollectionModifyImpl(Object parent) {
@@ -374,6 +378,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TransactionEntityEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Transaction.EmbeddedModify<T, R> {
 
         protected TransactionEntityEmbeddedModifyImpl(R parent) {
@@ -435,6 +440,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TransactionEntityModifyImpl extends TransactionEntityEmbeddedModifyImpl<Transaction.Modify, Transaction> implements Transaction.Modify {
 
         protected TransactionEntityModifyImpl(Transaction parent) {
@@ -458,6 +464,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class TransactionEntitySoloModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedSoloModify {
 
         protected TransactionEntitySoloModifyImpl(Object parent) {

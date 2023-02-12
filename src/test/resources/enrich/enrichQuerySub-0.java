@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "SubPrototype", comments = "Sub")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class SubImpl implements Sub {
 
     protected double subAmount;

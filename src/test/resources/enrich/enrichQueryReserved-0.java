@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Generated(value = "TestReservedPrototype", comments = "TestReserved")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestReservedImpl implements TestReserved {
 
     protected String count;
