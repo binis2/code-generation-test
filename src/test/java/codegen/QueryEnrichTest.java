@@ -46,11 +46,6 @@ import static org.mockito.Mockito.mock;
 @ExtendWith(CodeGenExtension.class)
 class QueryEnrichTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void enrichQuery() {
         testMulti(List.of(
