@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "SubPrototype", comments = "SubImpl")
+@Generated(value = "net.binis.codegen.SubPrototype", comments = "SubImpl")
 @Default("net.binis.codegen.SubImpl")
 @SuppressWarnings("unchecked")
 public interface Sub {

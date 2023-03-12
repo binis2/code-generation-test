@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "TestReservedPrototype", comments = "TestReserved")
+@Generated(value = "net.binis.codegen.TestReservedPrototype", comments = "TestReserved")
 @SuppressWarnings("unchecked")
 public class TestReservedImpl implements TestReserved {
 

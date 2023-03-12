@@ -5,7 +5,7 @@ import net.binis.codegen.enums.TestEnum;
 import javax.annotation.processing.Generated;
 import java.time.OffsetDateTime;
 
-@Generated(value = "BasePrototype", comments = "Base")
+@Generated(value = "net.binis.codegen.BasePrototype", comments = "Base")
 public class BaseImpl implements Base {
 
     protected OffsetDateTime date;

@@ -6,7 +6,7 @@ import net.binis.codegen.objects.base.enumeration.CodeEnum;
 import net.binis.codegen.factory.CodeFactory;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "ExtendedCompiledEnumPrototype", comments = "CompiledEnumImpl")
+@Generated(value = "net.binis.codegen.ExtendedCompiledEnumPrototype", comments = "CompiledEnumImpl")
 public interface ExtendedCompiledEnum extends CodeEnum {
 
     static final CompiledEnum EXTENDED = CodeFactory.initializeEnumValue(CompiledEnum.class, "EXTENDED", 100, "extended");

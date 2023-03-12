@@ -5,7 +5,7 @@ import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.*;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "TestPrototype", comments = "TestImpl")
+@Generated(value = "net.binis.codegen.test.TestPrototype", comments = "TestImpl")
 public interface Test extends ExternalInterface<String>, Available, Previewable, Taggable {
     <T> void setTag(T tag);
 

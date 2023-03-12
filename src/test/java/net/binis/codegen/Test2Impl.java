@@ -32,7 +32,7 @@ import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "Test2Prototype", comments = "Test2")
+@Generated(value = "net.binis.codegen.Test2Prototype", comments = "Test2")
 @SuppressWarnings("unchecked")
 public class Test2Impl implements Test2 {
 

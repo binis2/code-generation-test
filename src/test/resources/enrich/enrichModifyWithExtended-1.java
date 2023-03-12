@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 import java.util.Set;
 import java.util.List;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModifyImpl")
+@Generated(value = "net.binis.codegen.prototype.TestModifyPrototype", comments = "TestModifyImpl")
 public interface TestModify extends Prototypable<SubModify>, Extended {
     double getAmount();
     List<Long> getItems();

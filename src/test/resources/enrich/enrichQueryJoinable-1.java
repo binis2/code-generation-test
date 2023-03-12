@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Map;
 import java.util.List;
 
-@Generated(value = "TestReservedPrototype", comments = "TestReservedImpl")
+@Generated(value = "net.binis.codegen.TestReservedPrototype", comments = "TestReservedImpl")
 @Default("net.binis.codegen.TestReservedImpl")
 @SuppressWarnings("unchecked")
 public interface TestReserved {

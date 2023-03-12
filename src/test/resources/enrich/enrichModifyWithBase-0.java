@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModify")
+@Generated(value = "net.binis.codegen.TestModifyPrototype", comments = "TestModify")
 @SuppressWarnings("unchecked")
 public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<TestModify.Modify> {
 

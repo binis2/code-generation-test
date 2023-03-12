@@ -26,7 +26,7 @@ import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "TestMockEntityPrototype", comments = "TestMock")
+@Generated(value = "net.binis.codegen.prototype.TestMockEntityPrototype", comments = "TestMock")
 public class TestMockEntity implements TestMock, Modifiable<TestMock.Modify> {
 
     protected String actionLink;

@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
-@Generated(value = "SubTransactionEntityPrototype", comments = "SubTransactionEntity")
+@Generated(value = "net.binis.codegen.modifier.test.SubTransactionEntityPrototype", comments = "SubTransactionEntity")
 @Default("net.binis.codegen.modifier.test.TransactionEntity")
 @SuppressWarnings("unchecked")
 public interface SubTransaction extends Taggable, Transaction {

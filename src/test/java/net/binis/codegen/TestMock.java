@@ -26,7 +26,7 @@ import net.binis.codegen.creator.EntityCreatorModifier;
 import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "TestMockEntityPrototype", comments = "TestMockEntity")
+@Generated(value = "net.binis.codegen.prototype.TestMockEntityPrototype", comments = "TestMockEntity")
 @Default("net.binis.codegen.TestMockEntity")
 @SuppressWarnings("unchecked")
 public interface TestMock {

@@ -20,7 +20,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 import jakarta.persistence.Transient;
 
-@Generated(value = "TransactionEntityPrototype", comments = "Transaction")
+@Generated(value = "net.binis.codegen.modifier.test.TransactionEntityPrototype", comments = "Transaction")
 @SuppressWarnings("unchecked")
 public class TransactionEntity extends BaseImpl implements Transaction, SubTransaction, Modifiable<Transaction.Modify> {
 

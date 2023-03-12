@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 import java.util.Set;
 import java.util.List;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModify")
+@Generated(value = "net.binis.codegen.prototype.TestModifyPrototype", comments = "TestModify")
 public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify> {
 
     protected double amount;

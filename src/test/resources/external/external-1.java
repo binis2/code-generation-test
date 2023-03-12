@@ -7,6 +7,6 @@ import net.binis.codegen.intf.Available;
 import net.binis.codegen.enums.TestEnum;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "TestPrototype", comments = "TestImpl")
+@Generated(value = "net.binis.codegen.test.TestPrototype", comments = "TestImpl")
 public interface Test extends ExternalInterface<String>, Available, Typeable<TestEnum> {
 }

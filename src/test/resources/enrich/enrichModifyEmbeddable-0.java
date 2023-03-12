@@ -9,7 +9,7 @@ import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModify")
+@Generated(value = "net.binis.codegen.test.TestModifyPrototype", comments = "TestModify")
 public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify> {
 
     protected double amount;

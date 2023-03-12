@@ -7,7 +7,7 @@ import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModifyImpl")
+@Generated(value = "net.binis.codegen.test.TestModifyPrototype", comments = "TestModifyImpl")
 public interface TestModify {
     double getAmount();
     List<Long> getItems();

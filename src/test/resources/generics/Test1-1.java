@@ -14,7 +14,7 @@ import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "TestImpl")
+@Generated(value = "net.binis.codegen.test.TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.test.TestImpl")
 @SuppressWarnings("unchecked")
 public interface Test extends Generic<TestPayload>, Typeable<TestEnum> {

@@ -15,7 +15,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 import codegen.modifier.TestModifier;
 
-@Generated(value = "AccountEntityPrototype", comments = "AccountEntity")
+@Generated(value = "net.binis.codegen.modifier.test.AccountEntityPrototype", comments = "AccountEntity")
 @Default("net.binis.codegen.modifier.test.AccountEntity")
 @SuppressWarnings("unchecked")
 public interface Account extends Base {

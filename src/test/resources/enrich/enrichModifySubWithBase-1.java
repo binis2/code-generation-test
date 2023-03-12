@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
-@Generated(value = "SubModifyPrototype", comments = "SubModifyImpl")
+@Generated(value = "net.binis.codegen.SubModifyPrototype", comments = "SubModifyImpl")
 @Default("net.binis.codegen.SubModifyImpl")
 @SuppressWarnings("unchecked")
 public interface SubModify extends Base, Taggable, Identifiable {

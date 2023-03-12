@@ -8,7 +8,7 @@ import javax.annotation.processing.Generated;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "Test2Prototype", comments = "Test2Impl")
+@Generated(value = "net.binis.codegen.Test2Prototype", comments = "Test2Impl")
 @Default("net.binis.codegen.Test2Impl")
 @SuppressWarnings("unchecked")
 public interface Test2 {

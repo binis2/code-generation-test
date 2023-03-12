@@ -4,7 +4,7 @@ package net.binis.codegen;
 import net.binis.codegen.test.base.CompiledBase;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "TestPrototype", comments = "TestImpl")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 public interface Test extends CompiledBase {
     String getTitle();
 

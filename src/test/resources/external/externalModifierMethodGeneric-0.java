@@ -6,7 +6,7 @@ import net.binis.codegen.modifier.Modifiable;
 import javax.annotation.processing.Generated;
 import jakarta.persistence.Transient;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.test.TestPrototype", comments = "Test")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected boolean available;

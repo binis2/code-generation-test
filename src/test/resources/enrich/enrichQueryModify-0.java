@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 @SuppressWarnings("unchecked")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 

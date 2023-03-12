@@ -19,7 +19,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 import jakarta.persistence.Transient;
 
-@Generated(value = "SubModifyPrototype", comments = "SubModify")
+@Generated(value = "net.binis.codegen.SubModifyPrototype", comments = "SubModify")
 @SuppressWarnings("unchecked")
 public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<SubModify.Modify> {
 

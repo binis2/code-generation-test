@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 @SuppressWarnings("unchecked")
 public class TestImpl extends BaseImpl implements Test {
 

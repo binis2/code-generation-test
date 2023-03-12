@@ -26,7 +26,7 @@ import net.binis.codegen.enums.TestEnum;
 import javax.annotation.processing.Generated;
 import java.time.OffsetDateTime;
 
-@Generated(value = "BasePrototype", comments = "BaseImpl")
+@Generated(value = "net.binis.codegen.BasePrototype", comments = "BaseImpl")
 public interface Base extends Typeable<TestEnum> {
     OffsetDateTime getDate();
     Long getId();

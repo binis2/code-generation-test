@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.Optional;
 import java.util.List;
 
-@Generated(value = "SubPrototype", comments = "Sub")
+@Generated(value = "net.binis.codegen.SubPrototype", comments = "Sub")
 @SuppressWarnings("unchecked")
 public class SubImpl implements Sub {
 

@@ -4,7 +4,7 @@ package net.binis.codegen;
 import javax.annotation.processing.Generated;
 import jakarta.persistence.OneToOne;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 public class TestImpl extends CompiledWithImplementationImpl implements Test {
 
     protected String title;

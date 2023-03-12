@@ -20,7 +20,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 import codegen.modifier.impl.TestModifierImpl;
 
-@Generated(value = "AccountEntityPrototype", comments = "Account")
+@Generated(value = "net.binis.codegen.modifier.test.AccountEntityPrototype", comments = "Account")
 @SuppressWarnings("unchecked")
 public class AccountEntity extends BaseImpl implements Account, Modifiable<Account.Modify> {
 

@@ -34,7 +34,7 @@ import java.util.Optional;
 import java.util.List;
 import java.time.OffsetDateTime;
 
-@Generated(value = "MixModifyPrototype", comments = "MixModifyImpl")
+@Generated(value = "net.binis.codegen.MixModifyPrototype", comments = "MixModifyImpl")
 @Default("net.binis.codegen.TestModifyImpl")
 @SuppressWarnings("unchecked")
 public interface MixModify extends TestModify {

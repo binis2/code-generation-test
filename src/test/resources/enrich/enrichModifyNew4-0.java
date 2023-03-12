@@ -18,7 +18,7 @@ import java.util.List;
 import java.time.OffsetDateTime;
 import jakarta.persistence.Transient;
 
-@Generated(value = "TransactionDetailEntityPrototype", comments = "TransactionDetail")
+@Generated(value = "net.binis.codegen.modifier.test.TransactionDetailEntityPrototype", comments = "TransactionDetail")
 @SuppressWarnings("unchecked")
 public class TransactionDetailEntity extends BaseImpl implements TransactionDetail, Modifiable<TransactionDetail.Modify> {
 

@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.List;
 import jakarta.persistence.Column;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.test.TestPrototype", comments = "Test")
 @SuppressWarnings("unchecked")
 public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiable<Test.Modify> {
 
