@@ -7,7 +7,5 @@ import javax.annotation.processing.Generated;
 public interface Test extends Compiled {
     String getTitle();
 
-    boolean isTestable();
-
     void setTitle(String title);
 }

@@ -6,8 +6,6 @@ import javax.annotation.processing.Generated;
 @Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 public interface Test extends CompiledWithImplementation {
     String getTitle();
-    String getType();
 
     void setTitle(String title);
-    void setType(String type);
 }
