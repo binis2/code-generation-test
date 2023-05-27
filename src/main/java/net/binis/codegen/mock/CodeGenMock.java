@@ -620,8 +620,8 @@ public class CodeGenMock {
         };
 
         CodeFactory.envelopFactory(result -> {
-            if (result instanceof MockedQuery) {
-                ((MockedQuery) result).setMocked(mock, onValue);
+            if (result instanceof MockedQuery query) {
+                query.setMocked(mock, onValue);
             }
             return result;
         });
