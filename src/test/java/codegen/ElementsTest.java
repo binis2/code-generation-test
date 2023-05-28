@@ -20,6 +20,7 @@ package codegen;
  * #L%
  */
 
+import net.binis.codegen.annotation.CodeImplementation;
 import net.binis.codegen.annotation.DummyAnnotation;
 import net.binis.codegen.annotation.TestElementAnnotation;
 import net.binis.codegen.generation.core.Structures;
@@ -28,8 +29,7 @@ import net.binis.codegen.tools.Reflection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ElementsTest extends BaseCodeGenElementTest {
 
@@ -52,6 +52,46 @@ public class ElementsTest extends BaseCodeGenElementTest {
         assertEquals(1, method.getAnnotations().length);
         assertEquals(DummyAnnotation.class, method.getAnnotations()[0].annotationType());
     }
+
+    @Test
+    void testDefaultMethodInheritance() {
+        var loader = testSingle("elements/elementDefaultMethodInheritance1.java");
+        var cls = loader.findClass("net.binis.codegen.prototype.CompiledWithImplementationPrototype");
+        assertNotNull(cls);
+        var method = Reflection.findMethod("isTestable", cls);
+        assertNotNull(method);
+        var ann = method.getAnnotations();
+        assertEquals(1, ann.length);
+        if (ann[0] instanceof CodeImplementation a) {
+            assertEquals("return !this.test;", a.value());
+        } else {
+            fail("Annotation is not CodeImplementation");
+        }
+
+        var same = Reflection.findMethod("isSame", cls, boolean.class);
+        assertNotNull(same);
+        ann = same.getAnnotations();
+        assertEquals(1, ann.length);
+        if (ann[0] instanceof CodeImplementation a) {
+            assertEquals("return bool == this.test;", a.value());
+        } else {
+            fail("Annotation is not CodeImplementation");
+        }
+
+        same = Reflection.findMethod("isSame", cls, cls);
+        assertNotNull(same);
+        ann = same.getAnnotations();
+        assertEquals(1, ann.length);
+        if (ann[0] instanceof CodeImplementation a) {
+            assertEquals("return other.test == this.test;", a.value());
+        } else {
+            fail("Annotation is not CodeImplementation");
+        }
+
+
+    }
+
+
 
 
 }
