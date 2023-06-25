@@ -1,15 +1,15 @@
 package net.binis.codegen;
 
 import lombok.extern.slf4j.Slf4j;
-import net.binis.codegen.annotation.TestElementAnnotation;
+import net.binis.codegen.annotation.TestAnnotationElementAnnotation;
 
 @Slf4j
 public class TestElement {
 
-    @TestElementAnnotation
+    @TestAnnotationElementAnnotation
     private Long id;
 
-    @TestElementAnnotation
+    @TestAnnotationElementAnnotation
     public Long getId() {
         return id;
     }

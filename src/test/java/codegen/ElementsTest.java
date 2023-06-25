@@ -20,22 +20,24 @@ package codegen;
  * #L%
  */
 
-import net.binis.codegen.annotation.CodeImplementation;
-import net.binis.codegen.annotation.DummyAnnotation;
-import net.binis.codegen.annotation.TestElementAnnotation;
+import net.binis.codegen.annotation.*;
 import net.binis.codegen.generation.core.Structures;
 import net.binis.codegen.test.BaseCodeGenElementTest;
 import net.binis.codegen.tools.Reflection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static net.binis.codegen.tools.Reflection.findMethod;
+import static net.binis.codegen.tools.Reflection.invokeStaticWithException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ElementsTest extends BaseCodeGenElementTest {
 
     @BeforeAll
     public static void setup() {
-        Structures.registerTemplate(TestElementAnnotation.class);
+        Structures.registerTemplate(TestAnnotationElementAnnotation.class);
+        Structures.registerTemplate(TestAddMethodElementAnnotation.class);
+        Structures.registerTemplate(TestAddMethod2ElementAnnotation.class);
     }
 
     @Test
@@ -55,8 +57,7 @@ public class ElementsTest extends BaseCodeGenElementTest {
 
     @Test
     void testDefaultMethodInheritance() {
-        var loader = testSingle("elements/elementDefaultMethodInheritance1.java");
-        var cls = loader.findClass("net.binis.codegen.prototype.CompiledWithImplementationPrototype");
+        var cls = testSingle("elements/elementDefaultMethodInheritance1.java", "net.binis.codegen.prototype.CompiledWithImplementationPrototype");
         assertNotNull(cls);
         var method = Reflection.findMethod("isTestable", cls);
         assertNotNull(method);
@@ -87,11 +88,29 @@ public class ElementsTest extends BaseCodeGenElementTest {
         } else {
             fail("Annotation is not CodeImplementation");
         }
-
-
     }
 
+    @Test
+    void testAddMethod() {
+        var cls = testSingle("elements/elementAddMethod1.java", "net.binis.codegen.TestElement");
+        assertNotNull(cls);
 
+        var main = findMethod("main", cls, String[].class);
+        assertNotNull(main);
+
+        assertThrows(RuntimeException.class, () -> invokeStaticWithException(main, (Object) new String[] {}));
+    }
+
+    @Test
+    void testAddMethod2() {
+        var cls = testSingle("elements/elementAddMethod2.java", "net.binis.codegen.TestElement");
+        assertNotNull(cls);
+
+        var main = findMethod("main", cls, String[].class);
+        assertNotNull(main);
+
+        assertThrows(RuntimeException.class, () -> invokeStaticWithException(main, (Object) new String[] {}));
+    }
 
 
 }

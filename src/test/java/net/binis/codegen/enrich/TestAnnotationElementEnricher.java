@@ -21,22 +21,17 @@ package net.binis.codegen.enrich;
  */
 
 import lombok.extern.slf4j.Slf4j;
-import net.binis.codegen.annotation.CodeAnnotation;
 import net.binis.codegen.annotation.DummyAnnotation;
-import net.binis.codegen.annotation.TestElementAnnotation;
-import net.binis.codegen.annotation.builder.CodeBuilder;
+import net.binis.codegen.annotation.TestAnnotationElementAnnotation;
 import net.binis.codegen.compiler.utils.ElementAnnotationUtils;
 import net.binis.codegen.enrich.handler.base.BaseEnricher;
 import net.binis.codegen.generation.core.interfaces.ElementDescription;
 
-import java.lang.annotation.Documented;
-import java.util.Map;
-
 @Slf4j
-public class TestElementEnricher extends BaseEnricher {
+public class TestAnnotationElementEnricher extends BaseEnricher {
     @Override
     public void enrichElement(ElementDescription description) {
-        ElementAnnotationUtils.removeAnnotation(description.getElement(), TestElementAnnotation.class);
+        ElementAnnotationUtils.removeAnnotation(description.getElement(), TestAnnotationElementAnnotation.class);
         ElementAnnotationUtils.addAnnotation(description.getElement(), DummyAnnotation.class);
     }
 
