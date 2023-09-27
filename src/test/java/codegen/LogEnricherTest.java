@@ -41,4 +41,18 @@ class LogEnricherTest extends BaseCodeGenElementTest {
         invokeStatic("test", cls);
     }
 
+    @Test
+    void testTripleLogUsage() {
+        var loader = testMulti("log/double1.java", "log/double2.java", "log/double3.java");
+        var log1 = loader.findClass("net.binis.codegen.Log1");
+        assertNotNull(log1);
+        assertNotNull(Reflection.findField(log1, "log"));
+        var log2 = loader.findClass("net.binis.codegen.Log2");
+        assertNotNull(log2);
+        assertNotNull(Reflection.findField(log2, "log"));
+        var log3 = loader.findClass("net.binis.codegen.Log3");
+        assertNotNull(log3);
+        assertNotNull(Reflection.findField(log3, "log"));
+    }
+
 }
