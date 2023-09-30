@@ -20,6 +20,7 @@ package codegen;
  * #L%
  */
 
+import net.binis.codegen.annotation.type.GenerationStrategy;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.test.BaseCodeGenElementTest;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class ConstructorEnricherTest extends BaseCodeGenElementTest {
     void testRequiredEnricher() {
         var cls = testSingle("constructor/required1.java", "net.binis.codegen.TestRequired");
         assertNotNull(cls);
-        var inst = CodeFactory.create(cls, 5L);
+        var inst = CodeFactory.create(cls, 5L, 2, null, GenerationStrategy.NONE, ConstructorEnricherTest.class);
         assertNotNull(inst);
         assertEquals(5L, (Long) getFieldValue(inst, "test"));
     }
@@ -71,6 +72,16 @@ class ConstructorEnricherTest extends BaseCodeGenElementTest {
         assertEquals(3L, (Long) getFieldValue(inst, "testNotFinal"));
         assertEquals(4L, (Long) getFieldValue(inst, "testInitialized"));
     }
+
+    @Test
+    void testWithNested() {
+        var cls = testSingle("constructor/nested1.java", "net.binis.codegen.TestWithNested$BaseClass");
+        assertNotNull(cls);
+        var inst = CodeFactory.create(cls, "test");
+        assertNotNull(inst);
+        assertEquals("test", getFieldValue(inst, "field"));
+    }
+
 
 
 }

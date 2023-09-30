@@ -55,4 +55,21 @@ class LogEnricherTest extends BaseCodeGenElementTest {
         assertNotNull(Reflection.findField(log3, "log"));
     }
 
+    @Test
+    void testCombinedLogAndConstructorEnrichers() {
+        var cls = testSingle("log/combined1.java", "net.binis.codegen.TestLog");
+        assertNotNull(cls);
+        var field = Reflection.findField(cls, "log");
+        assertNotNull(field);
+        assertEquals(Logger.class, field.getType());
+        invokeStatic("test", cls);
+    }
+
+    @Test
+    void testWtf() {
+        var cls = testMulti("log/wtf1.java", "log/wtf2.java");
+        assertNotNull(cls);
+    }
+
+
 }
