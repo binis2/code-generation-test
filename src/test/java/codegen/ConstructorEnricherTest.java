@@ -26,7 +26,6 @@ import net.binis.codegen.test.BaseCodeGenElementTest;
 import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.tools.Reflection.getFieldValue;
-import static net.binis.codegen.tools.Reflection.invokeStatic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
