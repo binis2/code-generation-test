@@ -161,9 +161,11 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     // endregion
 
     // region inner classes
+    @Generated("QueryEnricher")
     protected static class MixModifyFieldsQueryExecutorImpl extends MixModifyQueryExecutorImpl implements MixModify.QueryFieldsStart, EmbeddedFields {
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class MixModifyModifyImpl extends BaseModifierImpl<MixModify.Modify, MixModify> implements MixModify.Modify {
 
@@ -259,6 +261,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class MixModifyQueryExecutorImpl extends QueryExecutor implements MixModify.QueryUpdate, MixModify.QuerySelect, MixModify.QueryFieldsStart {
 
         protected MixModifyQueryExecutorImpl() {
@@ -345,6 +348,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class MixModifyQueryOrderImpl extends QueryOrderer implements MixModify.QueryOrder, MixModify.QueryAggregate {
 
             protected MixModifyQueryOrderImpl(MixModifyQueryExecutorImpl executor, Function<String, Object> func) {
@@ -381,9 +385,11 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class MixModifySelectQueryExecutorImpl extends MixModifyQueryExecutorImpl implements MixModify.QuerySelect {
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
 
@@ -445,6 +451,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QueryUpdate, TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
@@ -507,6 +514,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class TestModifyQueryOrderImpl extends QueryOrderer implements TestModify.QueryOrder, TestModify.QueryAggregate {
 
             protected TestModifyQueryOrderImpl(TestModifyQueryExecutorImpl executor, Function<String, Object> func) {
@@ -535,6 +543,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestModifyQueryNameImpl extends BaseQueryNameImpl implements TestModify.QueryName, QueryEmbed, MixModify.QueryName {
 
         public QueryFunctions amount() {

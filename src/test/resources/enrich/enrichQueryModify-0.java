@@ -85,6 +85,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         return new TestModifyImpl(this);
     }
 
+    @Generated("QueryEnricher")
     protected static class TestFieldsQueryExecutorImpl extends TestQueryExecutorImpl implements Test.QueryFieldsStart, EmbeddedFields {
 
         public Test.QueryOperationFields parent() {
@@ -101,6 +102,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TestImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Test.EmbeddedModify<T, R> {
 
         protected TestImplEmbeddedModifyImpl(R parent) {
@@ -155,6 +157,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TestImplSoloModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedSoloModify {
 
         protected TestImplSoloModifyImpl(Object parent) {
@@ -162,6 +165,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends TestImplEmbeddedModifyImpl<Test.Modify, Test> implements Test.Modify {
 
@@ -186,6 +190,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static abstract class TestQueryExecutorImpl extends QueryExecutor implements Test.QueryUpdate {
 
         protected TestQueryExecutorImpl() {
@@ -232,6 +237,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return identifier("title");
         }
 
+        @Generated("QueryEnricher")
         protected class TestQueryOrderImpl extends QueryOrderer implements Test.QueryOrder, Test.QueryAggregate {
 
             protected TestQueryOrderImpl(TestQueryExecutorImpl executor, Function<String, Object> func) {
@@ -260,6 +266,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {
@@ -299,6 +306,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestSelectQueryExecutorImpl extends TestQueryExecutorImpl implements Test.QuerySelect {
 
         public Test.QueryName parent() {

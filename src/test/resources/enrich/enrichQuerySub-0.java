@@ -46,6 +46,7 @@ public class SubImpl implements Sub {
         this.subtitle = subtitle;
     }
 
+    @Generated("QueryEnricher")
     protected static class SubQueryExecutorImpl extends QueryExecutor implements Sub.QueryUpdate, Sub.QuerySelect, Sub.QueryFieldsStart {
 
         protected SubQueryExecutorImpl() {
@@ -76,6 +77,7 @@ public class SubImpl implements Sub {
             return identifier("subtitle");
         }
 
+        @Generated("QueryEnricher")
         protected class SubQueryOrderImpl extends QueryOrderer implements Sub.QueryOrder, Sub.QueryAggregate {
 
             protected SubQueryOrderImpl(SubQueryExecutorImpl executor, Function<String, Object> func) {
@@ -92,6 +94,7 @@ public class SubImpl implements Sub {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class SubQueryNameImpl extends BaseQueryNameImpl implements Sub.QueryName, QueryEmbed {
 
         public QueryFunctions subAmount() {

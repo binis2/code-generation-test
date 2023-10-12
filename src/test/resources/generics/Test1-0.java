@@ -50,6 +50,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
 
     // region inner classes
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TestImplCollectionModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedCollectionModify {
 
         protected TestImplCollectionModifyImpl(Object parent) {
@@ -62,6 +63,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TestImplEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Test.EmbeddedModify<T, R> {
 
         protected TestImplEmbeddedModifyImpl(R parent) {
@@ -80,6 +82,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TestImplSoloModifyImpl extends TestImplEmbeddedModifyImpl implements Test.EmbeddedSoloModify {
 
         protected TestImplSoloModifyImpl(Object parent) {
@@ -87,6 +90,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends TestImplEmbeddedModifyImpl<Test.Modify, Test> implements Test.Modify {
 
@@ -95,6 +99,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QueryUpdate, Test.QuerySelect, Test.QueryFieldsStart {
 
         protected TestQueryExecutorImpl() {
@@ -125,6 +130,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class TestQueryOrderImpl extends QueryOrderer implements Test.QueryOrder, Test.QueryAggregate {
 
             protected TestQueryOrderImpl(TestQueryExecutorImpl executor, Function<String, Object> func) {
@@ -141,6 +147,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
 
         public QueryFunctions payload() {

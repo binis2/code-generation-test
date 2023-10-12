@@ -87,6 +87,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
 
     // region inner classes
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class AccountEntityEmbeddedModifyImpl<T, R> extends TestModifierImpl<T, R> implements Account.EmbeddedModify<T, R> {
 
         protected AccountEntityEmbeddedModifyImpl(R parent) {
@@ -158,6 +159,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class AccountEntityModifyImpl extends AccountEntityEmbeddedModifyImpl<Account.Modify, Account> implements Account.Modify {
 
@@ -167,6 +169,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class AccountEntitySoloModifyImpl extends AccountEntityEmbeddedModifyImpl implements Account.EmbeddedSoloModify {
 
         protected AccountEntitySoloModifyImpl(Object parent) {
@@ -174,6 +177,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class AccountQueryExecutorImpl extends QueryExecutor implements Account.QueryUpdate, Account.QuerySelect, Account.QueryFieldsStart {
 
         protected AccountQueryExecutorImpl() {
@@ -260,6 +264,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class AccountQueryOrderImpl extends QueryOrderer implements Account.QueryOrder, Account.QueryAggregate {
 
             protected AccountQueryOrderImpl(AccountQueryExecutorImpl executor, Function<String, Object> func) {
@@ -300,6 +305,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class AccountQueryNameImpl extends BaseQueryNameImpl implements Account.QueryName, QueryEmbed {
 
         public QueryFunctions accountNumber() {

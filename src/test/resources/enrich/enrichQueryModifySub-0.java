@@ -53,6 +53,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class SubImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements Sub.EmbeddedModify<T, R> {
 
         protected SubImplEmbeddedModifyImpl(R parent) {
@@ -71,6 +72,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class SubImplSoloModifyImpl extends SubImplEmbeddedModifyImpl implements Sub.EmbeddedSoloModify {
 
         protected SubImplSoloModifyImpl(Object parent) {
@@ -78,6 +80,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class SubModifyImpl extends SubImplEmbeddedModifyImpl<Sub.Modify, Sub> implements Sub.Modify {
 
@@ -86,6 +89,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class SubQueryExecutorImpl extends QueryExecutor implements Sub.QueryUpdate, Sub.QuerySelect, Sub.QueryFieldsStart {
 
         protected SubQueryExecutorImpl() {
@@ -116,6 +120,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
             return identifier("subtitle");
         }
 
+        @Generated("QueryEnricher")
         protected class SubQueryOrderImpl extends QueryOrderer implements Sub.QueryOrder, Sub.QueryAggregate {
 
             protected SubQueryOrderImpl(SubQueryExecutorImpl executor, Function<String, Object> func) {
@@ -132,6 +137,7 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class SubQueryNameImpl extends BaseQueryNameImpl implements Sub.QueryName, QueryEmbed {
 
         public QueryFunctions subAmount() {

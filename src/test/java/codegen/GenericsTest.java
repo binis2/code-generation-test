@@ -30,11 +30,6 @@ import java.util.List;
 
 class GenericsTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void testGenericsWithBaseAndPrototype() {
         testMulti(List.of(

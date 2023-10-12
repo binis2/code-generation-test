@@ -91,6 +91,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
 
     // region inner classes
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class SubTransactionEntityEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubTransaction.EmbeddedModify<T, R> {
 
         protected SubTransactionEntityEmbeddedModifyImpl(R parent) {
@@ -164,6 +165,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class SubTransactionEntityModifyImpl extends SubTransactionEntityEmbeddedModifyImpl<SubTransaction.Modify, SubTransaction> implements SubTransaction.Modify {
 
@@ -197,6 +199,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class SubTransactionEntitySoloModifyImpl extends SubTransactionEntityEmbeddedModifyImpl implements SubTransaction.EmbeddedSoloModify {
 
         protected SubTransactionEntitySoloModifyImpl(Object parent) {
@@ -204,6 +207,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class SubTransactionFieldsQueryExecutorImpl extends SubTransactionQueryExecutorImpl implements SubTransaction.QueryFieldsStart, EmbeddedFields {
 
         public Account.QueryOperationFields account() {
@@ -225,6 +229,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("QueryEnricher")
     protected static abstract class SubTransactionQueryExecutorImpl extends QueryExecutor implements SubTransaction.QueryUpdate {
 
         protected SubTransactionQueryExecutorImpl() {
@@ -299,6 +304,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class SubTransactionQueryOrderImpl extends QueryOrderer implements SubTransaction.QueryOrder, SubTransaction.QueryAggregate {
 
             protected SubTransactionQueryOrderImpl(SubTransactionQueryExecutorImpl executor, Function<String, Object> func) {
@@ -345,6 +351,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class SubTransactionSelectQueryExecutorImpl extends SubTransactionQueryExecutorImpl implements SubTransaction.QuerySelect {
 
         public Account.QueryName account() {
@@ -367,6 +374,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TransactionEntityCollectionModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedCollectionModify {
 
         protected TransactionEntityCollectionModifyImpl(Object parent) {
@@ -379,6 +387,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TransactionEntityEmbeddedModifyImpl<T, R> extends BaseEntityModifierImpl<T, R> implements Transaction.EmbeddedModify<T, R> {
 
         protected TransactionEntityEmbeddedModifyImpl(R parent) {
@@ -440,6 +449,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TransactionEntityModifyImpl extends TransactionEntityEmbeddedModifyImpl<Transaction.Modify, Transaction> implements Transaction.Modify {
 
@@ -465,6 +475,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class TransactionEntitySoloModifyImpl extends TransactionEntityEmbeddedModifyImpl implements Transaction.EmbeddedSoloModify {
 
         protected TransactionEntitySoloModifyImpl(Object parent) {
@@ -472,6 +483,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TransactionFieldsQueryExecutorImpl extends TransactionQueryExecutorImpl implements Transaction.QueryFieldsStart, EmbeddedFields {
 
         public Account.QueryOperationFields account() {
@@ -487,6 +499,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("QueryEnricher")
     protected static abstract class TransactionQueryExecutorImpl extends QueryExecutor implements Transaction.QueryUpdate {
 
         protected TransactionQueryExecutorImpl() {
@@ -557,6 +570,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class TransactionQueryOrderImpl extends QueryOrderer implements Transaction.QueryOrder, Transaction.QueryAggregate {
 
             protected TransactionQueryOrderImpl(TransactionQueryExecutorImpl executor, Function<String, Object> func) {
@@ -597,6 +611,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TransactionQueryNameImpl extends BaseQueryNameImpl implements Transaction.QueryName, QueryEmbed, SubTransaction.QueryName {
 
         public Account.QueryName account() {
@@ -674,6 +689,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TransactionSelectQueryExecutorImpl extends TransactionQueryExecutorImpl implements Transaction.QuerySelect {
 
         public Account.QueryName account() {

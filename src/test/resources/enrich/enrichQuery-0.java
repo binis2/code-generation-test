@@ -76,6 +76,7 @@ public class Test2Impl implements Test2 {
         this.title = title;
     }
 
+    @Generated("QueryEnricher")
     protected static class Test2FieldsQueryExecutorImpl extends Test2QueryExecutorImpl implements Test2.QueryFieldsStart, EmbeddedFields {
 
         public Test2.QueryOperationFields parent() {
@@ -91,6 +92,7 @@ public class Test2Impl implements Test2 {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static abstract class Test2QueryExecutorImpl extends QueryExecutor implements Test2.QueryUpdate {
 
         protected Test2QueryExecutorImpl() {
@@ -137,6 +139,7 @@ public class Test2Impl implements Test2 {
             return identifier("title");
         }
 
+        @Generated("QueryEnricher")
         protected class Test2QueryOrderImpl extends QueryOrderer implements Test2.QueryOrder, Test2.QueryAggregate {
 
             protected Test2QueryOrderImpl(Test2QueryExecutorImpl executor, Function<String, Object> func) {
@@ -165,6 +168,7 @@ public class Test2Impl implements Test2 {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class Test2QueryNameImpl extends BaseQueryNameImpl implements Test2.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {
@@ -204,6 +208,7 @@ public class Test2Impl implements Test2 {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class Test2SelectQueryExecutorImpl extends Test2QueryExecutorImpl implements Test2.QuerySelect {
 
         public Test2.QueryName parent() {

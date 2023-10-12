@@ -70,6 +70,7 @@ public class TestMockEntity implements TestMock, Modifiable<TestMock.Modify> {
         return new TestMockEntityModifyImpl(this);
     }
 
+    @Generated("ModifierEnricher")
     protected class TestMockEntityModifyImpl extends BaseEntityModifierImpl<TestMock.Modify, TestMock> implements TestMock.Modify {
 
         protected TestMockEntityModifyImpl(TestMock parent) {

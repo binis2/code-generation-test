@@ -55,6 +55,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
     // endregion
 
     // region inner classes
+    @Generated("ModifierEnricher")
     protected class TransactionDetailEntityModifyImpl extends BaseModifierImpl<TransactionDetail.Modify, TransactionDetail> implements TransactionDetail.Modify {
 
         protected TransactionDetailEntityModifyImpl(TransactionDetail parent) {
@@ -106,6 +107,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TransactionDetailFieldsQueryExecutorImpl extends TransactionDetailQueryExecutorImpl implements TransactionDetail.QueryFieldsStart, EmbeddedFields {
 
         public SubTransaction.QueryOperationFields parented() {
@@ -115,6 +117,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
         }
     }
 
+    @Generated("QueryEnricher")
     protected static abstract class TransactionDetailQueryExecutorImpl extends QueryExecutor implements TransactionDetail.QueryUpdate {
 
         protected TransactionDetailQueryExecutorImpl() {
@@ -165,6 +168,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class TransactionDetailQueryOrderImpl extends QueryOrderer implements TransactionDetail.QueryOrder, TransactionDetail.QueryAggregate {
 
             protected TransactionDetailQueryOrderImpl(TransactionDetailQueryExecutorImpl executor, Function<String, Object> func) {
@@ -191,6 +195,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TransactionDetailQueryNameImpl extends BaseQueryNameImpl implements TransactionDetail.QueryName, QueryEmbed {
 
         public QueryFunctions date() {
@@ -232,6 +237,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TransactionDetailSelectQueryExecutorImpl extends TransactionDetailQueryExecutorImpl implements TransactionDetail.QuerySelect {
 
         public SubTransaction.QueryName parented() {

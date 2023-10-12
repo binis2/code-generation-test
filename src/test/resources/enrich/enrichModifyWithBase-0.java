@@ -93,6 +93,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
     // endregion
 
     // region inner classes
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
 
@@ -154,6 +155,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestModifyQueryExecutorImpl extends QueryExecutor implements TestModify.QueryUpdate, TestModify.QuerySelect, TestModify.QueryFieldsStart {
 
         protected TestModifyQueryExecutorImpl() {
@@ -216,6 +218,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class TestModifyQueryOrderImpl extends QueryOrderer implements TestModify.QueryOrder, TestModify.QueryAggregate {
 
             protected TestModifyQueryOrderImpl(TestModifyQueryExecutorImpl executor, Function<String, Object> func) {
@@ -244,6 +247,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, Modifiable<T
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestModifyQueryNameImpl extends BaseQueryNameImpl implements TestModify.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {

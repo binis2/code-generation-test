@@ -32,11 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ModifyEnrichTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void enrichModify() {
         testMulti(List.of(

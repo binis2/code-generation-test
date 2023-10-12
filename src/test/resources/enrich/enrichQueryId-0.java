@@ -48,6 +48,7 @@ public class TestImpl extends BaseImpl implements Test {
         this.title = title;
     }
 
+    @Generated("QueryEnricher")
     protected static class TestQueryExecutorImpl extends QueryExecutor implements Test.QueryUpdate, Test.QuerySelect, Test.QueryFieldsStart {
 
         protected TestQueryExecutorImpl() {
@@ -86,6 +87,7 @@ public class TestImpl extends BaseImpl implements Test {
             return identifier("title");
         }
 
+        @Generated("QueryEnricher")
         protected class TestQueryOrderImpl extends QueryOrderer implements Test.QueryOrder, Test.QueryAggregate {
 
             protected TestQueryOrderImpl(TestQueryExecutorImpl executor, Function<String, Object> func) {
@@ -106,6 +108,7 @@ public class TestImpl extends BaseImpl implements Test {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {

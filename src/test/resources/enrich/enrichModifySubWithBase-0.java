@@ -87,6 +87,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     // endregion
 
     // region inner classes
+    @Generated("QueryEnricher")
     protected static class SubModifyFieldsQueryExecutorImpl extends SubModifyQueryExecutorImpl implements SubModify.QueryFieldsStart, EmbeddedFields {
 
         public SubModify.QueryOperationFields parent() {
@@ -97,6 +98,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class SubModifyImplCollectionModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedCollectionModify {
 
         protected SubModifyImplCollectionModifyImpl(Object parent) {
@@ -109,6 +111,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class SubModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubModify.EmbeddedModify<T, R> {
 
         protected SubModifyImplEmbeddedModifyImpl(R parent) {
@@ -159,6 +162,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     }
 
     @SuppressWarnings("unchecked")
+    @Generated("ModifierEnricher")
     protected class SubModifyImplSoloModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedSoloModify {
 
         protected SubModifyImplSoloModifyImpl(Object parent) {
@@ -166,6 +170,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class SubModifyModifyImpl extends SubModifyImplEmbeddedModifyImpl<SubModify.Modify, SubModify> implements SubModify.Modify {
 
@@ -182,6 +187,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @Generated("QueryEnricher")
     protected static abstract class SubModifyQueryExecutorImpl extends QueryExecutor implements SubModify.QueryUpdate {
 
         protected SubModifyQueryExecutorImpl() {
@@ -248,6 +254,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return identifier("type");
         }
 
+        @Generated("QueryEnricher")
         protected class SubModifyQueryOrderImpl extends QueryOrderer implements SubModify.QueryOrder, SubModify.QueryAggregate {
 
             protected SubModifyQueryOrderImpl(SubModifyQueryExecutorImpl executor, Function<String, Object> func) {
@@ -282,6 +289,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class SubModifyQueryNameImpl extends BaseQueryNameImpl implements SubModify.QueryName, QueryEmbed {
 
         public QueryFunctions date() {
@@ -339,6 +347,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class SubModifySelectQueryExecutorImpl extends SubModifyQueryExecutorImpl implements SubModify.QuerySelect {
 
         public SubModify.QueryName parent() {

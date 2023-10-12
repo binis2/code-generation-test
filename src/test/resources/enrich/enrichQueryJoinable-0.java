@@ -228,6 +228,7 @@ public class TestReservedImpl implements TestReserved {
         this.tuples = tuples;
     }
 
+    @Generated("QueryEnricher")
     protected static class TestReservedQueryExecutorImpl extends QueryExecutor implements TestReserved.QueryUpdate, TestReserved.QuerySelect, TestReserved.QueryFieldsStart {
 
         protected TestReservedQueryExecutorImpl() {
@@ -390,6 +391,7 @@ public class TestReservedImpl implements TestReserved {
             return identifier("tuples");
         }
 
+        @Generated("QueryEnricher")
         protected class TestReservedQueryOrderImpl extends QueryOrderer implements TestReserved.QueryOrder, TestReserved.QueryAggregate {
 
             protected TestReservedQueryOrderImpl(TestReservedQueryExecutorImpl executor, Function<String, Object> func) {
@@ -466,6 +468,7 @@ public class TestReservedImpl implements TestReserved {
         }
     }
 
+    @Generated("QueryEnricher")
     protected static class TestReservedQueryNameImpl extends BaseQueryNameImpl implements TestReserved.QueryName, QueryEmbed {
 
         public QueryFunctions count_() {
