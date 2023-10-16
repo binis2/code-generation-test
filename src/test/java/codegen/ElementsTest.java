@@ -26,6 +26,7 @@ import net.binis.codegen.test.BaseCodeGenElementTest;
 import net.binis.codegen.tools.Reflection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Configuration;
 
 import static net.binis.codegen.tools.Reflection.findMethod;
 import static net.binis.codegen.tools.Reflection.invokeStaticWithException;
@@ -112,5 +113,13 @@ public class ElementsTest extends BaseCodeGenElementTest {
         assertThrows(RuntimeException.class, () -> invokeStaticWithException(main, (Object) new String[] {}));
     }
 
+    @Test
+    void testMultiAnnotations() {
+        var loader = testSingle("elements/multi1.java");
+        var cls = loader.findClass("net.binis.codegen.TestElement");
+        assertNotNull(cls);
+        assertNotNull(Reflection.findField(cls, "log"));
+        assertNotNull(Reflection.findConstructor(cls, String.class));
+    }
 
 }
