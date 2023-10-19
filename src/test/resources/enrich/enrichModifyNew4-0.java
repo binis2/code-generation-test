@@ -129,43 +129,43 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new TransactionDetailQueryOrderImpl(this, TransactionDetailQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new TransactionDetailQueryOrderImpl(this, TransactionDetailQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return identifier("date", date);
+            return $identifier("date", date);
         }
 
         public QueryFunctions date() {
-            return identifier("date");
+            return $identifier("date");
         }
 
         public QuerySelectOperation id(Long id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public TransactionDetail.QueryOrder order() {
-            return (TransactionDetail.QueryOrder) orderStart(new TransactionDetailQueryOrderImpl(this, TransactionDetailQueryExecutorImpl.this::orderIdentifier));
+            return (TransactionDetail.QueryOrder) _orderStart(new TransactionDetailQueryOrderImpl(this, TransactionDetailQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation parented(SubTransaction parented) {
-            return identifier("parented", parented);
+            return $identifier("parented", parented);
         }
 
         public QuerySelectOperation tag(Object tag) {
-            return identifier("tag", tag);
+            return $identifier("tag", tag);
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         @Generated("QueryEnricher")
@@ -199,19 +199,19 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
     protected static class TransactionDetailQueryNameImpl extends BaseQueryNameImpl implements TransactionDetail.QueryName, QueryEmbed {
 
         public QueryFunctions date() {
-            return executor.identifier("date");
+            return executor.$identifier("date");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return executor.identifier("date", date);
+            return executor.$identifier("date", date);
         }
 
         public QueryFunctions id() {
-            return executor.identifier("id");
+            return executor.$identifier("id");
         }
 
         public QuerySelectOperation id(Long id) {
-            return executor.identifier("id", id);
+            return executor.$identifier("id", id);
         }
 
         public SubTransaction.QueryName parented() {
@@ -221,19 +221,19 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
         }
 
         public QuerySelectOperation parented(SubTransaction parented) {
-            return executor.identifier("parented", parented);
+            return executor.$identifier("parented", parented);
         }
 
         public QuerySelectOperation tag(Object tag) {
-            return executor.identifier("tag", tag);
+            return executor.$identifier("tag", tag);
         }
 
         public QueryFunctions type() {
-            return executor.identifier("type");
+            return executor.$identifier("type");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return executor.identifier("type", type);
+            return executor.$identifier("type", type);
         }
     }
 

@@ -219,59 +219,59 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return identifier("date", date);
+            return $identifier("date", date);
         }
 
         public QueryFunctions date() {
-            return identifier("date");
+            return $identifier("date");
         }
 
         public QuerySelectOperation id(Long id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public SubModify.QueryOrder order() {
-            return (SubModify.QueryOrder) orderStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::orderIdentifier));
+            return (SubModify.QueryOrder) _orderStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation parent(SubModify parent) {
-            return identifier("parent", parent);
+            return $identifier("parent", parent);
         }
 
         public QuerySelectOperation subAmount(double subAmount) {
-            return identifier("subAmount", subAmount);
+            return $identifier("subAmount", subAmount);
         }
 
         public QueryFunctions subAmount() {
-            return identifier("subAmount");
+            return $identifier("subAmount");
         }
 
         public QuerySelectOperation subtitle(String subtitle) {
-            return identifier("subtitle", subtitle);
+            return $identifier("subtitle", subtitle);
         }
 
         public QueryFunctions subtitle() {
-            return identifier("subtitle");
+            return $identifier("subtitle");
         }
 
         public QuerySelectOperation tag(Object tag) {
-            return identifier("tag", tag);
+            return $identifier("tag", tag);
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         @Generated("QueryEnricher")
@@ -313,19 +313,19 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     protected static class SubModifyQueryNameImpl extends BaseQueryNameImpl implements SubModify.QueryName, QueryEmbed {
 
         public QueryFunctions date() {
-            return executor.identifier("date");
+            return executor.$identifier("date");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return executor.identifier("date", date);
+            return executor.$identifier("date", date);
         }
 
         public QueryFunctions id() {
-            return executor.identifier("id");
+            return executor.$identifier("id");
         }
 
         public QuerySelectOperation id(Long id) {
-            return executor.identifier("id", id);
+            return executor.$identifier("id", id);
         }
 
         public SubModify.QueryName parent() {
@@ -335,35 +335,35 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
         }
 
         public QuerySelectOperation parent(SubModify parent) {
-            return executor.identifier("parent", parent);
+            return executor.$identifier("parent", parent);
         }
 
         public QueryFunctions subAmount() {
-            return executor.identifier("subAmount");
+            return executor.$identifier("subAmount");
         }
 
         public QuerySelectOperation subAmount(double subAmount) {
-            return executor.identifier("subAmount", subAmount);
+            return executor.$identifier("subAmount", subAmount);
         }
 
         public QueryFunctions subtitle() {
-            return executor.identifier("subtitle");
+            return executor.$identifier("subtitle");
         }
 
         public QuerySelectOperation subtitle(String subtitle) {
-            return executor.identifier("subtitle", subtitle);
+            return executor.$identifier("subtitle", subtitle);
         }
 
         public QuerySelectOperation tag(Object tag) {
-            return executor.identifier("tag", tag);
+            return executor.$identifier("tag", tag);
         }
 
         public QueryFunctions type() {
-            return executor.identifier("type");
+            return executor.$identifier("type");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return executor.identifier("type", type);
+            return executor.$identifier("type", type);
         }
     }
 

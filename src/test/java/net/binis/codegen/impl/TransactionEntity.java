@@ -255,67 +255,67 @@ public class TransactionEntity extends BaseEntity implements Transaction, SubTra
         }
 
         public QuerySelectOperation account(Account account) {
-            return identifier("account", account);
+            return $identifier("account", account);
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new SubTransactionQueryOrderImpl(this, SubTransactionQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new SubTransactionQueryOrderImpl(this, SubTransactionQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
-            return identifier("amount", amount);
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions amount() {
-            return identifier("amount");
+            return $identifier("amount");
         }
 
         public QuerySelectOperation counterparty(Account counterparty) {
-            return identifier("counterparty", counterparty);
+            return $identifier("counterparty", counterparty);
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return identifier("date", date);
+            return $identifier("date", date);
         }
 
         public QueryFunctions date() {
-            return identifier("date");
+            return $identifier("date");
         }
 
         public QuerySelectOperation id(Long id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public SubTransaction.QueryOrder order() {
-            return (SubTransaction.QueryOrder) orderStart(new SubTransactionQueryOrderImpl(this, SubTransactionQueryExecutorImpl.this::orderIdentifier));
+            return (SubTransaction.QueryOrder) _orderStart(new SubTransactionQueryOrderImpl(this, SubTransactionQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation parent(Transaction parent) {
-            return identifier("parent", parent);
+            return $identifier("parent", parent);
         }
 
         public QuerySelectOperation tag(Object tag) {
-            return identifier("tag", tag);
+            return $identifier("tag", tag);
         }
 
         public QuerySelectOperation timestamp(OffsetDateTime timestamp) {
-            return identifier("timestamp", timestamp);
+            return $identifier("timestamp", timestamp);
         }
 
         public QueryFunctions timestamp() {
-            return identifier("timestamp");
+            return $identifier("timestamp");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         protected class SubTransactionQueryOrderImpl extends QueryOrderer implements SubTransaction.QueryOrder, SubTransaction.QueryAggregate {
@@ -513,63 +513,63 @@ public class TransactionEntity extends BaseEntity implements Transaction, SubTra
         }
 
         public QuerySelectOperation account(Account account) {
-            return identifier("account", account);
+            return $identifier("account", account);
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new TransactionQueryOrderImpl(this, TransactionQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new TransactionQueryOrderImpl(this, TransactionQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
-            return identifier("amount", amount);
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions amount() {
-            return identifier("amount");
+            return $identifier("amount");
         }
 
         public QuerySelectOperation counterparty(Account counterparty) {
-            return identifier("counterparty", counterparty);
+            return $identifier("counterparty", counterparty);
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return identifier("date", date);
+            return $identifier("date", date);
         }
 
         public QueryFunctions date() {
-            return identifier("date");
+            return $identifier("date");
         }
 
         public QuerySelectOperation id(Long id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public Transaction.QueryOrder order() {
-            return (Transaction.QueryOrder) orderStart(new TransactionQueryOrderImpl(this, TransactionQueryExecutorImpl.this::orderIdentifier));
+            return (Transaction.QueryOrder) _orderStart(new TransactionQueryOrderImpl(this, TransactionQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation tag(Object tag) {
-            return identifier("tag", tag);
+            return $identifier("tag", tag);
         }
 
         public QuerySelectOperation timestamp(OffsetDateTime timestamp) {
-            return identifier("timestamp", timestamp);
+            return $identifier("timestamp", timestamp);
         }
 
         public QueryFunctions timestamp() {
-            return identifier("timestamp");
+            return $identifier("timestamp");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         protected class TransactionQueryOrderImpl extends QueryOrderer implements Transaction.QueryOrder, Transaction.QueryAggregate {
@@ -621,15 +621,15 @@ public class TransactionEntity extends BaseEntity implements Transaction, SubTra
         }
 
         public QuerySelectOperation account(Account account) {
-            return executor.identifier("account", account);
+            return executor.$identifier("account", account);
         }
 
         public QueryFunctions amount() {
-            return executor.identifier("amount");
+            return executor.$identifier("amount");
         }
 
         public QuerySelectOperation amount(double amount) {
-            return executor.identifier("amount", amount);
+            return executor.$identifier("amount", amount);
         }
 
         public Account.QueryName counterparty() {
@@ -639,23 +639,23 @@ public class TransactionEntity extends BaseEntity implements Transaction, SubTra
         }
 
         public QuerySelectOperation counterparty(Account counterparty) {
-            return executor.identifier("counterparty", counterparty);
+            return executor.$identifier("counterparty", counterparty);
         }
 
         public QueryFunctions date() {
-            return executor.identifier("date");
+            return executor.$identifier("date");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return executor.identifier("date", date);
+            return executor.$identifier("date", date);
         }
 
         public QueryFunctions id() {
-            return executor.identifier("id");
+            return executor.$identifier("id");
         }
 
         public QuerySelectOperation id(Long id) {
-            return executor.identifier("id", id);
+            return executor.$identifier("id", id);
         }
 
         public Transaction.QueryName parent() {
@@ -665,27 +665,27 @@ public class TransactionEntity extends BaseEntity implements Transaction, SubTra
         }
 
         public QuerySelectOperation parent(Transaction parent) {
-            return executor.identifier("parent", parent);
+            return executor.$identifier("parent", parent);
         }
 
         public QuerySelectOperation tag(Object tag) {
-            return executor.identifier("tag", tag);
+            return executor.$identifier("tag", tag);
         }
 
         public QueryFunctions timestamp() {
-            return executor.identifier("timestamp");
+            return executor.$identifier("timestamp");
         }
 
         public QuerySelectOperation timestamp(OffsetDateTime timestamp) {
-            return executor.identifier("timestamp", timestamp);
+            return executor.$identifier("timestamp", timestamp);
         }
 
         public QueryFunctions type() {
-            return executor.identifier("type");
+            return executor.$identifier("type");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return executor.identifier("type", type);
+            return executor.$identifier("type", type);
         }
     }
 

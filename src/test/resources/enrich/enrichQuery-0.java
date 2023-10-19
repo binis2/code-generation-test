@@ -104,39 +104,39 @@ public class Test2Impl implements Test2 {
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new Test2QueryOrderImpl(this, Test2QueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new Test2QueryOrderImpl(this, Test2QueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
-            return identifier("amount", amount);
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions amount() {
-            return identifier("amount");
+            return $identifier("amount");
         }
 
         public QueryCollectionFunctions items() {
-            return identifier("items");
+            return $identifier("items");
         }
 
         public Test2.QueryOrder order() {
-            return (Test2.QueryOrder) orderStart(new Test2QueryOrderImpl(this, Test2QueryExecutorImpl.this::orderIdentifier));
+            return (Test2.QueryOrder) _orderStart(new Test2QueryOrderImpl(this, Test2QueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation parent(Test2 parent) {
-            return identifier("parent", parent);
+            return $identifier("parent", parent);
         }
 
         public QuerySelectOperation sub(Sub sub) {
-            return identifier("sub", sub);
+            return $identifier("sub", sub);
         }
 
         public QuerySelectOperation title(String title) {
-            return identifier("title", title);
+            return $identifier("title", title);
         }
 
         public QueryFunctions title() {
-            return identifier("title");
+            return $identifier("title");
         }
 
         @Generated("QueryEnricher")
@@ -172,11 +172,11 @@ public class Test2Impl implements Test2 {
     protected static class Test2QueryNameImpl extends BaseQueryNameImpl implements Test2.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {
-            return executor.identifier("amount");
+            return executor.$identifier("amount");
         }
 
         public QuerySelectOperation amount(double amount) {
-            return executor.identifier("amount", amount);
+            return executor.$identifier("amount", amount);
         }
 
         public Test2.QueryName parent() {
@@ -186,7 +186,7 @@ public class Test2Impl implements Test2 {
         }
 
         public QuerySelectOperation parent(Test2 parent) {
-            return executor.identifier("parent", parent);
+            return executor.$identifier("parent", parent);
         }
 
         public Sub.QueryName sub() {
@@ -196,15 +196,15 @@ public class Test2Impl implements Test2 {
         }
 
         public QuerySelectOperation sub(Sub sub) {
-            return executor.identifier("sub", sub);
+            return executor.$identifier("sub", sub);
         }
 
         public QueryFunctions title() {
-            return executor.identifier("title");
+            return executor.$identifier("title");
         }
 
         public QuerySelectOperation title(String title) {
-            return executor.identifier("title", title);
+            return executor.$identifier("title", title);
         }
     }
 

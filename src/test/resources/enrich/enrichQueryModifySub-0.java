@@ -97,27 +97,27 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public Sub.QueryOrder order() {
-            return (Sub.QueryOrder) orderStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::orderIdentifier));
+            return (Sub.QueryOrder) _orderStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation subAmount(double subAmount) {
-            return identifier("subAmount", subAmount);
+            return $identifier("subAmount", subAmount);
         }
 
         public QueryFunctions subAmount() {
-            return identifier("subAmount");
+            return $identifier("subAmount");
         }
 
         public QuerySelectOperation subtitle(String subtitle) {
-            return identifier("subtitle", subtitle);
+            return $identifier("subtitle", subtitle);
         }
 
         public QueryFunctions subtitle() {
-            return identifier("subtitle");
+            return $identifier("subtitle");
         }
 
         @Generated("QueryEnricher")
@@ -141,19 +141,19 @@ public class SubImpl implements Sub, Modifiable<Sub.Modify> {
     protected static class SubQueryNameImpl extends BaseQueryNameImpl implements Sub.QueryName, QueryEmbed {
 
         public QueryFunctions subAmount() {
-            return executor.identifier("subAmount");
+            return executor.$identifier("subAmount");
         }
 
         public QuerySelectOperation subAmount(double subAmount) {
-            return executor.identifier("subAmount", subAmount);
+            return executor.$identifier("subAmount", subAmount);
         }
 
         public QueryFunctions subtitle() {
-            return executor.identifier("subtitle");
+            return executor.$identifier("subtitle");
         }
 
         public QuerySelectOperation subtitle(String subtitle) {
-            return executor.identifier("subtitle", subtitle);
+            return executor.$identifier("subtitle", subtitle);
         }
     }
 }

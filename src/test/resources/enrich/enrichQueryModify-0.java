@@ -202,39 +202,39 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
-            return identifier("amount", amount);
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions amount() {
-            return identifier("amount");
+            return $identifier("amount");
         }
 
         public QueryCollectionFunctions items() {
-            return identifier("items");
+            return $identifier("items");
         }
 
         public Test.QueryOrder order() {
-            return (Test.QueryOrder) orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::orderIdentifier));
+            return (Test.QueryOrder) _orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation parent(Test parent) {
-            return identifier("parent", parent);
+            return $identifier("parent", parent);
         }
 
         public QuerySelectOperation sub(Sub sub) {
-            return identifier("sub", sub);
+            return $identifier("sub", sub);
         }
 
         public QuerySelectOperation title(String title) {
-            return identifier("title", title);
+            return $identifier("title", title);
         }
 
         public QueryFunctions title() {
-            return identifier("title");
+            return $identifier("title");
         }
 
         @Generated("QueryEnricher")
@@ -270,11 +270,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {
-            return executor.identifier("amount");
+            return executor.$identifier("amount");
         }
 
         public QuerySelectOperation amount(double amount) {
-            return executor.identifier("amount", amount);
+            return executor.$identifier("amount", amount);
         }
 
         public Test.QueryName parent() {
@@ -284,7 +284,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public QuerySelectOperation parent(Test parent) {
-            return executor.identifier("parent", parent);
+            return executor.$identifier("parent", parent);
         }
 
         public Sub.QueryName sub() {
@@ -294,15 +294,15 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public QuerySelectOperation sub(Sub sub) {
-            return executor.identifier("sub", sub);
+            return executor.$identifier("sub", sub);
         }
 
         public QueryFunctions title() {
-            return executor.identifier("title");
+            return executor.$identifier("title");
         }
 
         public QuerySelectOperation title(String title) {
-            return executor.identifier("title", title);
+            return executor.$identifier("title", title);
         }
     }
 

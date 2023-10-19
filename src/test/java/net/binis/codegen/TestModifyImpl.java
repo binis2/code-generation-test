@@ -269,47 +269,47 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new MixModifyQueryOrderImpl(this, MixModifyQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new MixModifyQueryOrderImpl(this, MixModifyQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
-            return identifier("amount", amount);
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions amount() {
-            return identifier("amount");
+            return $identifier("amount");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return identifier("date", date);
+            return $identifier("date", date);
         }
 
         public QueryFunctions date() {
-            return identifier("date");
+            return $identifier("date");
         }
 
         public QuerySelectOperation id(Long id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public QueryCollectionFunctions items() {
-            return identifier("items");
+            return $identifier("items");
         }
 
         public QuerySelectOperation mixInAmount(double mixInAmount) {
-            return identifier("mixInAmount", mixInAmount);
+            return $identifier("mixInAmount", mixInAmount);
         }
 
         public QueryFunctions mixInAmount() {
-            return identifier("mixInAmount");
+            return $identifier("mixInAmount");
         }
 
         public QueryCollectionFunctions mixInItems() {
-            return identifier("mixInItems");
+            return $identifier("mixInItems");
         }
 
         public QueryJoinCollectionFunctions mixInSubs() {
@@ -317,15 +317,15 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QuerySelectOperation mixInTitle(String mixInTitle) {
-            return identifier("mixInTitle", mixInTitle);
+            return $identifier("mixInTitle", mixInTitle);
         }
 
         public QueryFunctions mixInTitle() {
-            return identifier("mixInTitle");
+            return $identifier("mixInTitle");
         }
 
         public MixModify.QueryOrder order() {
-            return (MixModify.QueryOrder) orderStart(new MixModifyQueryOrderImpl(this, MixModifyQueryExecutorImpl.this::orderIdentifier));
+            return (MixModify.QueryOrder) _orderStart(new MixModifyQueryOrderImpl(this, MixModifyQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QueryJoinCollectionFunctions subs() {
@@ -333,19 +333,19 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QuerySelectOperation title(String title) {
-            return identifier("title", title);
+            return $identifier("title", title);
         }
 
         public QueryFunctions title() {
-            return identifier("title");
+            return $identifier("title");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         @Generated("QueryEnricher")
@@ -459,39 +459,39 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
-            return identifier("amount", amount);
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions amount() {
-            return identifier("amount");
+            return $identifier("amount");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return identifier("date", date);
+            return $identifier("date", date);
         }
 
         public QueryFunctions date() {
-            return identifier("date");
+            return $identifier("date");
         }
 
         public QuerySelectOperation id(Long id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public QueryCollectionFunctions items() {
-            return identifier("items");
+            return $identifier("items");
         }
 
         public TestModify.QueryOrder order() {
-            return (TestModify.QueryOrder) orderStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::orderIdentifier));
+            return (TestModify.QueryOrder) _orderStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QueryJoinCollectionFunctions subs() {
@@ -499,19 +499,19 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
         }
 
         public QuerySelectOperation title(String title) {
-            return identifier("title", title);
+            return $identifier("title", title);
         }
 
         public QueryFunctions title() {
-            return identifier("title");
+            return $identifier("title");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         @Generated("QueryEnricher")
@@ -547,59 +547,59 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected static class TestModifyQueryNameImpl extends BaseQueryNameImpl implements TestModify.QueryName, QueryEmbed, MixModify.QueryName {
 
         public QueryFunctions amount() {
-            return executor.identifier("amount");
+            return executor.$identifier("amount");
         }
 
         public QuerySelectOperation amount(double amount) {
-            return executor.identifier("amount", amount);
+            return executor.$identifier("amount", amount);
         }
 
         public QueryFunctions date() {
-            return executor.identifier("date");
+            return executor.$identifier("date");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return executor.identifier("date", date);
+            return executor.$identifier("date", date);
         }
 
         public QueryFunctions id() {
-            return executor.identifier("id");
+            return executor.$identifier("id");
         }
 
         public QuerySelectOperation id(Long id) {
-            return executor.identifier("id", id);
+            return executor.$identifier("id", id);
         }
 
         public QueryFunctions mixInAmount() {
-            return executor.identifier("mixInAmount");
+            return executor.$identifier("mixInAmount");
         }
 
         public QuerySelectOperation mixInAmount(double mixInAmount) {
-            return executor.identifier("mixInAmount", mixInAmount);
+            return executor.$identifier("mixInAmount", mixInAmount);
         }
 
         public QueryFunctions mixInTitle() {
-            return executor.identifier("mixInTitle");
+            return executor.$identifier("mixInTitle");
         }
 
         public QuerySelectOperation mixInTitle(String mixInTitle) {
-            return executor.identifier("mixInTitle", mixInTitle);
+            return executor.$identifier("mixInTitle", mixInTitle);
         }
 
         public QueryFunctions title() {
-            return executor.identifier("title");
+            return executor.$identifier("title");
         }
 
         public QuerySelectOperation title(String title) {
-            return executor.identifier("title", title);
+            return executor.$identifier("title", title);
         }
 
         public QueryFunctions type() {
-            return executor.identifier("type");
+            return executor.$identifier("type");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return executor.identifier("type", type);
+            return executor.$identifier("type", type);
         }
     }
     // endregion

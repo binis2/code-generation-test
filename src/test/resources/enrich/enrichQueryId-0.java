@@ -56,35 +56,35 @@ public class TestImpl extends BaseImpl implements Test {
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation amount(double amount) {
-            return identifier("amount", amount);
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions amount() {
-            return identifier("amount");
+            return $identifier("amount");
         }
 
         public QuerySelectOperation id(String id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public Test.QueryOrder order() {
-            return (Test.QueryOrder) orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::orderIdentifier));
+            return (Test.QueryOrder) _orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation title(String title) {
-            return identifier("title", title);
+            return $identifier("title", title);
         }
 
         public QueryFunctions title() {
-            return identifier("title");
+            return $identifier("title");
         }
 
         @Generated("QueryEnricher")
@@ -112,27 +112,27 @@ public class TestImpl extends BaseImpl implements Test {
     protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
 
         public QueryFunctions amount() {
-            return executor.identifier("amount");
+            return executor.$identifier("amount");
         }
 
         public QuerySelectOperation amount(double amount) {
-            return executor.identifier("amount", amount);
+            return executor.$identifier("amount", amount);
         }
 
         public QueryFunctions id() {
-            return executor.identifier("id");
+            return executor.$identifier("id");
         }
 
         public QuerySelectOperation id(String id) {
-            return executor.identifier("id", id);
+            return executor.$identifier("id", id);
         }
 
         public QueryFunctions title() {
-            return executor.identifier("title");
+            return executor.$identifier("title");
         }
 
         public QuerySelectOperation title(String title) {
-            return executor.identifier("title", title);
+            return executor.$identifier("title", title);
         }
     }
 }

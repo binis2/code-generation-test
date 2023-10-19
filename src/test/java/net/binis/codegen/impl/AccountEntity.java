@@ -30,7 +30,6 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.intf.Account;
 import net.binis.codegen.intf.Transaction;
 import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.spring.modifier.impl.BaseEntityModifierImpl;
 import net.binis.codegen.spring.query.*;
 import net.binis.codegen.spring.query.base.BaseQueryNameImpl;
@@ -200,71 +199,71 @@ public class AccountEntity extends BaseEntity implements Account, Modifiable<Acc
         }
 
         public QuerySelectOperation accountNumber(String accountNumber) {
-            return identifier("accountNumber", accountNumber);
+            return $identifier("accountNumber", accountNumber);
         }
 
         public QueryFunctions accountNumber() {
-            return identifier("accountNumber");
+            return $identifier("accountNumber");
         }
 
         public QuerySelectOperation active(boolean active) {
-            return identifier("active", active);
+            return $identifier("active", active);
         }
 
         public QueryFunctions active() {
-            return identifier("active");
+            return $identifier("active");
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new AccountQueryOrderImpl(this, AccountQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new AccountQueryOrderImpl(this, AccountQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QuerySelectOperation available(double available) {
-            return identifier("available", available);
+            return $identifier("available", available);
         }
 
         public QueryFunctions available() {
-            return identifier("available");
+            return $identifier("available");
         }
 
         public QuerySelectOperation balance(double balance) {
-            return identifier("balance", balance);
+            return $identifier("balance", balance);
         }
 
         public QueryFunctions balance() {
-            return identifier("balance");
+            return $identifier("balance");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return identifier("date", date);
+            return $identifier("date", date);
         }
 
         public QueryFunctions date() {
-            return identifier("date");
+            return $identifier("date");
         }
 
         public QuerySelectOperation id(Long id) {
-            return identifier("id", id);
+            return $identifier("id", id);
         }
 
         public QueryFunctions id() {
-            return identifier("id");
+            return $identifier("id");
         }
 
         public Account.QueryOrder order() {
-            return (Account.QueryOrder) orderStart(new AccountQueryOrderImpl(this, AccountQueryExecutorImpl.this::orderIdentifier));
+            return (Account.QueryOrder) _orderStart(new AccountQueryOrderImpl(this, AccountQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation pending(double pending) {
-            return identifier("pending", pending);
+            return $identifier("pending", pending);
         }
 
         public QueryFunctions pending() {
-            return identifier("pending");
+            return $identifier("pending");
         }
 
         public QueryCollectionFunctions strings() {
-            return identifier("strings");
+            return $identifier("strings");
         }
 
         public QueryJoinCollectionFunctions transactions() {
@@ -272,11 +271,11 @@ public class AccountEntity extends BaseEntity implements Account, Modifiable<Acc
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         protected class AccountQueryOrderImpl extends QueryOrderer implements Account.QueryOrder, Account.QueryAggregate {
@@ -322,67 +321,67 @@ public class AccountEntity extends BaseEntity implements Account, Modifiable<Acc
     protected static class AccountQueryNameImpl extends BaseQueryNameImpl implements Account.QueryName, QueryEmbed {
 
         public QueryFunctions accountNumber() {
-            return executor.identifier("accountNumber");
+            return executor.$identifier("accountNumber");
         }
 
         public QuerySelectOperation accountNumber(String accountNumber) {
-            return executor.identifier("accountNumber", accountNumber);
+            return executor.$identifier("accountNumber", accountNumber);
         }
 
         public QueryFunctions active() {
-            return executor.identifier("active");
+            return executor.$identifier("active");
         }
 
         public QuerySelectOperation active(boolean active) {
-            return executor.identifier("active", active);
+            return executor.$identifier("active", active);
         }
 
         public QueryFunctions available() {
-            return executor.identifier("available");
+            return executor.$identifier("available");
         }
 
         public QuerySelectOperation available(double available) {
-            return executor.identifier("available", available);
+            return executor.$identifier("available", available);
         }
 
         public QueryFunctions balance() {
-            return executor.identifier("balance");
+            return executor.$identifier("balance");
         }
 
         public QuerySelectOperation balance(double balance) {
-            return executor.identifier("balance", balance);
+            return executor.$identifier("balance", balance);
         }
 
         public QueryFunctions date() {
-            return executor.identifier("date");
+            return executor.$identifier("date");
         }
 
         public QuerySelectOperation date(OffsetDateTime date) {
-            return executor.identifier("date", date);
+            return executor.$identifier("date", date);
         }
 
         public QueryFunctions id() {
-            return executor.identifier("id");
+            return executor.$identifier("id");
         }
 
         public QuerySelectOperation id(Long id) {
-            return executor.identifier("id", id);
+            return executor.$identifier("id", id);
         }
 
         public QueryFunctions pending() {
-            return executor.identifier("pending");
+            return executor.$identifier("pending");
         }
 
         public QuerySelectOperation pending(double pending) {
-            return executor.identifier("pending", pending);
+            return executor.$identifier("pending", pending);
         }
 
         public QueryFunctions type() {
-            return executor.identifier("type");
+            return executor.$identifier("type");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return executor.identifier("type", type);
+            return executor.$identifier("type", type);
         }
     }
     // endregion

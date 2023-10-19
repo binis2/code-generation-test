@@ -44,11 +44,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(CodeGenExtension.class)
 class ModifiersTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void testGenerate() {
         testMultiExecute(List.of(

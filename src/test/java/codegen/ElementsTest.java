@@ -26,7 +26,6 @@ import net.binis.codegen.test.BaseCodeGenElementTest;
 import net.binis.codegen.tools.Reflection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.Configuration;
 
 import static net.binis.codegen.tools.Reflection.findMethod;
 import static net.binis.codegen.tools.Reflection.invokeStaticWithException;

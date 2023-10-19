@@ -107,27 +107,27 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
         }
 
         public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::aggregateIdentifier));
+            return (QueryAggregateOperation) _aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public Test.QueryOrder order() {
-            return (Test.QueryOrder) orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::orderIdentifier));
+            return (Test.QueryOrder) _orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QuerySelectOperation payload(TestPayload payload) {
-            return identifier("payload", payload);
+            return $identifier("payload", payload);
         }
 
         public QueryFunctions payload() {
-            return identifier("payload");
+            return $identifier("payload");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return identifier("type", type);
+            return $identifier("type", type);
         }
 
         public QueryFunctions type() {
-            return identifier("type");
+            return $identifier("type");
         }
 
         @Generated("QueryEnricher")
@@ -151,19 +151,19 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     protected static class TestQueryNameImpl extends BaseQueryNameImpl implements Test.QueryName, QueryEmbed {
 
         public QueryFunctions payload() {
-            return executor.identifier("payload");
+            return executor.$identifier("payload");
         }
 
         public QuerySelectOperation payload(TestPayload payload) {
-            return executor.identifier("payload", payload);
+            return executor.$identifier("payload", payload);
         }
 
         public QueryFunctions type() {
-            return executor.identifier("type");
+            return executor.$identifier("type");
         }
 
         public QuerySelectOperation type(TestEnum type) {
-            return executor.identifier("type", type);
+            return executor.$identifier("type", type);
         }
     }
     // endregion
