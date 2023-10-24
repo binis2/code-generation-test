@@ -70,6 +70,11 @@ CodeGenMock.mockCountQuery(Test.find().by().status(Status.ACTIVE), mockObj);
 CodeGenMock.mockExistsQuery(Test.find().by().username("Binis"), mockObj);
 ```
 
+For easy paging mocking mocking like this can be used
+```java
+CodeGenMock.mockPageQuery(Test.find().by().status(Status.ACTIVE), List.of(mockObj));
+```
+
 
 By default, the mocking framework expects every query mock to called only ones in the scope of the text. If that is not the case a expected call count must be specified.
 
@@ -112,7 +117,7 @@ onSave(mockObj, () -> mockObj.id(5L));
     <dependency>
         <groupId>dev.binis</groupId>
         <artifactId>code-generator-test</artifactId>
-        <version>1.1.13</version>
+        <version>1.1.14</version>
     </dependency>
 ```
 
