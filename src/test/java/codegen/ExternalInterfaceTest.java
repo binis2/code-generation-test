@@ -29,11 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ExternalInterfaceTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void test() {
         testSingle("external/external.java", "external/external-0.java", "external/external-1.java");
