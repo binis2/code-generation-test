@@ -5,6 +5,7 @@ import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import javax.annotation.processing.Generated;
+import java.util.function.Consumer;
 
 @Generated(value = "net.binis.codegen.prototype.SubModifyPrototype", comments = "SubModifyImpl")
 public interface SubModify extends Prototypable<SubModify> {
@@ -21,6 +22,7 @@ public interface SubModify extends Prototypable<SubModify> {
     }
 
     interface EmbeddedModify<T, R> extends BaseModifier<T, R>, SubModify.Fields<T> {
+        SubModify.EmbeddedSoloModify<EmbeddedModify<T, R>> prototype();
     }
 
     interface EmbeddedSoloModify<R> extends SubModify.EmbeddedModify<SubModify.EmbeddedSoloModify<R>, R> {
@@ -33,5 +35,6 @@ public interface SubModify extends Prototypable<SubModify> {
     }
 
     interface Modify extends EmbeddedModify<SubModify.Modify, SubModify> {
+        Modify prototype$(Consumer<SubModify.Modify> init);
     }
 }

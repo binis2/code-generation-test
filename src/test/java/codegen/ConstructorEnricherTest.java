@@ -81,6 +81,14 @@ class ConstructorEnricherTest extends BaseCodeGenElementTest {
         assertEquals("test", getFieldValue(inst, "field"));
     }
 
+    @Test
+    void testWithStatic() {
+        var cls = testSingle("constructor/static1.java", "net.binis.codegen.TestAll");
+        assertNotNull(cls);
+        var inst = CodeFactory.create(cls, "test");
+        assertNotNull(inst);
+        assertEquals("test", getFieldValue(inst, "field"));
+    }
 
 
 }
