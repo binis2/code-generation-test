@@ -36,4 +36,8 @@ public class BaseImpl implements Base {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void setType(TestEnum type) {
+        this.type = type;
+    }
 }

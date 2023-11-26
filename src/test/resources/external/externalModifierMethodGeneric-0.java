@@ -7,6 +7,7 @@ import javax.annotation.processing.Generated;
 import jakarta.persistence.Transient;
 
 @Generated(value = "net.binis.codegen.test.TestPrototype", comments = "Test")
+@SuppressWarnings("unchecked")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected boolean available;
@@ -37,6 +38,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public void setExternal(String external) {
+        this.external = external;
     }
 
     public void setTag(Object tag) {

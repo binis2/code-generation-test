@@ -49,6 +49,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         this.available = available;
     }
 
+    public void setExternal(String external) {
+        this.external = external;
+    }
+
     public void setKey(String key) {
         this.key = key;
     }

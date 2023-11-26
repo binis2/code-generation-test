@@ -32,6 +32,10 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         return subtitle;
     }
 
+    public void setPrototype(SubModify prototype) {
+        this.prototype = prototype;
+    }
+
     public void setSubAmount(double subAmount) {
         this.subAmount = subAmount;
     }

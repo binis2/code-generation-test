@@ -31,4 +31,12 @@ public class TestImpl implements Test {
     public void setAvailable(boolean available) {
         this.available = available;
     }
+
+    public void setExternal(String external) {
+        this.external = external;
+    }
+
+    public void setType(TestEnum type) {
+        this.type = type;
+    }
 }
