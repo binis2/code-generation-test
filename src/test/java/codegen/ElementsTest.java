@@ -64,7 +64,7 @@ public class ElementsTest extends BaseCodeGenElementTest {
         var ann = method.getAnnotations();
         assertEquals(1, ann.length);
         if (ann[0] instanceof CodeImplementation a) {
-            assertEquals("return !this.test;", a.value());
+            assertEquals("return !isTest();", a.value());
         } else {
             fail("Annotation is not CodeImplementation");
         }
@@ -74,7 +74,7 @@ public class ElementsTest extends BaseCodeGenElementTest {
         ann = same.getAnnotations();
         assertEquals(1, ann.length);
         if (ann[0] instanceof CodeImplementation a) {
-            assertEquals("return bool == this.test;", a.value());
+            assertEquals("return bool == isTest();", a.value());
         } else {
             fail("Annotation is not CodeImplementation");
         }
@@ -84,7 +84,7 @@ public class ElementsTest extends BaseCodeGenElementTest {
         ann = same.getAnnotations();
         assertEquals(1, ann.length);
         if (ann[0] instanceof CodeImplementation a) {
-            assertEquals("return other.test == this.test;", a.value());
+            assertEquals("return other.isTest() == isTest();", a.value());
         } else {
             fail("Annotation is not CodeImplementation");
         }

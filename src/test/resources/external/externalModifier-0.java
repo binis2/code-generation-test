@@ -30,15 +30,15 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public String getTest() {
-        return this.available ? "test" : getPreview();
+        return isAvailable() ? "test" : getPreview();
     }
 
     public String getTest2() {
-        return this.available ? getPreview() : this.key;
+        return isAvailable() ? getPreview() : getKey();
     }
 
     public String getTest3() {
-        return this.available ? this.key : getPreview();
+        return isAvailable() ? getKey() : getPreview();
     }
 
     public boolean isAvailable() {
