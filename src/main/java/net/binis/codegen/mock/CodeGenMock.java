@@ -90,6 +90,8 @@ public class CodeGenMock {
             when(template.execute(any())).then(m -> ((TransactionCallback) m.getArgument(0)).doInTransaction(null));
 
             ApplicationContextProvider.setAppContext(context);
+            CodeFactory.registerType(JpaTransactionManager.class, () -> tm);
+            CodeFactory.registerType(TransactionTemplate.class, () -> template);
         }
     }
 
