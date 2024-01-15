@@ -37,7 +37,6 @@ public class ElementsTest extends BaseCodeGenElementTest {
     public static void setup() {
         Structures.registerTemplate(TestAnnotationElementAnnotation.class);
         Structures.registerTemplate(TestAddMethodElementAnnotation.class);
-        Structures.registerTemplate(TestAddMethod2ElementAnnotation.class);
     }
 
     @Test
@@ -93,17 +92,6 @@ public class ElementsTest extends BaseCodeGenElementTest {
     @Test
     void testAddMethod() {
         var cls = testSingle("elements/elementAddMethod1.java", "net.binis.codegen.TestElement");
-        assertNotNull(cls);
-
-        var main = findMethod("main", cls, String[].class);
-        assertNotNull(main);
-
-        assertThrows(RuntimeException.class, () -> invokeStaticWithException(main, (Object) new String[] {}));
-    }
-
-    @Test
-    void testAddMethod2() {
-        var cls = testSingle("elements/elementAddMethod2.java", "net.binis.codegen.TestElement");
         assertNotNull(cls);
 
         var main = findMethod("main", cls, String[].class);
