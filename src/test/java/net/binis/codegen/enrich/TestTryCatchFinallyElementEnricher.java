@@ -21,18 +21,27 @@ package net.binis.codegen.enrich;
  */
 
 import lombok.extern.slf4j.Slf4j;
-import net.binis.codegen.annotation.DummyAnnotation;
-import net.binis.codegen.annotation.TestAnnotationElementAnnotation;
-import net.binis.codegen.compiler.utils.ElementAnnotationUtils;
+import net.binis.codegen.compiler.*;
+import net.binis.codegen.compiler.utils.ElementMethodUtils;
+import net.binis.codegen.compiler.utils.ElementStatementUtils;
+import net.binis.codegen.compiler.utils.ElementUtils;
 import net.binis.codegen.enrich.handler.base.BaseEnricher;
 import net.binis.codegen.generation.core.interfaces.ElementDescription;
 
 @Slf4j
-public class TestAnnotationElementEnricher extends BaseEnricher {
+public class TestTryCatchFinallyElementEnricher extends BaseEnricher {
+
+
     @Override
-    public void enrichElement(ElementDescription description) {
-        ElementAnnotationUtils.removeAnnotation(description.getElement(), TestAnnotationElementAnnotation.class);
-        ElementAnnotationUtils.addAnnotation(description.getElement(), DummyAnnotation.class);
+    protected void safeEnrichElement(ElementDescription description) {
+        if (ElementUtils.getDeclaration(description.getElement()) instanceof CGMethodDeclaration decl) {
+            decl.setBody(ElementMethodUtils.createBlock(ElementStatementUtils.surroundWithTryCatch(decl.getBody(), RuntimeException.class, createBody(), createBody())));
+        }
+    }
+
+    private CGBlock createBody() {
+        var maker = TreeMaker.create();
+        return ElementMethodUtils.createBlock(maker.Exec(maker.Unary(CGTag.POSTINC, maker.Ident(CGName.create("test")))));
     }
 
     @Override

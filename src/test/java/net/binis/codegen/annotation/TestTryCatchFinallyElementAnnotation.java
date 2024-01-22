@@ -22,7 +22,7 @@ package net.binis.codegen.annotation;
 
 import net.binis.codegen.annotation.type.GenerationStrategy;
 import net.binis.codegen.enrich.TestAddMethodElementEnricher;
-import net.binis.codegen.enrich.TestAnnotationElementEnricher;
+import net.binis.codegen.enrich.TestTryCatchFinallyElementEnricher;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -30,7 +30,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-@CodePrototype(strategy = GenerationStrategy.NONE, enrichers = TestAddMethodElementEnricher.class)
-public @interface TestAddMethodElementAnnotation {
+@Target({ElementType.METHOD})
+@CodePrototype(strategy = GenerationStrategy.NONE, enrichers = TestTryCatchFinallyElementEnricher.class)
+public @interface TestTryCatchFinallyElementAnnotation {
 }

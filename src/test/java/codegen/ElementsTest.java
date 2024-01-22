@@ -4,7 +4,7 @@ package codegen;
  * #%L
  * code-generation-test
  * %%
- * Copyright (C) 2021 - 2023 Binis Belev
+ * Copyright (C) 2021 - 2024 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ package codegen;
  */
 
 import net.binis.codegen.annotation.*;
+import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Structures;
 import net.binis.codegen.test.BaseCodeGenElementTest;
 import net.binis.codegen.tools.Reflection;
@@ -37,6 +38,7 @@ public class ElementsTest extends BaseCodeGenElementTest {
     public static void setup() {
         Structures.registerTemplate(TestAnnotationElementAnnotation.class);
         Structures.registerTemplate(TestAddMethodElementAnnotation.class);
+        Structures.registerTemplate(TestTryCatchFinallyElementAnnotation.class);
     }
 
     @Test
@@ -102,11 +104,22 @@ public class ElementsTest extends BaseCodeGenElementTest {
 
     @Test
     void testMultiAnnotations() {
-        var loader = testSingle("elements/multi1.java");
-        var cls = loader.findClass("net.binis.codegen.TestElement");
+        var cls = testSingle("elements/multi1.java", "net.binis.codegen.TestElement");
         assertNotNull(cls);
         assertNotNull(Reflection.findField(cls, "log"));
         assertNotNull(Reflection.findConstructor(cls, String.class));
+    }
+
+    @Test
+    void testTryCatchFinally() {
+        var cls = testSingle("elements/elementTryCatchFinally.java", "net.binis.codegen.TestElement");
+
+        assertNotNull(cls);
+        var method = Reflection.findMethod("run", cls);
+        assertNotNull(method);
+        var inst = CodeFactory.create(cls);
+        assertDoesNotThrow(() -> Reflection.invokeWithException(method, inst));
+        assertEquals(2, (int) Reflection.getFieldValue(inst, "test"));
     }
 
 }
