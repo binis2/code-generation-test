@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static net.binis.codegen.tools.Tools.nullCheck;
 
@@ -324,10 +325,13 @@ public class MockEntityManager implements EntityManager {
         return result;
     }
 
-
     public void onOperation(MockPersistenceOperation operation, Object obj, BiConsumer<MockPersistenceOperation, Object> consumer) {
-        onOperation.computeIfAbsent(operation, o -> new IdentityHashMap<>())
-                .compute(obj, (o, v) -> consumer);
+        if (isNull(obj)) {
+            onOperationOperation.compute(operation, (o, v) -> consumer);
+        } else {
+            onOperation.computeIfAbsent(operation, o -> new IdentityHashMap<>())
+                    .compute(obj, (o, v) -> consumer);
+        }
     }
 
     private void makeItCount(MockPersistenceOperation operation, Object obj) {
