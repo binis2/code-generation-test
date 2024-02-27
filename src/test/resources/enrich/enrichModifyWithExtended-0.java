@@ -137,6 +137,21 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return this;
         }
 
+        public SubModify.EmbeddedSoloModify<TestModify.Modify> prototype() {
+            if (TestModifyImpl.this.prototype == null) {
+                TestModifyImpl.this.prototype = CodeFactory.create(SubModify.class);
+            }
+            return CodeFactory.modify(this, TestModifyImpl.this.prototype, SubModify.class);
+        }
+
+        public TestModify.Modify prototype$(Consumer<SubModify.Modify> init) {
+            if (TestModifyImpl.this.prototype == null) {
+                TestModifyImpl.this.prototype = CodeFactory.create(SubModify.class);
+            }
+            init.accept(TestModifyImpl.this.prototype.with());
+            return this;
+        }
+
         public TestModify.Modify subs(Set<SubModify> subs) {
             TestModifyImpl.this.subs = subs;
             return this;

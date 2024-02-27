@@ -37,6 +37,8 @@ public interface TestModify extends Prototypable<SubModify>, Extended {
         Modify extended$(Consumer<SubModify.Modify> init);
         Modify items(List<Long> items);
         CodeList<Long, TestModify.Modify> items();
+        SubModify.EmbeddedSoloModify<Modify> prototype();
+        Modify prototype$(Consumer<SubModify.Modify> init);
         Modify subs(Set<SubModify> subs);
         EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<TestModify.Modify>, SubModify, TestModify.Modify> subs();
     }
