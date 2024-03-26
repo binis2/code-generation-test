@@ -54,7 +54,7 @@ public class TestReservedImpl implements TestReserved {
 
     protected String tuples;
 
-    {
+    static {
         CodeFactory.registerType(TestReserved.class, TestReservedImpl::new, null);
         CodeFactory.registerType(TestReserved.QueryName.class, TestReservedQueryNameImpl::new, null);
         CodeFactory.registerType(TestReserved.QuerySelect.class, TestReservedQueryExecutorImpl::new, null);
@@ -227,152 +227,152 @@ public class TestReservedImpl implements TestReserved {
             return (QueryAggregateOperation) _aggregateStart(new TestReservedQueryOrderImpl(this, TestReservedQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation count_(String count) {
-            return $identifier("count", count);
-        }
-
         public QueryFunctions count_() {
             return $identifier("count");
         }
 
-        public QuerySelectOperation delete_(String delete) {
-            return $identifier("delete", delete);
+        public QuerySelectOperation count_(String count) {
+            return $identifier("count", count);
         }
 
         public QueryFunctions delete_() {
             return $identifier("delete");
         }
 
-        public QuerySelectOperation ensure_(String ensure) {
-            return $identifier("ensure", ensure);
+        public QuerySelectOperation delete_(String delete) {
+            return $identifier("delete", delete);
         }
 
         public QueryFunctions ensure_() {
             return $identifier("ensure");
         }
 
-        public QuerySelectOperation exists_(String exists) {
-            return $identifier("exists", exists);
+        public QuerySelectOperation ensure_(String ensure) {
+            return $identifier("ensure", ensure);
         }
 
         public QueryFunctions exists_() {
             return $identifier("exists");
         }
 
-        public QuerySelectOperation filter_(String filter) {
-            return $identifier("filter", filter);
+        public QuerySelectOperation exists_(String exists) {
+            return $identifier("exists", exists);
         }
 
         public QueryFunctions filter_() {
             return $identifier("filter");
         }
 
-        public QuerySelectOperation flush_(String flush) {
-            return $identifier("flush", flush);
+        public QuerySelectOperation filter_(String filter) {
+            return $identifier("filter", filter);
         }
 
         public QueryFunctions flush_() {
             return $identifier("flush");
         }
 
-        public QuerySelectOperation get_(String get) {
-            return $identifier("get", get);
+        public QuerySelectOperation flush_(String flush) {
+            return $identifier("flush", flush);
         }
 
         public QueryFunctions get_() {
             return $identifier("get");
         }
 
-        public QuerySelectOperation hint_(String hint) {
-            return $identifier("hint", hint);
+        public QuerySelectOperation get_(String get) {
+            return $identifier("get", get);
         }
 
         public QueryFunctions hint_() {
             return $identifier("hint");
         }
 
-        public QueryCollectionFunctions list_() {
-            return $identifier("list");
+        public QuerySelectOperation hint_(String hint) {
+            return $identifier("hint", hint);
         }
 
-        public QuerySelectOperation lock_(String lock) {
-            return $identifier("lock", lock);
+        public QueryCollectionFunctions list_() {
+            return $identifier("list");
         }
 
         public QueryFunctions lock_() {
             return $identifier("lock");
         }
 
-        public TestReserved.QueryOrder order() {
-            return (TestReserved.QueryOrder) _orderStart(new TestReservedQueryOrderImpl(this, TestReservedQueryExecutorImpl.this::_orderIdentifier));
+        public QuerySelectOperation lock_(String lock) {
+            return $identifier("lock", lock);
         }
 
-        public QuerySelectOperation page_(String page) {
-            return $identifier("page", page);
+        public TestReserved.QueryOrder order() {
+            return (TestReserved.QueryOrder) _orderStart(new TestReservedQueryOrderImpl(this, TestReservedQueryExecutorImpl.this::_orderIdentifier));
         }
 
         public QueryFunctions page_() {
             return $identifier("page");
         }
 
-        public QuerySelectOperation prepare_(String prepare) {
-            return $identifier("prepare", prepare);
+        public QuerySelectOperation page_(String page) {
+            return $identifier("page", page);
         }
 
         public QueryFunctions prepare_() {
             return $identifier("prepare");
         }
 
-        public QuerySelectOperation projection_(String projection) {
-            return $identifier("projection", projection);
+        public QuerySelectOperation prepare_(String prepare) {
+            return $identifier("prepare", prepare);
         }
 
         public QueryFunctions projection_() {
             return $identifier("projection");
         }
 
-        public QuerySelectOperation reference_(String reference) {
-            return $identifier("reference", reference);
+        public QuerySelectOperation projection_(String projection) {
+            return $identifier("projection", projection);
         }
 
         public QueryFunctions reference_() {
             return $identifier("reference");
         }
 
-        public QueryCollectionFunctions references_() {
-            return $identifier("references");
+        public QuerySelectOperation reference_(String reference) {
+            return $identifier("reference", reference);
         }
 
-        public QuerySelectOperation remove_(String remove) {
-            return $identifier("remove", remove);
+        public QueryCollectionFunctions references_() {
+            return $identifier("references");
         }
 
         public QueryFunctions remove_() {
             return $identifier("remove");
         }
 
-        public QuerySelectOperation top_(String top) {
-            return $identifier("top", top);
+        public QuerySelectOperation remove_(String remove) {
+            return $identifier("remove", remove);
         }
 
         public QueryFunctions top_() {
             return $identifier("top");
         }
 
-        public QuerySelectOperation tuple_(String tuple) {
-            return $identifier("tuple", tuple);
+        public QuerySelectOperation top_(String top) {
+            return $identifier("top", top);
         }
 
         public QueryFunctions tuple_() {
             return $identifier("tuple");
         }
 
-        public QuerySelectOperation tuples_(String tuples) {
-            return $identifier("tuples", tuples);
+        public QuerySelectOperation tuple_(String tuple) {
+            return $identifier("tuple", tuple);
         }
 
         public QueryFunctions tuples_() {
             return $identifier("tuples");
+        }
+
+        public QuerySelectOperation tuples_(String tuples) {
+            return $identifier("tuples", tuples);
         }
 
         @Generated("QueryEnricher")

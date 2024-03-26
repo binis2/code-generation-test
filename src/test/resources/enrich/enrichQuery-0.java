@@ -26,7 +26,7 @@ public class Test2Impl implements Test2 {
 
     protected String title;
 
-    {
+    static {
         CodeFactory.registerType(Test2.class, Test2Impl::new, null);
         CodeFactory.registerType(Test2.QueryName.class, Test2QueryNameImpl::new, null);
         CodeFactory.registerType(Test2.QuerySelect.class, Test2SelectQueryExecutorImpl::new, null);
@@ -107,12 +107,12 @@ public class Test2Impl implements Test2 {
             return (QueryAggregateOperation) _aggregateStart(new Test2QueryOrderImpl(this, Test2QueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation amount(double amount) {
-            return $identifier("amount", amount);
-        }
-
         public QueryFunctions amount() {
             return $identifier("amount");
+        }
+
+        public QuerySelectOperation amount(double amount) {
+            return $identifier("amount", amount);
         }
 
         public QueryCollectionFunctions items() {
@@ -131,12 +131,12 @@ public class Test2Impl implements Test2 {
             return $identifier("sub", sub);
         }
 
-        public QuerySelectOperation title(String title) {
-            return $identifier("title", title);
-        }
-
         public QueryFunctions title() {
             return $identifier("title");
+        }
+
+        public QuerySelectOperation title(String title) {
+            return $identifier("title", title);
         }
 
         @Generated("QueryEnricher")

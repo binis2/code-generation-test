@@ -33,7 +33,7 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
     protected Object tag;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(SubModify.class, SubModifyImpl::new, (p, v, r) -> p instanceof EmbeddedCodeCollection ? ((SubModifyImpl) v).new SubModifyImplCollectionModifyImpl(p) : ((SubModifyImpl) v).new SubModifyImplSoloModifyImpl(p));
         CodeFactory.registerType(SubModify.QueryName.class, SubModifyQueryNameImpl::new, null);
         CodeFactory.registerType(SubModify.QuerySelect.class, SubModifySelectQueryExecutorImpl::new, null);
@@ -128,16 +128,16 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return (T) this;
         }
 
-        public T parent(SubModify parent) {
-            SubModifyImpl.this.parent = parent;
-            return (T) this;
-        }
-
         public SubModify.EmbeddedSoloModify<SubModify.EmbeddedModify<T, R>> parent() {
             if (SubModifyImpl.this.parent == null) {
                 SubModifyImpl.this.parent = CodeFactory.create(SubModify.class);
             }
             return CodeFactory.modify(this, SubModifyImpl.this.parent, SubModify.class);
+        }
+
+        public T parent(SubModify parent) {
+            SubModifyImpl.this.parent = parent;
+            return (T) this;
         }
 
         public T subAmount(double subAmount) {
@@ -202,20 +202,20 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return (QueryAggregateOperation) _aggregateStart(new SubModifyQueryOrderImpl(this, SubModifyQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation date(OffsetDateTime date) {
-            return $identifier("date", date);
-        }
-
         public QueryFunctions date() {
             return $identifier("date");
         }
 
-        public QuerySelectOperation id(Long id) {
-            return $identifier("id", id);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return $identifier("date", date);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
+        }
+
+        public QuerySelectOperation id(Long id) {
+            return $identifier("id", id);
         }
 
         public SubModify.QueryOrder order() {
@@ -226,32 +226,32 @@ public class SubModifyImpl extends BaseImpl implements SubModify, Modifiable<Sub
             return $identifier("parent", parent);
         }
 
-        public QuerySelectOperation subAmount(double subAmount) {
-            return $identifier("subAmount", subAmount);
-        }
-
         public QueryFunctions subAmount() {
             return $identifier("subAmount");
         }
 
-        public QuerySelectOperation subtitle(String subtitle) {
-            return $identifier("subtitle", subtitle);
+        public QuerySelectOperation subAmount(double subAmount) {
+            return $identifier("subAmount", subAmount);
         }
 
         public QueryFunctions subtitle() {
             return $identifier("subtitle");
         }
 
+        public QuerySelectOperation subtitle(String subtitle) {
+            return $identifier("subtitle", subtitle);
+        }
+
         public QuerySelectOperation tag(Object tag) {
             return $identifier("tag", tag);
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
-        }
-
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")

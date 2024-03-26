@@ -68,7 +68,7 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
     protected String title;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(TestModify.class, TestModifyImpl::new, null);
         CodeFactory.registerType(TestModify.QueryName.class, TestModifyQueryNameImpl::new, null);
         CodeFactory.registerType(TestModify.QuerySelect.class, TestModifyQueryExecutorImpl::new, null);
@@ -192,11 +192,6 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public MixModify.Modify items(List<Long> items) {
-            TestModifyImpl.this.items = items;
-            return this;
-        }
-
         public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
@@ -204,13 +199,13 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return new CodeListImpl<>(this, TestModifyImpl.this.items);
         }
 
-        public MixModify.Modify mixInAmount(double mixInAmount) {
-            TestModifyImpl.this.mixInAmount = mixInAmount;
+        public MixModify.Modify items(List<Long> items) {
+            TestModifyImpl.this.items = items;
             return this;
         }
 
-        public MixModify.Modify mixInItems(List<Long> mixInItems) {
-            TestModifyImpl.this.mixInItems = mixInItems;
+        public MixModify.Modify mixInAmount(double mixInAmount) {
+            TestModifyImpl.this.mixInAmount = mixInAmount;
             return this;
         }
 
@@ -221,8 +216,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return new CodeListImpl<>(this, TestModifyImpl.this.mixInItems);
         }
 
-        public MixModify.Modify mixInSubs(Set<SubModify> mixInSubs) {
-            TestModifyImpl.this.mixInSubs = mixInSubs;
+        public MixModify.Modify mixInItems(List<Long> mixInItems) {
+            TestModifyImpl.this.mixInItems = mixInItems;
             return this;
         }
 
@@ -233,13 +228,13 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return new EmbeddedCodeSetImpl<>(this, TestModifyImpl.this.mixInSubs, SubModify.class);
         }
 
-        public MixModify.Modify mixInTitle(String mixInTitle) {
-            TestModifyImpl.this.mixInTitle = mixInTitle;
+        public MixModify.Modify mixInSubs(Set<SubModify> mixInSubs) {
+            TestModifyImpl.this.mixInSubs = mixInSubs;
             return this;
         }
 
-        public MixModify.Modify subs(Set<SubModify> subs) {
-            TestModifyImpl.this.subs = subs;
+        public MixModify.Modify mixInTitle(String mixInTitle) {
+            TestModifyImpl.this.mixInTitle = mixInTitle;
             return this;
         }
 
@@ -248,6 +243,11 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
                 TestModifyImpl.this.subs = new java.util.HashSet<>();
             }
             return new EmbeddedCodeSetImpl<>(this, TestModifyImpl.this.subs, SubModify.class);
+        }
+
+        public MixModify.Modify subs(Set<SubModify> subs) {
+            TestModifyImpl.this.subs = subs;
+            return this;
         }
 
         public MixModify.Modify title(String title) {
@@ -272,40 +272,40 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (QueryAggregateOperation) _aggregateStart(new MixModifyQueryOrderImpl(this, MixModifyQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation amount(double amount) {
-            return $identifier("amount", amount);
-        }
-
         public QueryFunctions amount() {
             return $identifier("amount");
         }
 
-        public QuerySelectOperation date(OffsetDateTime date) {
-            return $identifier("date", date);
+        public QuerySelectOperation amount(double amount) {
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions date() {
             return $identifier("date");
         }
 
-        public QuerySelectOperation id(Long id) {
-            return $identifier("id", id);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return $identifier("date", date);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
         }
 
+        public QuerySelectOperation id(Long id) {
+            return $identifier("id", id);
+        }
+
         public QueryCollectionFunctions items() {
             return $identifier("items");
         }
 
-        public QuerySelectOperation mixInAmount(double mixInAmount) {
-            return $identifier("mixInAmount", mixInAmount);
-        }
-
         public QueryFunctions mixInAmount() {
             return $identifier("mixInAmount");
+        }
+
+        public QuerySelectOperation mixInAmount(double mixInAmount) {
+            return $identifier("mixInAmount", mixInAmount);
         }
 
         public QueryCollectionFunctions mixInItems() {
@@ -316,12 +316,12 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (QueryJoinCollectionFunctions) joinStart("mixInSubs", SubModify.QueryOrder.class);
         }
 
-        public QuerySelectOperation mixInTitle(String mixInTitle) {
-            return $identifier("mixInTitle", mixInTitle);
-        }
-
         public QueryFunctions mixInTitle() {
             return $identifier("mixInTitle");
+        }
+
+        public QuerySelectOperation mixInTitle(String mixInTitle) {
+            return $identifier("mixInTitle", mixInTitle);
         }
 
         public MixModify.QueryOrder order() {
@@ -332,20 +332,20 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
         }
 
-        public QuerySelectOperation title(String title) {
-            return $identifier("title", title);
-        }
-
         public QueryFunctions title() {
             return $identifier("title");
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
+        public QuerySelectOperation title(String title) {
+            return $identifier("title", title);
         }
 
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")
@@ -416,11 +416,6 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return this;
         }
 
-        public TestModify.Modify items(List<Long> items) {
-            TestModifyImpl.this.items = items;
-            return this;
-        }
-
         public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
@@ -428,8 +423,8 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return new CodeListImpl<>(this, TestModifyImpl.this.items);
         }
 
-        public TestModify.Modify subs(Set<SubModify> subs) {
-            TestModifyImpl.this.subs = subs;
+        public TestModify.Modify items(List<Long> items) {
+            TestModifyImpl.this.items = items;
             return this;
         }
 
@@ -438,6 +433,11 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
                 TestModifyImpl.this.subs = new java.util.HashSet<>();
             }
             return new EmbeddedCodeSetImpl<>(this, TestModifyImpl.this.subs, SubModify.class);
+        }
+
+        public TestModify.Modify subs(Set<SubModify> subs) {
+            TestModifyImpl.this.subs = subs;
+            return this;
         }
 
         public TestModify.Modify title(String title) {
@@ -462,28 +462,28 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (QueryAggregateOperation) _aggregateStart(new TestModifyQueryOrderImpl(this, TestModifyQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation amount(double amount) {
-            return $identifier("amount", amount);
-        }
-
         public QueryFunctions amount() {
             return $identifier("amount");
         }
 
-        public QuerySelectOperation date(OffsetDateTime date) {
-            return $identifier("date", date);
+        public QuerySelectOperation amount(double amount) {
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions date() {
             return $identifier("date");
         }
 
-        public QuerySelectOperation id(Long id) {
-            return $identifier("id", id);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return $identifier("date", date);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
+        }
+
+        public QuerySelectOperation id(Long id) {
+            return $identifier("id", id);
         }
 
         public QueryCollectionFunctions items() {
@@ -498,20 +498,20 @@ public class TestModifyImpl extends BaseImpl implements TestModify, MixModify, M
             return (QueryJoinCollectionFunctions) joinStart("subs", SubModify.QueryOrder.class);
         }
 
-        public QuerySelectOperation title(String title) {
-            return $identifier("title", title);
-        }
-
         public QueryFunctions title() {
             return $identifier("title");
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
+        public QuerySelectOperation title(String title) {
+            return $identifier("title", title);
         }
 
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")

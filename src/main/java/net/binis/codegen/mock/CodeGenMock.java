@@ -20,6 +20,7 @@ package net.binis.codegen.mock;
  * #L%
  */
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.async.executor.CodeExecutor;
@@ -98,10 +99,12 @@ public class CodeGenMock {
     public static void mockEntityManager() {
         var entityManager = new MockEntityManager();
         BasePersistenceOperations.setEntityManagerProvider(factory -> entityManager);
+        CodeFactory.registerType(EntityManager.class, () -> entityManager);
     }
 
     public static void cleanEntityManagerMock() {
         BasePersistenceOperations.setEntityManagerProvider(BasePersistenceOperations.defaultEntityManagerProvider());
+        CodeFactory.unregisterType(EntityManager.class);
     }
 
     public static void mockAsyncExecutor() {

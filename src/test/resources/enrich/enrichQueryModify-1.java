@@ -35,8 +35,8 @@ public interface Test {
     Test.Modify with();
 
     interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Test.Fields<T> {
-        T items(List<Long> items);
         CodeList<Long, T> items();
+        T items(List<Long> items);
         Test.EmbeddedSoloModify<EmbeddedModify<T, R>> parent();
         Sub.EmbeddedSoloModify<EmbeddedModify<T, R>> sub();
     }

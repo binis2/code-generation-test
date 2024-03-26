@@ -48,10 +48,10 @@ public interface TestModify extends Base {
     }
 
     interface Modify extends TestModify.Fields<TestModify.Modify>, BaseModifier<TestModify.Modify, TestModify> {
-        Modify items(List<Long> items);
         CodeList<Long, TestModify.Modify> items();
-        Modify subs(Set<SubModify> subs);
+        Modify items(List<Long> items);
         EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<TestModify.Modify>, SubModify, TestModify.Modify> subs();
+        Modify subs(Set<SubModify> subs);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<TestModify.QueryAggregate<TestModify, TestModify.QuerySelect<Number>>>>, TestModify.QueryAggregate<TestModify, TestModify.QuerySelect<Number>>> {

@@ -20,7 +20,7 @@ public class TestImpl extends BaseImpl implements Test {
 
     protected String title;
 
-    {
+    static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
         CodeFactory.registerType(Test.QuerySelect.class, TestQueryExecutorImpl::new, null);
@@ -59,32 +59,32 @@ public class TestImpl extends BaseImpl implements Test {
             return (QueryAggregateOperation) _aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation amount(double amount) {
-            return $identifier("amount", amount);
-        }
-
         public QueryFunctions amount() {
             return $identifier("amount");
         }
 
-        public QuerySelectOperation id(String id) {
-            return $identifier("id", id);
+        public QuerySelectOperation amount(double amount) {
+            return $identifier("amount", amount);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
         }
 
+        public QuerySelectOperation id(String id) {
+            return $identifier("id", id);
+        }
+
         public Test.QueryOrder order() {
             return (Test.QueryOrder) _orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_orderIdentifier));
         }
 
-        public QuerySelectOperation title(String title) {
-            return $identifier("title", title);
-        }
-
         public QueryFunctions title() {
             return $identifier("title");
+        }
+
+        public QuerySelectOperation title(String title) {
+            return $identifier("title", title);
         }
 
         @Generated("QueryEnricher")

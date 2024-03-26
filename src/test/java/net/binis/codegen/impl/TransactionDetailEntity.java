@@ -48,7 +48,7 @@ public class TransactionDetailEntity extends BaseEntity implements TransactionDe
     protected Object tag;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(TransactionDetail.class, TransactionDetailEntity::new, null);
         CodeFactory.registerType(TransactionDetail.QueryName.class, TransactionDetailQueryNameImpl::new, null);
         CodeFactory.registerType(TransactionDetail.QuerySelect.class, TransactionDetailSelectQueryExecutorImpl::new, null);

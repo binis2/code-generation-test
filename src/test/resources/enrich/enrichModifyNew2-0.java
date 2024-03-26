@@ -38,7 +38,7 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
     protected OffsetDateTime timestamp;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Transaction.class, TransactionEntity::new, (p, v, r) -> p instanceof EmbeddedCodeCollection ? ((TransactionEntity) v).new TransactionEntityCollectionModifyImpl(p) : ((TransactionEntity) v).new TransactionEntitySoloModifyImpl(p));
         CodeFactory.registerType(Transaction.QueryName.class, TransactionQueryNameImpl::new, null);
         CodeFactory.registerType(Transaction.QuerySelect.class, TransactionSelectQueryExecutorImpl::new, null);
@@ -98,11 +98,6 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             super(parent);
         }
 
-        public T account(Account account) {
-            TransactionEntity.this.account = account;
-            return (T) this;
-        }
-
         public Account.EmbeddedSoloModify<SubTransaction.EmbeddedModify<T, R>> account() {
             if (TransactionEntity.this.account == null) {
                 TransactionEntity.this.account = CodeFactory.create(Account.class);
@@ -110,13 +105,13 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return CodeFactory.modify(this, TransactionEntity.this.account, Account.class);
         }
 
-        public T amount(double amount) {
-            TransactionEntity.this.amount = amount;
+        public T account(Account account) {
+            TransactionEntity.this.account = account;
             return (T) this;
         }
 
-        public T counterparty(Account counterparty) {
-            TransactionEntity.this.counterparty = counterparty;
+        public T amount(double amount) {
+            TransactionEntity.this.amount = amount;
             return (T) this;
         }
 
@@ -125,6 +120,11 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
                 TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
             }
             return CodeFactory.modify(this, TransactionEntity.this.counterparty, Account.class);
+        }
+
+        public T counterparty(Account counterparty) {
+            TransactionEntity.this.counterparty = counterparty;
+            return (T) this;
         }
 
         public T date(OffsetDateTime date) {
@@ -137,16 +137,16 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return (T) this;
         }
 
-        public T parent(Transaction parent) {
-            TransactionEntity.this.parent = parent;
-            return (T) this;
-        }
-
         public Transaction.EmbeddedSoloModify<SubTransaction.EmbeddedModify<T, R>> parent() {
             if (TransactionEntity.this.parent == null) {
                 TransactionEntity.this.parent = CodeFactory.create(Transaction.class);
             }
             return CodeFactory.modify(this, TransactionEntity.this.parent, Transaction.class);
+        }
+
+        public T parent(Transaction parent) {
+            TransactionEntity.this.parent = parent;
+            return (T) this;
         }
 
         public T tag(Object tag) {
@@ -248,32 +248,32 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return (QueryAggregateOperation) _aggregateStart(new SubTransactionQueryOrderImpl(this, SubTransactionQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation amount(double amount) {
-            return $identifier("amount", amount);
-        }
-
         public QueryFunctions amount() {
             return $identifier("amount");
+        }
+
+        public QuerySelectOperation amount(double amount) {
+            return $identifier("amount", amount);
         }
 
         public QuerySelectOperation counterparty(Account counterparty) {
             return $identifier("counterparty", counterparty);
         }
 
-        public QuerySelectOperation date(OffsetDateTime date) {
-            return $identifier("date", date);
-        }
-
         public QueryFunctions date() {
             return $identifier("date");
         }
 
-        public QuerySelectOperation id(Long id) {
-            return $identifier("id", id);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return $identifier("date", date);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
+        }
+
+        public QuerySelectOperation id(Long id) {
+            return $identifier("id", id);
         }
 
         public SubTransaction.QueryOrder order() {
@@ -288,20 +288,20 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return $identifier("tag", tag);
         }
 
-        public QuerySelectOperation timestamp(OffsetDateTime timestamp) {
-            return $identifier("timestamp", timestamp);
-        }
-
         public QueryFunctions timestamp() {
             return $identifier("timestamp");
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
+        public QuerySelectOperation timestamp(OffsetDateTime timestamp) {
+            return $identifier("timestamp", timestamp);
         }
 
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")
@@ -394,11 +394,6 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             super(parent);
         }
 
-        public T account(Account account) {
-            TransactionEntity.this.account = account;
-            return (T) this;
-        }
-
         public Account.EmbeddedSoloModify<Transaction.EmbeddedModify<T, R>> account() {
             if (TransactionEntity.this.account == null) {
                 TransactionEntity.this.account = CodeFactory.create(Account.class);
@@ -406,13 +401,13 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return CodeFactory.modify(this, TransactionEntity.this.account, Account.class);
         }
 
-        public T amount(double amount) {
-            TransactionEntity.this.amount = amount;
+        public T account(Account account) {
+            TransactionEntity.this.account = account;
             return (T) this;
         }
 
-        public T counterparty(Account counterparty) {
-            TransactionEntity.this.counterparty = counterparty;
+        public T amount(double amount) {
+            TransactionEntity.this.amount = amount;
             return (T) this;
         }
 
@@ -421,6 +416,11 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
                 TransactionEntity.this.counterparty = CodeFactory.create(Account.class);
             }
             return CodeFactory.modify(this, TransactionEntity.this.counterparty, Account.class);
+        }
+
+        public T counterparty(Account counterparty) {
+            TransactionEntity.this.counterparty = counterparty;
+            return (T) this;
         }
 
         public T date(OffsetDateTime date) {
@@ -518,32 +518,32 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return (QueryAggregateOperation) _aggregateStart(new TransactionQueryOrderImpl(this, TransactionQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation amount(double amount) {
-            return $identifier("amount", amount);
-        }
-
         public QueryFunctions amount() {
             return $identifier("amount");
+        }
+
+        public QuerySelectOperation amount(double amount) {
+            return $identifier("amount", amount);
         }
 
         public QuerySelectOperation counterparty(Account counterparty) {
             return $identifier("counterparty", counterparty);
         }
 
-        public QuerySelectOperation date(OffsetDateTime date) {
-            return $identifier("date", date);
-        }
-
         public QueryFunctions date() {
             return $identifier("date");
         }
 
-        public QuerySelectOperation id(Long id) {
-            return $identifier("id", id);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return $identifier("date", date);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
+        }
+
+        public QuerySelectOperation id(Long id) {
+            return $identifier("id", id);
         }
 
         public Transaction.QueryOrder order() {
@@ -554,20 +554,20 @@ public class TransactionEntity extends BaseImpl implements Transaction, SubTrans
             return $identifier("tag", tag);
         }
 
-        public QuerySelectOperation timestamp(OffsetDateTime timestamp) {
-            return $identifier("timestamp", timestamp);
-        }
-
         public QueryFunctions timestamp() {
             return $identifier("timestamp");
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
+        public QuerySelectOperation timestamp(OffsetDateTime timestamp) {
+            return $identifier("timestamp", timestamp);
         }
 
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")

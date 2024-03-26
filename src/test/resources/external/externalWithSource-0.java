@@ -19,7 +19,7 @@ public class TestImpl implements Test {
 
     protected TestExternal test;
 
-    {
+    static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
         CodeFactory.registerType(Test.QuerySelect.class, TestSelectQueryExecutorImpl::new, null);

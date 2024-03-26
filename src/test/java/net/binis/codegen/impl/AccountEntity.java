@@ -60,7 +60,7 @@ public class AccountEntity extends BaseEntity implements Account, Modifiable<Acc
     protected List<Transaction> transactions;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Account.class, AccountEntity::new, (p, v, r) -> ((AccountEntity) v).new AccountEntitySoloModifyImpl(p));
         CodeFactory.registerType(Account.QueryName.class, AccountQueryNameImpl::new, null);
         CodeFactory.registerType(Account.QuerySelect.class, AccountQueryExecutorImpl::new, null);

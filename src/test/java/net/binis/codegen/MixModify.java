@@ -67,14 +67,14 @@ public interface MixModify extends TestModify {
     }
 
     interface Modify extends MixModify.Fields<MixModify.Modify>, BaseModifier<MixModify.Modify, MixModify> {
-        Modify items(List<Long> items);
         CodeList<Long, MixModify.Modify> items();
-        Modify mixInItems(List<Long> mixInItems);
+        Modify items(List<Long> items);
         CodeList<Long, MixModify.Modify> mixInItems();
-        Modify mixInSubs(Set<SubModify> mixInSubs);
+        Modify mixInItems(List<Long> mixInItems);
         EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<MixModify.Modify>, SubModify, MixModify.Modify> mixInSubs();
-        Modify subs(Set<SubModify> subs);
+        Modify mixInSubs(Set<SubModify> mixInSubs);
         EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<MixModify.Modify>, SubModify, MixModify.Modify> subs();
+        Modify subs(Set<SubModify> subs);
     }
 
     interface QueryAggregate<QR, QA> extends QueryExecute<QR>, QueryAggregator<QA, QueryAggregateOperation<QueryOperationFields<MixModify.QueryAggregate<MixModify, MixModify.QuerySelect<Number>>>>, MixModify.QueryAggregate<MixModify, MixModify.QuerySelect<Number>>> {

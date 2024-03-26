@@ -31,7 +31,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected String title;
 
-    {
+    static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
         CodeFactory.registerType(Test.QuerySelect.class, TestSelectQueryExecutorImpl::new, null);
@@ -114,11 +114,6 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return (T) this;
         }
 
-        public T items(List<Long> items) {
-            TestImpl.this.items = items;
-            return (T) this;
-        }
-
         public CodeList items() {
             if (TestImpl.this.items == null) {
                 TestImpl.this.items = new java.util.ArrayList<>();
@@ -126,8 +121,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return new CodeListImpl<>(this, TestImpl.this.items);
         }
 
-        public T parent(Test parent) {
-            TestImpl.this.parent = parent;
+        public T items(List<Long> items) {
+            TestImpl.this.items = items;
             return (T) this;
         }
 
@@ -138,8 +133,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return CodeFactory.modify(this, TestImpl.this.parent, Test.class);
         }
 
-        public T sub(Sub sub) {
-            TestImpl.this.sub = sub;
+        public T parent(Test parent) {
+            TestImpl.this.parent = parent;
             return (T) this;
         }
 
@@ -148,6 +143,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
                 TestImpl.this.sub = CodeFactory.create(Sub.class);
             }
             return CodeFactory.modify(this, TestImpl.this.sub, Sub.class);
+        }
+
+        public T sub(Sub sub) {
+            TestImpl.this.sub = sub;
+            return (T) this;
         }
 
         public T title(String title) {
@@ -205,12 +205,12 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return (QueryAggregateOperation) _aggregateStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation amount(double amount) {
-            return $identifier("amount", amount);
-        }
-
         public QueryFunctions amount() {
             return $identifier("amount");
+        }
+
+        public QuerySelectOperation amount(double amount) {
+            return $identifier("amount", amount);
         }
 
         public QueryCollectionFunctions items() {
@@ -229,12 +229,12 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return $identifier("sub", sub);
         }
 
-        public QuerySelectOperation title(String title) {
-            return $identifier("title", title);
-        }
-
         public QueryFunctions title() {
             return $identifier("title");
+        }
+
+        public QuerySelectOperation title(String title) {
+            return $identifier("title", title);
         }
 
         @Generated("QueryEnricher")

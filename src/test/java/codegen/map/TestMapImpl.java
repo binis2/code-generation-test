@@ -40,7 +40,7 @@ public class TestMapImpl implements TestMap, Modifiable<TestMap.Modify> {
     protected boolean convert1;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(TestMap.class, TestMapImpl::new, null);
     }
 

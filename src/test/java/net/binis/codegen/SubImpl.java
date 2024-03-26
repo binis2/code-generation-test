@@ -40,7 +40,7 @@ public class SubImpl implements Sub {
 
     protected String subtitle;
 
-    {
+    static {
         CodeFactory.registerType(Sub.class, SubImpl::new, null);
         CodeFactory.registerType(Sub.QueryName.class, SubQueryNameImpl::new, null);
         CodeFactory.registerType(Sub.QuerySelect.class, SubQueryExecutorImpl::new, null);
@@ -81,20 +81,20 @@ public class SubImpl implements Sub {
             return (Sub.QueryOrder) _orderStart(new SubQueryOrderImpl(this, SubQueryExecutorImpl.this::_orderIdentifier));
         }
 
-        public QuerySelectOperation subAmount(double subAmount) {
-            return $identifier("subAmount", subAmount);
-        }
-
         public QueryFunctions subAmount() {
             return $identifier("subAmount");
         }
 
-        public QuerySelectOperation subtitle(String subtitle) {
-            return $identifier("subtitle", subtitle);
+        public QuerySelectOperation subAmount(double subAmount) {
+            return $identifier("subAmount", subAmount);
         }
 
         public QueryFunctions subtitle() {
             return $identifier("subtitle");
+        }
+
+        public QuerySelectOperation subtitle(String subtitle) {
+            return $identifier("subtitle", subtitle);
         }
 
         @Generated("QueryEnricher")

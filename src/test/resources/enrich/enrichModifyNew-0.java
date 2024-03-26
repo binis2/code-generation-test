@@ -39,7 +39,7 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
     protected List<Transaction> transactions;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Account.class, AccountEntity::new, (p, v, r) -> ((AccountEntity) v).new AccountEntitySoloModifyImpl(p));
         CodeFactory.registerType(Account.QueryName.class, AccountQueryNameImpl::new, null);
         CodeFactory.registerType(Account.QuerySelect.class, AccountQueryExecutorImpl::new, null);
@@ -129,11 +129,6 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
             return (T) this;
         }
 
-        public T strings(List<String> strings) {
-            AccountEntity.this.strings = strings;
-            return (T) this;
-        }
-
         public CodeList strings() {
             if (AccountEntity.this.strings == null) {
                 AccountEntity.this.strings = new java.util.ArrayList<>();
@@ -141,8 +136,8 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
             return new CodeListImpl<>(this, AccountEntity.this.strings);
         }
 
-        public T transactions(List<Transaction> transactions) {
-            AccountEntity.this.transactions = transactions;
+        public T strings(List<String> strings) {
+            AccountEntity.this.strings = strings;
             return (T) this;
         }
 
@@ -151,6 +146,11 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
                 AccountEntity.this.transactions = new java.util.ArrayList<>();
             }
             return new EmbeddedCodeListImpl<>(this, AccountEntity.this.transactions, Transaction.class);
+        }
+
+        public T transactions(List<Transaction> transactions) {
+            AccountEntity.this.transactions = transactions;
+            return (T) this;
         }
 
         public T type(TestEnum type) {
@@ -184,68 +184,68 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
             super(Account.class, () -> new AccountQueryNameImpl(), parent -> parent);
         }
 
-        public QuerySelectOperation accountNumber(String accountNumber) {
-            return $identifier("accountNumber", accountNumber);
-        }
-
         public QueryFunctions accountNumber() {
             return $identifier("accountNumber");
         }
 
-        public QuerySelectOperation active(boolean active) {
-            return $identifier("active", active);
+        public QuerySelectOperation accountNumber(String accountNumber) {
+            return $identifier("accountNumber", accountNumber);
         }
 
         public QueryFunctions active() {
             return $identifier("active");
         }
 
-        public QueryAggregateOperation aggregate() {
-            return (QueryAggregateOperation) _aggregateStart(new AccountQueryOrderImpl(this, AccountQueryExecutorImpl.this::_aggregateIdentifier));
+        public QuerySelectOperation active(boolean active) {
+            return $identifier("active", active);
         }
 
-        public QuerySelectOperation available(double available) {
-            return $identifier("available", available);
+        public QueryAggregateOperation aggregate() {
+            return (QueryAggregateOperation) _aggregateStart(new AccountQueryOrderImpl(this, AccountQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
         public QueryFunctions available() {
             return $identifier("available");
         }
 
-        public QuerySelectOperation balance(double balance) {
-            return $identifier("balance", balance);
+        public QuerySelectOperation available(double available) {
+            return $identifier("available", available);
         }
 
         public QueryFunctions balance() {
             return $identifier("balance");
         }
 
-        public QuerySelectOperation date(OffsetDateTime date) {
-            return $identifier("date", date);
+        public QuerySelectOperation balance(double balance) {
+            return $identifier("balance", balance);
         }
 
         public QueryFunctions date() {
             return $identifier("date");
         }
 
-        public QuerySelectOperation id(Long id) {
-            return $identifier("id", id);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return $identifier("date", date);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
         }
 
+        public QuerySelectOperation id(Long id) {
+            return $identifier("id", id);
+        }
+
         public Account.QueryOrder order() {
             return (Account.QueryOrder) _orderStart(new AccountQueryOrderImpl(this, AccountQueryExecutorImpl.this::_orderIdentifier));
         }
 
-        public QuerySelectOperation pending(double pending) {
-            return $identifier("pending", pending);
-        }
-
         public QueryFunctions pending() {
             return $identifier("pending");
+        }
+
+        public QuerySelectOperation pending(double pending) {
+            return $identifier("pending", pending);
         }
 
         public QueryCollectionFunctions strings() {
@@ -256,12 +256,12 @@ public class AccountEntity extends BaseImpl implements Account, Modifiable<Accou
             return (QueryJoinCollectionFunctions) joinStart("transactions", Transaction.QueryOrder.class);
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
-        }
-
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")

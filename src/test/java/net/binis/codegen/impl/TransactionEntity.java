@@ -60,7 +60,7 @@ public class TransactionEntity extends BaseEntity implements Transaction, SubTra
     protected OffsetDateTime timestamp;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Transaction.class, TransactionEntity::new, (p, v, r) -> p instanceof EmbeddedCodeCollection ? ((TransactionEntity) v).new TransactionEntityCollectionModifyImpl(p) : ((TransactionEntity) v).new TransactionEntitySoloModifyImpl(p));
         CodeFactory.registerType(Transaction.QueryName.class, TransactionQueryNameImpl::new, null);
         CodeFactory.registerType(Transaction.QuerySelect.class, TransactionSelectQueryExecutorImpl::new, null);

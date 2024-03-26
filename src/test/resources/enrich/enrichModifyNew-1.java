@@ -43,10 +43,10 @@ public interface Account extends Base {
 
     // region inner classes
     interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Account.Fields<T> {
-        T strings(List<String> strings);
         CodeList<String, T> strings();
-        T transactions(List<Transaction> transactions);
+        T strings(List<String> strings);
         EmbeddedCodeCollection<Transaction.EmbeddedCollectionModify<Account.EmbeddedModify<T, R>>, Transaction, T> transactions();
+        T transactions(List<Transaction> transactions);
     }
 
     interface EmbeddedSoloModify<R> extends Account.EmbeddedModify<Account.EmbeddedSoloModify<R>, R> {

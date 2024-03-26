@@ -75,16 +75,16 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return (T) this;
         }
 
-        public T items(List<Long> items) {
-            TestModifyImpl.this.items = items;
-            return (T) this;
-        }
-
         public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
             }
             return new CodeListImpl<>(this, TestModifyImpl.this.items);
+        }
+
+        public T items(List<Long> items) {
+            TestModifyImpl.this.items = items;
+            return (T) this;
         }
 
         public T title(String title) {

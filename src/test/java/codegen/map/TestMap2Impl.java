@@ -40,7 +40,7 @@ public class TestMap2Impl implements TestMap2, Modifiable<TestMap2.Modify> {
     private String convert1;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(TestMap2.class, TestMap2Impl::new, null);
     }
 

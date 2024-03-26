@@ -25,7 +25,7 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
     protected TestEnum type = net.binis.codegen.enums.TestEnum.FIRST;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Test.QueryOrder.class, () -> Test.find().aggregate(), null);
         CodeFactory.registerType(Test.class, TestImpl::new, (p, v, r) -> p instanceof EmbeddedCodeCollection ? ((TestImpl) v).new TestImplCollectionModifyImpl(p) : ((TestImpl) v).new TestImplSoloModifyImpl(p));
         CodeFactory.registerType(Test.QueryName.class, TestQueryNameImpl::new, null);
@@ -114,20 +114,20 @@ public class TestImpl extends GenericImpl<TestPayload> implements Test, Modifiab
             return (Test.QueryOrder) _orderStart(new TestQueryOrderImpl(this, TestQueryExecutorImpl.this::_orderIdentifier));
         }
 
-        public QuerySelectOperation payload(TestPayload payload) {
-            return $identifier("payload", payload);
-        }
-
         public QueryFunctions payload() {
             return $identifier("payload");
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
+        public QuerySelectOperation payload(TestPayload payload) {
+            return $identifier("payload", payload);
         }
 
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")

@@ -28,7 +28,7 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
     protected Object tag;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(TransactionDetail.class, TransactionDetailEntity::new, null);
         CodeFactory.registerType(TransactionDetail.QueryName.class, TransactionDetailQueryNameImpl::new, null);
         CodeFactory.registerType(TransactionDetail.QuerySelect.class, TransactionDetailSelectQueryExecutorImpl::new, null);
@@ -76,16 +76,16 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return this;
         }
 
-        public TransactionDetail.Modify parented(SubTransaction parented) {
-            TransactionDetailEntity.this.parented = parented;
-            return this;
-        }
-
         public SubTransaction.EmbeddedSoloModify<TransactionDetail.Modify> parented() {
             if (TransactionDetailEntity.this.parented == null) {
                 TransactionDetailEntity.this.parented = CodeFactory.create(SubTransaction.class);
             }
             return CodeFactory.modify(this, TransactionDetailEntity.this.parented, SubTransaction.class);
+        }
+
+        public TransactionDetail.Modify parented(SubTransaction parented) {
+            TransactionDetailEntity.this.parented = parented;
+            return this;
         }
 
         public TransactionDetail.Modify parented$(Consumer<SubTransaction.Modify> init) {
@@ -132,20 +132,20 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return (QueryAggregateOperation) _aggregateStart(new TransactionDetailQueryOrderImpl(this, TransactionDetailQueryExecutorImpl.this::_aggregateIdentifier));
         }
 
-        public QuerySelectOperation date(OffsetDateTime date) {
-            return $identifier("date", date);
-        }
-
         public QueryFunctions date() {
             return $identifier("date");
         }
 
-        public QuerySelectOperation id(Long id) {
-            return $identifier("id", id);
+        public QuerySelectOperation date(OffsetDateTime date) {
+            return $identifier("date", date);
         }
 
         public QueryFunctions id() {
             return $identifier("id");
+        }
+
+        public QuerySelectOperation id(Long id) {
+            return $identifier("id", id);
         }
 
         public TransactionDetail.QueryOrder order() {
@@ -160,12 +160,12 @@ public class TransactionDetailEntity extends BaseImpl implements TransactionDeta
             return $identifier("tag", tag);
         }
 
-        public QuerySelectOperation type(TestEnum type) {
-            return $identifier("type", type);
-        }
-
         public QueryFunctions type() {
             return $identifier("type");
+        }
+
+        public QuerySelectOperation type(TestEnum type) {
+            return $identifier("type", type);
         }
 
         @Generated("QueryEnricher")

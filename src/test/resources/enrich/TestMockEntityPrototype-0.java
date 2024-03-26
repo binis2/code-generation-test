@@ -19,7 +19,7 @@ public class TestMockEntity implements TestMock, Modifiable<TestMock.Modify> {
 
     protected String name;
 
-    {
+    static {
         CodeFactory.registerType(TestMock.class, TestMockEntity::new, null);
     }
 
