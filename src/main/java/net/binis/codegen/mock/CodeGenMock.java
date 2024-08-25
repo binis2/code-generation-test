@@ -59,7 +59,7 @@ import static org.mockito.Mockito.when;
 @SuppressWarnings("unchecked")
 public class CodeGenMock {
 
-    private static boolean inProgress;
+    protected static boolean inProgress;
 
     private CodeGenMock() {
         //Do nothing
@@ -68,15 +68,15 @@ public class CodeGenMock {
     private static QueryProcessor.Processor mockedProcessor;
     private static final Map<String, MockedQueryContextImpl> mockedResponses = new HashMap<>();
 
-    static void testStart() {
+    protected static void testStart() {
         inProgress = true;
     }
 
-    static void testStop() {
+    protected static void testStop() {
         inProgress = false;
     }
 
-    static boolean isTestInProgress() {
+    protected boolean isTestInProgress() {
         return inProgress;
     }
 
