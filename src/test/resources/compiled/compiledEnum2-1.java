@@ -4,9 +4,12 @@ package net.binis.codegen;
 import net.binis.codegen.test.CompiledEnum;
 import net.binis.codegen.objects.base.enumeration.CodeEnum;
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 
 @Generated(value = "net.binis.codegen.ExtendedCompiledEnumPrototype", comments = "CompiledEnumImpl")
+@net.binis.codegen.annotation.Generated(by = "net.binis.codegen.ExtendedCompiledEnumPrototype")
+@Default("net.binis.codegen.test.CompiledEnumImpl")
 public interface ExtendedCompiledEnum extends CodeEnum {
 
     static final CompiledEnum EXTENDED = CodeFactory.initializeEnumValue(CompiledEnum.class, "EXTENDED", 100, "extended");
