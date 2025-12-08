@@ -1,4 +1,4 @@
-package net.binis.codegen.test;
+package net.binis.codegen.test.generics;
 
 import net.binis.codegen.annotation.CodePrototype;
 import net.binis.codegen.enrich.ModifierEnricher;
