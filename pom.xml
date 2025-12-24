@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.binis</groupId>
     <artifactId>code-generation-test</artifactId>
-    <version>1.2.35</version>
+    <version>1.3.0</version>
     <name>code-generation-test</name>
     <description>Test capabilities for Binis code generation library</description>
     <url>https://github.com/binis2/code-generation</url>
@@ -55,7 +55,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <dev.binis>1.2.35</dev.binis>
+        <dev.binis>1.3.0</dev.binis>
         <license.licenseName>apache_v2</license.licenseName>
         <junit.jupiter.version>6.0.1</junit.jupiter.version>
         <resource.delimiter>@</resource.delimiter>
@@ -104,7 +104,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>6.2.12</version>
+            <version>7.0.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
