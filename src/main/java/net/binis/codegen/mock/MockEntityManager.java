@@ -4,7 +4,7 @@ package net.binis.codegen.mock;
  * #%L
  * code-generation-test
  * %%
- * Copyright (C) 2021 - 2024 Binis Belev
+ * Copyright (C) 2021 - 2026 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,7 @@ package net.binis.codegen.mock;
  */
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaDelete;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.CriteriaUpdate;
+import jakarta.persistence.criteria.*;
 import jakarta.persistence.metamodel.Metamodel;
 
 import java.util.EnumMap;
@@ -85,7 +82,22 @@ public class MockEntityManager implements EntityManager {
     }
 
     @Override
+    public <T> T find(Class<T> aClass, Object o, FindOption... findOptions) {
+        return null;
+    }
+
+    @Override
+    public <T> T find(EntityGraph<T> entityGraph, Object o, FindOption... findOptions) {
+        return null;
+    }
+
+    @Override
     public <T> T getReference(Class<T> aClass, Object o) {
+        return null;
+    }
+
+    @Override
+    public <T> T getReference(T t) {
         return null;
     }
 
@@ -115,6 +127,11 @@ public class MockEntityManager implements EntityManager {
     }
 
     @Override
+    public void lock(Object o, LockModeType lockModeType, LockOption... lockOptions) {
+
+    }
+
+    @Override
     public void refresh(Object o) {
         makeItCount(MockPersistenceOperation.REFRESH, o);
     }
@@ -131,6 +148,11 @@ public class MockEntityManager implements EntityManager {
 
     @Override
     public void refresh(Object o, LockModeType lockModeType, Map<String, Object> map) {
+
+    }
+
+    @Override
+    public void refresh(Object o, RefreshOption... refreshOptions) {
 
     }
 
@@ -155,6 +177,26 @@ public class MockEntityManager implements EntityManager {
     }
 
     @Override
+    public void setCacheRetrieveMode(CacheRetrieveMode cacheRetrieveMode) {
+
+    }
+
+    @Override
+    public void setCacheStoreMode(CacheStoreMode cacheStoreMode) {
+
+    }
+
+    @Override
+    public CacheRetrieveMode getCacheRetrieveMode() {
+        return null;
+    }
+
+    @Override
+    public CacheStoreMode getCacheStoreMode() {
+        return null;
+    }
+
+    @Override
     public void setProperty(String s, Object o) {
 
     }
@@ -171,6 +213,11 @@ public class MockEntityManager implements EntityManager {
 
     @Override
     public <T> TypedQuery<T> createQuery(CriteriaQuery<T> criteriaQuery) {
+        return null;
+    }
+
+    @Override
+    public <T> TypedQuery<T> createQuery(CriteriaSelect<T> criteriaSelect) {
         return null;
     }
 
@@ -196,6 +243,11 @@ public class MockEntityManager implements EntityManager {
 
     @Override
     public <T> TypedQuery<T> createNamedQuery(String s, Class<T> aClass) {
+        return null;
+    }
+
+    @Override
+    public <T> TypedQuery<T> createQuery(TypedQueryReference<T> typedQueryReference) {
         return null;
     }
 
@@ -301,6 +353,16 @@ public class MockEntityManager implements EntityManager {
 
     @Override
     public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> aClass) {
+        return null;
+    }
+
+    @Override
+    public <C> void runWithConnection(ConnectionConsumer<C> connectionConsumer) {
+
+    }
+
+    @Override
+    public <C, T> T callWithConnection(ConnectionFunction<C, T> connectionFunction) {
         return null;
     }
 
